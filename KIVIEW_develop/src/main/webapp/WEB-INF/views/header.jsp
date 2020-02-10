@@ -131,12 +131,14 @@ $(function(){
 	</div>
 </div>
 
+
+<!-- 키뷰 메인메뉴 -->
 <nav
 	class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light"
 	id="ftco-navbar"> 
 
 	<div class="container d-flex align-items-center">
-		<a class="navbar-brand" href="index.jsp">Kiview</a>
+		<a class="navbar-brand" href="index.do">Kiview</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#ftco-nav" aria-controls="ftco-nav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -151,13 +153,13 @@ $(function(){
 				<li class="nav-item"><a href="index.do" class="nav-link pl-0">홈</a></li>
 				<li id="notice" class="nav-item"><a href="notice.do"
 					class="nav-link">키뷰안내</a></li>
-				<li id="kinder" class="nav-item"><a href="kiview_search.jsp"
+				<li id="kinder" class="nav-item"><a href="kindersearch.do"
 					class="nav-link">유치원</a></li>
-				<li id="cafe" class="nav-item"><a href="cafe_home.jsp" class="nav-link">키뷰카페</a></li>
+				<li id="cafe" class="nav-item"><a href="cafehome.do" class="nav-link">키뷰카페</a></li>
 				
-				<li id="my" class="nav-item"><a href="kiview_mypage.jsp"
+				<li id="my" class="nav-item"><a href="mypage.do"
 					class="nav-link">마이페이지</a></li>
-					<li class="nav-item"><a href="kiview_login.jsp"
+					<li class="nav-item"><a href="kiviewlogin.do"
 					class="nav-link">로그인</a></li>
 			</ul>
 		</div>
@@ -184,7 +186,7 @@ $(function(){
 			<!-- <ul class="navbar-nav ml-auto" >   --> 
 				
 				
-				<li class="nav-item"><a href="kiview_notice.jsp"
+				<li class="nav-item"><a href="notice.do"
 					class="nav-link">키뷰 소개</a></li>
 				<li class="nav-item"><a href="kiview_search.jsp"
 					class="nav-link">공지사항</a></li>
@@ -201,7 +203,7 @@ $(function(){
 	id="kinder_sub" style="display:none; height:50px; padding:20px; border:1px solid lightgray">     <!-- id="ftco-navbar" -->
 
 	<div class="container d-flex align-items-center">
-		<a class="navbar-brand" href="index.jsp">유치원</a>
+		<a class="navbar-brand" href="#">유치원</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#ftco-nav" aria-controls="ftco-nav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -215,9 +217,9 @@ $(function(){
 			<!-- <ul class="navbar-nav ml-auto" >   --> 
 				
 				
-				<li class="nav-item"><a href="kiview_notice.jsp"
+				<li class="nav-item"><a href="kindersearch.do"
 					class="nav-link">유치원 검색</a></li>
-				<li class="nav-item"><a href="kiview_search.jsp"
+				<li class="nav-item"><a href="reviewboard.do"
 					class="nav-link">유치원 리뷰</a></li>
 			</ul>
 		</div>
@@ -230,7 +232,7 @@ $(function(){
 	id="cafe_sub" style="display:none; height:50px; padding:20px; border:1px solid lightgray">     <!-- id="ftco-navbar" -->
 
 	<div class="container d-flex align-items-center">
-		<a class="navbar-brand" href="index.jsp">키뷰카페</a>
+		<a class="navbar-brand" href="#">키뷰카페</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#ftco-nav" aria-controls="ftco-nav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -244,7 +246,7 @@ $(function(){
 			<!-- <ul class="navbar-nav ml-auto" >   -->
 				
 				
-				<li class="nav-item"><a href="kiview_notice.jsp"
+				<li class="nav-item"><a href="cafehome.do"
 					class="nav-link">카페 홈</a></li>
 				<li class="nav-item"><a href="kiview_search.jsp"
 					class="nav-link">카페 관리</a></li>
@@ -259,7 +261,7 @@ $(function(){
 	id="my_sub" style="display:none; height:50px; padding:20px; border:1px solid lightgray">     <!-- id="ftco-navbar" -->
  
 	<div class="container d-flex align-items-center">
-		<a class="navbar-brand" href="index.jsp">마이페이지</a>
+		<a class="navbar-brand" href="#">마이페이지</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#ftco-nav" aria-controls="ftco-nav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -273,9 +275,9 @@ $(function(){
 			<!-- <ul class="navbar-nav ml-auto" >   --> 
 				
 				
-				<li class="nav-item"><a href="kiview_notice.jsp"
+				<li class="nav-item"><a href="mypage.do"
 					class="nav-link">내 정보</a></li>
-				<li class="nav-item"><a href="kiview_search.jsp"
+				<li class="nav-item"><a href="myactivity.do"
 					class="nav-link">내 활동</a></li>
 				<li class="nav-item"><a href="kiview_search.jsp"
 					class="nav-link">로그아웃</a></li>

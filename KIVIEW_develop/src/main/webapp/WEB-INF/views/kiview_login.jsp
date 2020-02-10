@@ -12,19 +12,19 @@
 <meta charset="UTF-8">
 <title>KIVIEW &mdash; Login</title>
 
-<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="resources/css/login.css">
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/modal.css">
+<link rel="stylesheet" href="resources/css/modal.css">
 
 </head>
 <body>
 
 	<div id="__next">
 		<div class="jsx-1458736361 login">
-			<div class="jsx-145 banner" style = "background-image: url('images/main/login_img04.png')">
+			<div class="jsx-145 banner" style = "background-image: url('resources/images/main/login_img04.png')">
 				<a class="jsx-1458736361" href="index.jsp">
 				<img
-					src="images/main/kiview_login.png"
+					src="resources/images/main/kiview_login.png"
 					alt="Kiview" class="jsx-1458736361">
 				</a>
 				
