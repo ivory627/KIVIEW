@@ -11,5 +11,11 @@ public class KinderController {
 		
 		return "kiview_search";
 	}
+	
+	@RequestMapping("/searchdetail.do")
+	public String searchdetail() {
+		
+		return "kiview_Search_detail";
+	}
 
 }
