@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
 	
@@ -21,19 +21,52 @@ $(function(){
 		
 		console.log(className);
 		
-		$('.'+className).hover(function(){
+	  	  $('.'+className).hover(function(){
 		       $('path.'+className).css('fill','rgb(255,207,126)');
 		       $('rect.'+className).css('fill','rgb(255,157,31)');
 		       $('text.'+className).css('fill','white');
+					 $('.'+className).on('click',function(){
+						$('path.'+className).css('fill','rgb(255,207,126)');
+					    $('rect.'+className).css('fill','rgb(255,157,31)');
+					    $('text.'+className).css('fill','white');
+					    $('.'+className).off();
+					    $('svg').css('pointer-events','none');
+					})
+		    },
+		    function(){
+		    	 $('path.'+className).css('fill','white');
+			     $('rect.'+className).css('fill','white');
+			     $('text.'+className).css('fill','black');
 		    })
-		      
-		    $('.'+className).mouseout(function(){
-		       $('path.'+className).css('fill','white');
-		       $('rect.'+className).css('fill','white');
-		       $('text.'+className).css('fill','black');
-		    }) 
+		    
+		    $('button').on('click',function(){
+		    	$('path.'+className).css('fill','white');
+			    $('rect.'+className).css('fill','white');
+			    $('text.'+className).css('fill','black');
+		    	$('svg').css('pointer-events','auto');
+		    	
+		    	$('.'+className).hover(function(){
+				       $('path.'+className).css('fill','rgb(255,207,126)');
+				       $('rect.'+className).css('fill','rgb(255,157,31)');
+				       $('text.'+className).css('fill','white');
+							 $('.'+className).on('click',function(){
+								$('path.'+className).css('fill','rgb(255,207,126)');
+							    $('rect.'+className).css('fill','rgb(255,157,31)');
+							    $('text.'+className).css('fill','white');
+							    $('.'+className).off();
+							    $('svg').css('pointer-events','none');
+							})
+				    },
+				    function(){
+				    	 $('path.'+className).css('fill','white');
+					     $('rect.'+className).css('fill','white');
+					     $('text.'+className).css('fill','black');
+				    })
+			})
+		    
 
 	});
+	
     
  })
 </script>
@@ -270,6 +303,7 @@ $(function(){
 			<tspan dy="5.71875"
 				style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">제주</tspan></text>
 				</svg>
+			<button class="btn btn-secondary2" style="position: relative;left:170px;">다시선택</button>
 	</div>
 </body>
 </html>

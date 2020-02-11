@@ -1,5 +1,4 @@
 ----------------------------------유치원 통합------------------------------
-
 CREATE TABLE KINDER(
     KINDER_NO NUMBER PRIMARY KEY,
     NAME VARCHAR2(1000),

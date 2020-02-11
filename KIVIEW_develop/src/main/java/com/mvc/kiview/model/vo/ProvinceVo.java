@@ -4,6 +4,19 @@ public class ProvinceVo {
 	private String province;
 	private String city;
 	private String town;
+	
+	public ProvinceVo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public ProvinceVo(String province, String city, String town) {
+		super();
+		this.province = province;
+		this.city = city;
+		this.town = town;
+	}
+
 	public String getProvince() {
 		return province;
 	}

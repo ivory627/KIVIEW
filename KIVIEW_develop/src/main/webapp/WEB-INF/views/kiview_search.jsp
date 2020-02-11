@@ -12,10 +12,6 @@
     <%@ include file = "head.jsp" %>
     
     <style type="text/css">
-    select:hover {
-    	color: #444645;
-    	background-color: rgba(255, 255, 255, 0.075);
-    	}
     a{
      color:black;
     }
@@ -208,19 +204,19 @@
 						   <tbody>
 						   <tr>
 						     <td>경기도</td>
-						     <td><a href="kiview_Search_detail.jsp">새롬 유치원 </a></td>
+						     <td><a href="searchdetail.do">새롬 유치원 </a></td>
 						     <td>국립</td>
 						     <td>★★★</td>
 						   </tr>
 						   <tr>
 						     <td>강원도</td>
-						     <td><a href="kiview_Search_detail.jsp">안녕 유치원</a></td>
+						     <td><a href="searchdetail.do">안녕 유치원</a></td>
 						     <td>사립 </td>
 						     <td>★★★★</td>
 						   </tr>
 						   <tr>
 						     <td>서울</td>
-						     <td><a href="kiview_Search_detail.jsp">강남 유치원</a></td>
+						     <td><a href="searchdetail.do">강남 유치원</a></td>
 						     <td>민간 </td>
 						     <td>★★★★</td>
 						   </tr>      

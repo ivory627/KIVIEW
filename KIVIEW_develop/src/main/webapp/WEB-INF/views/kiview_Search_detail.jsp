@@ -120,7 +120,7 @@
          			<div style="width:100%;margin:0 auto;" class="col-md-15 heading-section ftco-animate fadeInUp ftco-animated">
            			 <h2 class="mb-4"><span><img id = "kinder" 
            			 style = "height: 45px; position:relative; bottom: 5px;"
-           			 src = "images/main/kindergarden.png"/></span>
+           			 src = "resources/images/main/kindergarden.png"/></span>
            			 	<span> 안녕</span><span style = "color:#FFDC00;"> 유치원</span></h2><br>
          				<button class="btn btn-secondary px-4 py-3">사립 </button>
          				<button class="btn btn-secondary px-4 py-3"><i class="icon icon-map-marker"></i>  강원도 강릉시 </button>
