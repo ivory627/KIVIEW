@@ -1,15 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
-<%
-	response.setContentType("text/html; charset=UTF-8");
-%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +35,7 @@ $(function(){
 
 	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('images/bg_2.jpg');">
+		style="background-image: url('resources/images/bg_2.jpg');">
 		<div class="overlay"></div>
 		<div class="container">
 			<div
@@ -70,56 +63,58 @@ $(function(){
 			<h3># 카페 개설하기</h3>
 			<hr>
 
+			
 			<div class="row d-flex align-items-stretch no-gutters">
 				<div class="col-md-6 p-4 p-md-5 order-md-last bg-light">
-					<form action="#">
+					
+					<!-- 카페 개설 폼 -->
+					<form:form action="cafeinsert.do" method="post" enctype="multipart/form-data">
 						<div class="form-group">
 							<label>카페명</label><br>
-							<input name="title" type="text" class="form-control" value="서울유치원 학부모 모임" readonly>
+							<input name="title" type="text" class="form-control" placeholder="카페명을 입력하세요.">
 						</div>
 						<div class="form-group">
 							<label>대표 썸네일</label><br>
-							<input type="file" value="파일 선택" name="thumb" accpect="img/*">
+							<input type="file"  name="file1">
 						</div>
+					
 						<div class="form-group">
 							<label>배경 이미지</label><br> 
-							<input type="file" value="파일 선택" name="background" accpect="img/*">
+							<input type="file"  name="file2">
 						</div>
 						
 						<div id="restriction" class="form-group">
 							<label>가입 방식</label><br>
 							
-							<input type="radio" value="yes" name="restriction" checked="true"> 바로 가입 
+							<input type="radio" value="y" name="restriction" checked="true"> 바로 가입 
 							<br>
-							<input type="radio" value="no" name="restriction"> 승인 후 가입
+							<input type="radio" value="n" name="restriction"> 승인 후 가입
 							 
 						</div>
 						
-						<div id="question" class="form-group" style="display:none">
-							<label>가입 질문</label><br>						
-							<input type="text" name="question" size="60">
-							
-							 
-						</div>
+						
 						 
 					
 						<div class="form-group">
 							<label>한줄 소개</label><br>
 							<textarea name="intro" id="" cols="30" rows="7" class="form-control"
-								placeholder="간단한 소개글을 입력하세요.">서울 유치원 학부모 모임 카페입니다 ㅎㅎ</textarea>
+								placeholder="간단한 소개글을 입력하세요."></textarea>
 						</div>
-						<div class="form-group">
-							
+						<div id="question" class="form-group" >
+								<label>가입 질문</label><br> <input type="text" name="question"
+									size="60" placeholder="가입시 질문을 입력하세요.">
+
+
 						</div>
 						
 						<div class="form-group">
-							<input type="submit" value="카페 수정하기"
+							<input type="submit" value="카페 개설하기"
 								class="btn btn-primary py-3 px-5">
 						</div>
-					</form>
+					</form:form>
 				</div>
 				<div class="col-md-6 d-flex align-items-stretch">
-					<img src="images/main/main_03.jpg" alt="" class="img-fluid">
+					<img src="resources/images/main/main_03.jpg" alt="" class="img-fluid">
 				</div>
 			</div>
 

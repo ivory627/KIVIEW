@@ -12,12 +12,27 @@ import com.mvc.kiview.model.vo.CafeVo;
 public class CafeDaoImpl implements CafeDao {
 	
 	@Autowired
-	private SqlSessionTemplate dao;
+	private SqlSessionTemplate sqlSession;
 
 	@Override
 	public List<CafeVo> selectAll() {
-		// TODO Auto-generated method stub
+		
 		return null;
+	}
+
+	@Override
+	public int cafe_insert(CafeVo vo) {
+		System.out.println(vo);
+		int res=0;
+		
+		try {
+			res = sqlSession.insert(namespace+"cafe_insert", vo);
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("cafeInsert 오류");
+		}
+		
+		return res;
 	}
 	
 	
