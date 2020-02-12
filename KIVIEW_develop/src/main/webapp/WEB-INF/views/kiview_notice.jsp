@@ -27,7 +27,7 @@
 
 	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('images/bg_2.jpg');">
+		style="background-image: url('resources/images/bg_2.jpg');">
 		<div class="overlay"></div>
 		<div class="container">
 			<div
@@ -35,7 +35,7 @@
 				<div class="col-md-9 ftco-animate text-center">
 					<h1 class="mb-2 bread">공지사항</h1>
 					<p class="breadcrumbs">
-						<span class="mr-2"> <a href="index.jsp">홈 <i
+						<span class="mr-2"> <a href="index.do">홈 <i
 								class="ion-ios-arrow-forward"></i></a>
 						</span> <span>키뷰안내 <i class="ion-ios-arrow-forward"></i></span> 
 						<span>&nbsp;공지사항</span>
@@ -87,7 +87,7 @@
 							<div class="jsx-4121141969 choice">
 							
 							<form action="#" class="appointment-form ftco-animate fadeInUp ftco-animated">
-							  <select class="form-control-sm2" style="overflow:scroll">
+							  <select class="form-control-sm2" style="cursor:pointer;">
 		          				<option selected>분류 전체</option>
 							        <option>공지사항</option>
 							  </select>
@@ -109,7 +109,7 @@
 							<div class="jsx-4121141969 choice">
 								
 								<form action="#" class="appointment-form ftco-animate fadeInUp ftco-animated">
-								  <select class="form-control-sm2" style="overflow:scroll">
+								  <select class="form-control-sm2" style="cursor:pointer;">
 			          				<option selected>최신순</option>
 								        <option>조회순</option>
 								  </select>
@@ -154,7 +154,7 @@
 								style="max-width: 120px;">수다</div>
 							<div class="jsx-1066086808 col-title" style="max-width: 344px;">
 								<a class="jsx-1066086808"
-									href="/kindergarten/community/talk/articles/16593"
+									href="kiviewdetail.do"
 									style="max-width: 250px;"><span
 									class="jsx-1066086808 notice-badges">공지</span>[별별선생 이벤트] 선생님!
 									외않돼요? AMA 댓글놀이 이벤트 !</a><span
@@ -180,7 +180,7 @@
 								style="max-width: 120px;">유치원</div>
 							<div class="jsx-2214240288 col-title" style="max-width: 344px;">
 								<a class="jsx-2214240288"
-									href="kiview_notice_detail.jsp"
+									href="kiviewdetail.do"
 									style="max-width: 328px;">모든 선생님이 열정으로 일하시는게 보입니다</a><span
 									class="jsx-2214240288 comment-number hide-on-desktop">0<span
 									class="jsx-2214240288">댓글</span></span>

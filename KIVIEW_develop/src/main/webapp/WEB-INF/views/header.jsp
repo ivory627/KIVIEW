@@ -172,7 +172,7 @@ $(function(){
 	id="notice_sub" style="display:none; height:50px; padding:20px; border:1px solid lightgray">     <!-- id="ftco-navbar" -->
 
 	<div class="container d-flex align-items-center">
-		<a class="navbar-brand" href="index.jsp">키뷰 안내</a>
+		<a class="navbar-brand" href="kiviewnotice.do">키뷰 안내</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#ftco-nav" aria-controls="ftco-nav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -185,13 +185,12 @@ $(function(){
 			<ul class="navbar-nav" style="margin-left:570px" >       
 			<!-- <ul class="navbar-nav ml-auto" >   --> 
 				
-				
-				<li class="nav-item"><a href="notice.do"
-					class="nav-link">키뷰 소개</a></li>
-				<li class="nav-item"><a href="kiview_search.jsp"
+				<li class="nav-item"><a href="kiviewnotice.do"
 					class="nav-link">공지사항</a></li>
-					<li class="nav-item"><a href="kiview_search.jsp"
-					class="nav-link">Q&A</a></li>
+				<li class="nav-item"><a href="kiviewintro.do"
+					class="nav-link">키뷰 소개</a></li>
+					<li class="nav-item"><a href="kiviewfaq.do"
+					class="nav-link">FAQ</a></li>
 			</ul>
 		</div>
 	</div>

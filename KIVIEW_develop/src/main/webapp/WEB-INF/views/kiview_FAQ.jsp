@@ -53,7 +53,7 @@
 					<li class="jsx-1103591975 active"><a class="jsx-1103591975"
 						href="kiviewnotice.do">공지사항</a></li>
 					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="kiview_notice.jsp">키뷰소개</a></li>
+						href="kiviewintro.do">키뷰소개</a></li>
 					<li class="jsx-1103591975 "><a class="jsx-1103591975"
 						href="kiviewfaq.do">FAQ</a></li>
 				</ul>
