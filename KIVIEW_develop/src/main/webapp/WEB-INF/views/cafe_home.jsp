@@ -22,7 +22,9 @@ a {
 </style>
 
 <script type="text/javascript">
-
+function search(){
+	location.href="cafe_search.jsp"
+}
 </script>
 
 </head>
@@ -35,7 +37,7 @@ a {
 
 	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('resources/images/bg_2.jpg');">
+		style="background-image: url('images/bg_2.jpg');">
 		<div class="overlay"></div>
 		<div class="container">
 			<div
@@ -61,12 +63,12 @@ a {
 				<!-- 카페 홈 소개 -->
 				<div class="col-lg-8 ftco-animate"> 
 					<h2 class="mb-3" style = "font-weight:bold; color:#FFDC00;">
-					<span><img src = "resources/images/main/chat.png"/></span>&nbsp;&nbsp;
+					<span><img src = "images/main/chat.png"/></span>&nbsp;&nbsp;
 					<span style = "color:#9BDAF2;">Kiview</span> Cafe</h2>
 					<hr>
 					<p>키뷰 안에서 카페를 만들고 새로운 커뮤니티를 만들어보세요. 키뷰에서는 누구든지 카페를 개설할 수 있고 키뷰 회원들과 친목을 도모할 수 있습니다. </p>
 					<p>
-						<img src="resources/images/image_2.jpg" alt="" class="img-fluid">
+						<img src="images/image_2.jpg" alt="" class="img-fluid">
 					</p>
 					
 					<p>Quisquam esse aliquam fuga distinctio, quidem delectus
@@ -86,7 +88,7 @@ a {
 						<h3>카페 찾기</h3>
 						<form action="#" class="search-form" style="padding:0px">
 							<div class="form-group"  >
-								<span class="icon icon-search" style="cursor:pointer" onclick="location.href='cafesearch.do'"></span> <input type="text"
+								<span class="icon icon-search" style="cursor:pointer" onclick="search()"></span> <input type="text"
 									class="form-control" placeholder="카페명을 입력해주세요." >
 							</div>
 						</form>
@@ -99,7 +101,7 @@ a {
 						<h3>Popular Cafe</h3>
 						<div class="block-21 mb-4 d-flex">
 							<a class="blog-img mr-4"
-								style="background-image: url(resources/images/image_1.jpg);"></a>
+								style="background-image: url(images/image_1.jpg);"></a>
 							<div class="text">
 								<h3 class="heading">
 									<a href="#">Even the all-powerful Pointing has no control
@@ -120,7 +122,7 @@ a {
 							</div>
 						</div>
 					<p class="mb-0">
-						<a href="cafeopen.do" class="btn btn-secondary" style="width:300px">카페 개설하기 </a>
+						<a href="cafe_open.jsp" class="btn btn-secondary" style="width:300px">카페 개설하기 </a>
 					</p>
 					</div>
 				</div>
@@ -130,7 +132,7 @@ a {
 			<!-- 카페 리스트 단위 -->
 			<span><h3 style="display: inline">가입한 카페</h3>(1)<!-- 카페 수 --></span>
 			<!-- **20/02/07 내 카페 관리 버튼형식으로 변경  -->
-			<span><a href="cafemy.do" class="btn btn-secondary2" 
+			<span><a href="cafe_open.jsp" class="btn btn-secondary2" 
 			style="width:160px; position: relative; left: 77%;">내 카페 관리</a></span>
 			<hr style="margin-top: 5px;">
 
@@ -139,7 +141,7 @@ a {
 					<div class="blog-entry">
 						<!-- 썸네일 -->
 						<a href="cafe_detail.jsp" class="block-20 d-flex align-items-end"
-							style="background-image: url('resources/images/image_1.jpg');"> <!-- 가입제한 -->
+							style="background-image: url('images/image_1.jpg');"> <!-- 가입제한 -->
 							<div class="meta-date text-center p-2">
 								<span class="mos">바로가입</span>
 							</div>
@@ -185,7 +187,7 @@ a {
 					<div class="blog-entry">
 						<!-- 썸네일 -->
 						<a href="cafe_detail.jsp" class="block-20 d-flex align-items-end"
-							style="background-image: url('resources/images/image_1.jpg');"> <!-- 가입제한 -->
+							style="background-image: url('images/image_1.jpg');"> <!-- 가입제한 -->
 							<div class="meta-date text-center p-2">
 								<span class="mos">바로가입</span>
 							</div>
@@ -193,7 +195,7 @@ a {
 						<div class="text bg-white p-4">
 							<!-- 카페명 -->
 							<h3 class="heading">
-								<a href="cafedetail.do">서울유치원 학부모 모임</a>
+								<a href="cafe_detail.jsp">서울유치원 학부모 모임</a>
 							</h3>
 
 							<!-- 카페소개 -->

@@ -95,7 +95,6 @@ $(function(){
 <div style="position: fixed; bottom: 35px; right: 35px; z-index: 1;">
 	<a href="#body"><img src="resources/images/main/up-arrow.png" /></a>
 </div>
-
 <div style="position: fixed; bottom: 130px; right: 35px; z-index: 1;">
 	<a href="#body"><img src="resources/images/main/chatbot.png" /></a>
 </div>
@@ -161,7 +160,7 @@ $(function(){
 					class="nav-link">유치원</a></li>
 				<li id="cafe" class="nav-item"><a href="cafehome.do" class="nav-link">키뷰카페</a></li>
 				
-				<li id="my" class="nav-item"><a href="kiviewmypage.do"
+				<li id="my" class="nav-item"><a href="mypage.do"
 					class="nav-link">마이페이지</a></li>
 					<li class="nav-item"><a href="kiviewlogin.do"
 					class="nav-link">로그인</a></li>
@@ -171,9 +170,10 @@ $(function(){
 </nav>
 
 <!-- 키뷰 안내 소메뉴 -->
-<nav
+<nav  
 	class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light"
 	id="notice_sub" style="display:none; height:50px; padding:20px; border:1px solid lightgray">     <!-- id="ftco-navbar" -->
+
 	<div class="container d-flex align-items-center">
 		<a class="navbar-brand" href="kiviewnotice.do">키뷰 안내</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -182,10 +182,13 @@ $(function(){
 			<span class="oi oi-menu"></span> Menu
 		</button>
 		<!-- <p class="button-custom order-lg-last mb-0"><a href="appointment.html" class="btn btn-secondary py-2 px-3">Make An Appointment</a></p> -->
-		<div class="collapse navbar-collapse" id="ftco-nav">
-			<ul class="navbar-nav" style="margin-left:570px" >
-			<!-- <ul class="navbar-nav ml-auto" >   -->
-				<li class="nav-item"><a href="kiviewnotice.do "
+		
+		<div class="collapse navbar-collapse" id="ftco-nav"> 
+
+			<ul class="navbar-nav" style="margin-left:570px" >       
+			<!-- <ul class="navbar-nav ml-auto" >   --> 
+				
+				<li class="nav-item"><a href="kiviewnotice.do"
 					class="nav-link">공지사항</a></li>
 				<li class="nav-item"><a href="kiviewintro.do"
 					class="nav-link">키뷰 소개</a></li>
@@ -260,7 +263,7 @@ $(function(){
 	id="my_sub" style="display:none; height:50px; padding:20px; border:1px solid lightgray">     <!-- id="ftco-navbar" -->
  
 	<div class="container d-flex align-items-center">
-		<a class="navbar-brand" href="kiviewmypage.do">마이페이지</a>
+		<a class="navbar-brand" href="#">마이페이지</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#ftco-nav" aria-controls="ftco-nav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -274,11 +277,11 @@ $(function(){
 			<!-- <ul class="navbar-nav ml-auto" >   --> 
 				
 				
-				<li class="nav-item"><a href="kiviewmypage.do"
+				<li class="nav-item"><a href="mypage.do"
 					class="nav-link">내 정보</a></li>
-				<li class="nav-item"><a href="kiviewmyactivity.do"
+				<li class="nav-item"><a href="myactivity.do"
 					class="nav-link">내 활동</a></li>
-				<li class="nav-item"><a href="kiviewlogout.do"
+				<li class="nav-item"><a href="kiview_search.jsp"
 					class="nav-link">로그아웃</a></li>
 			</ul>
 		</div>

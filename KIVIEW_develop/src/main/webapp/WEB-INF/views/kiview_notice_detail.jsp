@@ -19,7 +19,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#btn1").click(function(){
-			location.href = "kiview_notice.jsp";
+			location.href = "kiviewnotice.do";
 		});
 	});
 
@@ -35,7 +35,7 @@
 
 	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('images/bg_2.jpg');">
+		style="background-image: url('resources/images/bg_2.jpg');">
 		<div class="overlay"></div>
 		<div class="container">
 			<div
@@ -43,9 +43,11 @@
 				<div class="col-md-9 ftco-animate text-center">
 					<h1 class="mb-2 bread">공지사항</h1>
 					<p class="breadcrumbs">
-						<span class="mr-2"> <a href="index.jsp">홈 <i
+						<span class="mr-2"> <a href="index.do">홈 <i
 								class="ion-ios-arrow-forward"></i></a>
-						</span> <span>키뷰안내 <i class="ion-ios-arrow-forward"></i></span> <span>&nbsp;공지사항</span>
+						</span> 
+						<span>키뷰안내 <i class="ion-ios-arrow-forward"></i></span> 
+						<span>&nbsp;공지사항</span>
 					</p>
 				</div>
 			</div>
@@ -57,13 +59,13 @@
 		<div class="jsx-3810764099 board-box">
 			<div class="jsx-1103591975 sidebar sidebar--kindergarten">
 				<h2 class="jsx-1103591975">
-					<span class="jsx-1103591975">공지사항</span>
+					<span class="jsx-1103591975">키뷰 안내</span>
 				</h2>
 				<ul class="jsx-1103591975">
 					<li class="jsx-1103591975 active"><a class="jsx-1103591975"
 						href="kiview_notice.jsp">공지사항</a></li>
 					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="kiview_notice.jsp">이용안내</a></li>
+						href="kiview_notice.jsp">키뷰 소개</a></li>
 					<li class="jsx-1103591975 "><a class="jsx-1103591975"
 						href="kiview_notice.jsp">FAQ</a></li>
 					<!-- <li class="jsx-1103591975 "><a class="jsx-1103591975"

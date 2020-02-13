@@ -3,6 +3,7 @@ package com.mvc.kiview.model.vo;
 import java.util.Date;
 
 public class NoticeVo {
+	
 	private int notice_no;
 	private String cat_detail;
 	private String notice_title;
@@ -10,6 +11,25 @@ public class NoticeVo {
 	private String notice_writer;
 	private Date notice_date;
 	private int notice_hit;
+	
+	public NoticeVo() {
+		super();
+	}
+	
+	
+	public NoticeVo(int notice_no, String cat_detail, String notice_title, String notice_content, String notice_writer,
+			Date notice_date, int notice_hit) {
+		super();
+		this.notice_no = notice_no;
+		this.cat_detail = cat_detail;
+		this.notice_title = notice_title;
+		this.notice_content = notice_content;
+		this.notice_writer = notice_writer;
+		this.notice_date = notice_date;
+		this.notice_hit = notice_hit;
+	}
+
+
 	public int getNotice_no() {
 		return notice_no;
 	}
@@ -52,6 +72,7 @@ public class NoticeVo {
 	public void setNotice_hit(int notice_hit) {
 		this.notice_hit = notice_hit;
 	}
+	
 	@Override
 	public String toString() {
 		return "NoticeVo [notice_no=" + notice_no + ", cat_detail=" + cat_detail + ", notice_title=" + notice_title
