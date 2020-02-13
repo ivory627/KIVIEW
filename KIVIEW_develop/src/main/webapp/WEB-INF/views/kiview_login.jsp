@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
-<% request.setCharacterEncoding("UTF-8"); %>
-<% response.setContentType("text/html; charset=UTF-8"); %>
-	
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-	
+
+<%
+	request.setCharacterEncoding("UTF-8");
+%>
+<%
+	response.setContentType("text/html; charset=UTF-8");
+%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,21 +17,93 @@
 <title>KIVIEW &mdash; Login</title>
 
 <link rel="stylesheet" href="resources/css/login.css">
-<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap"
+	rel="stylesheet">
 <link rel="stylesheet" href="resources/css/modal.css">
+
+<!-- 로그인 스크립트  -->
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#loginChk').hide();
+		$('#loginIdChk').hide();
+		$('#loginPwdChk').hide();
+
+		$("input").keydown(function(key) {
+			//키의 코드가 13번일 경우 (엔터의 키코드는 13)
+			if (key.keyCode == 13) {
+				login();
+			}
+		});
+
+	});
+
+	function login() {
+		var member_id = $("#member_id").val().trim();
+		var member_pwd = $('#member_pwd').val().trim();
+
+		var loginVal = {
+			"member_id" : member_id,
+			"member_pwd" : member_pwd
+		};
+
+		if (member_id == null || member_id == "") {
+			$('#loginChk').hide();
+			$('#loginPwdChk').hide();
+			$("#loginIdChk").show().html("ID를 입력해주세요.");
+			$('input').eq(0).val("");
+			$('input').eq(1).val("");
+
+		} else if (member_pwd == null || member_pwd == "") {
+			$('#loginChk').hide();
+			$('#loginIdChk').hide();
+			$("#loginPwdChk").show().html("PW를 입력해주세요.");
+			$('input').eq(1).val("");
+
+		} else {
+			$.ajax({
+				type : "post",
+				url : "ajaxlogin.do",
+				data : JSON.stringify(loginVal),
+				contentType : "application/json",
+				dataType : "json",
+				success : function(msg) {
+
+					if (msg.check == true) {
+						location.href = "index.do";
+					} else {
+						$('#loginIdChk').hide();
+						$('#loginPwdChk').hide();
+						$("#loginChk").show().html("ID 혹은 PW가 잘못 되었습니다.");
+						$('input').eq(0).val("");
+						$('input').eq(1).val("");
+					}
+				},
+				error : function() {
+					alert("통신실패");
+				}
+			});
+		}
+	}
+</script>
+
+<!-- /로그인 스크립트 -->
+
 
 </head>
 <body>
 
 	<div id="__next">
 		<div class="jsx-1458736361 login">
-			<div class="jsx-145 banner" style = "background-image: url('resources/images/main/login_img04.png')">
-				<a class="jsx-1458736361" href="index.jsp">
-				<img
-					src="resources/images/main/kiview_login.png"
-					alt="Kiview" class="jsx-1458736361">
+			<div class="jsx-145 banner"
+				style="background-image: url('resources/images/main/login_img04.png')">
+				<a class="jsx-1458736361" href="index.do" style="height: 70px;">
+					<img src="resources/images/main/kiview_login.png" alt="Kiview"
+					class="jsx-1458736361">
 				</a>
-				
+
 			</div>
 			<div class="jsx-1458736361 login-box">
 				<a class="jsx-1458736361 mobile-service go-home" href="/"><img
@@ -36,13 +112,13 @@
 				<div class="jsx-1458736361 login-box-wrap">
 					<div class="jsx-1458736361 title">
 						<p class="jsx-1458736361">
-							<span class="jsx-1458736361">대한민국 NO.1</span>
-							유치원 평가 플랫폼
+							<span class="jsx-1458736361">대한민국 NO.1</span> 유치원 평가 플랫폼
 						</p>
-						<h2 class="jsx-1458736361" style = "font-family: 'Black Han Sans', sans-serif;">
-							Kiview
-						</h2><!-- <br class="jsx-1458736361"> -->
-						
+						<a href="index.do">
+							<h2 class="jsx-1458736361"
+								style="font-family: 'Black Han Sans', sans-serif;">Kiview</h2>
+						</a>
+
 					</div>
 					<div class="jsx-1458736361 sns-login">
 						<ul class="jsx-1458736361">
@@ -60,91 +136,96 @@
 									class="jsx-1458736361 alt-text">페이스북 계정 로그인</span></a></li>
 						</ul>
 					</div>
+
+					<!-- 로그인 -->
 					<form class="jsx-1458736361">
 						<div class="jsx-1458736361 username">
-							<label class="jsx-3712571264 ">
-							<span class="jsx-3712571264">아이디&nbsp;</span>
-							<div class="jsx-639067573 input">
-								<input type="text" placeholder="이메일을 입력해 주세요."
-										class="jsx-639067573"  value="">
-							</div>
+							<label class="jsx-3712571264 "> <span
+								class="jsx-3712571264">아이디&nbsp;</span>&nbsp;&nbsp; <span
+								id="loginIdChk" style="color: red;"></span>
+								<div class="jsx-639067573 input">
+									<input type="text" id="member_id" placeholder="이메일을 입력해 주세요."
+										class="jsx-639067573">
+								</div>
 							</label>
 						</div>
 						<div class="jsx-1458736361 password">
-							<label class="jsx-3712571264 "><span
-								class="jsx-3712571264">비밀번호&nbsp;</span>
-							<div class="jsx-1458736361 show-password">
+							<label class="jsx-3712571264 "> <span
+								class="jsx-3712571264">비밀번호&nbsp;</span>&nbsp;&nbsp; <span
+								id="loginPwdChk" style="color: red;"></span>
+								<div class="jsx-1458736361 show-password">
 									<div class="jsx-639067573 input">
-										<input type="password" minlength="10" maxlength="20"
-											placeholder="비밀번호를 입력해주세요." class="jsx-639067573 " value="">
+										<input type="password" id="member_pwd" minlength="10"
+											maxlength="20" placeholder="비밀번호를 입력해주세요."
+											class="jsx-639067573 " />
 									</div>
 								</div>
 							</label>
 						</div>
+
+						<p id="loginChk" style="color: red;"></p>
+
 						<div class="jsx-1458736361 btn-login">
-							<button type="button" class="jsx-2144885398 ">로그인</button>
+							<button type="button" class="jsx-2144885398 " onclick="login();">로그인</button>
 						</div>
 					</form>
+					<!-- /로그인 -->
+
 					<div class="jsx-1458736361 service">
-						<a class="jsx-1458736361" href="kiview_signup-option.jsp">회원가입</a>
-						<span class="jsx-1458736361"></span>
-						
+						<a class="jsx-1458736361" href="kiviewsignupoption.do">회원가입</a> <span
+							class="jsx-1458736361"></span>
+
 						<!-- @@아이디 찾기 -->
-						<a class="jsx-1458736361" style = "cursor:pointer;" onclick = 
-							"document.getElementById('id01').style.display='block'" 
-							class="w3-button w3-black">아이디찾기</a>
-						<span class="jsx-1458736361"></span>
-						
+						<a class="jsx-1458736361" style="cursor: pointer;"
+							onclick="document.getElementById('id01').style.display='block'"
+							class="w3-button w3-black">아이디찾기</a> <span class="jsx-1458736361"></span>
+
 						<!-- **20/02/07 id찾기 modal -->
 						<div id="id01" class="w3-modal">
-						    <div class="w3-modal-content w3-animate-top w3-card-4">
-						      <header class="w3-container w3-teal"> 
-						        <span onclick="document.getElementById('id01').style.display='none'" 
-						        class="w3-button w3-display-topright">&times;</span>
-						        <h2>아이디 찾기</h2>
-						      </header>
-						      <div class="w3-container">
-						      <br>
-						        <input required="필수 입력사항" placeholder="이름"
-										class="find-id" value=""><br>
-						        <input required="필수 입력사항" placeholder="이메일"
-										class="find-id" value=""><br>
-								<button type="button" class="jsx-2144885398 ">검색</button>
-						      </div>
-						    </div>
-						  </div>
-						
+							<div class="w3-modal-content w3-animate-top w3-card-4">
+								<header class="w3-container w3-teal">
+									<span
+										onclick="document.getElementById('id01').style.display='none'"
+										class="w3-button w3-display-topright">&times;</span>
+									<h2>아이디 찾기</h2>
+								</header>
+								<div class="w3-container">
+									<br> <input required="필수 입력사항" placeholder="이름"
+										class="find-id" value=""><br> <input
+										required="필수 입력사항" placeholder="이메일" class="find-id" value=""><br>
+									<button type="button" class="jsx-2144885398 ">검색</button>
+								</div>
+							</div>
+						</div>
+
 						<!-- @@ 비밀번호 찾기 -->
-						<a class="jsx-1458736361" style = "cursor:pointer;" onclick = 
-							"document.getElementById('id02').style.display='block'" 
+						<a class="jsx-1458736361" style="cursor: pointer;"
+							onclick="document.getElementById('id02').style.display='block'"
 							class="w3-button w3-black">비밀번호찾기</a>
-						
+
 						<!-- **20/02/07 pw찾기 modal -->
 						<div id="id02" class="w3-modal">
-						    <div class="w3-modal-content w3-animate-top w3-card-4">
-						      <header class="w3-container w3-teal"> 
-						        <span onclick="document.getElementById('id02').style.display='none'" 
-						        class="w3-button w3-display-topright">&times;</span>
-						        <h2>비밀번호 찾기</h2>
-						      </header>
-						      <div class="w3-container">
-						      <br>
-						      
-						        <input required="필수 입력사항" placeholder="아이디"
-										class="find-id" value=""><br>
-						        <input required="필수 입력사항" placeholder="이메일"
-										class="find-id" value=""><br>
-								<button type="button" class="jsx-2144885398 ">검색</button>
-						      </div>
-						    </div>
-						  </div>
-						  
+							<div class="w3-modal-content w3-animate-top w3-card-4">
+								<header class="w3-container w3-teal">
+									<span
+										onclick="document.getElementById('id02').style.display='none'"
+										class="w3-button w3-display-topright">&times;</span>
+									<h2>비밀번호 찾기</h2>
+								</header>
+								<div class="w3-container">
+									<br> <input required="필수 입력사항" placeholder="아이디"
+										class="find-id" value=""><br> <input
+										required="필수 입력사항" placeholder="이메일" class="find-id" value=""><br>
+									<button type="button" class="jsx-2144885398 ">검색</button>
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
-				
-				<address class="jsx-1458736361">
-				Copyright © Kiview Corp. All Rights Reserved.
-				</address>
+
+				<address class="jsx-1458736361">Copyright © Kiview Corp.
+					All Rights Reserved.</address>
 			</div>
 		</div>
 		<div class="jsx-2567582721 reviews"></div>
