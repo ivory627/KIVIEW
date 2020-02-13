@@ -22,9 +22,7 @@ a {
 </style>
 
 <script type="text/javascript">
-function search(){
-	location.href="cafe_search.jsp"
-}
+
 </script>
 
 </head>
@@ -88,7 +86,7 @@ function search(){
 						<h3>카페 찾기</h3>
 						<form action="#" class="search-form" style="padding:0px">
 							<div class="form-group"  >
-								<span class="icon icon-search" style="cursor:pointer" onclick="search()"></span> <input type="text"
+								<span class="icon icon-search" style="cursor:pointer" onclick="location.href='cafesearch.do'"></span> <input type="text"
 									class="form-control" placeholder="카페명을 입력해주세요." >
 							</div>
 						</form>
@@ -132,7 +130,7 @@ function search(){
 			<!-- 카페 리스트 단위 -->
 			<span><h3 style="display: inline">가입한 카페</h3>(1)<!-- 카페 수 --></span>
 			<!-- **20/02/07 내 카페 관리 버튼형식으로 변경  -->
-			<span><a href="cafe_open.jsp" class="btn btn-secondary2" 
+			<span><a href="cafemy.do" class="btn btn-secondary2" 
 			style="width:160px; position: relative; left: 77%;">내 카페 관리</a></span>
 			<hr style="margin-top: 5px;">
 

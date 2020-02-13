@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -39,7 +41,30 @@ public class CafeController {
 	public String cafe_open() {
 		return "cafe_open";
 	}
-
+	
+	@RequestMapping("/cafesearch.do")
+	public String cafe_search() {
+		
+		
+		return "cafe_search";
+	}
+	
+	@RequestMapping("cafemy.do")
+	public String cafe_my(Model model) {
+		String id = "admin";
+		
+		List<CafeVo> list = new ArrayList();
+		
+		list = biz.cafe_my(id);
+		
+		model.addAttribute("list", list);
+		
+		
+		return "cafe_my";
+		
+		
+	}
+	
 	@Autowired
 	private FileValidate filevalidate;
 
@@ -69,6 +94,7 @@ public class CafeController {
 		InputStream inputStream2 = null;
 		OutputStream outputStream1 = null;
 		OutputStream outputStream2 = null;
+		
 
 		try {
 			inputStream1 = thumb.getInputStream();
@@ -86,28 +112,43 @@ public class CafeController {
 			}
 
 			// 썸네일 파일명 중복확인
+			
 			File newfile1 = new File(path + "/" + thumb_name);
-
-			if (!newfile1.exists()) {// 위의 파일이 없으면 새로 만들겠다.
-				newfile1.createNewFile();
-
-			} else {
+			
+			while(newfile1.exists()) {
 				count1++;
+				System.out.println("이미지1 이름 중복 : " +count1);		
 				thumb_name = "thumb" + count1;
-				newfile1.createNewFile();
+				newfile1 = new File(path + "/" + thumb_name);
+				
+				
+				if(!newfile1.exists()) {
+					newfile1.createNewFile();
+					break;
+				}
+				
+				
 			}
+			
+			
+		
 			
 			// 배경이미지 파일명 중복확인
 			File newfile2 = new File(path + "/" + bg_name);
-
-			if (!newfile2.exists()) {// 위의 파일이 없으면 새로 만들겠다.
-				newfile2.createNewFile();
-
-			} else {
+			
+			while(newfile2.exists()) {
 				count2++;
+				System.out.println("이미지2 이름 중복 : " +count2);		
 				bg_name = "bg" + count2;
-				newfile2.createNewFile();
+				newfile2 = new File(path + "/" + bg_name);
+				
+				if(!newfile2.exists()) {
+					newfile2.createNewFile();
+					break;
+				}
 			}
+			
+
 			
 			
 			//
@@ -124,8 +165,8 @@ public class CafeController {
 			int read2 = 0;
 			byte[] b2 = new byte[(int)background.getSize()]; //outputStream 은  byte단위이기 떄문
 			
-			while((read2 = inputStream1.read(b2)) != -1) { //업로드 하려는 파일 읽기
- 				outputStream1.write(b2,0,read2);  
+			while((read2 = inputStream2.read(b2)) != -1) { //업로드 하려는 파일 읽기
+ 				outputStream2.write(b2,0,read2);  
 				
 			}
 			
@@ -140,6 +181,7 @@ public class CafeController {
 				inputStream2.close();
 				outputStream1.close();
 				outputStream2.close();
+				
 
 			} catch (IOException e) {
 				e.printStackTrace();

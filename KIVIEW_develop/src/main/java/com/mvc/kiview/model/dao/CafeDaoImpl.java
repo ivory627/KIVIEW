@@ -34,6 +34,12 @@ public class CafeDaoImpl implements CafeDao {
 		
 		return res;
 	}
+
+	@Override
+	public List<CafeVo> cafe_my(String id) {
+		
+		return null;
+	}
 	
 	
 
