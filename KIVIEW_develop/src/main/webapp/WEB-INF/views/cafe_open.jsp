@@ -41,6 +41,7 @@ $(function(){
 			<div
 				class="row no-gutters slider-text align-items-center justify-content-center">
 				<div class="col-md-9 ftco-animate text-center">
+					
 					<h1 class="mb-2 bread">카페 개설하기</h1>
 					<p class="breadcrumbs">
 						<span class="mr-2"><a href="index.jsp">홈
@@ -60,7 +61,12 @@ $(function(){
 
 	<section class="ftco-section">
 		<div class="container">
-			<h3># 카페 개설하기</h3>
+			<a href="cafehome.do">
+					<h2 class="mb-3" style="font-weight: bold; color: #FFDC00;">
+						<span><img src="resources/images/main/chat.png" /></span>&nbsp;&nbsp;
+						<span style="color: #9BDAF2;">Kiview</span> Cafe
+					</h2>
+					</a>
 			<hr>
 
 			
@@ -92,6 +98,13 @@ $(function(){
 							 
 						</div>
 						
+						<div id="question" class="form-group" >
+								<label>가입 질문</label><br> <input type="text" name="question"
+									size="55" placeholder="가입시 질문을 입력하세요.">
+
+
+						</div>
+						
 						
 						 
 					
@@ -100,21 +113,25 @@ $(function(){
 							<textarea name="intro" id="" cols="30" rows="7" class="form-control"
 								placeholder="간단한 소개글을 입력하세요."></textarea>
 						</div>
-						<div id="question" class="form-group" >
-								<label>가입 질문</label><br> <input type="text" name="question"
-									size="60" placeholder="가입시 질문을 입력하세요.">
-
-
-						</div>
+						
 						
 						<div class="form-group">
-							<input type="submit" value="카페 개설하기"
-								class="btn btn-primary py-3 px-5">
+							<br>
+							<input type="submit" value="개  설" 
+								class="btn btn-secondary py-3 px-5"
+								style="position:relative; left:18%"
+								>
+								
+							<input type="button" value="취  소"
+								class="btn btn-primary py-3 px-5"
+								onclick="location.href='cafehome.do'"
+									style="position:relative; left:22%"
+								>
 						</div>
 					</form:form>
 				</div>
 				<div class="col-md-6 d-flex align-items-stretch">
-					<img src="resources/images/main/main_03.jpg" alt="" class="img-fluid">
+					<img src="resources/images/main/kiview_01.png" alt="" class="img-fluid">
 				</div>
 			</div>
 

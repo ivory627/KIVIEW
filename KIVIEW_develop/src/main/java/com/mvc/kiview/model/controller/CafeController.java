@@ -33,8 +33,8 @@ public class CafeController {
 
 	@RequestMapping("/cafehome.do")
 	public String cafe_home(Model model) {
-		String user = "admin";
-	      model.addAttribute("list",biz.selectAll(user));
+		int member_no = 1;
+	    model.addAttribute("list",biz.selectAll(member_no));
 		return "cafe_home";
 	}
 
@@ -50,16 +50,15 @@ public class CafeController {
 		return "cafe_search";
 	}
 	
-	@RequestMapping("cafemy.do")
+	@RequestMapping("cafemy.do") //session 번호를 매개변수로 받는다.
 	public String cafe_my(Model model) {
-		String id = "admin";
+		int member_no = 1;
 		
 		List<CafeVo> list = new ArrayList();
 		
-		list = biz.cafe_my(id);
 		
-		model.addAttribute("list", list);
-		System.out.println(list);
+		model.addAttribute("list",biz.selectAll(member_no));
+		
 		
 		return "cafe_my";
 		
@@ -140,7 +139,7 @@ public class CafeController {
 			while(newfile2.exists()) {
 				count2++;
 				System.out.println("이미지2 이름 중복 : " +count2);		
-				bg_name = "bg" + count2;
+				bg_name = "bg" + count2+".jpg";
 				newfile2 = new File(path + "/" + bg_name+ ".jpg");
 				
 				if(!newfile2.exists()) {

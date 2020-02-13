@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeVo;
 
 @Repository
@@ -16,18 +17,21 @@ public class CafeDaoImpl implements CafeDao {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<CafeVo> selectAll(String id) {
+	public List<CafeVo> selectAll(int no) {
 		
-		List<CafeVo> listres = new ArrayList<CafeVo>();
+		List<CafeVo> res = new ArrayList();
+		
 	      try {
-	         listres = sqlSession.selectList(namespace+"cafe_selectlist",id);
-	         
+	    	 
+	    	 
+	         res = sqlSession.selectList(namespace+"cafe_selectlist",no);
+	         System.out.println(res);
 	      }catch(Exception e) {
 	         e.printStackTrace();
 	         System.out.println("cafelist list 오류!");
 	      }
 	         
-	      return listres;
+	      return res;
 	}
 
 	@Override
@@ -45,21 +49,7 @@ public class CafeDaoImpl implements CafeDao {
 		return res;
 	}
 
-	@Override
-	public List<CafeVo> cafe_my(String id) {
-		System.out.println(id);
-		List<CafeVo> list = new ArrayList();
-		
-		try {
-			list = sqlSession.selectList(namespace+"cafe_my", id);
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-			System.out.println("cafe_my 오류");
-		}
-		
-		return list;
-	}
+	
 	
 	
 

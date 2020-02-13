@@ -5,6 +5,7 @@
 <%response.setContentType("text/html; charset=UTF-8");%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 
 <!DOCTYPE html>
@@ -59,10 +60,11 @@ a {
 			<div class="row">
 
 				<!-- 카페 홈 소개 -->
-				<div class="col-lg-8 ftco-animate"> 
+				<div class="col-lg-8 ftco-animate">
+					<a href="cafehome.do"> 
 					<h2 class="mb-3" style = "font-weight:bold; color:#FFDC00;">
 					<span><img src = "resources/images/main/chat.png"/></span>&nbsp;&nbsp;
-					<span style = "color:#9BDAF2;">Kiview</span> Cafe</h2>
+					<span style = "color:#9BDAF2;">Kiview</span> Cafe</h2></a>
 					<hr>
 					<p>키뷰 안에서 카페를 만들고 새로운 커뮤니티를 만들어보세요. 키뷰에서는 누구든지 카페를 개설할 수 있고 키뷰 회원들과 친목을 도모할 수 있습니다. </p>
 					<p>
@@ -128,37 +130,48 @@ a {
 
 
 			<!-- 카페 리스트 단위 -->
-         <span><h3 style="display: inline">가입한 카페</h3>(1)<!-- 카페 수 --></span>
+         <span><h3 style="display: inline">가입한 카페</h3>&nbsp;[${fn:length(list)}]<!-- 카페 수 --></span>
          <!-- **20/02/07 내 카페 관리 버튼형식으로 변경  -->
-         <span><a href="cafe_open.jsp" class="btn btn-secondary2" 
+         <span><a href="cafemy.do" class="btn btn-secondary2" 
          style="width:160px; position: relative; left: 77%;">내 카페 관리</a></span>
          <hr style="margin-top: 5px;">
          
-         <c:set var='i' value="0"/>
-         <c:set var='j' value="3"/>
+         <div class="row"> 
+         <c:choose>
+         <c:when test="${empty list }">
+         	 
+         	 	
+         	 	<div class="col-md-6 col-lg-4 ftco-animate" style="position:relative; left:40%"> 
+         	 		<br><br>
+         	 		가입한 카페가 없습니다.
+         	 		<br><br>
+         	 	</div>
+         	
+         </c:when>
          
-         <c:forEach var="list" items="${list }">
          
-            <c:if test="${i%j eq 0}">
-            <div class="row">
-            </c:if>
+         <c:otherwise>
+         <c:forEach var="list" items="${list }" begin="0" end="5">
+         	
+          
+            
             
                      <div class="col-md-6 col-lg-4 ftco-animate">
                         <div class="blog-entry">
                            <!-- 썸네일 -->
                            <a href="cafe_detail.jsp" class="block-20 d-flex align-items-end" 
-                           style="background-image: url('http://localhost:8787/img/bg1.jpg');"> 
+                           style="background-image: url('http://localhost:8787/img/${list.thumb }');"> 
                               <!-- 가입제한 -->
                               <div class="meta-date text-center p-2">
                                  <span class="mos">
-                                 <c:choose>
-                                    <c:when test="${list.restriction eq 'y'}">                           
+                                 
+                                    <c:if test="${list.restriction eq 'y'}">                           
                                        바로가입                           
-                                    </c:when>
-                                    <c:when test="${list.restriction eq 'n'}">
+                                    </c:if>
+                                    <c:if test="${list.restriction eq 'n'}">
                                        승인후 가입
-                                    </c:when>
-                                 </c:choose>   
+                                    </c:if>
+                                  
                                  </span>
                               </div>
                            </a>
@@ -188,23 +201,40 @@ a {
                         <br>
                      </div>
             
-            <c:if test="${i%j eq j-1}">
-             </div>
-            </c:if>
             
-            <c:set var="i" value="${i+1 }"/>
             
-         </c:forEach>
+           
+            
+        
          
-         </div>
+        
+          </c:forEach>
+          
+         </c:otherwise>
+        </c:choose>
+        
+        </div>
+        
+        	<!-- list size가 6개 이상일 경우 더보기 버튼 -->
+        	<c:if test="${fn:length(list) < 5}">
+          	 
+          	<div>
+				<span><a href="cafemy.do" class="btn btn-secondary2" 
+         style="width:25%; position: relative; left: 40%;">더 보기</a></span> 
+			</div>
+			
+			</c:if>
+				<br><br>
+          	
+         
+         
 
 			<!-- 카페 리스트 단위 -->
-			<span><h3 style="display: inline">운영중 카페</h3>(1)<!-- 카페 수 --></span>
-			<!-- **20/02/07 내 카페 관리 버튼형식으로 변경  -->
-			<span><a href="cafe_open.jsp" class="btn btn-secondary2" 
-			style="width:160px; position: relative; left: 77%;">내 카페 관리</a></span>
-			<!-- <span style="position: relative; left: 78%"><a href="#">내 카페 관리</a></span> -->
-			<hr style="margin-top: 5px;">
+			<span><h3 style="display: inline">운영중 카페</h3></span>
+			
+			
+			
+			<hr style="margin-top: 5px;">   
 
 			<div class="row">
 				<div class="col-md-6 col-lg-4 ftco-animate">
@@ -240,13 +270,14 @@ a {
 					</div>
 				</div>
 				<br>
+				
 			</div>
 
 
 		</div>
 
 
-
+	 </div>
 	</section>
 
 

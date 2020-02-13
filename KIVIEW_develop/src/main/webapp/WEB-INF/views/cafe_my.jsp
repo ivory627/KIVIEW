@@ -1,14 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
-<%
-	response.setContentType("text/html; charset=UTF-8");
-%>
+
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 
 <!DOCTYPE html>
@@ -71,12 +67,14 @@ a {
 
 				<!-- 카페 홈 소개 -->
 				<div class="col-lg-8 ftco-animate">
+					<a href="cafehome.do">
 					<h2 class="mb-3" style="font-weight: bold; color: #FFDC00;">
 						<span><img src="resources/images/main/chat.png" /></span>&nbsp;&nbsp;
 						<span style="color: #9BDAF2;">Kiview</span> Cafe
 					</h2>
+					</a>
 					<hr>
-					<p>admin 님이 가입한 카페 가입 목록입니다..</p>
+					<p>admin 님이 가입한 카페 가입 목록입니다.</p>
 						
 						<!-- 여기서부터 반복 -->
 					<c:choose>
@@ -87,6 +85,7 @@ a {
 							</div>
 						</c:when>
 						<c:otherwise>
+							<c:forEach items="${list }" var="vo">
 							
 							<div class="row">
 
@@ -95,7 +94,7 @@ a {
 									style="padding: 30px; margin: 0px; padding-bottom: 0px;">
 									<div style="width: 25%; margin-right: 30px;">
 										<span><img style="width: 80%; height: 100%"
-											src='http://localhost:8787/img/thumb1.jpg' /></span>
+											src='http://localhost:8787/img/${vo.thumb }' /></span>
 
 
 
@@ -103,19 +102,13 @@ a {
 
 									<div style="width: 70%">
 										<h3 style="margin: 0px">
-											<label>" 서울유치원 카페 "</label>
+											<a href="cafedetail.do?cafe_no=${vo.cafe_no }"><label>" ${vo.title } "</label></a>
 										</h3>
 										<p>
-											<span>관리자명</span> | <span>게시글 수</span> | <span>회원 수</span>
+											<span>${vo.admin }</span> | <span>게시글 수</span> | <span>회원 수</span>
 
 										</p>
-										<p class="intro">Quisquam esse aliquam fuga distinctio,
-											quidem delectus veritatis reiciendis. Nihil explicabo quod,
-											est eos ipsum. Unde aut non tenetur tempore, nisi culpa
-											voluptate maiores officiis quis vel ab consectetur suscipit
-											veritatis nulla quos quia aspernatur perferendis, libero
-											sint. Error, velit, porro. Deserunt minus, quibusdam iste
-											enim veniam, modi rem maiores.</p>
+										<p class="intro">${vo.intro }</p>
 
 
 									</div>
@@ -130,6 +123,7 @@ a {
 
 
 							</div>
+							</c:forEach>
 						</c:otherwise>
 						
 					</c:choose>

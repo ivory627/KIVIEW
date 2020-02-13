@@ -15,9 +15,9 @@ public class CafeBizImpl implements CafeBiz{
 	private CafeDao dao;
 	
 	@Override
-	public List<CafeVo> selectAll(String id) {
+	public List<CafeVo> selectAll(int member_no) {
 		
-		return dao.selectAll(id);
+		return dao.selectAll(member_no);
 	}
 
 	@Override
@@ -26,10 +26,6 @@ public class CafeBizImpl implements CafeBiz{
 		return dao.cafe_insert(vo);
 	}
 
-	@Override
-	public List<CafeVo> cafe_my(String id) {
-		
-		return dao.cafe_my(id);
-	}
+	
 
 }
