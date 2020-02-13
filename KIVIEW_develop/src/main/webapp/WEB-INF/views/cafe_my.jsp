@@ -77,7 +77,7 @@ a {
 						<span style="color: #9BDAF2;">Kiview</span> Cafe
 					</h2>
 					<hr>
-					<p>admin 님이 가입한 카페 가입 목록입니다.</p>
+					<p>admin 님이 가입한 카페 가입 목록입니다..</p>
 
 					<!-- 여기서부터 반복 -->
 					<div class="row">
