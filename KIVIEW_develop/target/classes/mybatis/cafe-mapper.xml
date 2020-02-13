@@ -10,6 +10,19 @@
   	
   	
   	</insert>
+  	
+  	   <select id="cafe_selectlist" parameterType="String" resultType="CafeVo">
+        SELECT *
+        FROM CAFE
+        WHERE ADMIN = #{admin}
+     </select>
+  	
+  	<select id="cafe_my" parameterType="String" resultType="CafeVo">
+  		SELECT *
+  		FROM CAFE
+  		WHERE ADMIN LIKE #{admin}
+  	
+  	</select>
   
   </mapper>
   

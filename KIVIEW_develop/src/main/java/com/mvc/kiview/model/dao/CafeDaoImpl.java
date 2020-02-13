@@ -1,5 +1,6 @@
 package com.mvc.kiview.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -15,14 +16,23 @@ public class CafeDaoImpl implements CafeDao {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<CafeVo> selectAll() {
+	public List<CafeVo> selectAll(String id) {
 		
-		return null;
+		List<CafeVo> listres = new ArrayList<CafeVo>();
+	      try {
+	         listres = sqlSession.selectList(namespace+"cafe_selectlist",id);
+	         
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         System.out.println("cafelist list 오류!");
+	      }
+	         
+	      return listres;
 	}
 
 	@Override
 	public int cafe_insert(CafeVo vo) {
-		System.out.println(vo);
+
 		int res=0;
 		
 		try {
@@ -37,8 +47,18 @@ public class CafeDaoImpl implements CafeDao {
 
 	@Override
 	public List<CafeVo> cafe_my(String id) {
+		System.out.println(id);
+		List<CafeVo> list = new ArrayList();
 		
-		return null;
+		try {
+			list = sqlSession.selectList(namespace+"cafe_my", id);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("cafe_my 오류");
+		}
+		
+		return list;
 	}
 	
 	

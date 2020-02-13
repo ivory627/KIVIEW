@@ -24,13 +24,12 @@ a {
 	text-decoration: none;
 }
 
-.intro{
-  width        : 500px;     /* 너비는 변경될수 있습니다. */
-  text-overflow: ellipsis;  /* 위에 설정한 100px 보다 길면 말줄임표처럼 표시합니다. */
-  white-space  : nowrap;    /* 줄바꿈을 하지 않습니다. */
-  overflow     : hidden;    /* 내용이 길면 감춤니다 */
+.intro {
+	width: 500px; /* 너비는 변경될수 있습니다. */
+	text-overflow: ellipsis; /* 위에 설정한 100px 보다 길면 말줄임표처럼 표시합니다. */
+	white-space: nowrap; /* 줄바꿈을 하지 않습니다. */
+	overflow: hidden; /* 내용이 길면 감춤니다 */
 }
-
 </style>
 
 <script type="text/javascript">
@@ -78,52 +77,63 @@ a {
 					</h2>
 					<hr>
 					<p>admin 님이 가입한 카페 가입 목록입니다..</p>
-
-					<!-- 여기서부터 반복 -->
-					<div class="row">
-
-
-						<div class="col-md-12 course d-lg-flex ftco-animate"
-							style="padding: 30px; margin: 0px; padding-bottom: 0px;">
-							<div style="width: 25%; margin-right: 30px;">
-								<span><img style="width: 80%; height: 100%"
-									src='resources/images/bg_5.jpg' /></span>
-
-
-
-							</div>
-
-							<div style="width: 70%">
-								<h3 style="margin: 0px">
-									<label>" 서울유치원 카페 "</label>
-								</h3>
-								<p>
-									<span>관리자명</span> | <span>게시글 수</span> | <span>회원 수</span>
-
-								</p>
-								<p class="intro">Quisquam esse aliquam fuga distinctio, quidem delectus
-									veritatis reiciendis. Nihil explicabo quod, est eos ipsum. Unde
-									aut non tenetur tempore, nisi culpa voluptate maiores officiis
-									quis vel ab consectetur suscipit veritatis nulla quos quia
-									aspernatur perferendis, libero sint. Error, velit, porro.
-									Deserunt minus, quibusdam iste enim veniam, modi rem maiores.</p>
-
-
-							</div>
-
-						</div>
 						
-						<div style="padding: 0px; width: 100%;">
-							<br>
-							<input style="position: relative; left: 90%;"
-								class="btn btn-secondary" type="button" value="탈퇴">
-							<hr>
-						</div>
+						<!-- 여기서부터 반복 -->
+					<c:choose>
+						<c:when test="${empty list }">
+							<div class="row">
+								<label>가입한 카페가 없습니다.</label>
+
+							</div>
+						</c:when>
+						<c:otherwise>
+							
+							<div class="row">
 
 
-					</div>
+								<div class="col-md-12 course d-lg-flex ftco-animate"
+									style="padding: 30px; margin: 0px; padding-bottom: 0px;">
+									<div style="width: 25%; margin-right: 30px;">
+										<span><img style="width: 80%; height: 100%"
+											src='http://localhost:8787/img/thumb1.jpg' /></span>
+
+
+
+									</div>
+
+									<div style="width: 70%">
+										<h3 style="margin: 0px">
+											<label>" 서울유치원 카페 "</label>
+										</h3>
+										<p>
+											<span>관리자명</span> | <span>게시글 수</span> | <span>회원 수</span>
+
+										</p>
+										<p class="intro">Quisquam esse aliquam fuga distinctio,
+											quidem delectus veritatis reiciendis. Nihil explicabo quod,
+											est eos ipsum. Unde aut non tenetur tempore, nisi culpa
+											voluptate maiores officiis quis vel ab consectetur suscipit
+											veritatis nulla quos quia aspernatur perferendis, libero
+											sint. Error, velit, porro. Deserunt minus, quibusdam iste
+											enim veniam, modi rem maiores.</p>
+
+
+									</div>
+
+								</div>
+
+								<div style="padding: 0px; width: 100%;">
+									<br> <input style="position: relative; left: 90%;"
+										class="btn btn-secondary" type="button" value="탈퇴">
+									<hr>
+								</div>
+
+
+							</div>
+						</c:otherwise>
+						
+					</c:choose>
 					<!-- 여기까지 반복 -->
-
 
 
 

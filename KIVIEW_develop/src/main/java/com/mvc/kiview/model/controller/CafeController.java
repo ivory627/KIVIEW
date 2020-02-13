@@ -32,8 +32,9 @@ public class CafeController {
 	private CafeBiz biz ;
 
 	@RequestMapping("/cafehome.do")
-	public String cafe_home() {
-
+	public String cafe_home(Model model) {
+		String user = "admin";
+	      model.addAttribute("list",biz.selectAll(user));
 		return "cafe_home";
 	}
 
@@ -58,7 +59,7 @@ public class CafeController {
 		list = biz.cafe_my(id);
 		
 		model.addAttribute("list", list);
-		
+		System.out.println(list);
 		
 		return "cafe_my";
 		
@@ -85,8 +86,8 @@ public class CafeController {
 
 		MultipartFile thumb = uploadfile.getFile1(); // 업로드한 파일
 		MultipartFile background = uploadfile.getFile2(); // 업로드한 파일
-		String thumb_name = "thumb" + count1;
-		String bg_name = "bg" + count2;
+		String thumb_name = "thumb" + count1+ ".jpg";
+		String bg_name = "bg" + count2 +".jpg";
 
 		uploadFile file = new uploadFile();
 
@@ -118,7 +119,7 @@ public class CafeController {
 			while(newfile1.exists()) {
 				count1++;
 				System.out.println("이미지1 이름 중복 : " +count1);		
-				thumb_name = "thumb" + count1;
+				thumb_name = "thumb" + count1 + ".jpg";
 				newfile1 = new File(path + "/" + thumb_name);
 				
 				
@@ -140,7 +141,7 @@ public class CafeController {
 				count2++;
 				System.out.println("이미지2 이름 중복 : " +count2);		
 				bg_name = "bg" + count2;
-				newfile2 = new File(path + "/" + bg_name);
+				newfile2 = new File(path + "/" + bg_name+ ".jpg");
 				
 				if(!newfile2.exists()) {
 					newfile2.createNewFile();
