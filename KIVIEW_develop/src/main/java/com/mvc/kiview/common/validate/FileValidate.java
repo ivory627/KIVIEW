@@ -18,11 +18,17 @@ public class FileValidate implements Validator{
 
 	@Override
 	public void validate(Object uploadFile, Errors errors) {
-		FileUpload file = (FileUpload)uploadFile;
+		uploadFile file = (uploadFile)uploadFile;
 		
-		if(file.getFile().getSize()==0) {
-			errors.rejectValue("file", "errorCode", "파일을 선택해주세요.");
+		if(file.getFile1().getSize()==0) {
+			errors.rejectValue("file1", "errorCode", "파일을 선택해주세요.");
 		}
+		
+		if(file.getFile2().getSize()==0) {
+			errors.rejectValue("file2", "errorCode", "파일을 선택해주세요.");
+		}
+		
+		
 		
 	}
 	

@@ -8,4 +8,8 @@ public interface CafeDao {
 	String namespace = "cafe."; 
 	
 	public List<CafeVo> selectAll();
+	
+	public int cafe_insert(CafeVo vo);
+	
+	public List<CafeVo> cafe_my(String id);
 }
