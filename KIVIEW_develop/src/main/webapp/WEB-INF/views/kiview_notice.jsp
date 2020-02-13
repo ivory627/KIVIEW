@@ -25,7 +25,6 @@
 	<!-- @@ header 부분 @@ -->
 	<%@ include file="header.jsp"%>
 
-	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
 	<section class="hero-wrap hero-wrap-2"
 		style="background-image: url('resources/images/bg_2.jpg');">
 		<div class="overlay"></div>
@@ -46,6 +45,10 @@
 	</section>
 	<!-- @@ header 끝 @@ -->
 
+
+
+	<!--=================@@게시판 상단 select box + 검색 @@====================-->
+	
 	<div class="jsx-903324597 content">
 		<div class="jsx-3810764099 board-box">
 			<div class="jsx-1103591975 sidebar sidebar--kindergarten">
@@ -73,6 +76,7 @@
 			</div>
 			
 			<div class="jsx-2295643283 content-box">
+				
 				<div class="jsx-2864104005 board-title">
 					<h3 class="jsx-2864104005">공지사항</h3>
 					<ol class="jsx-1271347565 ">
@@ -81,6 +85,10 @@
 						<li class="jsx-1271347565">공지사항</li>
 					</ol>
 				</div>
+				
+				
+				<!--=================@@게시판 상단 select box + 검색 @@====================-->
+				
 				<div class="jsx-4261166144 select-wrap" >
 					<div class="jsx-4261166144 select-box">
 						<div class="jsx-4121141969 select">
@@ -92,13 +100,6 @@
 							        <option>공지사항</option>
 							  </select>
 						   </form>
-						   
-								<!-- <svg
-									xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-									viewBox="0 0 24 24" fill="none" stroke="#8f8f8f"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									style="position: absolute; right: 0; bottom: 8px">
-									<polyline points="6 9 12 15 18 9"></polyline></svg> -->
 							</div>
 						</div>
 					</div>
@@ -131,10 +132,13 @@
 					</div>
 
 				</div>
-
+				
+				
+				
 				<div class="jsx-723712822 sort-number">
 					<span class="jsx-723712822 total-number">총 3845개</span>
 				</div>
+				
 				<div class="jsx-1702879176 board-list-box">
 					<ul class="jsx-1702879176 list-header">
 						<li class="jsx-1702879176"><div class="jsx-1702879176"
@@ -145,23 +149,31 @@
 							<div class="jsx-1702879176" style="max-width: 100px;">등록일</div>
 							<div class="jsx-1702879176" style="max-width: 60px;">조회</div>
 					</ul>
+					
+					
+					<!--===========================@@ 공지사항 글 목록 @@========================-->
+					
+					<c:choose>
+					<c:when test="${!empty noticelist}">					
 					<ul class="jsx-1702879176 list-body">
+						
 						<li tabindex="0" class="jsx-1066086808 notice">
-						<div
-								class="jsx-1066086808 col-notice hide-on-mobile"
+						<div class="jsx-1066086808 col-notice hide-on-mobile"
 								style="max-width: 60px;">공지</div>
 							<div class="jsx-1066086808 col-category"
 								style="max-width: 120px;">수다</div>
 							<div class="jsx-1066086808 col-title" style="max-width: 344px;">
 								<a class="jsx-1066086808"
 									href="kiviewdetail.do"
-									style="max-width: 250px;"><span
-									class="jsx-1066086808 notice-badges">공지</span>[별별선생 이벤트] 선생님!
-									외않돼요? AMA 댓글놀이 이벤트 !</a><span
-									class="jsx-1066086808 comment-number hide-on-mobile">
-									[149]</span><span
-									class="jsx-1066086808 comment-number hide-on-desktop">149<span
-									class="jsx-1066086808">댓글</span></span>
+									style="max-width: 250px;">
+								<span class="jsx-1066086808 notice-badges">공지</span>[별별선생 이벤트] 선생님!
+									외않돼요? AMA 댓글놀이 이벤트 !
+								</a>
+								<span class="jsx-1066086808 comment-number hide-on-mobile">
+									[149]
+								</span>
+								<span class="jsx-1066086808 comment-number hide-on-desktop">149
+								<span class="jsx-1066086808">댓글</span></span>
 							</div>
 							<div class="jsx-1066086808 nickname" style="max-width: 100px;">별별이</div>
 							<div class="jsx-1066086808 col-created" style="max-width: 100px;">20.01.06</div>
@@ -174,16 +186,16 @@
 
 
 						<li tabindex="0" class="jsx-2214240288">
-						<div
-								class="jsx-2214240288 col-notice" style="max-width: 60px;">3845</div>
+						<div class="jsx-2214240288 col-notice" style="max-width: 60px;">3845</div>
 							<div class="jsx-2214240288 col-category"
 								style="max-width: 120px;">유치원</div>
 							<div class="jsx-2214240288 col-title" style="max-width: 344px;">
 								<a class="jsx-2214240288"
 									href="kiviewdetail.do"
-									style="max-width: 328px;">모든 선생님이 열정으로 일하시는게 보입니다</a><span
-									class="jsx-2214240288 comment-number hide-on-desktop">0<span
-									class="jsx-2214240288">댓글</span></span>
+									style="max-width: 328px;">모든 선생님이 열정으로 일하시는게 보입니다</a>
+								<span class="jsx-2214240288 comment-number hide-on-desktop">0
+								<span class="jsx-2214240288">댓글</span>
+								</span>
 							</div>
 							<div class="jsx-2214240288 col-nickname"
 								style="max-width: 100px;">헤이i</div>
@@ -196,8 +208,27 @@
 								style="max-width: 60px;"></div>
 						</li>
 					</ul>
+					</c:when>
+					<c:otherwise>
+						<ul class="jsx-1702879176 list-body">
+						<li tabindex="0" class="jsx-1066086808 notice" style = "position:relative; left:0%;">
+							<div class="jsx-1066086808 col-title" style="max-width: 344px;">
+								<table style="position:relative; left: 100%;">
+									<tr>
+										<td align="center" colspan="10">작성된 글이 없습니다.</td>
+									</tr>
+								</table>
+							</div>
+					</ul>
+					</c:otherwise>
+					</c:choose>
+					<!-- ---------@@ 글 목록 끝 @@--------- -->
+					
 				</div>
 
+
+				<!--======================== @@ 페이징 @@=========================-->
+				
 				<div class="jsx-1407906967 board-list-footer">
 					<ul class="jsx-3635512122 pagination pagination--kindergarten">
 						<li class="jsx-3635512122 prev disabled"><svg
@@ -230,7 +261,7 @@
 					<div
 						class="jsx-1407906967 btn-write btn-write--kindergarten fix-position">
 						<button class="jsx-1407906967"
-							onclick="location.href='kiview_notice_write.jsp'">글쓰기</button>
+							onclick="location.href='kiviewwrite.do'">글쓰기</button>
 					</div>
 				</div>
 			</div>

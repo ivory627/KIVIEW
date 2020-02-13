@@ -1,5 +1,69 @@
 package com.mvc.kiview.model.biz;
 
-public class NoticeBizImpl {
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mvc.kiview.model.dao.NoticeDao;
+import com.mvc.kiview.model.vo.FAQVo;
+import com.mvc.kiview.model.vo.NoticeVo;
+
+@Service
+public class NoticeBizImpl implements NoticeBiz{
+
+	@Autowired
+	private NoticeDao n_dao;
+	
+	
+	@Override
+	public List<NoticeVo> noticeList() {
+		return n_dao.noticeList();
+	}
+
+	@Override
+	public NoticeVo n_selectOne() {
+		return null;
+	}
+
+	@Override
+	public int notice_insert(NoticeVo n_vo) {
+		return 0;
+	}
+
+	@Override
+	public int notice_update(NoticeVo n_vo) {
+		return 0;
+	}
+
+	@Override
+	public int notice_delete(int notice_no) {
+		return 0;
+	}
+
+	@Override
+	public List<FAQVo> faqList() {
+		return null;
+	}
+
+	@Override
+	public FAQVo f_selectOne() {
+		return null;
+	}
+
+	@Override
+	public int faq_insert(FAQVo f_vo) {
+		return 0;
+	}
+
+	@Override
+	public int faq_update(FAQVo f_vo) {
+		return 0;
+	}
+
+	@Override
+	public int faq_delete(int faq_no) {
+		return 0;
+	}
 
 }

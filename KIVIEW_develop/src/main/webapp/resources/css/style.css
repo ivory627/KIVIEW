@@ -13011,7 +13011,7 @@ px
 	min-height: 532px;
 	flex: 1 1 auto;
 	padding: 0px 20px;
-	margin: 100px auto 64px;
+	margin: 32px auto 64px;
 }
 
 * {
@@ -13271,24 +13271,6 @@ li.jsx-1271347565::after {
 	margin: 0px 8px 0px 6px;
 }
 
-.content.jsx-903324597 {
-	box-sizing: border-box;
-	outline: none;
-	font-family: 'Noto Sans KR', sans-serif;
-	text-rendering: optimizeSpeed;
-	-webkit-font-smoothing: antialiased;
-	border: 0;
-	font-size: 100%;
-	color: #212121;
-	vertical-align: baseline;
-	position: relative;
-	width: 100%;
-	max-width: 1240px;
-	min-height: 532px;
-	flex: 1 1 auto;
-	padding: 0px 20px;
-	margin: 32px auto 64px;
-}
 
 .board-box.jsx-3810764099 {
 	box-sizing: border-box;
@@ -13621,7 +13603,11 @@ li.jsx-1066086808 {
 	align-items: center;
 	height: 42px;
 	border-bottom: 1px solid #ececec;
+	/* position, left 추가 */
+	position: relative;
+	left: 20px;
 }
+/* 변경 끝 */
 
 li.jsx-1066086808 div.jsx-1066086808 {
 	list-style: none;
@@ -13739,6 +13725,7 @@ li.jsx-1066086808 div.nickname.jsx-1066086808 {
 	max-width: 100px;
 }
 
+/* 공지사항 글 목록 위치 변경 20/02/12 승혜 */
 li.jsx-2214240288 {
 	list-style: none;
 	box-sizing: border-box;
@@ -13757,6 +13744,9 @@ li.jsx-2214240288 {
 	align-items: center;
 	height: 42px;
 	border-bottom: 1px solid #ececec;
+	/* css 추가 */
+	position:relative;
+	left: 20px;
 }
 
 li.jsx-2214240288 div.jsx-2214240288 {

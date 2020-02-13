@@ -18,6 +18,47 @@
 <%@ include file="head.jsp"%>
 <link rel="stylesheet" href="resources/css/modalintro.css">
 
+<style type="text/css">
+	.modal-content {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 0;
+  border-radius: 0.3rem;
+  outline: 0; }
+.modal-dialog.modal-fullsize {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-content.modal-fullsize {
+  height: auto;
+  min-height: 100%;
+  border-radius: 0;
+}
+h1{
+	font-size: 60px;
+    font-weight: 800;
+}
+
+
+
+</style>
+
+
+
+
 </head>
 
 <body id="body">
@@ -71,43 +112,69 @@
 						href="kiviewfaq.do">FAQ</a></li>
 				</ul>
 			</div>
-				<div class="col-md-6 course d-lg-flex ftco-animate"
-					style = "position:relative; right: 150px;" >
-					<div class="img" style="background-image: url(resources/images/course-1.jpg);"></div>
-						<div class="text bg-light p-4">
-							<h3><a style = "cursor:pointer;" onclick = 
-							"document.getElementById('id01').style.display='block'" 
-							class="w3-button w3-black">Arts Lesson</a></h3>
-							<p class="subheading"><span>Class time:</span> 9:00am - 10am</p>
-							<p>Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country</p>
-						</div>
+        		<div class="pricing-entry bg-light pb-4 text-center"
+        			style = "position:relative; right:25%; width:35%;">
+        			<!-- <div>
+	        			<h3 class="mb-3">Basic</h3>
+	        			<p><span class="price">$24.50</span> <span class="per">/ 5mos</span></p>
+	        		</div> -->
+	        		<div class="img" 
+	        			style="background-image: url(resources/images/bg_1.jpg); height: 100%;"></div>
+	        		<div class="px-4" style = "background:#fafafa;">
+	        			<p>유치원의 모든 리뷰 KIVIEW</p>
+	        			<br>
+	        			<p class="button text-center">
+	        			<a style = "cursor:pointer;" onclick = 
+							"document.getElementById('myFullsizeModal').style.display='block'" 
+							class="btn btn-primary px-4 py-3">눌러보세요!</a></p>
+        			</div>
+        		</div>
+        		
+         <div class="modal fade" id="myFullsizeModal" tabindex="-1" role="dialog" 
+         aria-labelledby="myFullsizeModalLabel" style = "display:none;">
+			  <div class="modal-dialog modal-fullsize" role="document">
+			    <div class="modal-content modal-fullsize">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			        <span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel"></h4>
+			      </div>
+			      <div class="modal-body">
+			        <div class="jsx-2460799870 bar-layout">
+			        <h1>SEARCH</h1>
+					<p class="jsx-2460799870">
+						어떤 <span class="jsx-2460799870">유치원</span>을 찾으세요?
+					</p>
+					<div class="jsx-2460799870 search-box">
+					<div class="jsx-2460799870 search-bar">
+						<input type="text" class="search-bar" />
+						<span><img src="resources/images/main/search02.png"></span>
+					</div>
 				</div>
-				<div id="id01" class="w3-modal">
-						    <div class="w3-modal-content w3-animate-top w3-card-4">
-						      <header class="w3-container w3-teal"> 
-						        <span onclick="document.getElementById('id01').style.display='none'" 
-						        class="w3-button w3-display-topright">&times;</span>
-						        <h2>KIVIEW를 소개합니다!</h2>
-						      </header>
-						      <div class="w3-container">
-						      <br>
-						      </div>
-						    </div>
 				</div>
+			      </div>
+			      <!-- <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+			      </div> -->
+			    </div>
+			  </div>
+			</div>
+        		
 		</div>
 	</div>
-
-
 	<br>
 	<br>
 	<br>
+	<section style = "background:#fff;">
+		<div class="container">
+			<br><br><br><br><br><br><br><br>
+		</div>
+	</section>
+	
 
 
 	<!-- @@ footer 영역 @@ -->
 	<%@ include file="footer.jsp"%>
-
-
-
 
 	
 

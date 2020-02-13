@@ -95,6 +95,9 @@ $(function(){
 <div style="position: fixed; bottom: 35px; right: 35px; z-index: 1;">
 	<a href="#body"><img src="resources/images/main/up-arrow.png" /></a>
 </div>
+<div style="position: fixed; bottom: 130px; right: 35px; z-index: 1;">
+	<a href="#body"><img src="resources/images/main/chatbot.png" /></a>
+</div>
 
 
 
@@ -151,7 +154,7 @@ $(function(){
 				
 				
 				<li class="nav-item"><a href="index.do" class="nav-link pl-0">홈</a></li>
-				<li id="notice" class="nav-item"><a href="notice.do"
+				<li id="notice" class="nav-item"><a href="kiviewnotice.do"
 					class="nav-link">키뷰안내</a></li>
 				<li id="kinder" class="nav-item"><a href="kindersearch.do"
 					class="nav-link">유치원</a></li>
