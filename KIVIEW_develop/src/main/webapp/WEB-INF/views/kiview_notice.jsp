@@ -170,7 +170,7 @@
 								style="max-width: 120px;">${n_list.cat_detail}</div>
 							<div class="jsx-1066086808 col-title" style="max-width: 344px;">
 								<a class="jsx-1066086808"
-									href="kiviewdetail.do"
+									href="kiviewdetail.do?notice_no=${n_list.notice_no}"
 									style="max-width: 250px;">
 								<span class="jsx-1066086808 notice-badges"></span>
 									${n_list.notice_title}
