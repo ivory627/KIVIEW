@@ -99,7 +99,7 @@
 						</div>
 						<div class="jsx-738848916 btn-finish">
 							<button type="button" class="jsx-1357017423" 
-							onclick = "location.href='kiviewnotice.do'" style = "outline:none;">작성완료</button>
+							onclick = "kiviewnotice.do" style = "outline:none;">작성완료</button>
 						</div>
 					</div>
 				</div>

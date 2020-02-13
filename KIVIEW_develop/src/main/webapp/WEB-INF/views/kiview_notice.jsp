@@ -136,7 +136,13 @@
 				
 				
 				<div class="jsx-723712822 sort-number">
-					<span class="jsx-723712822 total-number">총 3845개</span>
+				
+				<c:set var="count" value="0"></c:set>
+				<c:forEach var = "n_list" items = "${noticelist}" varStatus = "status">
+				<c:set var="count" value="${noticelist.size()}"></c:set>
+				</c:forEach>
+				
+					<span class="jsx-723712822 total-number">총 ${count}개</span>
 				</div>
 				
 				<div class="jsx-1702879176 board-list-box">
@@ -154,38 +160,34 @@
 					<!--===========================@@ 공지사항 글 목록 @@========================-->
 					
 					<c:choose>
-					<c:when test="${!empty noticelist}">					
+					<c:when test="${!empty noticelist}">	
 					<ul class="jsx-1702879176 list-body">
-						
+					<c:forEach items="${noticelist}" var = "n_list">			
 						<li tabindex="0" class="jsx-1066086808 notice">
 						<div class="jsx-1066086808 col-notice hide-on-mobile"
-								style="max-width: 60px;">공지</div>
-							<div class="jsx-1066086808 col-category"
-								style="max-width: 120px;">수다</div>
+								style="max-width: 60px;">${n_list.notice_no}</div>
+							 <div class="jsx-1066086808 col-category"
+								style="max-width: 120px;">${n_list.cat_detail}</div>
 							<div class="jsx-1066086808 col-title" style="max-width: 344px;">
 								<a class="jsx-1066086808"
 									href="kiviewdetail.do"
 									style="max-width: 250px;">
-								<span class="jsx-1066086808 notice-badges">공지</span>[별별선생 이벤트] 선생님!
-									외않돼요? AMA 댓글놀이 이벤트 !
+								<span class="jsx-1066086808 notice-badges"></span>
+									${n_list.notice_title}
 								</a>
-								<span class="jsx-1066086808 comment-number hide-on-mobile">
-									[149]
-								</span>
-								<span class="jsx-1066086808 comment-number hide-on-desktop">149
-								<span class="jsx-1066086808">댓글</span></span>
 							</div>
-							<div class="jsx-1066086808 nickname" style="max-width: 100px;">별별이</div>
-							<div class="jsx-1066086808 col-created" style="max-width: 100px;">20.01.06</div>
+							<div class="jsx-1066086808 nickname" style="max-width: 100px;">
+							${n_list.notice_writer}</div>
+							<div class="jsx-1066086808 col-created" style="max-width: 100px;">
+							${n_list.notice_date}</div>
 							<div class="jsx-1066086808 read_count hide-on-mobile"
-								style="max-width: 60px;">2876</div>
+								style="max-width: 60px;">${n_list.notice_hit}</div>
 							<div class="jsx-1066086808 read_count hide-on-desktop"
-								style="max-width: 60px;">2876</div>
+								style="max-width: 60px;">${n_list.notice_hit}</div>
 							<div class="jsx-1066086808 like_count hide-on-desktop"
 								style="max-width: 60px;"></div></li>
-
-
-						<li tabindex="0" class="jsx-2214240288">
+								
+						<!-- <li tabindex="0" class="jsx-2214240288">
 						<div class="jsx-2214240288 col-notice" style="max-width: 60px;">3845</div>
 							<div class="jsx-2214240288 col-category"
 								style="max-width: 120px;">유치원</div>
@@ -206,7 +208,8 @@
 								style="max-width: 60px;"></div>
 							<div class="jsx-2214240288 like_count hide-on-desktop"
 								style="max-width: 60px;"></div>
-						</li>
+						</li> -->
+							</c:forEach>	
 					</ul>
 					</c:when>
 					<c:otherwise>

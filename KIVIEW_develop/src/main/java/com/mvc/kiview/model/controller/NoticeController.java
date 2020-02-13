@@ -23,6 +23,8 @@ public class NoticeController {
 		logger.info("NOTICE LIST");
 		model.addAttribute("noticelist", n_biz.noticeList());
 		
+		System.out.println("controller noticelist : "+model);
+		
 		return "kiview_notice";
 	}
 	
