@@ -35,7 +35,7 @@ public class CafeController {
 	public String cafe_home(Model model) {
 		int member_no = 1;
 	    model.addAttribute("list",biz.selectAll(member_no));
-		return "cafe_home";
+		return "cafe_home"; 
 	}
 
 	@RequestMapping("/cafeopen.do")
