@@ -65,6 +65,11 @@ public class MemberController {
 		return "kiview_signup";
 	}
 	
+	@RequestMapping("/kiviewidsearch.do")
+	public String kiview_idSearch() {
+		logger.info("idSearch");
+		return "index"; /* 수정 */
+	}
 	
 	
 	
