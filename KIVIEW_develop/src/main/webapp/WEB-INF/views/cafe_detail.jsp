@@ -74,11 +74,11 @@
 
 					<p > 
 						<img src="http://localhost:8787/img/${vo.background }" 
-						style="heigth:50%; width:50%; position:relative; left:20%"
+						style="heigth:50%; width:50%; position:relative; left:25%"
 						class="img-fluid">
 					</p>
 
-					<p style="position:relative; left:20%">${vo.intro }</p>
+					<p style="text-align:center">${vo.intro }</p>  
 
 					<br> <br>
 				</div>

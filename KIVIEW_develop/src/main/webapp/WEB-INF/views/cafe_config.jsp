@@ -21,17 +21,29 @@
 </style>
 <script>
 	$(function() {
+		
+		$("input[type=radio]").each(function(){
+			if($(this).val()=="${vo.restriction}"){
+				$(this).prop("checked",true)
+			}
+			
+			
+		})  
 
-		$("input[value='no']").on("click", function() {
-			$("#question").show();
-		})
-		$("input[value='yes']").on("click", function() {
-			$("#question").hide();
-		})
+		
 
 		$("#select").on("change", function() {
 
 			if ($("#select option:selected").text() == "기본 정보") {
+				
+				$("input[type=radio]").each(function(){
+					if($(this).val()=="${vo.restriction}"){
+						$(this).prop("checked",true)
+					}
+					
+					
+				})
+				
 
 				$("#basic").show();
 				$("#member").hide();
@@ -41,6 +53,8 @@
 				$("#basic").hide();
 				$("#member").hide();
 				$("#board").show();
+				$("#menuinsert_form").show();
+				$("#menuupdate_form").hide(); 
 			} else {
 			
 				$("#basic").hide();
@@ -50,6 +64,10 @@
 		})
 
 	})
+	
+	function cafemenuinsert(no){
+		alert(no);
+	}
 </script>
 </head>
 <body id = "body">
@@ -61,7 +79,7 @@
 
 	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('images/bg_2.jpg');">
+		style="background-image: url('resources/images/bg_2.jpg');">
 		<div class="overlay"></div>
 		<div class="container">
 			<div
@@ -115,30 +133,30 @@
 						</h2>
 						<hr>
 						<br>
-						<form action="#">
+						<form action="cafeupdate.do?cafe_no=${vo.cafe_no }">
 							<div class="form-group">
-								<label>카페명</label><br> <input name="title" type="text"
-									class="form-control" value="서울유치원 학부모 모임" readonly>
+								<label>카페명</label><br> <input name="title" type="text" size="60" 
+									class="form-control" value="${vo.title }" readonly>
 							</div>
 							<div class="form-group">
 								<label>대표 썸네일</label><br> <input type="file" value="파일 선택"
-									name="thumb" accpect="img/*">
+									name="thumb" value="http://localhost:8787/img/${vo.thumb }">
 							</div>
 							<div class="form-group">
 								<label>배경 이미지</label><br> <input type="file" value="파일 선택"
-									name="background" accpect="img/*">
+									name="background" value="http://localhost:8787/img/${vo.background }">
 							</div>
 
 							<div id="restriction" class="form-group">
-								<label>가입 방식</label><br> <input type="radio" value="yes"
+								<label>가입 방식</label><br> <input type="radio" value="y"
 									name="restriction" checked="true"> 바로 가입 <br> <input
-									type="radio" value="no" name="restriction"> 승인 후 가입
+									type="radio" value="n" name="restriction"> 승인 후 가입
 
 							</div>
 
-							<div id="question" class="form-group" style="display: none">
+							<div class="form-group">
 								<label>가입 질문</label><br> <input type="text" name="question"
-									size="60">
+									size="60" value="${vo.question }">
 
 
 							</div>
@@ -148,7 +166,7 @@
 							<div class="form-group">
 								<label>한줄 소개</label><br>
 								<textarea name="intro" id="" cols="30" rows="7"
-									class="form-control" placeholder="간단한 소개글을 입력하세요.">서울 유치원 학부모 모임 카페입니다 ㅎㅎ</textarea>
+									class="form-control" placeholder="간단한 소개글을 입력하세요.">${vo.intro }</textarea>
 							</div>
 							
 
@@ -182,34 +200,64 @@
 							<div class="col-lg-4 ftco-animate"
 								style="padding: 20px; overflow-y: scroll;">
 								<label style="position: relative; left: 35%">게시판 선택</label> <br>
-								<br>
+								 
 								<ul>
-									<li># 공지사항</li>
-									<li># 잡 담</li>
+									<li>게시판이 존재하지 않습니다.</li> 
+									<br> 
+									<li><a style="position:relative; left:27%"  
+									onclick="cafemenuinsert(${vo.cafe_no})">+&nbsp;게시판 추가하기</a></li>
+									
 								</ul>
 
 
 							</div>
-
-							<!-- 게시판 설정 -->
-							<div class="col-lg-4 ftco-animate"
+							
+							<!-- 게시판 추가 -->
+							<div id="menuinsert_form" class="col-lg-4 ftco-animate"
 								style="border-left: 1px solid lightgray; padding: 20px;">
+								<form id="menuinsert" action="menuinsert">
 								<div class="form-group">
-									<label>게시판명</label><br> <input type="text" size="60"
-										value="공지사항"><br> <br> 
+									<label>게시판명</label><br> <input type="text" size="60" name="name">
+									<br> <br> 
 
 
-									<label>글쓰기 권한</label><br> <input type="radio" value="yes"
-										name="restriction" checked="true">관리자
-									&nbsp;&nbsp;&nbsp; <input type="radio" value="no"
-										name="restriction">모 두 <br>
+									<label>글쓰기 권한</label><br> 
+									<input type="radio" value="y" name="authority" checked="true">관리자
+									&nbsp;&nbsp;&nbsp; 
+									<input type="radio" value="n" name="authority">모 두 <br>
 									<br>
 								</div>
 
 								<div class="form-group" style="position: relative; left: 85%">
-									<input type="submit" value="수정"
+									<input type="submit" onclick="menuinsert();" value="추가"  
 										class="btn btn-primary py-3 px-5">
 								</div>
+								</form>
+
+							</div>
+							
+
+							<!-- 게시판 설정 -->
+							<div id="menuupdate_form" class="col-lg-4 ftco-animate"
+								style="border-left: 1px solid lightgray; padding: 20px; display:none"> 
+								<form action="menuupdate">
+								<div class="form-group">
+									<label>게시판명</label><br> <input type="text" size="60" name="name">
+									<br> <br> 
+
+
+									<label>글쓰기 권한</label><br> 
+									<input type="radio" value="y" name="authority" checked="true">관리자
+									&nbsp;&nbsp;&nbsp; 
+									<input type="radio" value="n" name="authority">모 두 <br>
+									<br>
+								</div>
+
+								<div class="form-group" style="position: relative; left: 85%">
+									<input type="submit" value="수정"  
+										class="btn btn-primary py-3 px-5">
+								</div>
+								</form>
 
 
 							</div>
