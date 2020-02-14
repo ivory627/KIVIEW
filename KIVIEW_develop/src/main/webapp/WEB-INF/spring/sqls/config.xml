@@ -16,6 +16,7 @@
 		<typeAlias type="com.mvc.kiview.model.vo.CafeCategoryVo" alias="CafeCategoryVo"/>
 		<typeAlias type="com.mvc.kiview.model.vo.CafeMenuVo" alias="CafeMenuVo"/>
 		<typeAlias type="com.mvc.kiview.model.vo.CafeReplyVo" alias="CafeReplyVo"/>
+		<typeAlias type="com.mvc.kiview.model.vo.CafeMemberVo" alias="CafeMemberVo"/>
 		
 		<!-- 공지사항 -->
 		<typeAlias type="com.mvc.kiview.model.vo.NoticeVo" alias="NoticeVo"/>

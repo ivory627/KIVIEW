@@ -89,13 +89,13 @@ textarea{
 						
 						
 						<table style="border:0px" > 
-						<a style="color:blue"><span class="icon-person"></span>user1</a>
+						<a style="color:blue"><span class="icon-person"></span>${vo.admin }</a>
 						<tr><th>회원수</th><td>48명</td></tr>  
 						<tr><th>게시글</th><td>2341개</td></tr>
 						</table>
-						<a href="cafe_config.jsp"># 카페 관리</a>
+						<a href="cafeconfig.do?cafe_no=${vo.cafe_no }"># 카페 관리</a>
 						<br><br>
-						<p class="mb-0" align=center><a href="cafe_join.jsp" class="btn btn-secondary" style="width:100%; border-radius:0px;" >카페 가입하기 </a></p>
+						<p class="mb-0" align=center><a href="cafejoin.do?cafe_no=${vo.cafe_no }" class="btn btn-secondary" style="width:100%; border-radius:0px;" >카페 가입하기 </a></p>
 						     
 						      
 					</div>
@@ -112,7 +112,7 @@ textarea{
 							
 							</ul>
 							
-							<a id="myBtn" style="cursor:pointer">+ 게시판 추가하기</a>
+							
 
 					</div>
 </body>

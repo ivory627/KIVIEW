@@ -15,9 +15,23 @@ public class CafeBizImpl implements CafeBiz{
 	private CafeDao dao;
 	
 	@Override
-	public List<CafeVo> selectAll() {
-		// TODO Auto-generated method stub
-		return dao.selectAll();
+	public List<CafeVo> selectAll(int member_no) {
+		
+		return dao.selectAll(member_no);
 	}
+
+	@Override
+	public int cafe_insert(CafeVo vo) {
+		
+		return dao.cafe_insert(vo);
+	}
+
+	@Override
+	public CafeVo cafe_selectone(int cafe_no) {
+		
+		return dao.cafe_selectone(cafe_no);
+	}
+
+	
 
 }

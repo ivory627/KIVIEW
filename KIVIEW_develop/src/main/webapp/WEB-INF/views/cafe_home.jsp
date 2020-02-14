@@ -5,6 +5,7 @@
 <%response.setContentType("text/html; charset=UTF-8");%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 
 <!DOCTYPE html>
@@ -22,9 +23,7 @@ a {
 </style>
 
 <script type="text/javascript">
-function search(){
-	location.href="cafe_search.jsp"
-}
+
 </script>
 
 </head>
@@ -37,7 +36,7 @@ function search(){
 
 	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('images/bg_2.jpg');">
+		style="background-image: url('resources/images/bg_2.jpg');">
 		<div class="overlay"></div>
 		<div class="container">
 			<div
@@ -61,14 +60,15 @@ function search(){
 			<div class="row">
 
 				<!-- 카페 홈 소개 -->
-				<div class="col-lg-8 ftco-animate"> 
+				<div class="col-lg-8 ftco-animate">
+					<a href="cafehome.do"> 
 					<h2 class="mb-3" style = "font-weight:bold; color:#FFDC00;">
-					<span><img src = "images/main/chat.png"/></span>&nbsp;&nbsp;
-					<span style = "color:#9BDAF2;">Kiview</span> Cafe</h2>
+					<span><img src = "resources/images/main/chat.png"/></span>&nbsp;&nbsp;
+					<span style = "color:#9BDAF2;">Kiview</span> Cafe</h2></a>
 					<hr>
 					<p>키뷰 안에서 카페를 만들고 새로운 커뮤니티를 만들어보세요. 키뷰에서는 누구든지 카페를 개설할 수 있고 키뷰 회원들과 친목을 도모할 수 있습니다. </p>
 					<p>
-						<img src="images/image_2.jpg" alt="" class="img-fluid">
+						<img src="resources/images/image_2.jpg" alt="" class="img-fluid">
 					</p>
 					
 					<p>Quisquam esse aliquam fuga distinctio, quidem delectus
@@ -88,7 +88,7 @@ function search(){
 						<h3>카페 찾기</h3>
 						<form action="#" class="search-form" style="padding:0px">
 							<div class="form-group"  >
-								<span class="icon icon-search" style="cursor:pointer" onclick="search()"></span> <input type="text"
+								<span class="icon icon-search" style="cursor:pointer" onclick="location.href='cafesearch.do'"></span> <input type="text"
 									class="form-control" placeholder="카페명을 입력해주세요." >
 							</div>
 						</form>
@@ -101,7 +101,7 @@ function search(){
 						<h3>Popular Cafe</h3>
 						<div class="block-21 mb-4 d-flex">
 							<a class="blog-img mr-4"
-								style="background-image: url(images/image_1.jpg);"></a>
+								style="background-image: url(resources/images/image_1.jpg);"></a>
 							<div class="text">
 								<h3 class="heading">
 									<a href="#">Even the all-powerful Pointing has no control
@@ -122,7 +122,7 @@ function search(){
 							</div>
 						</div>
 					<p class="mb-0">
-						<a href="cafe_open.jsp" class="btn btn-secondary" style="width:300px">카페 개설하기 </a>
+						<a href="cafeopen.do" class="btn btn-secondary" style="width:300px">카페 개설하기 </a>
 					</p>
 					</div>
 				</div>
@@ -130,64 +130,118 @@ function search(){
 
 
 			<!-- 카페 리스트 단위 -->
-			<span><h3 style="display: inline">가입한 카페</h3>(1)<!-- 카페 수 --></span>
-			<!-- **20/02/07 내 카페 관리 버튼형식으로 변경  -->
-			<span><a href="cafe_open.jsp" class="btn btn-secondary2" 
-			style="width:160px; position: relative; left: 77%;">내 카페 관리</a></span>
-			<hr style="margin-top: 5px;">
-
-			<div class="row">
-				<div class="col-md-6 col-lg-4 ftco-animate">
-					<div class="blog-entry">
-						<!-- 썸네일 -->
-						<a href="cafe_detail.jsp" class="block-20 d-flex align-items-end"
-							style="background-image: url('images/image_1.jpg');"> <!-- 가입제한 -->
-							<div class="meta-date text-center p-2">
-								<span class="mos">바로가입</span>
-							</div>
-						</a>
-						<div class="text bg-white p-4">
-							<!-- 카페명 -->
-							<h3 class="heading">
-								<a href="cafe_detail.jsp">서울유치원 학부모 모임</a>
-							</h3>
-
-							<!-- 카페소개 -->
-							<p>서울 유치원 학부모 모임입니다.</p>
-							<div class="d-flex align-items-center mt-4">
-								<p class="mb-0">
-									<a href="cafe_detail.jsp" class="btn btn-secondary">들어가기 <span
-										class="ion-ios-arrow-round-forward"></span></a>
-								</p>
-								<p class="ml-auto mb-0">
-									<!-- 카페장 -->
-									<a href="#" class="mr-2">user</a>
-									<!-- 카페 회원 수 -->
-									<a href="#" class="meta-chat">1 /50</a>
-								</p>
-							</div>
-						</div>
-					</div>
-					<br>
-				</div>
-
-
+         <span><h3 style="display: inline">가입한 카페</h3>&nbsp;[${fn:length(list)}]<!-- 카페 수 --></span>
+         <!-- **20/02/07 내 카페 관리 버튼형식으로 변경  -->
+         <span><a href="cafemy.do" class="btn btn-secondary2" 
+         style="width:160px; position: relative; left: 77%;">내 카페 관리</a></span>
+         <hr style="margin-top: 5px;">
+         
+         <div class="row"> 
+         <c:choose>
+         <c:when test="${empty list }">
+         	 
+         	 	
+         	 	<div class="col-md-6 col-lg-4 ftco-animate" style="position:relative; left:40%"> 
+         	 		<br><br>
+         	 		가입한 카페가 없습니다.
+         	 		<br><br>
+         	 	</div>
+         	
+         </c:when>
+         
+         
+         <c:otherwise>
+         <c:forEach var="list" items="${list }" begin="0" end="5">
+         	
+          
+            
+            
+                     <div class="col-md-6 col-lg-4 ftco-animate">
+                        <div class="blog-entry">
+                           <!-- 썸네일 -->
+                           <a href="cafedetail.do?cafe_no=${list.cafe_no }" class="block-20 d-flex align-items-end" 
+                           style="background-image: url('http://localhost:8787/img/${list.thumb }');"> 
+                              <!-- 가입제한 -->
+                              <div class="meta-date text-center p-2">
+                                 <span class="mos">
+                                 
+                                    <c:if test="${list.restriction eq 'y'}">                           
+                                       바로가입                           
+                                    </c:if>
+                                    <c:if test="${list.restriction eq 'n'}">
+                                       승인후 가입
+                                    </c:if>
+                                  
+                                 </span>
+                              </div>
+                           </a>
+                           
+                           <div class="text bg-white p-4">
+                              <!-- 카페명 -->
+                              <h3 class="heading">
+                                 <a href="cafe_detail.jsp">${list.title }</a>
+                              </h3>
+         
+                              <!-- 카페소개 -->
+                              <p>${list.intro }</p>
+                              <div class="d-flex align-items-center mt-4">
+                                 <p class="mb-0">
+                                    <a href="cafedetail.do?cafe_no=${list.cafe_no }" class="btn btn-secondary">들어가기 <span
+                                       class="ion-ios-arrow-round-forward"></span></a>
+                                 </p>
+                                 <p class="ml-auto mb-0">
+                                    <!-- 카페장 -->
+                                    <a href="#" class="mr-2">${list.admin }</a>
+                                    <!-- 카페 회원 수 -->
+                                    <a href="#" class="meta-chat">1 /50</a>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                        <br>
+                     </div>
+            
+            
+            
+           
+            
+        
+         
+        
+          </c:forEach>
+          
+         </c:otherwise>
+        </c:choose>
+        
+        </div>
+        
+        	<!-- list size가 6개 이상일 경우 더보기 버튼 -->
+        	<c:if test="${fn:length(list) < 5}">
+          	 
+          	<div>
+				<span><a href="cafemy.do" class="btn btn-secondary2" 
+         style="width:25%; position: relative; left: 40%;">더 보기</a></span> 
 			</div>
+			
+			</c:if>
+				<br><br>
+          	
+         
+         
 
 			<!-- 카페 리스트 단위 -->
-			<span><h3 style="display: inline">운영중 카페</h3>(1)<!-- 카페 수 --></span>
-			<!-- **20/02/07 내 카페 관리 버튼형식으로 변경  -->
-			<span><a href="cafe_open.jsp" class="btn btn-secondary2" 
-			style="width:160px; position: relative; left: 77%;">내 카페 관리</a></span>
-			<!-- <span style="position: relative; left: 78%"><a href="#">내 카페 관리</a></span> -->
-			<hr style="margin-top: 5px;">
+			<span><h3 style="display: inline">운영중 카페</h3></span>
+			
+			
+			
+			<hr style="margin-top: 5px;">   
 
 			<div class="row">
 				<div class="col-md-6 col-lg-4 ftco-animate">
 					<div class="blog-entry">
 						<!-- 썸네일 -->
 						<a href="cafe_detail.jsp" class="block-20 d-flex align-items-end"
-							style="background-image: url('images/image_1.jpg');"> <!-- 가입제한 -->
+							style="background-image: url('resources/images/image_1.jpg');"> <!-- 가입제한 -->
 							<div class="meta-date text-center p-2">
 								<span class="mos">바로가입</span>
 							</div>
@@ -195,7 +249,7 @@ function search(){
 						<div class="text bg-white p-4">
 							<!-- 카페명 -->
 							<h3 class="heading">
-								<a href="cafe_detail.jsp">서울유치원 학부모 모임</a>
+								<a href="cafedetail.do">서울유치원 학부모 모임</a>
 							</h3>
 
 							<!-- 카페소개 -->
@@ -216,13 +270,14 @@ function search(){
 					</div>
 				</div>
 				<br>
+				
 			</div>
 
 
 		</div>
 
 
-
+	 </div>
 	</section>
 
 
