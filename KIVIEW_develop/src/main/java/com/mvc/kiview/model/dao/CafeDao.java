@@ -11,5 +11,7 @@ public interface CafeDao {
 	
 	public int cafe_insert(CafeVo vo);
 	
+	public CafeVo cafe_selectone(int cafe_no);
+	
 	
 }

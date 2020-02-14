@@ -66,17 +66,19 @@
 				<!-- 카페 홈  -->
 
 				<div class="col-lg-8 ftco-animate"
-					style="padding: 25px; margin-left: 0px; background-color: white; border: 1px solid lightgray;">
+					style="padding: 25px; margin-left: 0px; background-color: white; border: 1px solid lightgray ; "> 
 					<h2 class="mb-3">
-						<b># 서울유치원 학부모 모임</b>
+						<b># ${vo.title }</b>
 					</h2>
 					<hr>
 
-					<p>
-						<img src="images/image_2.jpg" alt="" class="img-fluid">
+					<p > 
+						<img src="http://localhost:8787/img/${vo.background }" 
+						style="heigth:50%; width:50%; position:relative; left:20%"
+						class="img-fluid">
 					</p>
 
-					<p>서울유치원 학부모 모입 카페입니다. 많이 이용해주세요 ㅎㅎ</p>
+					<p style="position:relative; left:20%">${vo.intro }</p>
 
 					<br> <br>
 				</div>

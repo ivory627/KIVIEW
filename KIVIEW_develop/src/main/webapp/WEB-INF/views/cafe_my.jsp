@@ -93,8 +93,9 @@ a {
 								<div class="col-md-12 course d-lg-flex ftco-animate"
 									style="padding: 30px; margin: 0px; padding-bottom: 0px;">
 									<div style="width: 25%; margin-right: 30px;">
+										<a href="cafedetail.do?cafe_no=${vo.cafe_no }">
 										<span><img style="width: 80%; height: 100%"
-											src='http://localhost:8787/img/${vo.thumb }' /></span>
+											src='http://localhost:8787/img/${vo.thumb }' /></span></a>
 
 
 
@@ -102,7 +103,7 @@ a {
 
 									<div style="width: 70%">
 										<h3 style="margin: 0px">
-											<a href="cafedetail.do?cafe_no=${vo.cafe_no }"><label>" ${vo.title } "</label></a>
+											<a href="cafedetail.do?cafe_no=${vo.cafe_no }" style="cursor:pointer">" ${vo.title } "</a>
 										</h3>
 										<p>
 											<span>${vo.admin }</span> | <span>게시글 수</span> | <span>회원 수</span>

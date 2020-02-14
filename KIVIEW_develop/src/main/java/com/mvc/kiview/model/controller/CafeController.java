@@ -65,6 +65,15 @@ public class CafeController {
 		
 	}
 	
+	@RequestMapping("/cafedetail.do")
+	public String cafe_detail(Model model, int cafe_no) {
+		CafeVo vo = biz.cafe_selectone(cafe_no);
+		
+		model.addAttribute("vo",vo);
+			
+		return "cafe_detail";
+	}
+	
 	@Autowired
 	private FileValidate filevalidate;
 

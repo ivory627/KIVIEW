@@ -25,7 +25,7 @@ public class CafeDaoImpl implements CafeDao {
 	    	 
 	    	 
 	         res = sqlSession.selectList(namespace+"cafe_selectlist",no);
-	         System.out.println(res);
+	         
 	      }catch(Exception e) {
 	         e.printStackTrace();
 	         System.out.println("cafelist list 오류!");
@@ -47,6 +47,27 @@ public class CafeDaoImpl implements CafeDao {
 		}
 		
 		return res;
+	}
+
+	@Override
+	public CafeVo cafe_selectone(int cafe_no) {
+		
+		CafeVo vo = new CafeVo();
+		
+		try {
+			
+			vo = sqlSession.selectOne(namespace+"cafe_selectone", cafe_no);
+			System.out.println(vo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("cafeselectone 오류");
+		} 
+		
+		
+		
+		
+		return vo;
 	}
 
 	

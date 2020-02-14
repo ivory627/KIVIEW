@@ -26,6 +26,12 @@ public class CafeBizImpl implements CafeBiz{
 		return dao.cafe_insert(vo);
 	}
 
+	@Override
+	public CafeVo cafe_selectone(int cafe_no) {
+		
+		return dao.cafe_selectone(cafe_no);
+	}
+
 	
 
 }

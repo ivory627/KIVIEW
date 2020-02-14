@@ -24,6 +24,13 @@
   	
   	</select>
   	
+  	<select id="cafe_selectone" parameterType="int" resultType="CafeVo">
+  		SELECT *
+  		FROM CAFE
+  		WHERE CAFE_NO = #{cafe_no}
+  	
+  	</select>
+  	
   	
   
   </mapper>
