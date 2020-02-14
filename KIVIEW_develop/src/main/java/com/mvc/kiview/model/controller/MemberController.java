@@ -66,5 +66,9 @@ public class MemberController {
 	 * @ResponseBody public String kiview_idSearch(@RequestBody MemberVo vo) {
 	 * logger.info("idSearch"); MemberVo res = biz.idSearch(vo); return null; 수정 }
 	 */
+	
+	
+	
+	
 
 }
