@@ -9,7 +9,7 @@
 <script type="text/javascript">
 
 window.onload = function(){
-	location.href="index.do"
+	location.href="index.do";
 }
 
 
@@ -17,5 +17,15 @@ window.onload = function(){
 </head>
 <body>
 
+
+
+
+
+
+
 </body>
 </html>
+
+
+
+
