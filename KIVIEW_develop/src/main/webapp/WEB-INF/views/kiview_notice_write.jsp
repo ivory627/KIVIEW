@@ -16,18 +16,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-	<script type="text/javascript" src = "/marteditor/js/HuskyEZCreator.js" charset = "utf-8"></script>
-	<link rel="stylesheet" href="resources/css/notice_write.css">
-	<%@ include file = "head.jsp" %>
-	
+<link rel="stylesheet" href="resources/css/notice_write.css">
+<%@ include file = "head.jsp" %>
+
+<!-- SmartEditor2 라이브러리  -->
+<script type="text/javascript" src="se2/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
 
 </head>
 <body>
 
-	<!-- @@ header 부분 @@ -->
+	<!-- header 부분 -->
 	<%@ include file="header.jsp"%>
 
-	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
 	<section class="hero-wrap hero-wrap-2"
 		style="background-image: url('resources/images/bg_2.jpg');">
 		<div class="overlay"></div>
@@ -49,7 +51,7 @@
 	</section>
     
 	
-	<form action="">
+	
 	<div class="jsx-903324597 content">
 		<div class="jsx-3810764099 board-box">
 			<div class="jsx-738848916 content-box">
@@ -63,81 +65,100 @@
 							<li class="jsx-1271347565">공지사항</li>
 						</ol>
 					</div>
+					
+					<!-- 제목/작성자/내용/분류 카테고리 넘기기  -->
+					<form action="writeRes.do" method = "post" id = "noticeWriteForm">
 					<div class="jsx-4261166144 select-wrap">
 					<div class="jsx-4261166144 select-box">
 						<div class="jsx-4121141969 select">
 							<div class="jsx-4121141969 choice">
-							<form action="#" class="appointment-form ftco-animate fadeInUp ftco-animated">
-							  <select class="form-control-sm2" style="cursor:pointer;">
-		          				<option selected>분류 전체</option>
+							  <select class="form-control-sm2" name = "catd" style="cursor:pointer;">
+		          					<option>분류 전체</option>
 							        <option>공지사항</option>
 							  </select>
-						   </form>
 							</div>
 						</div>
 					</div>
-					&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
 					<br>
 					<div class="jsx-741803006 input-box">
 						<div class="jsx-639067573 input">
-							<input title="제목 입력" placeholder="제목을 입력해 주세요."
+							<input type = "text" name = "title" placeholder="제목을 입력해 주세요."
 								class="jsx-639067573 " value="" 
 								style = "background-color:#fff; color: black;">
 						</div>
 					</div>
 					<br>
 					
+					<!-- SmartEditor2  -->
 					<div class="jsx-2303464893 editor">
 						<div class="fr-box fr-basic fr-top" role="application">
-							<div class="fr-toolbar fr-desktop fr-top fr-basic">
-							<div class="fr-newline"></div>
-							</div>
-							
-							<div class="fr-wrapper show-placeholder" dir="auto" style = "overflow: scroll;">
-								<textarea rows = "30" cols = "150" class="fr-element fr-view" dir="auto"
-									contenteditable="true" 
-									style="min-height: 200px; overflow: scroll;"
-									aria-disabled="false" spellcheck="true">
-								</textarea>
-							</div>
-							
-							<div class="second-toolbar">
-								<span class="fr-counter" style="bottom: 1px; margin-right: 2px;">Characters
-									: 0</span>
+							<div class="fr-wrapper show-placeholder" dir="auto" 
+							style = "overflow: scroll;">
+								<textarea name="content" id="smartEditor"
+								style="width:100%; height:412px;"></textarea>
 							</div>
 						</div>
 					</div>
 					
-					
-					
+					<!-- 글쓰기 취소/작성완료 -->
 					<div class="jsx-738848916 btn-box">
 						<div class="jsx-738848916 btn-cancel">
 							<button type="button" class="jsx-462732305" 
 							onclick = "location.href='kiviewnotice.do'" style = "outline:none;">취소</button>
 						</div>
 						<div class="jsx-738848916 btn-finish">
-							<button type="button" class="jsx-1357017423" 
-							onclick = "kiviewnotice.do" style = "outline:none;">작성완료</button>
+							<button type="submit" class="jsx-1357017423" 
+							style = "outline:none;" id = "savebutton">작성완료</button>
 						</div>
 					</div>
+					</form>
+					
 				</div>
 			</div>
 		</div>
 	</div>
-	</form>
 	
-	<!-- **20/02/07 공지사항 글쓰기 section footer랑 띄우기** -->
-		<section style = "background:#fff;">
+	<!-- footer 사이 띄우기  -->
+	<section style = "background:#fff;">
 			<div class="container">
 				<br><br><br><br>
 			</div>
-		</section>
+    </section>
 	
 	<%@ include file = "footer.jsp" %>
-
-	
 
 
 </body>
 </html>
+	
+	<!-- SmartEditor2 -->
+	<script type="text/javascript">
+		$(function(){
+			
+		var oEditors = [];
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef: oEditors,
+			elPlaceHolder: "smartEditor",
+			sSkinURI: "se2/SmartEditor2Skin.html",
+			fCreator: "createSEditor2",
+			htParams : {
+				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseToolbar : true,      
+				
+				// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseVerticalResizer : true,     
+			
+				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseModeChanger : true,
+			}
+		});
+		//전송버튼
+	    $("#savebutton").click(function(){
+	        //id가 smarteditor인 textarea에 에디터에서 대입
+	        obj.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);
+	        //폼 submit
+	        $("#noticeWriteForm").submit();
+	    });
+		});
+	</script>

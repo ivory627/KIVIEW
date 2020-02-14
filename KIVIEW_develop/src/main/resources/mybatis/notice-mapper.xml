@@ -21,4 +21,8 @@
   		SELECT * FROM NOTICE
   		WHERE NOTICE_NO = #{notice_no}
   	</select>
+  	<insert id="noticeInsert" parameterType="noticeVo">
+  		INSERT INTO NOTICE VALUES(NOTICE_SEQ.NEXTVAL, #{cat_detail}, #{notice_title}, 
+  		#{notice_content}, #{notice_writer}, TO_DATE(SYSDATE,'YY/MM/DD'), 0);
+  	</insert>
   </mapper>

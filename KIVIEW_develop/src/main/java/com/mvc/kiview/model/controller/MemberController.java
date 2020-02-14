@@ -47,6 +47,14 @@ public class MemberController {
 
 		return map;
 	}
+	
+	@RequestMapping("/kiviewlogout.do")
+	public String kiview_logout(HttpSession session) {
+		logger.info("loginout");
+		session.invalidate();
+		
+		return "index";
+	}
 
 	@RequestMapping("/kiviewsignupoption.do")
 	public String kiview_signupOption() {
