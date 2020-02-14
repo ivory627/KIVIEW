@@ -172,9 +172,10 @@ form select {
 				<div class="col-md-9 ftco-animate text-center">
 					<h1 class="mb-2 bread">리뷰 게시판</h1>
 					<p class="breadcrumbs">
-						<span class="mr-2"><a href="index.jsp">홈
+						<span class="mr-2"><a href="index.do">홈
 						 <i class="ion-ios-arrow-forward"></i></a></span> 
-						 <span class="mr-2"><a href="kiview_reviewboard.jsp">리뷰 게시판 
+						 <span class="mr-2"><a href=".do">리뷰 게시판
+						 <!-- 나중에 리뷰 게시판 부분에 보내고 싶은 jsp 보내기 -->
 						 <i class="ion-ios-arrow-forward"></i></a></span>
 					</p>
 				</div>
