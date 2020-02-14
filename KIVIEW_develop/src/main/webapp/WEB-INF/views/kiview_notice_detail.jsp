@@ -22,9 +22,34 @@
 			location.href = "kiviewnotice.do";
 		});
 	});
-
-
 </script>
+<style type="text/css">
+
+#writebtn{
+box-sizing: border-box;
+    outline: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    line-height: 42px;
+    border-radius: 26px;
+    color: #ffffff;
+    transition: background-color 0.3s;
+    background-color: #ff9d1f;
+    width: 120px;
+    min-width: 120px;
+    height: 42px;
+}
+
+</style>
 
 </head>
 
@@ -63,15 +88,11 @@
 				</h2>
 				<ul class="jsx-1103591975">
 					<li class="jsx-1103591975 active"><a class="jsx-1103591975"
-						href="kiview_notice.jsp">공지사항</a></li>
+						href="kiviewnotice.do">공지사항</a></li>
 					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="kiview_notice.jsp">키뷰 소개</a></li>
+						href="kiviewintro.do">키뷰 소개</a></li>
 					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="kiview_notice.jsp">FAQ</a></li>
-					<!-- <li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="/kindergarten/community/event/articles">이벤트</a></li>
-					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="/kindergarten/community/momtalk/articles">별별맘TALK</a></li> -->
+						href="kiviewfaq.do">FAQ</a></li>
 				</ul>
 			</div>
 
@@ -86,9 +107,11 @@
 								href="/kindergarten/community/talk/articles">공지사항</a></li>
 						</ol>
 					</div>
+					
+					
 					<div class="jsx-1115820773 board-header board-header--kindergarten">
 						<h4 class="jsx-1115820773">
-							<span class="jsx-1115820773 classfi-text">유치원</span>분위기는 좋았어요~
+							<span class="jsx-1115820773 classfi-text">공지사항</span>${noticedetail.notice_title}
 						</h4>
 						<div class="jsx-1115820773 header-info">
 							<div class="jsx-1115820773 avatar-box">
@@ -96,7 +119,7 @@
 									<div class="jsx-2646496749 circle"
 										style="background-image: url(&quot;https://d1ta1myjmiqbpz.cloudfront.net/static/images/default_image/default_user01_02@2x.png&quot;);"></div>
 								</div>
-								<span class="jsx-1115820773">슈사랑</span>
+								<span class="jsx-1115820773">${noticedetail.notice_writer}</span>
 							</div>
 							<div class="jsx-1115820773 info-box">
 								<span class="jsx-1115820773 info-view"><span
@@ -108,7 +131,7 @@
 										style="position: relative; margin-right: 2px; vertical-align: -2px;">
 										<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
 										<circle cx="12" cy="12" r="3"></circle></svg>
-										<span class="jsx-1115820773">5</span></span>
+										<span class="jsx-1115820773">${noticedetail.notice_hit}</span></span>
 										<span class="jsx-1115820773 division-line"></span>
 										<span class="jsx-1115820773 info-good">
 										<svg
@@ -122,42 +145,20 @@
 									class="jsx-1115820773 hide-on-mobile">추천</span> 
 									<span class="jsx-1115820773">0</span></span>
 									<span class="jsx-1115820773 division-line"></span>
-									<span class="jsx-1115820773 date">2020.02.08</span>
-									<span class="jsx-1115820773">00:14</span>
+									<span class="jsx-1115820773 date">${noticedetail.notice_date}</span>
 							</div>
 						</div>
 					</div>
-					<script type="application/ld+json">
-						{
-						"@context":"http://schema.org/",
-						"@type":"Article",
-						"url":"https://www.starteacher.co.kr/kindergarten/community/talk/articles/17208",
-						"name":"분위기는 좋았어요~",
-						"headline":"분위기는 좋았어요~",
-						"description":" 좀 더 가까운 곳이었으면 크게 걱정않고 보냈을거 같네요~ ",
-						"image":"https://www.starteacher.co.kr/static/images/opengraph/root.jpg",
-						"datePublished":"2020-02-07T15:14:00.000Z",
-						"dateModified":"2020-02-07T16:31:23.000Z",
-						"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.starteacher.co.kr/kindergarten"},
-						"publisher":{"@type":"Organization",
-						"url":"https://www.starteacher.co.kr",
-						"name":"별별선생",
-						"logo":{"@type":"ImageObject",
-						"url":"https://www.starteacher.co.kr/static/images/logo/lv1_logo_h_blue.png"}},
-						"author":{"@type":"Person",
-						"name":"슈사랑",
-						"image":"https://d1ta1myjmiqbpz.cloudfront.net/static/images/default_image/default_user01_01@2x.png"}}
-					</script>
 					
 					<div class="jsx-3826147658 content">
 						<div class="jsx-2567501591 editor">
 							<div class="fr-view">
-								<p>좀 더 가까운 곳이었으면 크게 걱정않고 보냈을거 같네요~</p>
+								<p>${noticedetail.notice_content}</p>
 							</div>
 						</div>
 					</div>
 					<div class="jsx-3826147658 content_tag">
-						<a class="jsx-3826147658" href="/kindergarten/institutes/124885">#다솜어린이집</a>
+						<a class="jsx-3826147658" href="kiviewnotice.do">#다솜어린이집</a>
 					</div>
 					<div class="jsx-2211599338 service">
 						<button type="button" class="jsx-2211599338 btn-view-list" 
@@ -216,71 +217,11 @@
 								<line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
 						</button>
 						<div class="jsx-2211599338 recommend-box">
-							<button type="button" class="jsx-693606843 button--voteup">
-								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-									viewBox="0 0 24 24" fill="none" stroke="#8f8f8f"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									style="position: relative; vertical-align: top;">
-									<path
-										d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
-								<span class="jsx-693606843 count">0</span>
-							</button>
-							<!-- <button type="button" class="jsx-3603054439 button--votedown">
-								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-									viewBox="0 0 24 24" fill="none" stroke="#8f8f8f"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									style="position: relative; vertical-align: top;">
-									<path
-										d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path></svg>
-								<span class="jsx-3603054439 count">0</span>
-							</button> -->
+							<button class="jsx-1407906967" id = "writebtn"
+							onclick="location.href='kiviewwrite.do'">수정하기</button>&nbsp;&nbsp;
+							<span><button class="jsx-1407906967" id = "writebtn"
+							onclick="location.href='kiviewwrite.do'">삭제하기</button></span>
 						</div>
-					</div>
-					<div class="jsx-804907584 comment">
-						<div
-							class="jsx-2454914335 comment-header comment-header--kindergarten">
-							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-								viewBox="0 0 24 24" fill="none" stroke="#8f8f8f"
-								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-								style="position: relative;">
-								<path
-									d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-							<span class="jsx-2454914335">댓글<span
-								class="jsx-2454914335 comment-total">0</span>개
-							</span>
-						</div>
-						<div class="jsx-4129687755 write-comment-box">
-							<div
-								class="jsx-2494789914 write-comment-wrap write-comment-wrap--kindergarten">
-								<div class="jsx-2494789914 write-comment">
-									<div class="jsx-2494789914 profile-box">
-										<div class="jsx-2494789914 profile">
-											<div class="jsx-4166975721 avatar">
-												<div class="jsx-4166975721 circle"
-													style="background-image: url(&quot;https://d1ta1myjmiqbpz.cloudfront.net/static/images/default_image/default_user01_08@2x.png&quot;);"></div>
-											</div>
-											<span class="jsx-2494789914">wooaoe</span>
-										</div>
-									</div>
-									<label class="jsx-2356580850 textarea">
-									<p class="jsx-2356580850 placeholder">주제와 무관한 댓글, 악플은 삭제 될 수 있습니다.</p>
-										<textarea class="jsx-2356580850 "></textarea></label>
-									<div class="jsx-2494789914 buttons">
-										<button class="jsx-2847781839 button--post" type="button">등록</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<button type="button"
-							class="jsx-804907584 hide-on-desktop btn-move-comment">
-							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-								viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)"
-								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-								style="position: relative; margin-right: 4px;">
-								<path
-									d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-							댓글쓰기
-						</button>
 					</div>
 				</div>
 			</div>

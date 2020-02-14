@@ -32,8 +32,18 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 	@Override
-	public NoticeVo n_selectOne() {
-		return null;
+	public NoticeVo n_selectOne(int notice_no) {
+
+		NoticeVo n_vo = null;
+
+		try {
+			n_vo = sqlSession.selectOne(namespace + "noticeDetail", notice_no);
+		} catch (Exception e) {
+			System.out.println("[error] : n_selectOne");
+			e.printStackTrace();
+		}
+
+		return n_vo;
 	}
 
 	@Override
@@ -57,7 +67,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 	@Override
-	public FAQVo f_selectOne() {
+	public FAQVo f_selectOne(int faq_no) {
 		return null;
 	}
 

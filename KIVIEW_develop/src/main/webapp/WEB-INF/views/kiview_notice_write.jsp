@@ -63,12 +63,31 @@
 							<li class="jsx-1271347565">공지사항</li>
 						</ol>
 					</div>
+					<div class="jsx-4261166144 select-wrap">
+					<div class="jsx-4261166144 select-box">
+						<div class="jsx-4121141969 select">
+							<div class="jsx-4121141969 choice">
+							<form action="#" class="appointment-form ftco-animate fadeInUp ftco-animated">
+							  <select class="form-control-sm2" style="cursor:pointer;">
+		          				<option selected>분류 전체</option>
+							        <option>공지사항</option>
+							  </select>
+						   </form>
+							</div>
+						</div>
+					</div>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					</div>
+					<br>
 					<div class="jsx-741803006 input-box">
 						<div class="jsx-639067573 input">
 							<input title="제목 입력" placeholder="제목을 입력해 주세요."
-								class="jsx-639067573 " value="" style = "background-color:#fff; color: black;">
+								class="jsx-639067573 " value="" 
+								style = "background-color:#fff; color: black;">
 						</div>
 					</div>
+					<br>
+					
 					<div class="jsx-2303464893 editor">
 						<div class="fr-box fr-basic fr-top" role="application">
 							<div class="fr-toolbar fr-desktop fr-top fr-basic">
@@ -99,7 +118,7 @@
 						</div>
 						<div class="jsx-738848916 btn-finish">
 							<button type="button" class="jsx-1357017423" 
-							onclick = "location.href='kiviewnotice.do'" style = "outline:none;">작성완료</button>
+							onclick = "kiviewnotice.do" style = "outline:none;">작성완료</button>
 						</div>
 					</div>
 				</div>

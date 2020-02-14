@@ -22,8 +22,8 @@ public class NoticeBizImpl implements NoticeBiz{
 	}
 
 	@Override
-	public NoticeVo n_selectOne() {
-		return null;
+	public NoticeVo n_selectOne(int notice_no) {
+		return n_dao.n_selectOne(notice_no);
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class NoticeBizImpl implements NoticeBiz{
 	}
 
 	@Override
-	public FAQVo f_selectOne() {
+	public FAQVo f_selectOne(int faq_no) {
 		return null;
 	}
 
