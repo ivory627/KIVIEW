@@ -48,7 +48,17 @@ public class NoticeDaoImpl implements NoticeDao {
 
 	@Override
 	public int notice_insert(NoticeVo n_vo) {
-		return 0;
+
+		int res = 0;
+
+		try {
+			res = sqlSession.insert(namespace + "noticeInsert", n_vo);
+		} catch (Exception e) {
+			System.out.println("[error] : notice_insert");
+			e.printStackTrace();
+		}
+
+		return res;
 	}
 
 	@Override

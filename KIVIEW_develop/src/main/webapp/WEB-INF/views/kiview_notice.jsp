@@ -9,6 +9,7 @@
 %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -208,7 +209,7 @@
 							<div class="jsx-2214240288 like_count hide-on-desktop"
 								style="max-width: 60px;"></div>
 						</li> --%>
-							</c:forEach>	
+					</c:forEach>	
 					</ul>
 					</c:when>
 					<c:otherwise>
@@ -260,11 +261,21 @@
 								<polyline points="6 17 11 12 6 7"></polyline></svg> <span
 							class="jsx-3635512122 alt-text">뒤로</span></li>
 					</ul>
+				
+					<c:set var = "admin_id" value = "${login.member_id}"></c:set>
+					<c:choose>
+					<c:when test="${fn:contains(admin_id, 'admin')}">
 					<div
 						class="jsx-1407906967 btn-write btn-write--kindergarten fix-position">
 						<button class="jsx-1407906967"
 							onclick="location.href='kiviewwrite.do'">글쓰기</button>
 					</div>
+					</c:when>
+					<c:otherwise>
+					<div class="jsx-1407906967 btn-write btn-write--kindergarten fix-position">
+					</div>
+					</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>

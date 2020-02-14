@@ -67,13 +67,13 @@
 					</div>
 					
 					<!-- 제목/작성자/내용/분류 카테고리 넘기기  -->
-					<form action="kiviewnotice.do" method = "post" id = "noticeWriteForm">
+					<form action="writeRes.do" method = "post" id = "noticeWriteForm">
 					<div class="jsx-4261166144 select-wrap">
 					<div class="jsx-4261166144 select-box">
 						<div class="jsx-4121141969 select">
 							<div class="jsx-4121141969 choice">
-							  <select class="form-control-sm2" style="cursor:pointer;">
-		          				<option selected>분류 전체</option>
+							  <select class="form-control-sm2" name = "catd" style="cursor:pointer;">
+		          					<option>분류 전체</option>
 							        <option>공지사항</option>
 							  </select>
 							</div>
@@ -83,7 +83,7 @@
 					<br>
 					<div class="jsx-741803006 input-box">
 						<div class="jsx-639067573 input">
-							<input title="제목 입력" placeholder="제목을 입력해 주세요."
+							<input type = "text" name = "title" placeholder="제목을 입력해 주세요."
 								class="jsx-639067573 " value="" 
 								style = "background-color:#fff; color: black;">
 						</div>
@@ -95,7 +95,7 @@
 						<div class="fr-box fr-basic fr-top" role="application">
 							<div class="fr-wrapper show-placeholder" dir="auto" 
 							style = "overflow: scroll;">
-								<textarea name="smartEditor" id="smartEditor"
+								<textarea name="content" id="smartEditor"
 								style="width:100%; height:412px;"></textarea>
 							</div>
 						</div>
@@ -108,7 +108,7 @@
 							onclick = "location.href='kiviewnotice.do'" style = "outline:none;">취소</button>
 						</div>
 						<div class="jsx-738848916 btn-finish">
-							<button type="button" class="jsx-1357017423" 
+							<button type="submit" class="jsx-1357017423" 
 							style = "outline:none;" id = "savebutton">작성완료</button>
 						</div>
 					</div>

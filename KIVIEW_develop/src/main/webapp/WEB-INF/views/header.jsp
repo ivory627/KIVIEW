@@ -8,8 +8,11 @@
 	response.setContentType("text/html; charset=UTF-8");
 %>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <script type="text/javascript">
 $(function(){
+	
 	
 	$("#notice").hover(function(){
 		$("#notice").children().css("color","#9BDAF2"); 
@@ -88,7 +91,6 @@ $(function(){
 		$("#my_sub").hide();
 	})
 	
-
 })
 </script>
 
@@ -158,12 +160,24 @@ $(function(){
 					class="nav-link">키뷰안내</a></li>
 				<li id="kinder" class="nav-item"><a href="kindersearch.do"
 					class="nav-link">유치원</a></li>
-				<li id="cafe" class="nav-item"><a href="cafehome.do" class="nav-link">키뷰카페</a></li>
+				<li id="cafe" class="nav-item"><a href="cafehome.do?member_no=${login.member_no }" class="nav-link">키뷰카페</a></li>
 				
-				<li id="my" class="nav-item"><a href="mypage.do"
+				<li id="my" class="nav-item"><a href="kiviewmypage.do"
 					class="nav-link">마이페이지</a></li>
+					
+				<!-- 스크립트 조건에 소메뉴를 사라지게 해놔서 c태그로 변경 
+					 로그인 되어 있을 때 로그아웃, 안되어있을 때 로그인 뜨도록
+				-->	
+				<c:choose>
+				<c:when test="${empty login}">
 					<li class="nav-item"><a href="kiviewlogin.do"
 					class="nav-link">로그인</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="nav-item"><a href="kiviewlogout.do"
+					class="nav-link">로그아웃</a></li>
+				</c:otherwise>
+				</c:choose>
 			</ul>
 		</div>
 	</div>
@@ -248,8 +262,8 @@ $(function(){
 			<!-- <ul class="navbar-nav ml-auto" >   -->
 				
 				
-				<li class="nav-item"><a href="cafehome.do"
-					class="nav-link">카페 홈</a></li>
+				<li class="nav-item"><a href="cafehome.do?member_no=${login.member_no }"
+					class="nav-link">카페 홈</a></li> 
 				<li class="nav-item"><a href="kiview_search.jsp"
 					class="nav-link">카페 관리</a></li>
 			</ul>
@@ -273,16 +287,16 @@ $(function(){
 		
 		<div class="collapse navbar-collapse" id="ftco-nav"> 
 
-			<ul class="navbar-nav" style="margin-left:800px" >    
+			<ul class="navbar-nav" style="margin-left:850px" >    
 			<!-- <ul class="navbar-nav ml-auto" >   --> 
 				
 				
-				<li class="nav-item"><a href="mypage.do"
+				<li class="nav-item"><a href=" kiviewmypage.do"
 					class="nav-link">내 정보</a></li>
-				<li class="nav-item"><a href="myactivity.do"
+				<li class="nav-item"><a href="kiviewmyactivity.do"
 					class="nav-link">내 활동</a></li>
-				<li class="nav-item"><a href="kiview_search.jsp"
-					class="nav-link">로그아웃</a></li>
+					<!-- 승혜 >>>>>>>>>>>>>>>>>>>>>> -->
+					<!-- 마이페이지 소메뉴에 굳이 로그아웃 카테고리 필요없을 것 같아서 삭제 -->
 			</ul>
 		</div>
 	</div>
@@ -298,4 +312,3 @@ $(function(){
 
 
 <!-- END nav -->
-

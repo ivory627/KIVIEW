@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mvc.kiview.model.biz.NoticeBiz;
+import com.mvc.kiview.model.vo.NoticeVo;
 
 @Controller // 공지관련
 public class NoticeController {
@@ -28,17 +29,35 @@ public class NoticeController {
 
 	@RequestMapping("/kiviewdetail.do")
 	public String kiview_detail(Model model, int notice_no) {
-		
+
 		logger.info("NOTICE DETAIL");
 		model.addAttribute("noticedetail", n_biz.n_selectOne(notice_no));
-		
+
 		return "kiview_notice_detail";
 	}
 
 	@RequestMapping("/kiviewwrite.do")
 	public String kiview_write() {
 
+		logger.info("NOTICE WRITE");
+
 		return "kiview_notice_write";
+	}
+
+	@RequestMapping("/writeRes.do")
+	public String kiview_insertRes(NoticeVo n_vo) {
+
+		logger.info("NOTICE WRITE RESULT");
+
+		int res = n_biz.notice_insert(n_vo);
+		
+		if (res > 0) {
+			return "redirect:kiviewnotice.do";
+		} else {
+			System.out.println("insert 실패야");
+			return "redirect:kiviewwrite.do";
+		}
+
 	}
 
 	@RequestMapping("/kiviewintro.do")
@@ -50,10 +69,6 @@ public class NoticeController {
 	public String kiview_faq() {
 		return "kiview_FAQ";
 	}
-	
-	@RequestMapping("/se2test.do")
-	public String se2_test() {
-		return "smarteditor_test";
-	}
+
 
 }
