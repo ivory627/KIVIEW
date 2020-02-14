@@ -61,7 +61,7 @@ a {
 
 				<!-- 카페 홈 소개 -->
 				<div class="col-lg-8 ftco-animate">
-					<a href="cafehome.do"> 
+					<a href="cafehome.do?cafe_no=${vo.cafe_no }"> 
 					<h2 class="mb-3" style = "font-weight:bold; color:#FFDC00;">
 					<span><img src = "resources/images/main/chat.png"/></span>&nbsp;&nbsp;
 					<span style = "color:#9BDAF2;">Kiview</span> Cafe</h2></a>
@@ -132,7 +132,7 @@ a {
 			<!-- 카페 리스트 단위 -->
          <span><h3 style="display: inline">가입한 카페</h3>&nbsp;[${fn:length(list)}]<!-- 카페 수 --></span>
          <!-- **20/02/07 내 카페 관리 버튼형식으로 변경  -->
-         <span><a href="cafemy.do" class="btn btn-secondary2" 
+         <span><a href="cafemy.do?cafemy=${login.member_no }" class="btn btn-secondary2" 
          style="width:160px; position: relative; left: 77%;">내 카페 관리</a></span>
          <hr style="margin-top: 5px;">
          
@@ -219,7 +219,7 @@ a {
         	<c:if test="${fn:length(list) < 5}">
           	 
           	<div>
-				<span><a href="cafemy.do" class="btn btn-secondary2" 
+				<span><a href="cafemy.do?cafe_no=${login.member_no }" class="btn btn-secondary2" 
          style="width:25%; position: relative; left: 40%;">더 보기</a></span> 
 			</div>
 			
@@ -240,7 +240,7 @@ a {
 				<div class="col-md-6 col-lg-4 ftco-animate">
 					<div class="blog-entry">
 						<!-- 썸네일 -->
-						<a href="cafe_detail.jsp" class="block-20 d-flex align-items-end"
+						<a href="#" class="block-20 d-flex align-items-end"
 							style="background-image: url('resources/images/image_1.jpg');"> <!-- 가입제한 -->
 							<div class="meta-date text-center p-2">
 								<span class="mos">바로가입</span>
@@ -249,19 +249,19 @@ a {
 						<div class="text bg-white p-4">
 							<!-- 카페명 -->
 							<h3 class="heading">
-								<a href="cafedetail.do">서울유치원 학부모 모임</a>
+								<a href="#">서울유치원 학부모 모임</a>
 							</h3>
 
 							<!-- 카페소개 -->
 							<p>서울 유치원 학부모 모임입니다.</p>
 							<div class="d-flex align-items-center mt-4">
 								<p class="mb-0">
-									<a href="cafe_detail.jsp" class="btn btn-secondary">들어가기 <span
+									<a href="#" class="btn btn-secondary">들어가기 <span
 										class="ion-ios-arrow-round-forward"></span></a>
 								</p>
 								<p class="ml-auto mb-0">
 									<!-- 카페장 -->
-									<a href="#" class="mr-2">user</a>
+									<a href="#" class="mr-2">운영자</a>
 									<!-- 카페 회원 수 -->
 									<a href="#" class="meta-chat">1 /50</a>
 								</p>

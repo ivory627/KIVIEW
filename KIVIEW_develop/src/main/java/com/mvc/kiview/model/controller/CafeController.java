@@ -32,8 +32,8 @@ public class CafeController {
 	private CafeBiz biz ;
 
 	@RequestMapping("/cafehome.do")
-	public String cafe_home(Model model) {
-		int member_no = 1;
+	public String cafe_home(Model model, int member_no) {
+		System.out.println(member_no);
 	    model.addAttribute("list",biz.selectAll(member_no));
 		return "cafe_home";
 	}
@@ -51,8 +51,8 @@ public class CafeController {
 	}
 	
 	@RequestMapping("cafemy.do") //session 번호를 매개변수로 받는다.
-	public String cafe_my(Model model) {
-		int member_no = 1;
+	public String cafe_my(Model model, int member_no) {
+		
 		
 		List<CafeVo> list = new ArrayList();
 		
@@ -89,6 +89,9 @@ public class CafeController {
 	public String cafe_insert(HttpServletRequest request, Model model, CafeVo cafe, uploadFile uploadfile,
 			BindingResult result
 	) {
+		System.out.println(cafe);
+		System.out.println(uploadfile.getFile1().getOriginalFilename());
+		System.out.println(uploadfile.getFile2().getOriginalFilename());
 
 		filevalidate.validate(uploadfile, result);
 
@@ -215,7 +218,7 @@ public class CafeController {
 		
 		
 		if (res>0) {
-			return "redirect:cafehome.do";
+			return "redirect:cafehome.do?member_no=${login.member_no}";
 		} else {
 			return "redirect:cafeopen.do";
 		}

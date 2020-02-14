@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -12,138 +12,139 @@
 <%@ include file="head.jsp"%>
 <style type="text/css">
 label{
-	color:black;
-	font-weight:bold;
+   color:black;
+   font-weight:bold;
 }
 </style>
 <script>
 $(function(){
-	$("input[value='no']").on("click",function(){
-		$("#question").show();
-	})
-	$("input[value='yes']").on("click",function(){
-		$("#question").hide();
-	})
+   $("input[value='no']").on("click",function(){
+      $("#question").show();
+   })
+   $("input[value='yes']").on("click",function(){
+      $("#question").hide();
+   })
 })
 
 </script>
 </head>
 <body id = "body">
 
-	<!-- @@ header 부분 @@ -->
-	<%@ include file="header.jsp"%>
+   <!-- @@ header 부분 @@ -->
+   <%@ include file="header.jsp"%>
 
-	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
-	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('resources/images/bg_2.jpg');">
-		<div class="overlay"></div>
-		<div class="container">
-			<div
-				class="row no-gutters slider-text align-items-center justify-content-center">
-				<div class="col-md-9 ftco-animate text-center">
-					
-					<h1 class="mb-2 bread">카페 개설하기</h1>
-					<p class="breadcrumbs">
-						<span class="mr-2"><a href="index.jsp">홈
-						<i class="ion-ios-arrow-forward"></i></a></span> 
-						<span class="mr-2">
-						<a href="cafe_home.jsp">키뷰카페 <i class="ion-ios-arrow-forward"></i></a></span>
-						<span>카페 개설하기 <i class="ion-ios-arrow-forward"></i></span>
-					</p>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- @@ header 끝 @@ -->
-
-
+   <!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
+   <section class="hero-wrap hero-wrap-2"
+      style="background-image: url('resources/images/bg_2.jpg');">
+      <div class="overlay"></div>
+      <div class="container">
+         <div
+            class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+               
+               <h1 class="mb-2 bread">카페 개설하기</h1>
+               <p class="breadcrumbs">
+                  <span class="mr-2"><a href="index.jsp">홈
+                  <i class="ion-ios-arrow-forward"></i></a></span> 
+                  <span class="mr-2">
+                  <a href="cafe_home.jsp">키뷰카페 <i class="ion-ios-arrow-forward"></i></a></span>
+                  <span>카페 개설하기 <i class="ion-ios-arrow-forward"></i></span>
+               </p>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!-- @@ header 끝 @@ -->
 
 
-	<section class="ftco-section">
-		<div class="container">
-			<a href="cafehome.do">
-					<h2 class="mb-3" style="font-weight: bold; color: #FFDC00;">
-						<span><img src="resources/images/main/chat.png" /></span>&nbsp;&nbsp;
-						<span style="color: #9BDAF2;">Kiview</span> Cafe
-					</h2>
-					</a>
-			<hr>
-
-			
-			<div class="row d-flex align-items-stretch no-gutters">
-				<div class="col-md-6 p-4 p-md-5 order-md-last bg-light">
-					
-					<!-- 카페 개설 폼 -->
-					<form:form action="cafeinsert.do" method="post" enctype="multipart/form-data">
-						<div class="form-group">
-							<label>카페명</label><br>
-							<input name="title" type="text" class="form-control" placeholder="카페명을 입력하세요.">
-						</div>
-						<div class="form-group">
-							<label>대표 썸네일</label><br>
-							<input type="file"  name="file1">
-						</div>
-					
-						<div class="form-group">
-							<label>배경 이미지</label><br> 
-							<input type="file"  name="file2">
-						</div>
-						
-						<div id="restriction" class="form-group">
-							<label>가입 방식</label><br>
-							
-							<input type="radio" value="y" name="restriction" checked="true"> 바로 가입 
-							<br>
-							<input type="radio" value="n" name="restriction"> 승인 후 가입
-							 
-						</div>
-						
-						<div id="question" class="form-group" >
-								<label>가입 질문</label><br> <input type="text" name="question"
-									size="55" placeholder="가입시 질문을 입력하세요.">
 
 
-						</div>
-						
-						
-						 
-					
-						<div class="form-group">
-							<label>한줄 소개</label><br>
-							<textarea name="intro" id="" cols="30" rows="7" class="form-control"
-								placeholder="간단한 소개글을 입력하세요."></textarea>
-						</div>
-						
-						
-						<div class="form-group">
-							<br>
-							<input type="submit" value="개  설" 
-								class="btn btn-secondary py-3 px-5"
-								style="position:relative; left:18%"
-								>
-								
-							<input type="button" value="취  소"
-								class="btn btn-primary py-3 px-5"
-								onclick="location.href='cafehome.do'"
-									style="position:relative; left:22%"
-								>
-						</div>
-					</form:form>
-				</div>
-				<div class="col-md-6 d-flex align-items-stretch">
-					<img src="resources/images/main/kiview_01.png" alt="" class="img-fluid">
-				</div>
-			</div>
+   <section class="ftco-section">
+      <div class="container">
+         <a href="cafehome.do">
+               <h2 class="mb-3" style="font-weight: bold; color: #FFDC00;">
+                  <span><img src="resources/images/main/chat.png" /></span>&nbsp;&nbsp;
+                  <span style="color: #9BDAF2;">Kiview</span> Cafe
+               </h2>
+               </a>
+         <hr>
 
-		</div>
-	</section>
+         
+         <div class="row d-flex align-items-stretch no-gutters">
+            <div class="col-md-6 p-4 p-md-5 order-md-last bg-light">
+               
+               <!-- 카페 개설 폼 -->
+               <form:form action="cafeinsert.do" method="post" enctype="multipart/form-data">
+               	<input type="hidden" name="admin" value="${login.member_id }">
+                  <div class="form-group">
+                     <label>카페명</label><br>
+                     <input name="title" type="text" class="form-control" placeholder="카페명을 입력하세요.">
+                  </div>
+                  <div class="form-group">
+                     <label>대표 썸네일</label><br>
+                     <input type="file"  name="file1">
+                  </div>
+               
+                  <div class="form-group">
+                     <label>배경 이미지</label><br> 
+                     <input type="file"  name="file2">
+                  </div>
+                  
+                  <div id="restriction" class="form-group">
+                     <label>가입 방식</label><br>
+                     
+                     <input type="radio" value="y" name="restriction" checked="true"> 바로 가입 
+                     <br>
+                     <input type="radio" value="n" name="restriction"> 승인 후 가입
+                      
+                  </div>
+                  
+                  <div id="question" class="form-group" >
+                        <label>가입 질문</label><br> <input type="text" name="question"
+                           size="55" placeholder="가입시 질문을 입력하세요.">
 
 
-	<!-- @@ footer 영역 @@ -->
-	<%@ include file="footer.jsp"%>
+                  </div>
+                  
+                  
+                   
+               
+                  <div class="form-group">
+                     <label>한줄 소개</label><br>
+                     <textarea name="intro" id="" cols="30" rows="7" class="form-control"
+                        placeholder="간단한 소개글을 입력하세요."></textarea>
+                  </div>
+                  
+                  
+                  <div class="form-group">
+                     <br>
+                     <input type="submit" value="개  설" 
+                        class="btn btn-secondary py-3 px-5"
+                        style="position:relative; left:18%"
+                        >
+                        
+                     <input type="button" value="취  소"
+                        class="btn btn-primary py-3 px-5"
+                        onclick="location.href='cafehome.do'"
+                           style="position:relative; left:22%"
+                        >
+                  </div>
+               </form:form>
+            </div>
+            <div class="col-md-6 d-flex align-items-stretch">
+               <img src="resources/images/main/kiview_01.png" alt="" class="img-fluid">
+            </div>
+         </div>
+
+      </div>
+   </section>
 
 
-	
+   <!-- @@ footer 영역 @@ -->
+   <%@ include file="footer.jsp"%>
+
+
+   
 
 </body>
 </html>
