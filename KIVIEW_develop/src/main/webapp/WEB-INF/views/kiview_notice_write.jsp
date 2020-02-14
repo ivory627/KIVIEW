@@ -16,10 +16,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-	<script type="text/javascript" src = "/marteditor/js/HuskyEZCreator.js" charset = "utf-8"></script>
 	<link rel="stylesheet" href="resources/css/notice_write.css">
 	<%@ include file = "head.jsp" %>
 	
+	
+	<!-- 네이버 글쓰기 자바스크립 -->
+
+<script type="text/javascript" src="resources/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+
+
 
 </head>
 <body>
@@ -27,7 +34,6 @@
 	<!-- @@ header 부분 @@ -->
 	<%@ include file="header.jsp"%>
 
-	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
 	<section class="hero-wrap hero-wrap-2"
 		style="background-image: url('resources/images/bg_2.jpg');">
 		<div class="overlay"></div>
@@ -87,7 +93,6 @@
 						</div>
 					</div>
 					<br>
-					
 					<div class="jsx-2303464893 editor">
 						<div class="fr-box fr-basic fr-top" role="application">
 							<div class="fr-toolbar fr-desktop fr-top fr-basic">
@@ -95,10 +100,7 @@
 							</div>
 							
 							<div class="fr-wrapper show-placeholder" dir="auto" style = "overflow: scroll;">
-								<textarea rows = "30" cols = "150" class="fr-element fr-view" dir="auto"
-									contenteditable="true" 
-									style="min-height: 200px; overflow: scroll;"
-									aria-disabled="false" spellcheck="true">
+								<textarea rows = "30" cols = "150"  class = "smarteditor2" id = "smartEditor">
 								</textarea>
 							</div>
 							
@@ -118,7 +120,7 @@
 						</div>
 						<div class="jsx-738848916 btn-finish">
 							<button type="button" class="jsx-1357017423" 
-							onclick = "kiviewnotice.do" style = "outline:none;">작성완료</button>
+							onclick = "location.href='kiviewnotice.do'" style = "outline:none;" id = "savebutton">작성완료</button>
 						</div>
 					</div>
 				</div>
@@ -127,16 +129,41 @@
 	</div>
 	</form>
 	
-	<!-- **20/02/07 공지사항 글쓰기 section footer랑 띄우기** -->
-		<section style = "background:#fff;">
+	<!-- 	<section style = "background:#fff;">
 			<div class="container">
 				<br><br><br><br>
 			</div>
-		</section>
+		</section> -->
 	
 	<%@ include file = "footer.jsp" %>
 
 	
+	<script type="text/javascript">
+		var oEditors = [];
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef: oEditors,
+			elPlaceHolder: "smartEditor",
+			sSkinURI: "resources/se2/SmartEditor2.html",
+			fCreator: "createSEditor2",
+			htParams : {
+				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseToolbar : true,      
+				
+				// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseVerticalResizer : true,     
+			
+				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseModeChanger : true,
+			}
+		});
+		//전송버튼
+	    $("#savebutton").click(function(){
+	        //id가 smarteditor인 textarea에 에디터에서 대입
+	        obj.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);
+	        //폼 submit
+	        $("#frm").submit();
+	    })
+	</script>
 
 
 </body>
