@@ -61,7 +61,48 @@ function login() {
 }
 
 function idCk(){
-	location.href="kiviewidsearch.do";
+	
+	$('#idSearchHTML').hide();
+	
+	var member_name = $("#idSearch_name").val().trim();
+	var member_email = $('#idSearch_email').val().trim();
+
+	var idSearchVal = {
+		"member_name" : member_name,
+		"member_email" : member_email
+	};
+
+	if (member_name == null || member_name == "" || member_email == null || member_email == "") {
+		$('#idSearch_name').val("");
+		$('#idSearch_email').val("");
+		$("#idSearchHTML1").show().html("이름과 이메일을 입력해주세요.");
+
+	} else {
+		$.ajax({
+			type : "post",
+			url : "kiviewidsearch.do",
+			data : JSON.stringify(idSearchVal),
+			contentType : "application/json",
+			dataType : "json",
+			success : function(msg) {
+
+				if (msg.check == true) {
+					location.href = "kiviewlogin.do";
+				} else {
+					$('#idSearchHTML1').hide();
+					$("#idSearchHTML2").show().html("ID 혹은 PW가 잘못 되었습니다.");
+					$('#idSearch_name').val("");
+					$('#idSearch_email').val("");
+				}
+			},
+			error : function() {
+				alert("통신실패");
+			}
+		});
+	}
+	
+	
+	
 }
 
 

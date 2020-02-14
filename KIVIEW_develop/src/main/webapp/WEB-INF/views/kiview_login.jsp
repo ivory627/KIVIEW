@@ -25,13 +25,14 @@
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-<script type="text/javascript" src="resources/js/login_ajax.js" ></script> 
+<script type="text/javascript" src="resources/js/login_ajax.js"></script>
 
 </head>
 <body>
 
 	<div id="__next">
 		<div class="jsx-1458736361 login">
+			<!-- 페이지 좌측 로고 -->
 			<div class="jsx-145 banner"
 				style="background-image: url('resources/images/main/login_img04.png')">
 				<a class="jsx-1458736361" href="index.do" style="height: 70px;">
@@ -40,11 +41,14 @@
 				</a>
 
 			</div>
+			<!-- /페이지 좌측 로고 -->
+			
 			<div class="jsx-1458736361 login-box">
 				<a class="jsx-1458736361 mobile-service go-home" href="/"><img
 					src="https://d1ta1myjmiqbpz.cloudfront.net/static/images/logo/logo_square_gray.png"
 					alt="Kiview" class="jsx-1458736361"></a>
 				<div class="jsx-1458736361 login-box-wrap">
+					<!-- 로고 타이틀 -->
 					<div class="jsx-1458736361 title">
 						<p class="jsx-1458736361">
 							<span class="jsx-1458736361">대한민국 NO.1</span> 유치원 평가 플랫폼
@@ -55,44 +59,51 @@
 						</a>
 
 					</div>
+					<!-- /로고 타이틀 -->
+					
 					<div class="jsx-1458736361 sns-login">
 						<ul class="jsx-1458736361">
+							<!-- 네이버 계정 로그인 -->
 							<li class="jsx-1458736361"><a
 								href="https://nid.naver.com/oauth2.0/authorize?response_type=code&amp;client_id=iFnTW27dv2wNRhfYPsFE&amp;redirect_uri=https%3A%2F%2Fwww.starteacher.co.kr%2Fsignup%3Fchannel%3Dnaver%26step%3D6%26type%3Duser&amp;svctype=0"
 								tabindex="0" class="jsx-1458736361"><span
 									class="jsx-1458736361 alt-text">네이버 계정 로그인</span></a></li>
+							<!-- /네이버 계정 로그인 -->
+
+							<!-- 카카오톡 계정 로그인 -->
 							<li class="jsx-1458736361"><a
 								href="https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=cacac2d9fe13a5f296d0459b1506b1bb&amp;redirect_uri=https%3A%2F%2Fwww.starteacher.co.kr%2Fsignup%3Fchannel%3Dkakao%26step%3D6&amp;state=user"
 								tabindex="0" class="jsx-1458736361"><span
 									class="jsx-1458736361 alt-text">카카오톡 계정 로그인</span></a></li>
+							<!-- /카카오톡 계정 로그인 -->
+							
+							<!-- 페이스북 계정 로그인 -->
 							<li class="jsx-1458736361"><a
 								href="https://www.facebook.com/v3.3/dialog/oauth?response_type=code&amp;client_id=2315035918715891&amp;redirect_uri=https%3A%2F%2Fwww.starteacher.co.kr%2Fsignup%3Fchannel%3Dfacebook%26step%3D6%26type%3Duser"
 								tabindex="0" class="jsx-1458736361"><span
 									class="jsx-1458736361 alt-text">페이스북 계정 로그인</span></a></li>
+							<!-- /페이스북 계정 로그인 -->
+							
 						</ul>
 					</div>
 
 					<!-- 로그인 -->
 					<form class="jsx-1458736361">
 						<div class="jsx-1458736361 username">
-							<label class="jsx-3712571264 "> <span
-								class="jsx-3712571264">아이디&nbsp;</span>&nbsp;&nbsp; <span
-								id="loginIdChk" style="color: red;"></span>
+							<label class="jsx-3712571264 ">
+							<span class="jsx-3712571264">아이디&nbsp;</span>&nbsp;&nbsp;<span id="loginIdChk" style="color: red;"></span>
 								<div class="jsx-639067573 input">
-									<input type="text" id="member_id" placeholder="이메일을 입력해 주세요."
-										class="jsx-639067573">
+									<input type="text" id="member_id" placeholder="이메일을 입력해 주세요." class="jsx-639067573">
 								</div>
 							</label>
 						</div>
 						<div class="jsx-1458736361 password">
-							<label class="jsx-3712571264 "> <span
-								class="jsx-3712571264">비밀번호&nbsp;</span>&nbsp;&nbsp; <span
-								id="loginPwdChk" style="color: red;"></span>
+							<label class="jsx-3712571264 ">
+							<span class="jsx-3712571264">비밀번호&nbsp;</span>&nbsp;&nbsp;<span id="loginPwdChk" style="color: red;"></span>
 								<div class="jsx-1458736361 show-password">
 									<div class="jsx-639067573 input">
-										<input type="password" id="member_pwd" minlength="10"
-											maxlength="20" placeholder="비밀번호를 입력해주세요."
-											class="jsx-639067573 " />
+										<input type="password" id="member_pwd" minlength="10" maxlength="20" 
+											placeholder="비밀번호를 입력해주세요." class="jsx-639067573 " />
 									</div>
 								</div>
 							</label>
@@ -107,38 +118,49 @@
 					<!-- /로그인 -->
 
 					<div class="jsx-1458736361 service">
-						<a class="jsx-1458736361" href="kiviewsignupoption.do">회원가입</a> <span
-							class="jsx-1458736361"></span>
+						<!-- 회원가입 버튼 -->
+						<a class="jsx-1458736361" href="kiviewsignupoption.do">회원가입</a>
+						<!-- /회원가입 버튼 -->
+						
+						<span class="jsx-1458736361"></span>
 
-						<!-- @@아이디 찾기 -->
+						<!-- 아이디 찾기 버튼 -->
 						<a class="jsx-1458736361" style="cursor: pointer;"
 							onclick="document.getElementById('id01').style.display='block'"
-							class="w3-button w3-black">아이디찾기</a> <span class="jsx-1458736361"></span>
+							class="w3-button w3-black">아이디찾기</a>
+						<!-- /아이디 찾기 버튼 -->
 
-						<!-- **20/02/07 id찾기 modal -->
+						<span class="jsx-1458736361"></span>
+
+						<!-- 아이디 찾기 modal -->
 						<div id="id01" class="w3-modal">
 							<div class="w3-modal-content w3-animate-top w3-card-4">
 								<header class="w3-container w3-teal">
-									<span
-										onclick="document.getElementById('id01').style.display='none'"
+									<span onclick="document.getElementById('id01').style.display='none'"
 										class="w3-button w3-display-topright">&times;</span>
 									<h2>아이디 찾기</h2>
 								</header>
 								<div class="w3-container">
-									<br> <input required="필수 입력사항" placeholder="이름"
-										class="find-id" value=""><br> <input
-										required="필수 입력사항" placeholder="이메일" class="find-id" value=""><br>
+									<br>
+									<input required="필수 입력사항" placeholder="이름" class="find-id" id="idSearch_name">
+									<br>
+									<input required="필수 입력사항" placeholder="이메일" class="find-id" id="idSearch_email">
+									<br>
+									<p id="idSearchHTML1" style="color: red;"></p>
+									<p id="idSearchHTML2" style="color: red;"></p>
 									<button type="button" class="jsx-2144885398" onclick="idCk()">검색</button>
 								</div>
 							</div>
 						</div>
+						<!-- /아이디 찾기 modal -->
 
-						<!-- @@ 비밀번호 찾기 -->
+						<!-- 비밀번호 찾기 버튼 -->
 						<a class="jsx-1458736361" style="cursor: pointer;"
 							onclick="document.getElementById('id02').style.display='block'"
 							class="w3-button w3-black">비밀번호찾기</a>
+						<!-- /비밀번호 찾기 버튼 -->
 
-						<!-- **20/02/07 pw찾기 modal -->
+						<!-- 비밀번호 찾기 modal -->
 						<div id="id02" class="w3-modal">
 							<div class="w3-modal-content w3-animate-top w3-card-4">
 								<header class="w3-container w3-teal">
@@ -155,6 +177,7 @@
 								</div>
 							</div>
 						</div>
+						<!-- /비밀번호 찾기 modal -->
 
 					</div>
 				</div>
