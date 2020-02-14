@@ -16,7 +16,9 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+
 target/
+
 
 # External tool builders
 .externalToolBuilders/
@@ -100,6 +102,8 @@ target/
 hs_err_pid*
 
 # End of https://www.gitignore.io/api/java,eclipse
+
 KIVIEW_develop/target/m2e-wtp/web-resources/META-INF/maven/com.mvc/kiview/pom.properties
 KIVIEW_develop/.classpath
 KIVIEW_develop/target/m2e-wtp/web-resources/META-INF/maven/com.mvc/kiview/pom.properties
+

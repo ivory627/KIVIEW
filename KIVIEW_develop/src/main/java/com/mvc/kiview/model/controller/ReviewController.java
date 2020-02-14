@@ -10,6 +10,6 @@ public class ReviewController {
 	public String reviewBoard() {
 		
 		return "kiview_reviewboard";
-	}
-
+	}	
+	
 }
