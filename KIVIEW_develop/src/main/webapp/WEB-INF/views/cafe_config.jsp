@@ -22,6 +22,17 @@
 <script>
 	$(function() {
 		
+		$("#categorychk").on("change",function(){
+			if($("#categorychk").is(":checked")){  
+				$("#category").show();
+			} else { 
+				$("#category").hide(); 
+				$("input[name=category1]").val("");
+				$("input[name=category2]").val("");
+				$("input[name=category3]").val(""); 
+			}
+		})
+		
 		$("input[type=radio]").each(function(){
 			if($(this).val()=="${vo.restriction}"){
 				$(this).prop("checked",true)
@@ -70,7 +81,7 @@
 	}
 </script>
 </head>
-<body id = "body">
+<body id="body">
 
 
 	<%@include file="cafe_modal.jsp"%>
@@ -135,8 +146,8 @@
 						<br>
 						<form action="cafeupdate.do?cafe_no=${vo.cafe_no }">
 							<div class="form-group">
-								<label>카페명</label><br> <input name="title" type="text" size="60" 
-									class="form-control" value="${vo.title }" readonly>
+								<label>카페명</label><br> <input name="title" type="text"
+									size="60" class="form-control" value="${vo.title }" readonly>
 							</div>
 							<div class="form-group">
 								<label>대표 썸네일</label><br> <input type="file" value="파일 선택"
@@ -144,7 +155,8 @@
 							</div>
 							<div class="form-group">
 								<label>배경 이미지</label><br> <input type="file" value="파일 선택"
-									name="background" value="http://localhost:8787/img/${vo.background }">
+									name="background"
+									value="http://localhost:8787/img/${vo.background }">
 							</div>
 
 							<div id="restriction" class="form-group">
@@ -168,7 +180,7 @@
 								<textarea name="intro" id="" cols="30" rows="7"
 									class="form-control" placeholder="간단한 소개글을 입력하세요.">${vo.intro }</textarea>
 							</div>
-							
+
 
 							<div class="form-group" style="position: relative; left: 40%">
 								<input type="submit" value="수정"
@@ -191,7 +203,7 @@
 							<b>게시판 관리</b>
 						</h2>
 						<hr>
-						
+
 						<div class="row" style="height: 100%">
 
 
@@ -200,63 +212,81 @@
 							<div class="col-lg-4 ftco-animate"
 								style="padding: 20px; overflow-y: scroll;">
 								<label style="position: relative; left: 35%">게시판 선택</label> <br>
-								 
+
 								<ul>
-									<li>게시판이 존재하지 않습니다.</li> 
-									<br> 
-									<li><a style="position:relative; left:27%"  
-									onclick="cafemenuinsert(${vo.cafe_no})">+&nbsp;게시판 추가하기</a></li>
-									
+									<li>게시판이 존재하지 않습니다.</li>
+									<br>
+									<li><a style="position: relative; left: 27%"
+										onclick="cafemenuinsert(${vo.cafe_no})">+&nbsp;게시판 추가하기</a></li>
+
 								</ul>
 
 
 							</div>
-							
+
 							<!-- 게시판 추가 -->
 							<div id="menuinsert_form" class="col-lg-4 ftco-animate"
 								style="border-left: 1px solid lightgray; padding: 20px;">
-								<form id="menuinsert" action="menuinsert">
-								<div class="form-group">
-									<label>게시판명</label><br> <input type="text" size="60" name="name">
-									<br> <br> 
+								<form id="menuinsert" action="menuinsert.do">
+									<input type="hidden" name="cafe_no" value="${vo.cafe_no }">
+									<div class="form-group">
+										<label>게시판명</label><br> <input type="text" size="60"
+											name="name" maxlength="10"> <br> <br> <label>글쓰기
+											권한</label><br> <input type="radio" value="y" name="authority"
+											checked="true">관리자 &nbsp;&nbsp;&nbsp; <input
+											type="radio" value="n" name="authority">모 두 <br>
+										<br> <label>게시판 형식</label><br> <input type="radio"
+											value="table" name="concept" checked="true">게시판
+										&nbsp;&nbsp;&nbsp; <input type="radio" value="guest"
+											name="concept">방명록<br> <br> <label>말머리</label><br>
+										<input id="categorychk" type="checkbox">적용<br><br> 
+										
+										<div id="category" style="display:none">
+											<label style="margin:0px;">말머리 정보</label> 
+											<ol style="padding:10px; margin:0px;"> 
+												<li><input type="text" name="category1"
+													placeholder="말머리를 입력하세요." maxlength="5"><br></li>
+												<li><input type="text" name="category2"
+													placeholder="말머리를 입력하세요." maxlength="5"><br></li>
+												<li><input type="text" name="category3"
+													placeholder="말머리를 입력하세요." maxlength="5"><br></li>
+											</ol>
+										</div>
+
+									</div>
 
 
-									<label>글쓰기 권한</label><br> 
-									<input type="radio" value="y" name="authority" checked="true">관리자
-									&nbsp;&nbsp;&nbsp; 
-									<input type="radio" value="n" name="authority">모 두 <br>
-									<br>
-								</div>
 
-								<div class="form-group" style="position: relative; left: 85%">
-									<input type="submit" onclick="menuinsert();" value="추가"  
-										class="btn btn-primary py-3 px-5">
-								</div>
+									<div class="form-group" style="position: relative; left: 85%">
+										<input type="submit" onclick="menuinsert();" value="추가"
+											class="btn btn-primary py-3 px-5">
+									</div>
 								</form>
 
 							</div>
-							
+
 
 							<!-- 게시판 설정 -->
 							<div id="menuupdate_form" class="col-lg-4 ftco-animate"
-								style="border-left: 1px solid lightgray; padding: 20px; display:none"> 
+								style="border-left: 1px solid lightgray; padding: 20px; display: none">
 								<form action="menuupdate">
-								<div class="form-group">
-									<label>게시판명</label><br> <input type="text" size="60" name="name">
-									<br> <br> 
+									<div class="form-group">
+										<label>게시판명</label><br> <input type="text" size="60"
+											name="name"> <br> <br> <label>글쓰기
+											권한</label><br> <input type="radio" value="y" name="authority"
+											checked="true">관리자 &nbsp;&nbsp;&nbsp; <input
+											type="radio" value="n" name="authority">모 두 <br>
+										<br> <label>게시판 형식</label><br> <input type="radio"
+											value="table" name="concept" checked="true">게시판
+										&nbsp;&nbsp;&nbsp; <input type="radio" value="guest"
+											name="concept">방명록<br>
 
+									</div>
 
-									<label>글쓰기 권한</label><br> 
-									<input type="radio" value="y" name="authority" checked="true">관리자
-									&nbsp;&nbsp;&nbsp; 
-									<input type="radio" value="n" name="authority">모 두 <br>
-									<br>
-								</div>
-
-								<div class="form-group" style="position: relative; left: 85%">
-									<input type="submit" value="수정"  
-										class="btn btn-primary py-3 px-5">
-								</div>
+									<div class="form-group" style="position: relative; left: 85%">
+										<input type="submit" value="수정"
+											class="btn btn-primary py-3 px-5">
+									</div>
 								</form>
 
 
@@ -275,9 +305,7 @@
 							<b>회원 관리</b>
 						</h2>
 						<hr>
-						<br>
-
-						<label>회원 목록</label>
+						<br> <label>회원 목록</label>
 						<table class="table table" style="text-align: center">
 							<col width="10%">
 							<col width="50%">
@@ -300,8 +328,7 @@
 							</tr>
 
 						</table>
-						<br> 
-						<label>신청 목록</label>
+						<br> <label>신청 목록</label>
 						<table class="table table" style="text-align: center">
 							<col width="10%">
 							<col width="50%">
@@ -316,12 +343,11 @@
 							</tr>
 							<tr>
 								<td>user2</td>
-								<td>햇님반 </td>
+								<td>햇님반</td>
 								<td>2019-12-18</td>
-								<td colspan="2">
-								<input type="button" class="btn btn-secondary" value="가입">
-								<input type="button" class="btn btn-primary" value="거절">
-								</td>
+								<td colspan="2"><input type="button"
+									class="btn btn-secondary" value="가입"> <input
+									type="button" class="btn btn-primary" value="거절"></td>
 							</tr>
 
 						</table>

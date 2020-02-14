@@ -26,6 +26,17 @@ $(function(){
    })
 })
 
+function check(){
+	if(${login==null}){
+		alert("로그인이 필요합니다.");
+		
+		return false;
+	
+	}
+	
+	return true;
+}
+
 </script>
 </head>
 <body id = "body">
@@ -74,8 +85,9 @@ $(function(){
             <div class="col-md-6 p-4 p-md-5 order-md-last bg-light">
                
                <!-- 카페 개설 폼 -->
-               <form:form action="cafeinsert.do" method="post" enctype="multipart/form-data">
+               <form:form action="cafeinsert.do" onsubmit="return check();" method="post" enctype="multipart/form-data">
                	<input type="hidden" name="admin" value="${login.member_id }">
+               	<input type="hidden" name="member_no" value="${login.member_no }">
                   <div class="form-group">
                      <label>카페명</label><br>
                      <input name="title" type="text" class="form-control" placeholder="카페명을 입력하세요.">

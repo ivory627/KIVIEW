@@ -11,6 +11,14 @@
 <script type="text/javascript">
 $(function(){
 	
+	if(${login==null}){
+		$("#login").show();
+		$("#my").hide();
+	} else {
+		$("#login").hide();
+		$("#my").show();
+	}
+	
 	$("#notice").hover(function(){
 		$("#notice").children().css("color","#9BDAF2"); 
 		$("#notice_sub").show(); 
@@ -162,7 +170,7 @@ $(function(){
 				
 				<li id="my" class="nav-item"><a href="kiviewmypage.do"
 					class="nav-link">마이페이지</a></li>
-					<li class="nav-item"><a href="kiviewlogin.do"
+					<li id="login" class="nav-item"><a href="kiviewlogin.do"
 					class="nav-link">로그인</a></li>
 			</ul>
 		</div>

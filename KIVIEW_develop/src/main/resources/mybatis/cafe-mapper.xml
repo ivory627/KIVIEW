@@ -11,7 +11,24 @@
   	
   	</insert>
   	
-  	   <select id="cafe_selectlist" parameterType="int" resultType="CafeVo">
+  	<insert id="menu_insert" parameterType="CafeMenuVo">
+  		INSERT INTO CAFE_MENU
+  		VALUES(CAFE_MENU_SEQ.NEXTVAL, #{cafe_no}, #{name}, #{authority}, #{concept})
+  		
+  	
+  	</insert>
+  	
+  	<insert id="category_insert" parameterType="String">
+  		
+  		
+  		INSERT INTO CAFE_CATEGORY
+  		VALUES(CAFE_CATEGORY_SEQ.NEXTVAL, CAFE_MENU_SEQ.CURRVAL, #{cat})
+  		
+  	
+  	</insert>
+  	
+  	
+  	 <select id="cafe_selectlist" parameterType="int" resultType="CafeVo">
         SELECT * 
         FROM CAFE 
         WHERE CAFE_NO IN (SELECT CAFE_NO FROM CAFE_MEMBER WHERE MEMBER_NO = #{no} AND SIGNYN = 'Y' )
@@ -30,6 +47,8 @@
   		WHERE CAFE_NO = #{cafe_no}
   	
   	</select>
+  	
+  	
   	
   	
   

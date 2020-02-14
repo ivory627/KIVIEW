@@ -5,10 +5,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import org.springframework.web.util.WebUtils;
 import com.mvc.kiview.common.validate.FileValidate;
 import com.mvc.kiview.common.validate.uploadFile;
 import com.mvc.kiview.model.biz.CafeBiz;
+import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.CafeVo;
 
 @Controller // 카페관련
@@ -33,8 +36,13 @@ public class CafeController {
 
 	@RequestMapping("/cafehome.do")
 	public String cafe_home(Model model, int member_no) {
-		System.out.println(member_no);
-	    model.addAttribute("list",biz.selectAll(member_no));
+		
+		List<CafeVo> list = new ArrayList();
+		
+		
+		model.addAttribute("list",biz.selectAll(member_no));
+		
+		System.out.println(list);
 		return "cafe_home";
 	}
 
@@ -59,7 +67,7 @@ public class CafeController {
 		
 		model.addAttribute("list",biz.selectAll(member_no));
 		
-		
+		System.out.println(list);
 		return "cafe_my";
 		
 		
@@ -75,23 +83,55 @@ public class CafeController {
 	}
 	
 	@RequestMapping("/cafeconfig.do")
-	public String cafe_config(Model model, int cafe_no) {
+	public String cafe_config( Model model, int cafe_no) {
 		CafeVo vo = biz.cafe_selectone(cafe_no);
 		model.addAttribute("vo",vo);
 		
 		return "cafe_config";
 	}
 	
+	@RequestMapping("/menuinsert.do")
+	public void menu_insert(HttpServletResponse response, CafeMenuVo vo, 
+			@RequestParam("category1")String cat1, @RequestParam("category2")String cat2, 
+			@RequestParam("category3")String cat3) throws IOException {
+		
+		System.out.println(vo);
+		System.out.println(cat1+ cat2+ cat3);
+		
+		int res = biz.menu_insert(vo,cat1,cat2,cat3);
+	
+		
+		
+		
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		if(res>0) {
+			PrintWriter out = response.getWriter();
+			out.print("<script> alert('게시판을 추가하였습니다.'); location.href='cafeconfig.do?cafe_no=" +vo.getCafe_no()+"'</script> " );
+			
+			
+		} else {
+			PrintWriter out = response.getWriter();
+			out.print("<script> alert('명령 실행 중 오류'); location.href='cafeconfig.do?cafe_no=" +vo.getCafe_no()+"'</script> " );
+			out.flush();
+			
+		}
+		
+		
+		
+	}
+	
 	@Autowired
 	private FileValidate filevalidate;
 
 	@RequestMapping("/cafeinsert.do")
-	public String cafe_insert(HttpServletRequest request, Model model, CafeVo cafe, uploadFile uploadfile,
+	public String cafe_insert(HttpServletRequest request, Model model, CafeVo cafe, uploadFile uploadfile, 
+			@RequestParam("member_no")int member_no, @RequestParam("admin")String admin,
 			BindingResult result
 	) {
-		System.out.println(cafe);
-		System.out.println(uploadfile.getFile1().getOriginalFilename());
-		System.out.println(uploadfile.getFile2().getOriginalFilename());
+		System.out.println(member_no);
+		System.out.println(admin);
 
 		filevalidate.validate(uploadfile, result);
 
@@ -208,7 +248,7 @@ public class CafeController {
 			}
 		}
 		
-		CafeVo vo = new CafeVo(cafe.getTitle(),"admin",cafe.getIntro(),
+		CafeVo vo = new CafeVo(cafe.getTitle(),admin,cafe.getIntro(),
 				thumb_name, bg_name,
 				cafe.getRestriction(),cafe.getQuestion());
 		
@@ -218,7 +258,7 @@ public class CafeController {
 		
 		
 		if (res>0) {
-			return "redirect:cafehome.do?member_no=${login.member_no}";
+			return "redirect:cafehome.do?member_no="+member_no; 
 		} else {
 			return "redirect:cafeopen.do";
 		}
