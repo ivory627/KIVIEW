@@ -114,7 +114,7 @@
 			          				<option selected>최신순</option>
 								        <option>조회순</option>
 								  </select>
-						  	 </form>
+						  	 	</form>
 						  	 
 							</div>
 						</div>
@@ -185,19 +185,18 @@
 							<div class="jsx-1066086808 read_count hide-on-desktop"
 								style="max-width: 60px;">${n_list.notice_hit}</div>
 							<div class="jsx-1066086808 like_count hide-on-desktop"
-								style="max-width: 60px;"></div></li>
+								style="max-width: 60px;"></div>
+						</li>
+						
 								
-						<!-- <li tabindex="0" class="jsx-2214240288">
-						<div class="jsx-2214240288 col-notice" style="max-width: 60px;">3845</div>
+						<%-- <li tabindex="0" class="jsx-2214240288">
+						<div class="jsx-2214240288 col-notice" style="max-width: 60px;">${n_list.notice_no}</div>
 							<div class="jsx-2214240288 col-category"
 								style="max-width: 120px;">유치원</div>
 							<div class="jsx-2214240288 col-title" style="max-width: 344px;">
 								<a class="jsx-2214240288"
 									href="kiviewdetail.do"
-									style="max-width: 328px;">모든 선생님이 열정으로 일하시는게 보입니다</a>
-								<span class="jsx-2214240288 comment-number hide-on-desktop">0
-								<span class="jsx-2214240288">댓글</span>
-								</span>
+									style="max-width: 328px;">${n_list.notice_title}</a>
 							</div>
 							<div class="jsx-2214240288 col-nickname"
 								style="max-width: 100px;">헤이i</div>
@@ -208,7 +207,7 @@
 								style="max-width: 60px;"></div>
 							<div class="jsx-2214240288 like_count hide-on-desktop"
 								style="max-width: 60px;"></div>
-						</li> -->
+						</li> --%>
 							</c:forEach>	
 					</ul>
 					</c:when>
