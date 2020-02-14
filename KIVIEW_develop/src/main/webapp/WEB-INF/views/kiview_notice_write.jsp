@@ -95,7 +95,7 @@
 							</div>
 							
 							<div class="fr-wrapper show-placeholder" dir="auto" style = "overflow: scroll;">
-								<textarea rows = "" cols = "" class="fr-element fr-view" dir="auto"
+								<textarea rows = "30" cols = "150" class="fr-element fr-view" dir="auto"
 									contenteditable="true" 
 									style="min-height: 200px; overflow: scroll;"
 									aria-disabled="false" spellcheck="true">
