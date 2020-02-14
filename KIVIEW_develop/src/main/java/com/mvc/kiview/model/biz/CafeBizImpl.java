@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mvc.kiview.model.dao.CafeDao;
+import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.CafeVo;
 
@@ -66,6 +67,14 @@ public class CafeBizImpl implements CafeBiz{
 		
 		return dao.category_insert(cat);
 	}
+
+	
+	@Override
+	public int cafe_join(CafeMemberVo vo) {
+		
+		return dao.cafe_join(vo);
+	}
+	
 	
 	
 

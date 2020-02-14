@@ -108,6 +108,21 @@ public class CafeDaoImpl implements CafeDao {
 		
 		return res;
 	}
+	
+	@Override
+	   public int cafe_join(CafeMemberVo vo) {
+	      
+	      int res = 0;
+	      
+	      try {
+	         res = sqlSession.insert(namespace+"cafejoin",vo);
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         System.out.println("cafejoin 오류");
+	      }
+	      
+	      return res;
+	   }
 
 	
 	

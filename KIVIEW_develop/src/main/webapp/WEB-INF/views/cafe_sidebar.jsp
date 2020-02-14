@@ -85,7 +85,7 @@ textarea{
 						
 						<br> 
 						<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-						<h3 style="cursor:pointer"><b onclick="location.href='cafe_detail.jsp'">서울유치원 학부모 모임</b></h3>
+						<h3 style="cursor:pointer"><b onclick="location.href='cafe_detail.jsp'">${vo.title }</b></h3>
 						
 						
 						<table style="border:0px" > 
@@ -95,7 +95,7 @@ textarea{
 						</table>
 						<a href="cafeconfig.do?cafe_no=${vo.cafe_no }"># 카페 관리</a>
 						<br><br>
-						<p class="mb-0" align=center><a href="cafejoin.do?cafe_no=${vo.cafe_no }" class="btn btn-secondary" style="width:100%; border-radius:0px;" >카페 가입하기 </a></p>
+						<p class="mb-0" align=center><a href="cafejoinform.do?cafe_no=${vo.cafe_no }" class="btn btn-secondary" style="width:100%; border-radius:0px;" >카페 가입하기 </a></p>
 						     
 						      
 					</div>

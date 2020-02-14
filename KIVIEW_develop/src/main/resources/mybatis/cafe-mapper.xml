@@ -48,6 +48,11 @@
   	
   	</select>
   	
+  	<insert id="cafejoin" parameterType="CafeMemberVo" >
+        INSERT INTO CAFE_MEMBER
+        VALUES(CAFE_MEMBER_SEQ.NEXTVAL,#{member_no},#{cafe_no},#{answer},'Y','N',SYSDATE)
+     </insert>
+  	
   	
   	
   	
