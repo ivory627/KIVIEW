@@ -50,5 +50,10 @@ public class NoticeController {
 	public String kiview_faq() {
 		return "kiview_FAQ";
 	}
+	
+	@RequestMapping("/se2test.do")
+	public String se2_test() {
+		return "smarteditor_test";
+	}
 
 }
