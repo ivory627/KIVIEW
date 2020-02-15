@@ -38,7 +38,7 @@ public class NoticeBizImpl implements NoticeBiz{
 
 	@Override
 	public int notice_delete(int notice_no) {
-		return 0;
+		return n_dao.notice_delete(notice_no);
 	}
 
 	@Override

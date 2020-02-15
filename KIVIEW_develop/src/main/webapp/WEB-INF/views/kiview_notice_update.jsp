@@ -159,6 +159,8 @@
 		$("#savebutton").click(function(){
 			oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);
 		  
+			
+			
 		    $("#noticeWriteForm").submit();
 		});  
 	})

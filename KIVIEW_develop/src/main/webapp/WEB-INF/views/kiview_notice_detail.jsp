@@ -225,7 +225,7 @@ box-sizing: border-box;
 							<button class="jsx-1407906967" id = "writebtn"
 							onclick="location.href='noticeUpdate.do?notice_no=${noticedetail.notice_no}'">수정하기</button>&nbsp;&nbsp;
 							<span><button class="jsx-1407906967" id = "writebtn"
-							onclick="location.href='kiviewwrite.do'">삭제하기</button></span>
+							onclick="location.href='kiviewdel.do?notice_no=${noticedetail.notice_no}'">삭제하기</button></span>
 						</div>
 						</c:when>
 						<c:otherwise>

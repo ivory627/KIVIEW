@@ -78,7 +78,17 @@ public class NoticeDaoImpl implements NoticeDao {
 
 	@Override
 	public int notice_delete(int notice_no) {
-		return 0;
+
+		int res = 0;
+
+		try {
+			res = sqlSession.delete(namespace + "noticeDelete", notice_no);
+		} catch (Exception e) {
+			System.out.println("[error] : notice_delete");
+			e.printStackTrace();
+		}
+
+		return res;
 	}
 
 	@Override

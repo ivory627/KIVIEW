@@ -18,6 +18,7 @@ public class NoticeController {
 	@Autowired
 	private NoticeBiz n_biz;
 
+	/* 키뷰안내, 공지사항 */
 	@RequestMapping("/kiviewnotice.do")
 	public String kiview_notice(Model model) {
 
@@ -27,6 +28,7 @@ public class NoticeController {
 		return "kiview_notice";
 	}
 
+	/* 공지사항 selectOne */
 	@RequestMapping("/kiviewdetail.do")
 	public String kiview_detail(Model model, int notice_no) {
 
@@ -36,6 +38,7 @@ public class NoticeController {
 		return "kiview_notice_detail";
 	}
 
+	/* admin 계정으로 로그인 - 글쓰기 버튼 클릭시 write 폼으로 */
 	@RequestMapping("/kiviewwrite.do")
 	public String kiview_write() {
 
@@ -44,6 +47,7 @@ public class NoticeController {
 		return "kiview_notice_write";
 	}
 
+	/* 글 작성 insert redirect 부분 */
 	@RequestMapping("/writeRes.do")
 	public String kiview_insertRes(NoticeVo n_vo) {
 
@@ -54,12 +58,12 @@ public class NoticeController {
 		if (res > 0) {
 			return "redirect:kiviewnotice.do";
 		} else {
-			System.out.println("insert 실패야");
 			return "redirect:kiviewwrite.do";
 		}
 
 	}
 
+	/* 수정하기 버튼 클릭 시 update폼으로 */
 	@RequestMapping("/noticeUpdate.do")
 	public String notice_update(Model model, int notice_no) {
 
@@ -70,6 +74,7 @@ public class NoticeController {
 		return "kiview_notice_update";
 	}
 
+	/* 수정완료 클릭 시 redirect */
 	@RequestMapping("/noticeUpdateRes.do")
 	public String notice_updateRes(NoticeVo n_vo) {
 
@@ -81,6 +86,21 @@ public class NoticeController {
 			return "redirect:kiviewdetail.do?notice_no=" + n_vo.getNotice_no();
 		} else {
 			return "redirect:noticeUpdate.do?notice_no" + n_vo.getNotice_no();
+		}
+
+	}
+
+	@RequestMapping("/kiviewdel.do")
+	public String kiview_delete(int notice_no) {
+
+		logger.info("NOTICE DELETE");
+
+		int res = n_biz.notice_delete(notice_no);
+
+		if (res > 0) {
+			return "redirect:kiviewnotice.do";
+		} else {
+			return "redirect:kiviewdetail.do?notice_no" + notice_no;
 		}
 
 	}

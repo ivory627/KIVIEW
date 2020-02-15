@@ -29,6 +29,9 @@
   		UPDATE NOTICE SET CAT_DETAIL = #{cat_detail}, NOTICE_TITLE = #{notice_title}, NOTICE_CONTENT = #{notice_content}
   		WHERE NOTICE_NO = #{notice_no}
   	</update>
+  	<delete id = "noticeDelete" parameterType="int"> 
+  		DELETE FROM NOTICE WHERE NOTICE_NO = #{notice_no}
+  	</delete>
   	
   	
   	
