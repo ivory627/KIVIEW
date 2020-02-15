@@ -118,4 +118,10 @@ public class CafeBizImpl implements CafeBiz {
 		return dao.menu_detail2(no);
 	}
 
+	@Override
+	public CafeMenuVo menu_chk(CafeMenuVo menu) {
+		
+		return dao.menu_chk(menu);
+	}
+
 }

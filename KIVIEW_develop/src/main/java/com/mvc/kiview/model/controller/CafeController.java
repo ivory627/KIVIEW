@@ -121,7 +121,7 @@ public class CafeController {
    public void menu_insert(HttpServletResponse response, CafeMenuVo vo, @RequestParam("category1") String cat1,
          @RequestParam("category2") String cat2, @RequestParam("category3") String cat3) throws IOException {
 
-
+	   System.out.println(vo+ cat1+ cat2+ cat3);
 
       int res = biz.menu_insert(vo, cat1, cat2, cat3);
 
@@ -144,8 +144,16 @@ public class CafeController {
    
    @RequestMapping(value="/menuchk.do",method=RequestMethod.POST)
    @ResponseBody
-   public Map<String, Boolean> menu_chk(){
+   public Map<String, Boolean> menu_chk(@RequestBody CafeMenuVo menu){
+	   boolean check = false;
+	   CafeMenuVo vo = biz.menu_chk(menu);
+	   
+	   if(vo!=null) {
+		   check=true;
+	   }
+	   
 	   Map<String, Boolean> map = new HashMap<String, Boolean>();
+	   map.put("check", check);
 	   
 	   return map;
    }

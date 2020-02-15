@@ -35,4 +35,6 @@ public interface CafeBiz {
 
 	public List<CafeCategoryVo> menu_detail2(int no);
 
+	public CafeMenuVo menu_chk(CafeMenuVo menu);
+
 }

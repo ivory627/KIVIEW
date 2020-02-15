@@ -114,9 +114,32 @@
 	}
 	
 	function menuinsert_chk(cafe_no){
+		var data = {"cafe_no":cafe_no, "name":$("input[name=name]").val()}
+		var submit = false;
 		
+		$.ajax({
+			type:"post",
+			url:"menuchk.do",
+			data:JSON.stringify(data),
+			contentType:"application/json; charset=UTF-8;",
+			dataType:"json",
+			success:function(data){
+				if(data.check==true){
+					alert("게시판 이름이 중복됩니다.");
+					submit = false;
+				} else {
+					submit = true;
+				}
+				
+			},
+			error:function(error){
+				alert(error);
+			}
+		})
+		 
+		alert(submit);
 		
-		return false;
+		return submit;
 	}
 </script>
 </head>
@@ -282,13 +305,13 @@
 								style="border-left: 1px solid lightgray; padding: 20px;">
 								<form id="menuinsert" action="menuinsert.do" onsubmit="return menuinsert_chk(${vo.cafe_no})">
 									<input type="hidden" name="cafe_no" value="${vo.cafe_no }">
-									<input type="hidden" name="cafe_menu_no">
+									 
 									<div class="form-group">
 										<label>게시판명</label><br> 
 											<input type="text" size="60" name="name" maxlength="10"> <br> <br> 
 										<label>글쓰기 권한</label><br> 
-											<input type="radio" value="N" name="authority" checked="true">관리자 &nbsp;&nbsp;&nbsp; 
-											<input type="radio" value="Y" name="authority">모 두 <br> 
+											<input type="radio" value="Y" name="authority" checked="true">관리자 &nbsp;&nbsp;&nbsp; 
+											<input type="radio" value="N" name="authority">모 두 <br> 
 										<br> 
 										
 										<label>게시판 형식</label><br> 
@@ -329,8 +352,8 @@
 										<label>게시판명</label><br> 
 											<input type="text" size="60" name="name" maxlength="10"> <br> <br> 
 										<label>글쓰기 권한</label><br> 
-											<input type="radio" value="N" name="authority">관리자 &nbsp;&nbsp;&nbsp; 
-											<input type="radio" value="Y" name="authority">모 두 <br>
+											<input type="radio" value="Y" name="authority">관리자 &nbsp;&nbsp;&nbsp; 
+											<input type="radio" value="N" name="authority">모 두 <br>
 										<br> 
 										
 										<label>게시판 형식</label><br> 

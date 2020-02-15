@@ -217,6 +217,21 @@ public class CafeDaoImpl implements CafeDao {
 		return res;
 	}
 
+	@Override
+	public CafeMenuVo menu_chk(CafeMenuVo menu) {
+		CafeMenuVo res = null;
+		
+		try {
+			res = sqlSession.selectOne(namespace+"menu_chk",menu);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("menu_list 오류");
+		}
+		
+		
+		return res;
+	}
+
 	
 
 	

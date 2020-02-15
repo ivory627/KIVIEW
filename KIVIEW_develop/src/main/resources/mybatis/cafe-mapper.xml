@@ -44,6 +44,16 @@
      	WHERE CAFE_MENU_NO = #{no} 
      </select>
      
+     <select id="menu_chk" parameterType="CafeMenuVo" resultType="CafeMenuVo">
+     	SELECT *
+     	FROM CAFE_MENU
+     	WHERE CAFE_NO = #{cafe_no} AND NAME = #{name}
+     
+     
+     
+     </select>
+     
+     
      <insert id="category_insert" parameterType="String">
         
         
@@ -52,6 +62,8 @@
         
      
      </insert>
+     
+     
      
 <!--수정 예정  -->     
       <select id="cafe_Ulist" parameterType="int" resultType="CafeVo">
