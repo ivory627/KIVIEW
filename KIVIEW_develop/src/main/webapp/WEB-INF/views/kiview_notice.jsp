@@ -17,18 +17,18 @@
 <title>KIVIEW &mdash; About</title>
 
 <%@ include file="head.jsp"%>
-
+<script type="text/javascript" src = "resources/js/test.js"></script>
 
 </head>
 
 <body id="body">
 
-	<!-- @@ header 부분 @@ -->
+	<!-- header 부분 -->
 	<%@ include file="header.jsp"%>
 
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('resources/images/bg_2.jpg');">
-		<div class="overlay"></div>
+		style="background-image: url('resources/images/main/board_img01.png');">
+		<!-- <div class="overlay"></div> -->
 		<div class="container">
 			<div
 				class="row no-gutters slider-text align-items-center justify-content-center">
@@ -44,13 +44,13 @@
 			</div>
 		</div>
 	</section>
-	<!-- @@ header 끝 @@ -->
+	<!-- header 끝 -->
 
 
 
 	<!--=================@@게시판 상단 select box + 검색 @@====================-->
 	
-	<div class="jsx-903324597 content">
+	<div class="jsx-903324597 content" id = "contentdiv">
 		<div class="jsx-3810764099 board-box">
 			<div class="jsx-1103591975 sidebar sidebar--kindergarten">
 				<h2 class="jsx-1103591975">
@@ -67,12 +67,24 @@
 					<span class="jsx-1103591975">공지사항</span>
 				</h2>
 				<ul class="jsx-1103591975">
-					<li class="jsx-1103591975 active"><a class="jsx-1103591975"
-						href="kiviewnotice.do">공지사항</a></li>
-					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="kiviewintro.do">키뷰소개</a></li>
-					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="kiviewfaq.do">FAQ</a></li>
+					<!-- <li class="jsx-1103591975 active">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					 onclick = "notice();" id = "menu01" href = "kiviewnotice.do">공지사항</a></li>
+					<li class="jsx-1103591975">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					onclick = "intro();" id = "menu02" href = "kiviewintro.do">키뷰소개</a></li>
+					<li class="jsx-1103591975 ">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					onclick = "faq();" id = "menu03" href = "kiviewfaq.do">FAQ</a></li> -->
+					<li class="jsx-1103591975 active">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					 id = "menu01">공지사항</a></li>
+					<li class="jsx-1103591975">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					id = "menu02">키뷰소개</a></li>
+					<li class="jsx-1103591975 ">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					id = "menu03">FAQ</a></li>
 				</ul>
 			</div>
 			
@@ -138,6 +150,7 @@
 				
 				<div class="jsx-723712822 sort-number">
 				
+				<!-- 올라온 글이 몇 개인지 카운팅 -->
 				<c:set var="count" value="0"></c:set>
 				<c:forEach var = "n_list" items = "${noticelist}" varStatus = "status">
 				<c:set var="count" value="${noticelist.size()}"></c:set>
@@ -247,11 +260,11 @@
 						<li class="jsx-3635512122 ">3</li>
 						<li class="jsx-3635512122 ">4</li>
 						<li class="jsx-3635512122 ">5</li>
-						<li class="jsx-3635512122 ">6</li>
+						<!-- <li class="jsx-3635512122 ">6</li>
 						<li class="jsx-3635512122 ">7</li>
 						<li class="jsx-3635512122 ">8</li>
 						<li class="jsx-3635512122 ">9</li>
-						<li class="jsx-3635512122 ">10</li>
+						<li class="jsx-3635512122 ">10</li> -->
 						<li class="jsx-3635512122 next"><svg
 								xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 								viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
@@ -261,7 +274,8 @@
 								<polyline points="6 17 11 12 6 7"></polyline></svg> <span
 							class="jsx-3635512122 alt-text">뒤로</span></li>
 					</ul>
-				
+					
+					<!-- 계정에 'admin'이 포함된 member_id일 때만 글쓰기 버튼이 보이도록 -->
 					<c:set var = "admin_id" value = "${login.member_id}"></c:set>
 					<c:choose>
 					<c:when test="${fn:contains(admin_id, 'admin')}">
@@ -287,7 +301,7 @@
 	<br>
 
 
-	<!-- @@ footer 영역 @@ -->
+	<!-- footer 영역 -->
 	<%@ include file="footer.jsp"%>
 
 	

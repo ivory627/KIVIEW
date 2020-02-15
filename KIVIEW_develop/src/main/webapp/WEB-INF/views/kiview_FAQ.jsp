@@ -8,7 +8,8 @@
 
 	<%@ include file="head.jsp"%>
 	<link rel="stylesheet" href="resources/css/FAQ.css">
-
+	
+	<script type="text/javascript" src = "resources/js/test.js"></script>
 
 </head>
 <body>
@@ -50,12 +51,24 @@
 					<span class="jsx-1103591975">공지사항</span>
 				</h2>
 				<ul class="jsx-1103591975">
-					<li class="jsx-1103591975 active"><a class="jsx-1103591975"
-						href="kiviewnotice.do">공지사항</a></li>
-					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="kiviewintro.do">키뷰소개</a></li>
-					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="kiviewfaq.do">FAQ</a></li>
+					<!-- <li class="jsx-1103591975 active">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					 onclick = "notice();" id = "menu01">공지사항</a></li>
+					<li class="jsx-1103591975">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					onclick = "intro();" id = "menu02">키뷰소개</a></li>
+					<li class="jsx-1103591975 ">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					onclick = "faq();" id = "menu03">FAQ</a></li> -->
+					<li class="jsx-1103591975">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					 id = "menu01" href = "kiviewnotice.do">공지사항</a></li>
+					<li class="jsx-1103591975">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					id = "menu02" href = "kiviewintro.do">키뷰소개</a></li>
+					<li class="jsx-1103591975 active">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					id = "menu03" href = "kiviewfaq.do">FAQ</a></li>
 				</ul>
 			</div>
 
@@ -70,7 +83,7 @@
 				<div class="jsx-2342570284 faq-item-box">
 					<h3 class="jsx-2342570284">
 						자주 묻는 질문과 답변
-						<ol class="jsx-1271347565 ">
+						<ol class="jsx-1271347565">
 							<li class="jsx-1271347565">별별질문</li>
 							<li class="jsx-1271347565">FAQ</li>
 						</ol>

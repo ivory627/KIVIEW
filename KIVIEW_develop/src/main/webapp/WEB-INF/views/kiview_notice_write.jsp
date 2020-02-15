@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
-<%
-	response.setContentType("text/html; charset=UTF-8");
-%>
+<% request.setCharacterEncoding("UTF-8");%>
+<% response.setContentType("text/html; charset=UTF-8");%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -14,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>KIVIEW &mdash; 글쓰기</title>
 
 <link rel="stylesheet" href="resources/css/notice_write.css">
 <%@ include file = "head.jsp" %>
@@ -31,11 +27,10 @@
 	<%@ include file="header.jsp"%>
 
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('resources/images/bg_2.jpg');">
-		<div class="overlay"></div>
+		style="background-image: url('resources/images/main/board_img01.png');">
+		<!-- <div class="overlay"></div> -->
 		<div class="container">
-			<div
-				class="row no-gutters slider-text align-items-center justify-content-center">
+			<div class="row no-gutters slider-text align-items-center justify-content-center">
 				<div class="col-md-9 ftco-animate text-center">
 					<h1 class="mb-2 bread">공지사항 글쓰기</h1>
 					<p class="breadcrumbs">
@@ -49,9 +44,10 @@
 			</div>
 		</div>
 	</section>
-    
+    <!-- header 끝 -->
 	
 	
+	<!-- 글쓰기 폼 -->
 	<div class="jsx-903324597 content">
 		<div class="jsx-3810764099 board-box">
 			<div class="jsx-738848916 content-box">
@@ -75,7 +71,7 @@
 						<div class="jsx-4121141969 select">
 							<div class="jsx-4121141969 choice">
 							  <select class="form-control-sm2" id = "selcatd" name = "cat_detail" style="cursor:pointer;">
-		          					<option>분류 전체</option>
+		          					<option value = "분류 전체">분류 전체</option>
 							        <option value = "공지사항">공지사항</option>
 							  </select>
 							</div>
@@ -85,8 +81,9 @@
 					<br>
 					<div class="jsx-741803006 input-box">
 						<div class="jsx-639067573 input">
-							<input type = "text" id = "title" name = "notice_title" placeholder="제목을 입력해 주세요."
-								class="jsx-639067573" style = "background-color:#fff; color: black;">
+							<input type = "text" id = "title" name = "notice_title" 
+							placeholder="제목을 입력해 주세요." class="jsx-639067573" 
+							style = "background-color:#fff; color: black;">
 						</div>
 					</div>
 					<br>
@@ -94,8 +91,7 @@
 					<!-- SmartEditor2  -->
 					<div class="jsx-2303464893 editor">
 						<div class="fr-box fr-basic fr-top" role="application">
-							<div class="fr-wrapper show-placeholder" dir="auto" 
-							style = "overflow: scroll;">
+							<div class="fr-wrapper show-placeholder" dir="auto" style = "overflow: scroll;">
 								<textarea name="notice_content" id="smartEditor"
 								style="width:100%; height:412px;"></textarea>
 							</div>
@@ -109,12 +105,12 @@
 							onclick = "location.href='kiviewnotice.do'" style = "outline:none;">취소</button>
 						</div>
 						<div class="jsx-738848916 btn-finish">
-							<button type="button" class="jsx-1357017423" 
-							style = "outline:none;" id = "savebutton">작성완료</button>
+							<button type="button" class="jsx-1357017423" style = "outline:none;" 
+							id = "savebutton">작성완료</button>
 						</div>
 					</div>
 					</form>
-					
+					<!-- 글쓰기 폼 끝 -->
 				</div>
 			</div>
 		</div>
@@ -122,11 +118,12 @@
 	
 	<!-- footer 사이 띄우기  -->
 	<section style = "background:#fff;">
-			<div class="container">
-				<br><br><br><br>
-			</div>
+		<div class="container">
+			<br><br><br><br>
+		</div>
     </section>
 	
+	<!-- footer 부분 -->
 	<%@ include file = "footer.jsp" %>
 
 
@@ -153,6 +150,7 @@
 			bUseModeChanger : false
 		}
 	});
+	
 	$(function(){
 		$("#savebutton").click(function(){
 			oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);

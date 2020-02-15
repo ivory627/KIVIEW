@@ -26,14 +26,18 @@
   		(NOTICE_SEQ.NEXTVAL, #{cat_detail}, #{notice_title}, #{notice_content}, #{notice_writer}, TO_DATE(SYSDATE,'YY/MM/DD'), 0)
   	</insert>
   	<update id="noticeUpdate" parameterType="noticeVo">
-  		UPDATE NOTICE SET CAT_DETAIL = #{cat_detail}, NOTICE_TITLE = #{notice_title}, NOTICE_CONTENT = #{notice_content}
-  		WHERE NOTICE_NO = #{notice_no}
+  		UPDATE NOTICE SET CAT_DETAIL = #{cat_detail}, NOTICE_TITLE = #{notice_title}, 
+  		NOTICE_CONTENT = #{notice_content} WHERE NOTICE_NO = #{notice_no}
   	</update>
   	<delete id = "noticeDelete" parameterType="int"> 
   		DELETE FROM NOTICE WHERE NOTICE_NO = #{notice_no}
   	</delete>
-  	
-  	
+  	<update id="hitupdate" parameterType="int">
+  		UPDATE NOTICE SET NOTICE_HIT = NOTICE_HIT+1 WHERE NOTICE_NO = #{notice_no}
+  	</update>
+  	<update id="hitupdateminus" parameterType="int">
+  		UPDATE NOTICE SET NOTICE_HIT = NOTICE_HIT-2 WHERE NOTICE_NO = #{notice_no}
+  	</update>
   	
   	
   </mapper>

@@ -16,10 +16,10 @@
 <title>KIVIEW &mdash; Intro</title>
 
 <%@ include file="head.jsp"%>
-<link rel="stylesheet" href="resources/css/modalintro.css">
+<script type="text/javascript" src = "resources/js/test.js"></script>
 
 <style type="text/css">
-	.modal-content {
+.modal-content {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -46,10 +46,6 @@
   height: auto;
   min-height: 100%;
   border-radius: 0;
-}
-h1{
-	font-size: 60px;
-    font-weight: 800;
 }
 
 
@@ -87,7 +83,7 @@ h1{
 	
 	<!-- @@ header 끝 @@ -->
 
-	<div class="jsx-903324597 content" style = "min-height:0px;">
+	<div class="jsx-903324597 content" style = "min-height:0px;" id = "contentdiv">
 		<div class="jsx-3810764099 board-box">
 			<div class="jsx-1103591975 sidebar sidebar--kindergarten">
 				<h2 class="jsx-1103591975">
@@ -104,12 +100,24 @@ h1{
 					<span class="jsx-1103591975">공지사항</span>
 				</h2>
 				<ul class="jsx-1103591975">
-					<li class="jsx-1103591975 active"><a class="jsx-1103591975"
-						href="kiviewnotice.do">공지사항</a></li>
-					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="kiviewintro.do">키뷰소개</a></li>
-					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="kiviewfaq.do">FAQ</a></li>
+					<!-- <li class="jsx-1103591975">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					 onclick = "notice();" id = "menu01">공지사항</a></li>
+					<li class="jsx-1103591975">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					onclick = "intro();" id = "menu02">키뷰소개</a></li>
+					<li class="jsx-1103591975 ">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					onclick = "faq();" id = "menu03">FAQ</a></li> -->
+					<li class="jsx-1103591975">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					 id = "menu01">공지사항</a></li>
+					<li class="jsx-1103591975 active">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					id = "menu02">키뷰소개</a></li>
+					<li class="jsx-1103591975">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					id = "menu03">FAQ</a></li>
 				</ul>
 			</div>
         		<div class="pricing-entry bg-light pb-4 text-center"

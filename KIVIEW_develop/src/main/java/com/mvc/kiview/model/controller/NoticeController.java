@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mvc.kiview.model.biz.NoticeBiz;
 import com.mvc.kiview.model.vo.NoticeVo;
@@ -33,6 +34,7 @@ public class NoticeController {
 	public String kiview_detail(Model model, int notice_no) {
 
 		logger.info("NOTICE DETAIL");
+
 		model.addAttribute("noticedetail", n_biz.n_selectOne(notice_no));
 
 		return "kiview_notice_detail";
@@ -90,6 +92,7 @@ public class NoticeController {
 
 	}
 
+	/* 게시글 삭제 */
 	@RequestMapping("/kiviewdel.do")
 	public String kiview_delete(int notice_no) {
 
