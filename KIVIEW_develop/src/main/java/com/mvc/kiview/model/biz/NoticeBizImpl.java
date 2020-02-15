@@ -32,7 +32,6 @@ public class NoticeBizImpl implements NoticeBiz {
 	public int notice_insert(NoticeVo n_vo) {
 		return n_dao.notice_insert(n_vo);
 	}
-	
 
 	@Override
 	public int notice_update(NoticeVo n_vo) {
