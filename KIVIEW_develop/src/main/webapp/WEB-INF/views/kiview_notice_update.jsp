@@ -108,7 +108,7 @@
 					<div class="jsx-738848916 btn-box">
 						<div class="jsx-738848916 btn-cancel">
 							<button type="button" class="jsx-462732305" 
-							onclick = "location.href='kiviewnotice.do'" style = "outline:none;">취소</button>
+							onclick = "location.href='kiviewdetail.do?notice_no=${noticeupdate.notice_no}'" style = "outline:none;">취소</button>
 						</div>
 						<div class="jsx-738848916 btn-finish">
 							<button type="button" class="jsx-1357017423" 
