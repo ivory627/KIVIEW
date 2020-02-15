@@ -15,7 +15,6 @@ public interface NoticeBiz {
 	public int notice_insert(NoticeVo n_vo); //notice게시판 insert(글쓰기) 
 	public int notice_update(NoticeVo n_vo); //notice게시판 글 update(수정) 
 	public int notice_delete(int notice_no); //notice게시판 글 delete(삭제) 
-	public int notice_hitupdate(int notice_no);
 	
 	/* FAQ관련 method */
 	

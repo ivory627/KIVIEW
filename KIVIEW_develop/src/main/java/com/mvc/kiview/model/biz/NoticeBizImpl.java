@@ -42,11 +42,6 @@ public class NoticeBizImpl implements NoticeBiz {
 	}
 
 	@Override
-	public int notice_hitupdate(int notice_no) {
-		return n_dao.notice_hitupdate(notice_no);
-	}
-
-	@Override
 	public int notice_delete(int notice_no) {
 		return n_dao.notice_delete(notice_no);
 	}
@@ -56,7 +51,6 @@ public class NoticeBizImpl implements NoticeBiz {
 		return null;
 	}
 
-	
 	@Override
 	public FAQVo f_selectOne(int faq_no) {
 		return null;
@@ -77,11 +71,4 @@ public class NoticeBizImpl implements NoticeBiz {
 		return 0;
 	}
 
-	
-	
-	
-	
-	
-	
-	
 }
