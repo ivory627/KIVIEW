@@ -50,12 +50,37 @@ public class NoticeController {
 		logger.info("NOTICE WRITE RESULT");
 
 		int res = n_biz.notice_insert(n_vo);
-		
+
 		if (res > 0) {
 			return "redirect:kiviewnotice.do";
 		} else {
 			System.out.println("insert 실패야");
 			return "redirect:kiviewwrite.do";
+		}
+
+	}
+
+	@RequestMapping("/noticeUpdate.do")
+	public String notice_update(Model model, int notice_no) {
+
+		logger.info("NOTICE UPDATE FORM");
+
+		model.addAttribute("noticeupdate", n_biz.n_selectOne(notice_no));
+
+		return "kiview_notice_update";
+	}
+
+	@RequestMapping("/noticeUpdateRes.do")
+	public String notice_updateRes(NoticeVo n_vo) {
+
+		logger.info("NOTICE UPDATE RESULT");
+
+		int res = n_biz.notice_update(n_vo);
+
+		if (res > 0) {
+			return "redirect:kiviewdetail.do?notice_no=" + n_vo.getNotice_no();
+		} else {
+			return "redirect:noticeUpdate.do?notice_no" + n_vo.getNotice_no();
 		}
 
 	}
@@ -69,6 +94,5 @@ public class NoticeController {
 	public String kiview_faq() {
 		return "kiview_FAQ";
 	}
-
 
 }

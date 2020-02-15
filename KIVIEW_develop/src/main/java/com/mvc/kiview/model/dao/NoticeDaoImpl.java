@@ -63,7 +63,17 @@ public class NoticeDaoImpl implements NoticeDao {
 
 	@Override
 	public int notice_update(NoticeVo n_vo) {
-		return 0;
+
+		int res = 0;
+
+		try {
+			res = sqlSession.update(namespace + "noticeUpdate", n_vo);
+		} catch (Exception e) {
+			System.out.println("[error] : notice_update");
+			e.printStackTrace();
+		}
+
+		return res;
 	}
 
 	@Override

@@ -290,9 +290,6 @@
 	<!-- @@ footer 영역 @@ -->
 	<%@ include file="footer.jsp"%>
 
-
-
-
 	
 
 </body>

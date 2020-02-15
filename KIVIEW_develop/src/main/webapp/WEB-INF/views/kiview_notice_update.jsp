@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>KVIEIW - 수정하기</title>
 
 <link rel="stylesheet" href="resources/css/notice_write.css">
 <%@ include file = "head.jsp" %>
@@ -67,8 +67,9 @@
 					</div>
 					
 					<!-- 제목/작성자/내용/분류 카테고리 넘기기  -->
-					<form action="writeRes.do" method = "get" id = "noticeWriteForm">
+					<form action="noticeUpdateRes.do" method = "get" id = "noticeWriteForm">
 					<input type = "hidden" name = "notice_writer" value = "${login.member_id}">
+					<input type = "hidden" name = "notice_no" value = "${noticeupdate.notice_no}">
 					
 					<div class="jsx-4261166144 select-wrap">
 					<div class="jsx-4261166144 select-box">
@@ -76,7 +77,7 @@
 							<div class="jsx-4121141969 choice">
 							  <select class="form-control-sm2" id = "selcatd" name = "cat_detail" style="cursor:pointer;">
 		          					<option>분류 전체</option>
-							        <option value = "공지사항">공지사항</option>
+							        <option value = "${noticeupdate.cat_detail}">공지사항</option>
 							  </select>
 							</div>
 						</div>
@@ -86,7 +87,8 @@
 					<div class="jsx-741803006 input-box">
 						<div class="jsx-639067573 input">
 							<input type = "text" id = "title" name = "notice_title" placeholder="제목을 입력해 주세요."
-								class="jsx-639067573" style = "background-color:#fff; color: black;">
+								class="jsx-639067573"  value = "${noticeupdate.notice_title}"
+								style = "background-color:#fff; color: black;">
 						</div>
 					</div>
 					<br>
@@ -97,7 +99,7 @@
 							<div class="fr-wrapper show-placeholder" dir="auto" 
 							style = "overflow: scroll;">
 								<textarea name="notice_content" id="smartEditor"
-								style="width:100%; height:412px;"></textarea>
+								style="width:100%; height:412px;">${noticeupdate.notice_content}</textarea>
 							</div>
 						</div>
 					</div>
@@ -110,7 +112,7 @@
 						</div>
 						<div class="jsx-738848916 btn-finish">
 							<button type="button" class="jsx-1357017423" 
-							style = "outline:none;" id = "savebutton">작성완료</button>
+							style = "outline:none;" id = "savebutton">수정완료</button>
 						</div>
 					</div>
 					</form>

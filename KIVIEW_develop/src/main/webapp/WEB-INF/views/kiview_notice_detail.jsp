@@ -9,6 +9,7 @@
 %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -216,12 +217,22 @@ box-sizing: border-box;
 								<line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
 								<line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
 						</button>
+						
+						<c:set var = "admin_id" value = "${login.member_id}"/>
+						<c:choose>
+						<c:when test="${fn:contains(admin_id, 'admin')}">
 						<div class="jsx-2211599338 recommend-box">
 							<button class="jsx-1407906967" id = "writebtn"
-							onclick="location.href='kiviewwrite.do'">수정하기</button>&nbsp;&nbsp;
+							onclick="location.href='noticeUpdate.do?notice_no=${noticedetail.notice_no}'">수정하기</button>&nbsp;&nbsp;
 							<span><button class="jsx-1407906967" id = "writebtn"
 							onclick="location.href='kiviewwrite.do'">삭제하기</button></span>
 						</div>
+						</c:when>
+						<c:otherwise>
+						<div class="jsx-2211599338 recommend-box">
+						</div>
+						</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
