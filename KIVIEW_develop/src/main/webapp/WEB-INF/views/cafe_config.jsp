@@ -9,6 +9,7 @@
 %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!DOCTYPE html>
@@ -78,6 +79,44 @@
 	
 	function cafemenuinsert(no){
 		alert(no);
+	}
+	
+	function menudetail(no){
+		
+		
+		$.ajax({
+			type:"post", 
+			url:"menudetail.do",
+			data:{"no":no}, 
+			dataType:"json",
+			success:function(data){
+			
+				$("#menuinsert_form").hide();
+				$("#menuupdate_form").show();
+				$("#menuupdate_form").find($("input[name=name]")).val(data.menu.name);
+				$("#menuupdate_form").find($("input[name=cafe_menu_no]")).val(data.menu.cafe_menu_no);
+				$("#menuupdate_form").find($("input[name=authority]:input[value="+data.menu.authority+"]")).prop("checked",true);  
+				$("#menuupdate_form").find($("input[name=concept]:input[value="+data.menu.concept+"]")).prop("checked",true);  
+				$("#category_list").find($("input[name=category1]")).val(data.category[0].category);  
+				$("#category_list").find($("input[name=category2]")).val(data.category[1].category);
+				$("#category_list").find($("input[name=category3]")).val(data.category[2].category); 
+			
+			
+			},
+			error:function(request,status,error){
+				alert(request);
+				alert(status);
+				alert(error);
+			}
+			 
+			
+		})
+	}
+	
+	function menuinsert_chk(cafe_no){
+		
+		
+		return false;
 	}
 </script>
 </head>
@@ -160,9 +199,9 @@
 							</div>
 
 							<div id="restriction" class="form-group">
-								<label>가입 방식</label><br> <input type="radio" value="y"
+								<label>가입 방식</label><br> <input type="radio" value="Y"
 									name="restriction" checked="true"> 바로 가입 <br> <input
-									type="radio" value="n" name="restriction"> 승인 후 가입
+									type="radio" value="N" name="restriction"> 승인 후 가입
 
 							</div>
 
@@ -213,12 +252,26 @@
 								style="padding: 20px; overflow-y: scroll;">
 								<label style="position: relative; left: 35%">게시판 선택</label> <br>
 
-								<ul>
-									<li>게시판이 존재하지 않습니다.</li>
-									<br>
-									<li><a style="position: relative; left: 27%"
-										onclick="cafemenuinsert(${vo.cafe_no})">+&nbsp;게시판 추가하기</a></li>
-
+								<ul style="padding-left:10px">  
+									<c:choose>
+										<c:when test="${empty menu }">
+									<li>게시판이 존재하지 않습니다.</li><br>
+										</c:when>
+									
+										<c:otherwise>
+											<c:forEach var="menu" items="${menu }">
+												<li onclick="menudetail(${menu.cafe_menu_no })">${menu.name }</li>
+											</c:forEach>
+											<br>
+										</c:otherwise>
+									</c:choose>
+									
+									<c:if test="${fn:length(menu) < 5 }">
+									<li><a style="position:relative; left:27%" onclick="cafemenuinsert(${vo.cafe_no})">+&nbsp;게시판 추가하기</a></li>
+									</c:if>
+									<c:if test="${fn:length(menu) >= 5 }">
+									<li><a style="position: relative; left: 20%">&nbsp;더 이상 만들수 없습니다.</a></li>
+									</c:if>
 								</ul>
 
 
@@ -227,29 +280,31 @@
 							<!-- 게시판 추가 -->
 							<div id="menuinsert_form" class="col-lg-4 ftco-animate"
 								style="border-left: 1px solid lightgray; padding: 20px;">
-								<form id="menuinsert" action="menuinsert.do">
+								<form id="menuinsert" action="menuinsert.do" onsubmit="return menuinsert_chk(${vo.cafe_no})">
 									<input type="hidden" name="cafe_no" value="${vo.cafe_no }">
+									<input type="hidden" name="cafe_menu_no">
 									<div class="form-group">
-										<label>게시판명</label><br> <input type="text" size="60"
-											name="name" maxlength="10"> <br> <br> <label>글쓰기
-											권한</label><br> <input type="radio" value="y" name="authority"
-											checked="true">관리자 &nbsp;&nbsp;&nbsp; <input
-											type="radio" value="n" name="authority">모 두 <br>
-										<br> <label>게시판 형식</label><br> <input type="radio"
-											value="table" name="concept" checked="true">게시판
-										&nbsp;&nbsp;&nbsp; <input type="radio" value="guest"
-											name="concept">방명록<br> <br> <label>말머리</label><br>
-										<input id="categorychk" type="checkbox">적용<br><br> 
+										<label>게시판명</label><br> 
+											<input type="text" size="60" name="name" maxlength="10"> <br> <br> 
+										<label>글쓰기 권한</label><br> 
+											<input type="radio" value="N" name="authority" checked="true">관리자 &nbsp;&nbsp;&nbsp; 
+											<input type="radio" value="Y" name="authority">모 두 <br> 
+										<br> 
+										
+										<label>게시판 형식</label><br> 
+											<input type="radio" value="table" name="concept" checked="true">게시판
+										&nbsp;&nbsp;&nbsp; 
+											<input type="radio" value="guest" name="concept">방명록<br> <br> 
+										
+										<label>말머리</label><br>
+											<input id="categorychk" type="checkbox">적용<br><br> 
 										
 										<div id="category" style="display:none">
 											<label style="margin:0px;">말머리 정보</label> 
 											<ol style="padding:10px; margin:0px;"> 
-												<li><input type="text" name="category1"
-													placeholder="말머리를 입력하세요." maxlength="5"><br></li>
-												<li><input type="text" name="category2"
-													placeholder="말머리를 입력하세요." maxlength="5"><br></li>
-												<li><input type="text" name="category3"
-													placeholder="말머리를 입력하세요." maxlength="5"><br></li>
+												<li><input type="text" name="category1" placeholder="말머리를 입력하세요." maxlength="5"><br></li>
+												<li><input type="text" name="category2" placeholder="말머리를 입력하세요." maxlength="5"><br></li>
+												<li><input type="text" name="category3" placeholder="말머리를 입력하세요." maxlength="5"><br></li>
 											</ol>
 										</div>
 
@@ -271,15 +326,27 @@
 								style="border-left: 1px solid lightgray; padding: 20px; display: none">
 								<form action="menuupdate">
 									<div class="form-group">
-										<label>게시판명</label><br> <input type="text" size="60"
-											name="name"> <br> <br> <label>글쓰기
-											권한</label><br> <input type="radio" value="y" name="authority"
-											checked="true">관리자 &nbsp;&nbsp;&nbsp; <input
-											type="radio" value="n" name="authority">모 두 <br>
-										<br> <label>게시판 형식</label><br> <input type="radio"
-											value="table" name="concept" checked="true">게시판
-										&nbsp;&nbsp;&nbsp; <input type="radio" value="guest"
-											name="concept">방명록<br>
+										<label>게시판명</label><br> 
+											<input type="text" size="60" name="name" maxlength="10"> <br> <br> 
+										<label>글쓰기 권한</label><br> 
+											<input type="radio" value="N" name="authority">관리자 &nbsp;&nbsp;&nbsp; 
+											<input type="radio" value="Y" name="authority">모 두 <br>
+										<br> 
+										
+										<label>게시판 형식</label><br> 
+											<input type="radio" value="table" name="concept" disabled>게시판
+										&nbsp;&nbsp;&nbsp; 
+											<input type="radio" value="guest" name="concept" disabled>방명록<br> <br> 
+										
+										
+										<div id="category_update">
+											<label style="margin:0px;">말머리 정보</label> 
+											<ol id="category_list" style="padding:10px; margin:0px;"> 
+												<li><input type="text" name="category1" placeholder="말머리를 입력하세요." maxlength="5"><br></li>
+												<li><input type="text" name="category2" placeholder="말머리를 입력하세요." maxlength="5"><br></li>
+												<li><input type="text" name="category3" placeholder="말머리를 입력하세요." maxlength="5"><br></li>
+											</ol>
+										</div>
 
 									</div>
 

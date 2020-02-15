@@ -131,7 +131,7 @@
                         </div>
                         <br>            
                         <div class="form-group" style="position: relative; left: 40%">
-<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->                        
+                    
                         <c:choose>
                            <c:when test="${cafevo.restriction eq 'Y' }">
                            <input type="hidden" name="signyn" value="Y"> 
@@ -141,7 +141,7 @@
                            <input type="hidden" name="signyn" value="N"> 
                            <input type="submit" value="즉시가입신청" class="btn btn-primary py-3 px-5">
                            </c:when>
-<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->                           
+                        
                         </c:choose>   
                         </div>
    

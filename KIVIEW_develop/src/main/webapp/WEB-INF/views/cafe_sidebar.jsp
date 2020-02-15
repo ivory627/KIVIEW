@@ -95,7 +95,10 @@ textarea{
                   <tr><th>회원수</th><td>48명</td></tr>  
                   <tr><th>게시글</th><td>2341개</td></tr>
                   </table>
+                  
+                  <c:if test="${vo.admin == login.member_id }">
                   <a href="cafeconfig.do?cafe_no=${vo.cafe_no }"># 카페 관리</a>
+                  </c:if>
                   <br><br>
 <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->                  
                   <c:choose>

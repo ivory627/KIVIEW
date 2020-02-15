@@ -7,7 +7,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,14 +19,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
 import com.mvc.kiview.common.validate.FileValidate;
 import com.mvc.kiview.common.validate.uploadFile;
 import com.mvc.kiview.model.biz.CafeBiz;
+import com.mvc.kiview.model.vo.CafeBoardVo;
+import com.mvc.kiview.model.vo.CafeCategoryVo;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.CafeVo;
@@ -71,7 +78,7 @@ public class CafeController {
 
       model.addAttribute("list", biz.cafe_Ulist(member_no));
 
-      System.out.println(list);
+     
       return "cafe_my";
 
    }
@@ -82,32 +89,39 @@ public class CafeController {
       CafeVo vo = biz.cafe_selectone(cafe_no);
       model.addAttribute("vo", vo);
       
+      
       // 카페 회원 여부 확인 -> 버튼 변경 여부 확인 용
       CafeMemberVo regyn = new CafeMemberVo();
       regyn.setCafe_member_no(member_no);
       regyn.setCafe_no(cafe_no);
       
       CafeMemberVo res = biz.cafe_regyn(regyn);
-      System.out.println(res);
+      
       model.addAttribute("caferegyn",res);   
 
       return "cafe_detail";
    }
 
+   
+   ////////////////////////////  카페 관리 ///////////////////////////////
    @RequestMapping("/cafeconfig.do")
    public String cafe_config(Model model, int cafe_no) {
-      CafeVo vo = biz.cafe_selectone(cafe_no);
-      model.addAttribute("vo", vo);
-
+      CafeVo cafe = biz.cafe_selectone(cafe_no);
+      model.addAttribute("vo", cafe);
+      
+      List<CafeMenuVo> menu = biz.menu_list(cafe_no);
+      model.addAttribute("menu", menu);
       return "cafe_config";
    }
-
+   
+   
+   
+   ///////////////////////// 게시판 관리 ///////////////////////////////////////
    @RequestMapping("/menuinsert.do")
    public void menu_insert(HttpServletResponse response, CafeMenuVo vo, @RequestParam("category1") String cat1,
          @RequestParam("category2") String cat2, @RequestParam("category3") String cat3) throws IOException {
 
-      System.out.println(vo);
-      System.out.println(cat1 + cat2 + cat3);
+
 
       int res = biz.menu_insert(vo, cat1, cat2, cat3);
 
@@ -127,7 +141,40 @@ public class CafeController {
       }
 
    }
-
+   
+   @RequestMapping(value="/menuchk.do",method=RequestMethod.POST)
+   @ResponseBody
+   public Map<String, Boolean> menu_chk(){
+	   Map<String, Boolean> map = new HashMap<String, Boolean>();
+	   
+	   return map;
+   }
+   
+   @RequestMapping(value="/menudetail.do", method=RequestMethod.POST) 
+   @ResponseBody
+   public Map<String, Object> menu_detail(int no) { 
+	   
+	   CafeMenuVo vo1 = biz.menu_detail1(no);
+	   List<CafeCategoryVo> vo2 = biz.menu_detail2(no);
+	   
+	   
+	   Map<String, Object> map = new HashMap<String, Object>();
+	   map.put("menu", vo1);
+	   map.put("category",vo2);
+	   
+	   
+	   return map;
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    @RequestMapping("/cafejoinform.do")
    public String cafe_joinbefore(Model model, int cafe_no) {
 

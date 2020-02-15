@@ -105,9 +105,9 @@ function check(){
                   <div id="restriction" class="form-group">
                      <label>가입 방식</label><br>
                      
-                     <input type="radio" value="y" name="restriction" checked="true"> 바로 가입 
+                     <input type="radio" value="Y" name="restriction" checked="true"> 바로 가입 
                      <br>
-                     <input type="radio" value="n" name="restriction"> 승인 후 가입
+                     <input type="radio" value="N" name="restriction"> 승인 후 가입
                       
                   </div>
                   

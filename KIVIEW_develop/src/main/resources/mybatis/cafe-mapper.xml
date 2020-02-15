@@ -25,6 +25,25 @@
      
      </insert>
      
+     <select id="menu_select" parameterType="int" resultType="CafeMenuVo">
+     	SELECT *
+     	FROM CAFE_MENU
+     	WHERE CAFE_NO = #{cafe_no}
+     
+     </select>
+     
+     <select id="menu_detail1" parameterType="int" resultType="CafeMenuVo">
+     	SELECT * 
+     	FROM CAFE_MENU
+     	WHERE CAFE_MENU_NO = #{no} 
+     </select>
+     
+     <select id="menu_detail2" parameterType="int" resultType="CafeCategoryVo">
+     	SELECT * 
+     	FROM CAFE_Category
+     	WHERE CAFE_MENU_NO = #{no} 
+     </select>
+     
      <insert id="category_insert" parameterType="String">
         
         

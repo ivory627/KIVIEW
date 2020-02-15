@@ -2,6 +2,8 @@ package com.mvc.kiview.model.dao;
 
 import java.util.List;
 
+import com.mvc.kiview.model.vo.CafeBoardVo;
+import com.mvc.kiview.model.vo.CafeCategoryVo;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.CafeVo;
@@ -29,6 +31,12 @@ public interface CafeDao {
    public int cafe_join(CafeMemberVo vo);
 
    public List<CafeVo> cafe_search(String keyword);
+
+	public List<CafeMenuVo> menu_list(int cafe_no);
+
+	public CafeMenuVo menu_detail1(int no);
+
+	public List<CafeCategoryVo> menu_detail2(int no);
    
    
    

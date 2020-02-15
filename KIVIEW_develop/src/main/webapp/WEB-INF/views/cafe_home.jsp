@@ -194,7 +194,7 @@ function cafesearch(){
                               <!-- 가입제한 -->
                               <div class="meta-date text-center p-2">
                                  <span class="mos"> 
-                                    <c:if test="${Ulist.restriction eq 'Y'}">                           
+                                    <c:if test="${Ulist.restriction ne 'Y' }">                        
                                                   바로가입                           
                                              </c:if> 
                                              <c:if test="${Ulist.restriction eq 'N'}">

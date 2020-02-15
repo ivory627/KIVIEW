@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mvc.kiview.model.vo.CafeBoardVo;
+import com.mvc.kiview.model.vo.CafeCategoryVo;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.CafeVo;
@@ -175,6 +177,47 @@ public class CafeDaoImpl implements CafeDao {
 		}
 		return null;
 	}
+
+	@Override
+	public List<CafeMenuVo> menu_list(int cafe_no) {
+		List<CafeMenuVo> res = null;
+		
+		try {
+			res = sqlSession.selectList(namespace+"menu_select",cafe_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("menu_list 오류");
+		} 
+		return res;
+	}
+
+	@Override
+	public CafeMenuVo menu_detail1(int no) {
+		CafeMenuVo res = null;
+		
+		try {
+			res = sqlSession.selectOne(namespace+"menu_detail1",no); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("menu_list 오류");
+		} 
+		return res;
+	}
+
+	@Override
+	public List<CafeCategoryVo> menu_detail2(int no) {
+		List<CafeCategoryVo> res = null;
+		
+		try {
+			res = sqlSession.selectList(namespace+"menu_detail2",no);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("menu_list 오류");
+		} 
+		return res;
+	}
+
+	
 
 	
 
