@@ -102,6 +102,7 @@ public class NoticeController {
 
 	}
 
+	
 	/* 게시글 삭제 */
 	@RequestMapping("/kiviewdel.do")
 	public String kiview_delete(int notice_no) {
