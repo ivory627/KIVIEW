@@ -40,52 +40,41 @@ public class NoticeController {
 	}
 
 	/* 공지사항 selectOne */
-	/*
-	 * @RequestMapping("/kiviewdetail.do") public String kiview_detail(Model model,
-	 * int notice_no) {
-	 * 
-	 * logger.info("NOTICE DETAIL"); model.addAttribute("noticedetail",
-	 * n_biz.n_selectOne(notice_no));
-	 * 
-	 * return "kiview_notice_detail"; }
-	 */
 
-	@RequestMapping("/kiviewdetail.do/{notice_no}")
-	public String kiview_detail(HttpServletResponse response, HttpServletRequest request, 
-			@PathVariable int notice_no, Model model) {
-		
-		logger.info("kiviewdetail.do view notice_no = {}", notice_no);
-		
-		// 저장된 쿠키 불러오기
-		Cookie cookies[] = request.getCookies();
-		
-		Map mapCookie = new HashMap();
-		if (request.getCookies() != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				Cookie obj = cookies[i];
-				mapCookie.put(obj.getName(), obj.getValue());
-			}
-			System.out.println(mapCookie);
-		} 
-		
-		// 저장된 쿠키중에 read_count 만 불러오기
-		String cookie_read_count = (String) mapCookie.get("notice_hit");
-		// 저장될 새로운 쿠키값 생성
-		String new_cookie_read_count = "|" + notice_no;
-		// 저장된 쿠키에 새로운 쿠키값이 존재하는 지 검사
-		if (StringUtils.indexOfIgnoreCase(cookie_read_count, new_cookie_read_count) == -1) {
-			// 없을 경우 쿠키 생성
-			Cookie cookie = new Cookie("notice_hit", cookie_read_count + new_cookie_read_count);
-			cookie.setMaxAge(1000); // 초단위
-			response.addCookie(cookie); // 조회수 업데이트
-			n_biz.notice_hitupdate(notice_no);
-		}
-		NoticeVo n_vo = n_biz.n_selectOne(notice_no);
-		model.addAttribute("noticedetail", n_vo);
+	@RequestMapping("/kiviewdetail.do")
+	public String kiview_detail(Model model, int notice_no) {
+
+		logger.info("NOTICE DETAIL");
+		model.addAttribute("noticedetail", n_biz.n_selectOne(notice_no));
+
 		return "kiview_notice_detail";
 	}
-	
 
+	/*
+	 * @RequestMapping("/kiviewdetail.do/{notice_no}") public String
+	 * kiview_detail(HttpServletResponse response, HttpServletRequest request,
+	 * 
+	 * @PathVariable int notice_no, Model model) {
+	 * 
+	 * logger.info("kiviewdetail.do view notice_no = {}", notice_no);
+	 * 
+	 * // 저장된 쿠키 불러오기 Cookie cookies[] = request.getCookies();
+	 * 
+	 * Map mapCookie = new HashMap(); if (request.getCookies() != null) { for (int i
+	 * = 0; i < cookies.length; i++) { Cookie obj = cookies[i];
+	 * mapCookie.put(obj.getName(), obj.getValue()); }
+	 * System.out.println(mapCookie); }
+	 * 
+	 * // 저장된 쿠키중에 read_count 만 불러오기 String cookie_read_count = (String)
+	 * mapCookie.get("notice_hit"); // 저장될 새로운 쿠키값 생성 String new_cookie_read_count =
+	 * "|" + notice_no; // 저장된 쿠키에 새로운 쿠키값이 존재하는 지 검사 if
+	 * (StringUtils.indexOfIgnoreCase(cookie_read_count, new_cookie_read_count) ==
+	 * -1) { // 없을 경우 쿠키 생성 Cookie cookie = new Cookie("notice_hit",
+	 * cookie_read_count + new_cookie_read_count); cookie.setMaxAge(1000); // 초단위
+	 * response.addCookie(cookie); // 조회수 업데이트 n_biz.notice_hitupdate(notice_no); }
+	 * NoticeVo n_vo = n_biz.n_selectOne(notice_no);
+	 * model.addAttribute("noticedetail", n_vo); return "kiview_notice_detail"; }
+	 */
 
 	/*
 	 * @RequestMapping(value = "/kiviewdetail.do") public ModelAndView

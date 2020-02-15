@@ -76,4 +76,11 @@ public class NoticeBizImpl implements NoticeBiz {
 		return 0;
 	}
 
+	
+	
+	
+	
+	
+	
+	
 }
