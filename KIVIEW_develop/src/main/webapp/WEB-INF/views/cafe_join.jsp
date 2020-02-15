@@ -114,8 +114,8 @@
                   
                   <form action="cafejoin.do">
                      <input type="hidden" name="cafe_no" value="${cafevo.cafe_no }" />
-                     
-                        <div class="form-group">
+                     <input type="hidden" name="memberno" value="${login.member_no }"/>
+                         <div class="form-group">
                            <label>카페명</label><br>
                            <p>${cafevo.title }</p> 
                         </div>
@@ -131,13 +131,17 @@
                         </div>
                         <br>            
                         <div class="form-group" style="position: relative; left: 40%">
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->                        
                         <c:choose>
-                           <c:when test="${cafevo.restriction eq 'y' }">
+                           <c:when test="${cafevo.restriction eq 'Y' }">
+                           <input type="hidden" name="signyn" value="Y"> 
                            <input type="submit" value="가입 신청"    class="btn btn-primary py-3 px-5">
                            </c:when>
-                           <c:when test="${cafevo.restriction eq 'n' }">
+                           <c:when test="${cafevo.restriction eq 'N' }">
+                           <input type="hidden" name="signyn" value="N"> 
                            <input type="submit" value="즉시가입신청" class="btn btn-primary py-3 px-5">
                            </c:when>
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->                           
                         </c:choose>   
                         </div>
    

@@ -14,7 +14,7 @@ $(function(){
 	if(${login==null}){
 		$("#login").show();
 		$("#my").hide();
-	} else {
+	} else { 
 		$("#login").hide();
 		$("#my").show();
 	}
@@ -166,7 +166,8 @@ $(function(){
 					class="nav-link">키뷰안내</a></li>
 				<li id="kinder" class="nav-item"><a href="kindersearch.do"
 					class="nav-link">유치원</a></li>
-				<li id="cafe" class="nav-item"><a href="cafehome.do?member_no=${login.member_no }" class="nav-link">키뷰카페</a></li>
+				<li id="cafe" class="nav-item"><a href="cafehome.do?member_no=${login.member_no }&member_id=${login.member_id}"
+               class="nav-link">키뷰 카페</a></li> 
 				
 				<li id="my" class="nav-item"><a href="kiviewmypage.do"
 					class="nav-link">마이페이지</a></li>
@@ -256,8 +257,8 @@ $(function(){
 			<!-- <ul class="navbar-nav ml-auto" >   -->
 				
 				
-				<li class="nav-item"><a href="cafehome.do?member_no=${login.member_no }"
-					class="nav-link">카페 홈</a></li> 
+				<li class="nav-item"><a href="cafehome.do?member_no=${login.member_no }&member_id=${login.member_id}"
+               class="nav-link">카페 홈</a></li> 
 				<li class="nav-item"><a href="kiview_search.jsp"
 					class="nav-link">카페 관리</a></li>
 			</ul>
