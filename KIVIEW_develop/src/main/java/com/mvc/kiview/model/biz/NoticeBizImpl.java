@@ -56,6 +56,7 @@ public class NoticeBizImpl implements NoticeBiz {
 		return null;
 	}
 
+	
 	@Override
 	public FAQVo f_selectOne(int faq_no) {
 		return null;
