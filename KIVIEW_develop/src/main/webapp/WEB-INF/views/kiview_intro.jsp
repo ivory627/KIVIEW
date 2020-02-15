@@ -83,7 +83,6 @@
 	
 	<!-- @@ header 끝 @@ -->
 	
-	
 
 	<div class="jsx-903324597 content" style = "min-height:0px;" id = "contentdiv">
 		<div class="jsx-3810764099 board-box">
