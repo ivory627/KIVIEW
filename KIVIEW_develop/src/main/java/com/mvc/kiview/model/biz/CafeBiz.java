@@ -17,7 +17,7 @@ public interface CafeBiz {
    
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   
    
-   public int cafe_insert(CafeVo vo);
+   public int cafe_insert(CafeVo vo1, CafeMemberVo vo2);
    
    public CafeVo cafe_selectone(int cafe_no);
    

@@ -32,10 +32,19 @@ public class CafeBizImpl implements CafeBiz{
       return dao.cafe_regyn(regyn);
    }
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+   @Transactional
    @Override
-   public int cafe_insert(CafeVo vo) {
+   public int cafe_insert(CafeVo vo1, CafeMemberVo vo2) {
       
-      return dao.cafe_insert(vo);
+      int res = dao.cafe_insert(vo1);
+      
+      if(res > 0) {
+    	  res = dao.cafe_insert2(vo2);
+    	  
+    	  return res;
+      }
+      
+      return res;
    }
 
    @Override

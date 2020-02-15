@@ -37,8 +37,7 @@ public class CafeController {
 
    @Autowired
    private CafeBiz biz;
-
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ수정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   
+   
    @RequestMapping("/cafehome.do")
    public String cafe_home(Model model, int member_no, String member_id) {
 
@@ -56,7 +55,7 @@ public class CafeController {
       
       return "cafe_home";
    }
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ수 정 끝ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   
+ 
 
    @RequestMapping("/cafeopen.do")
    public String cafe_open() {
@@ -76,7 +75,7 @@ public class CafeController {
       return "cafe_my";
 
    }
-   // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ수정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
    @RequestMapping("/cafedetail.do")
    public String cafe_detail(Model model, int cafe_no, int member_no) {
       // 상세페이지 카페 정보
@@ -94,7 +93,7 @@ public class CafeController {
 
       return "cafe_detail";
    }
-   // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ수정 끝ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
    @RequestMapping("/cafeconfig.do")
    public String cafe_config(Model model, int cafe_no) {
       CafeVo vo = biz.cafe_selectone(cafe_no);
@@ -274,14 +273,17 @@ public class CafeController {
          }
       }
 
-      CafeVo vo = new CafeVo(cafe.getTitle(), admin, cafe.getIntro(), thumb_name, bg_name, cafe.getRestriction(),
+      CafeVo vo1 = new CafeVo(cafe.getTitle(), admin, cafe.getIntro(), thumb_name, bg_name, cafe.getRestriction(),
             cafe.getQuestion());
+      
+      CafeMemberVo vo2 = new CafeMemberVo(member_no, admin, "A");
+      
 
       int res = 0;
-      res = biz.cafe_insert(vo);
+      res = biz.cafe_insert(vo1,vo2);
 
       if (res > 0) {
-         return "redirect:cafehome.do?member_no=" + member_no;
+    	  return "redirect:cafehome.do?member_no=" + member_no+"&member_id="+admin;
       } else {
          return "redirect:cafeopen.do";
       }

@@ -11,6 +11,13 @@
      
      </insert>
      
+     <insert id="cafe_insert2" parameterType="CafeMemberVo" >
+        INSERT INTO CAFE_MEMBER
+        VALUES(CAFE_MEMBER_SEQ.NEXTVAL,#{member_no}, CAFE_SEQ.CURRVAL,#{answer},#{signyn},'N',SYSDATE)
+     </insert>
+     
+     
+     
      <insert id="menu_insert" parameterType="CafeMenuVo">
         INSERT INTO CAFE_MENU
         VALUES(CAFE_MENU_SEQ.NEXTVAL, #{cafe_no}, #{name}, #{authority}, #{concept})
@@ -31,7 +38,7 @@
       <select id="cafe_Ulist" parameterType="int" resultType="CafeVo">
         SELECT * 
         FROM CAFE 
-        WHERE CAFE_NO IN (SELECT CAFE_NO FROM CAFE_MEMBER WHERE MEMBER_NO = #{member_no} AND SIGNYN = 'Y' )
+        WHERE CAFE_NO IN (SELECT CAFE_NO FROM CAFE_MEMBER WHERE MEMBER_NO = #{member_no} AND (SIGNYN = 'Y' OR SIGNYN='A') )
      </select>
      
      <select id="cafe_Alist" parameterType="String" resultType="CafeVo">

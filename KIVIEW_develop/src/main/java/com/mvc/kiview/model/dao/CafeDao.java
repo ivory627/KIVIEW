@@ -17,6 +17,8 @@ public interface CafeDao {
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   
    
    public int cafe_insert(CafeVo vo);
+    
+   public int cafe_insert2(CafeMemberVo vo);
    
    public CafeVo cafe_selectone(int cafe_no);
    
