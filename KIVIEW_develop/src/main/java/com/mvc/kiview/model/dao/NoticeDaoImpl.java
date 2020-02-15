@@ -46,7 +46,6 @@ public class NoticeDaoImpl implements NoticeDao {
 		return n_vo;
 	}
 
-
 	@Override
 	public int notice_insert(NoticeVo n_vo) {
 
@@ -96,14 +95,14 @@ public class NoticeDaoImpl implements NoticeDao {
 	public int notice_hitupdate(int notice_no) {
 
 		int res = 0;
-		
+
 		try {
 			res = sqlSession.update(namespace + "hitupdate", notice_no);
 		} catch (Exception e) {
 			System.out.println("[error] : notice_hit");
 			e.printStackTrace();
 		}
-		
+
 		return res;
 	}
 
