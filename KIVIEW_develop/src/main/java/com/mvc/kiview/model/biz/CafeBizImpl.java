@@ -67,18 +67,19 @@ public class CafeBizImpl implements CafeBiz {
 		
 		if(res>0) {
 			if (cat1 != null) {
-				res = dao.category_insert(cat1);
+				res += dao.category_insert(cat1);
+				
 				
 
 			}
 
 			if (cat2 != null) {
-				res = dao.category_insert(cat2);
+				res += dao.category_insert(cat2);
 
 			}
 
 			if (cat3 != null) {
-				res = dao.category_insert(cat3);
+				res += dao.category_insert(cat3);
 
 			}
 		}

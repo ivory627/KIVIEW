@@ -25,9 +25,9 @@
 		
 		$("#categorychk").on("change",function(){
 			if($("#categorychk").is(":checked")){  
-				$("#category").show();
+				$("#category_insert").show();
 			} else { 
-				$("#category").hide(); 
+				$("#category_insert").hide(); 
 				$("input[name=category1]").val("");
 				$("input[name=category2]").val("");
 				$("input[name=category3]").val(""); 
@@ -41,6 +41,14 @@
 			
 			
 		})  
+		
+		$("#categorychk").on("click",function(){
+			if(("#categorychk").is(":checked")){
+				$("input[name=category1]").val("");
+				$("input[name=category2]").val("");
+				$("input[name=category3]").val(""); 
+			}
+		})
 
 		
 
@@ -77,8 +85,9 @@
 
 	})
 	
-	function cafemenuinsert(no){
-		alert(no);
+	function menuinsert(){
+		$("#menuinsert_form").show(); 
+		$("#menuupdate_form").hide();
 	}
 	
 	function menudetail(no){
@@ -90,6 +99,10 @@
 			data:{"no":no}, 
 			dataType:"json",
 			success:function(data){
+				
+				$("#category_update").find($("input[name=category1]")).val("");  
+				$("#category_update").find($("input[name=category2]")).val("");
+				$("#category_update").find($("input[name=category3]")).val("");
 			
 				$("#menuinsert_form").hide();
 				$("#menuupdate_form").show();
@@ -97,9 +110,9 @@
 				$("#menuupdate_form").find($("input[name=cafe_menu_no]")).val(data.menu.cafe_menu_no);
 				$("#menuupdate_form").find($("input[name=authority]:input[value="+data.menu.authority+"]")).prop("checked",true);  
 				$("#menuupdate_form").find($("input[name=concept]:input[value="+data.menu.concept+"]")).prop("checked",true);  
-				$("#category_list").find($("input[name=category1]")).val(data.category[0].category);  
-				$("#category_list").find($("input[name=category2]")).val(data.category[1].category);
-				$("#category_list").find($("input[name=category3]")).val(data.category[2].category); 
+				$("#category_update").find($("input[name=category1]")).val(data.category[0].category);  
+				$("#category_update").find($("input[name=category2]")).val(data.category[1].category);
+				$("#category_update").find($("input[name=category3]")).val(data.category[2].category); 
 			
 			
 			},
@@ -113,8 +126,17 @@
 		})
 	}
 	
+	function menu_delete(cafe_no, cafe_menu_no){
+		
+		
+		if(confirm("삭제하시겠습니까?")){
+			location.href="menudelete.do?cafe_no="+cafe_no+"&cafe_menu_no="+cafe_menu_no;
+		}
+	}
+	
 	function menuinsert_chk(cafe_no){
-		var data = {"cafe_no":cafe_no, "name":$("input[name=name]").val()}
+		var data = {"cafe_no":cafe_no, "name":$("input[name=name]").val()} 
+		
 		var submit = false;
 		
 		$.ajax({
@@ -126,9 +148,10 @@
 			success:function(data){
 				if(data.check==true){
 					alert("게시판 이름이 중복됩니다.");
-					submit = false;
+					return false;
+					
 				} else {
-					submit = true;
+					return true;
 				}
 				
 			},
@@ -136,10 +159,33 @@
 				alert(error);
 			}
 		})
-		 
-		alert(submit);
 		
-		return submit;
+		
+		if($("#categorychk").is(":checked")){
+			var category1 = $("#category_insert").find($("input[name=category1]")).val();
+			var category2 = $("#category_insert").find($("input[name=category2]")).val();
+			var category3 = $("#category_insert").find($("input[name=category3]")).val(); 
+			
+			if(category1 == "" && category2 == "" && category3 == ""){
+				alert("최소 한개의 말머리를 입력하세요.");
+				
+				return false;
+			}
+			
+			
+			if(category1 == category2 || category2 == category3 || category1 == category3){
+				 
+				alert("말머리 이름이 중복됩니다.");
+				
+				return false;
+			}
+		
+		}
+		
+		
+		return true;  
+		
+		
 	}
 </script>
 </head>
@@ -283,14 +329,15 @@
 									
 										<c:otherwise>
 											<c:forEach var="menu" items="${menu }">
-												<li onclick="menudetail(${menu.cafe_menu_no })">${menu.name }</li>
+												<li style="display:inline" onclick="menudetail(${menu.cafe_menu_no })">${menu.name }</li>
+												<a style="cursor:pointer" onclick="menu_delete(${menu.cafe_no},${menu.cafe_menu_no })">&nbsp;&nbsp;X</a><br>
 											</c:forEach>
 											<br>
 										</c:otherwise>
 									</c:choose>
 									
 									<c:if test="${fn:length(menu) < 5 }">
-									<li><a style="position:relative; left:27%" onclick="cafemenuinsert(${vo.cafe_no})">+&nbsp;게시판 추가하기</a></li>
+									<li><a style="position:relative; left:27%" onclick="menuinsert()">+&nbsp;게시판 추가하기</a></li>
 									</c:if>
 									<c:if test="${fn:length(menu) >= 5 }">
 									<li><a style="position: relative; left: 20%">&nbsp;더 이상 만들수 없습니다.</a></li>
@@ -308,7 +355,7 @@
 									 
 									<div class="form-group">
 										<label>게시판명</label><br> 
-											<input type="text" size="60" name="name" maxlength="10"> <br> <br> 
+											<input type="text" size="60" name="name" minlength="4" maxlength="10" required> <br> <br> 
 										<label>글쓰기 권한</label><br> 
 											<input type="radio" value="Y" name="authority" checked="true">관리자 &nbsp;&nbsp;&nbsp; 
 											<input type="radio" value="N" name="authority">모 두 <br> 
@@ -322,35 +369,41 @@
 										<label>말머리</label><br>
 											<input id="categorychk" type="checkbox">적용<br><br> 
 										
-										<div id="category" style="display:none">
+										<div id="category_insert" style="display:none">
 											<label style="margin:0px;">말머리 정보</label> 
 											<ol style="padding:10px; margin:0px;"> 
-												<li><input type="text" name="category1" placeholder="말머리를 입력하세요." maxlength="5"><br></li>
-												<li><input type="text" name="category2" placeholder="말머리를 입력하세요." maxlength="5"><br></li>
-												<li><input type="text" name="category3" placeholder="말머리를 입력하세요." maxlength="5"><br></li>
+												<li><input type="text" name="category1" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
+												<li><input type="text" name="category2" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
+												<li><input type="text" name="category3" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
 											</ol>
 										</div>
 
 									</div>
 
 
-
-									<div class="form-group" style="position: relative; left: 85%">
-										<input type="submit" onclick="menuinsert();" value="추가"
-											class="btn btn-primary py-3 px-5">
-									</div>
+									<c:if test="${fn:length(menu) >= 5 }">
+										<div class="form-group" style="position: relative; left: 65%">
+											<a>&nbsp;더 이상 만들수 없습니다.</a>
+										</div>
+									</c:if>
+									<c:if test="${fn:length(menu) < 5 }">
+										<div class="form-group" style="position: relative; left: 85%">
+											<input type="submit" value="추가"
+												class="btn btn-primary py-3 px-5">
+										</div>
+									</c:if>
 								</form>
 
 							</div>
 
 
-							<!-- 게시판 설정 -->
+							<!-- 게시판 수정 -->
 							<div id="menuupdate_form" class="col-lg-4 ftco-animate"
 								style="border-left: 1px solid lightgray; padding: 20px; display: none">
 								<form action="menuupdate">
 									<div class="form-group">
 										<label>게시판명</label><br> 
-											<input type="text" size="60" name="name" maxlength="10"> <br> <br> 
+											<input type="text" size="60" name="name" minlength="4" maxlength="10" required> <br> <br> 
 										<label>글쓰기 권한</label><br> 
 											<input type="radio" value="Y" name="authority">관리자 &nbsp;&nbsp;&nbsp; 
 											<input type="radio" value="N" name="authority">모 두 <br>
@@ -364,18 +417,20 @@
 										
 										<div id="category_update">
 											<label style="margin:0px;">말머리 정보</label> 
-											<ol id="category_list" style="padding:10px; margin:0px;"> 
-												<li><input type="text" name="category1" placeholder="말머리를 입력하세요." maxlength="5"><br></li>
-												<li><input type="text" name="category2" placeholder="말머리를 입력하세요." maxlength="5"><br></li>
-												<li><input type="text" name="category3" placeholder="말머리를 입력하세요." maxlength="5"><br></li>
+											<ol style="padding:10px; margin:0px;"> 
+												<li><input type="text" name="category1" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
+												<li><input type="text" name="category2" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
+												<li><input type="text" name="category3" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
 											</ol>
 										</div>
 
 									</div>
 
-									<div class="form-group" style="position: relative; left: 85%">
+									<div class="form-group" style="position: relative; left: 60%">
 										<input type="submit" value="수정"
-											class="btn btn-primary py-3 px-5">
+											class="btn btn-secondary py-3 px-5">
+										<input type="button" onclick="menu_delete()" value="삭제"
+											class="btn btn-primary py-3 px-5">	
 									</div>
 								</form>
 

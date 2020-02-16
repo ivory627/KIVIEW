@@ -174,6 +174,12 @@ public class CafeController {
 	   return map;
    }
    
+   @RequestMapping("/menudelete.do")
+   public String menu_delete(CafeMenuVo menu) {
+	   System.out.println(menu);
+	   return null;
+   }
+   
    
    
    
