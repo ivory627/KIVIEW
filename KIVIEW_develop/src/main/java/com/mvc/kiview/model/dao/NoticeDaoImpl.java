@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.FAQVo;
 import com.mvc.kiview.model.vo.NoticeVo;
 
@@ -17,18 +18,33 @@ public class NoticeDaoImpl implements NoticeDao {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<NoticeVo> noticeList() {
-
+	public List<NoticeVo> noticeList(Criteria cri) {
+		
 		List<NoticeVo> list = new ArrayList<NoticeVo>();
-
+		
 		try {
-			list = sqlSession.selectList(namespace + "noticeList");
-		} catch (Exception e) {
-			System.out.println("[error] : noticeList");
+			list = sqlSession.selectList("noticeList", cri);
+		}catch(Exception e) {
+			System.out.println("[error] : notice_list");
+		}
+		
+		return list;
+	}
+	
+	@Override
+	public int notice_count() {
+
+		int count = 0;
+		
+		try {
+			count = sqlSession.selectOne(namespace + "listCount");
+		}catch(Exception e) {
+			System.out.println("[error] : notice count");
 			e.printStackTrace();
 		}
-
-		return list;
+		
+		return count;
+		
 	}
 
 	@Override
@@ -137,5 +153,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	public int faq_delete(int faq_no) {
 		return 0;
 	}
+
+	
 
 }

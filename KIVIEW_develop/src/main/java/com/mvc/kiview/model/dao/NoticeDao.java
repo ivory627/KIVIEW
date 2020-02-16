@@ -2,6 +2,7 @@ package com.mvc.kiview.model.dao;
 
 import java.util.List;
 
+import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.FAQVo;
 import com.mvc.kiview.model.vo.NoticeVo;
 
@@ -11,11 +12,13 @@ public interface NoticeDao {
 
 	/* 공지사항 관련 method */
 
-	public List<NoticeVo> noticeList(); // notice게시판 selectList
+	// notice게시판 selectList
+	public List<NoticeVo> noticeList(Criteria cri); 
 	public NoticeVo n_selectOne(int notice_no); // notice게시판 selectOne
 	public int notice_insert(NoticeVo n_vo); // notice게시판 insert(글쓰기)
 	public int notice_update(NoticeVo n_vo); // notice게시판 글 update(수정)
 	public int notice_delete(int notice_no); // notice게시판 글 delete(삭제)
+	public int notice_count(); //게시글 count
 	public void notice_hitupdate(int notice_no); //notice게시글 조회수 update
 	public void notice_hitminus(int notice_no); // notice게시글 조회수 minus
 

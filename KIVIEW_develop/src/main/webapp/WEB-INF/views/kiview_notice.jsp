@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
-<%
-	response.setContentType("text/html; charset=UTF-8");
-%>
+<% request.setCharacterEncoding("UTF-8");%>
+<% response.setContentType("text/html; charset=UTF-8");%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -16,7 +12,9 @@
 <head>
 <title>KIVIEW &mdash; About</title>
 
-<%@ include file="head.jsp"%>
+<!-- css -->
+<jsp:include page="head.jsp"/>
+<!-- js -->
 <script type="text/javascript" src = "resources/js/test.js"></script>
 
 </head>
@@ -24,20 +22,18 @@
 <body id="body">
 
 	<!-- header 부분 -->
-	<%@ include file="header.jsp"%>
-
+	<jsp:include page="header.jsp"/>
 	<section class="hero-wrap hero-wrap-2"
 		style="background-image: url('resources/images/main/board_img01.png');">
-		<!-- <div class="overlay"></div> -->
 		<div class="container">
-			<div
-				class="row no-gutters slider-text align-items-center justify-content-center">
+			<div class="row no-gutters slider-text align-items-center justify-content-center">
 				<div class="col-md-9 ftco-animate text-center">
 					<h1 class="mb-2 bread">공지사항</h1>
 					<p class="breadcrumbs">
-						<span class="mr-2"> <a href="index.do">홈 <i
-								class="ion-ios-arrow-forward"></i></a>
-						</span> <span>키뷰안내 <i class="ion-ios-arrow-forward"></i></span> 
+						<span class="mr-2"> <a href="index.do">홈 
+						<i class="ion-ios-arrow-forward"></i></a>
+						</span>
+						<span>키뷰안내 <i class="ion-ios-arrow-forward"></i></span> 
 						<span>&nbsp;공지사항</span>
 					</p>
 				</div>
@@ -58,8 +54,7 @@
 						viewBox="0 0 24 24" fill="none" stroke="#dfdfdf" stroke-width="2"
 						stroke-linecap="round" stroke-linejoin="round"
 						style="position: relative;">
-						<path
-							d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+						<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
 						<polyline points="14 2 14 8 20 8"></polyline>
 						<line x1="16" y1="13" x2="8" y2="13"></line>
 						<line x1="16" y1="17" x2="8" y2="17"></line>
@@ -67,15 +62,6 @@
 					<span class="jsx-1103591975">공지사항</span>
 				</h2>
 				<ul class="jsx-1103591975">
-					<!-- <li class="jsx-1103591975 active">
-					<a class="jsx-1103591975" style = "cursor:pointer;"
-					 onclick = "notice();" id = "menu01" href = "kiviewnotice.do">공지사항</a></li>
-					<li class="jsx-1103591975">
-					<a class="jsx-1103591975" style = "cursor:pointer;"
-					onclick = "intro();" id = "menu02" href = "kiviewintro.do">키뷰소개</a></li>
-					<li class="jsx-1103591975 ">
-					<a class="jsx-1103591975" style = "cursor:pointer;"
-					onclick = "faq();" id = "menu03" href = "kiviewfaq.do">FAQ</a></li> -->
 					<li class="jsx-1103591975 active">
 					<a class="jsx-1103591975" style = "cursor:pointer;"
 					 id = "menu01">공지사항</a></li>
@@ -89,10 +75,9 @@
 			</div>
 			
 			<div class="jsx-2295643283 content-box">
-				
 				<div class="jsx-2864104005 board-title">
 					<h3 class="jsx-2864104005">공지사항</h3>
-					<ol class="jsx-1271347565 ">
+					<ol class="jsx-1271347565">
 						<li class="jsx-1271347565">홈</li>
 						<li class="jsx-1271347565">키뷰안내</li>
 						<li class="jsx-1271347565">공지사항</li>
@@ -106,29 +91,25 @@
 					<div class="jsx-4261166144 select-box">
 						<div class="jsx-4121141969 select">
 							<div class="jsx-4121141969 choice">
-							
 							<form action="#" class="appointment-form ftco-animate fadeInUp ftco-animated">
 							  <select class="form-control-sm2" style="cursor:pointer;">
 		          				<option selected>분류 전체</option>
 							        <option>공지사항</option>
 							  </select>
-						   </form>
+						    </form>
 							</div>
 						</div>
 					</div>
 					&nbsp;&nbsp;&nbsp;&nbsp;
-
 					<div class="jsx-4261166144 select-box">
 						<div class="jsx-4121141969 select select--none">
 							<div class="jsx-4121141969 choice">
-								
 								<form action="#" class="appointment-form ftco-animate fadeInUp ftco-animated">
 								  <select class="form-control-sm2" style="cursor:pointer;">
 			          				<option selected>최신순</option>
 								        <option>조회순</option>
 								  </select>
 						  	 	</form>
-						  	 
 							</div>
 						</div>
 					</div>
@@ -139,11 +120,10 @@
 								<input title="검색어 입력" placeholder="검색어를 입력해 주세요."
 									class="jsx-3573217014 input" value="" style="width: 188px;">
 							</div>
-							<button type="button" class="jsx-574097175 "
+							<button type="button" class="jsx-574097175"
 								style="margin-left: 16px;">검색</button>
 						</div>
 					</div>
-
 				</div>
 				
 				
@@ -156,7 +136,7 @@
 				<c:set var="count" value="${noticelist.size()}"></c:set>
 				</c:forEach>
 				
-					<span class="jsx-723712822 total-number">총 ${count}개</span>
+					<span class="jsx-723712822 total-number">총 ${pageMaker.totalCount}개</span>
 				</div>
 				
 				<div class="jsx-1702879176 board-list-box">
@@ -183,8 +163,7 @@
 							 <div class="jsx-1066086808 col-category"
 								style="max-width: 120px;">${n_list.cat_detail}</div>
 							<div class="jsx-1066086808 col-title" style="max-width: 344px;">
-								<a class="jsx-1066086808"
-									href="kiviewdetail.do?notice_no=${n_list.notice_no}"
+								<a class="jsx-1066086808" href="kiviewdetail.do?notice_no=${n_list.notice_no}"
 									style="max-width: 250px;">
 								<span class="jsx-1066086808 notice-badges"></span>
 									${n_list.notice_title}
@@ -239,7 +218,6 @@
 					</c:otherwise>
 					</c:choose>
 					<!-- ---------@@ 글 목록 끝 @@--------- -->
-					
 				</div>
 
 
@@ -247,32 +225,45 @@
 				
 				<div class="jsx-1407906967 board-list-footer">
 					<ul class="jsx-3635512122 pagination pagination--kindergarten">
-						<li class="jsx-3635512122 prev disabled"><svg
-								xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+						<c:choose>
+						<c:when test="${pageMaker.prev}">
+						<li class="jsx-3635512122 prev disabled" >
+						<a href = "kiviewnotice.do?${pageMaker.makeQuery(pageMaker.startPage - 1)}">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 								viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
 								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
 								style="position: relative;">
 								<polyline points="11 17 6 12 11 7"></polyline>
-								<polyline points="18 17 13 12 18 7"></polyline></svg> <span
-							class="jsx-3635512122 alt-text">앞으로</span></li>
-						<li class="jsx-3635512122 on">1</li>
-						<li class="jsx-3635512122 ">2</li>
-						<li class="jsx-3635512122 ">3</li>
-						<li class="jsx-3635512122 ">4</li>
-						<li class="jsx-3635512122 ">5</li>
-						<!-- <li class="jsx-3635512122 ">6</li>
-						<li class="jsx-3635512122 ">7</li>
-						<li class="jsx-3635512122 ">8</li>
-						<li class="jsx-3635512122 ">9</li>
-						<li class="jsx-3635512122 ">10</li> -->
-						<li class="jsx-3635512122 next"><svg
-								xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+								<polyline points="18 17 13 12 18 7"></polyline></svg> 
+						<span class="jsx-3635512122 alt-text">앞으로</span>
+						</a>
+						</li>
+						</c:when>
+						</c:choose>
+						
+						<c:forEach begin = "${pageMaker.startPage}" 
+							end = "${pageMaker.endPage}" var = "idx">
+						<li class="jsx-3635512122 on">
+						<a href = "${pageMaker.makeQuery(idx)}">${idx}</a>
+						</li>
+						</c:forEach>
+						
+						<c:choose>
+						<c:when test="${pageMaker.next && pageMaker.endPage > 0}">
+						<li class="jsx-3635512122 next">
+						<a href = "${pageMaker.makeQuery(pageMaker.endPage + 1)}">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 								viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
 								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
 								style="position: relative;">
 								<polyline points="13 17 18 12 13 7"></polyline>
-								<polyline points="6 17 11 12 6 7"></polyline></svg> <span
-							class="jsx-3635512122 alt-text">뒤로</span></li>
+								<polyline points="6 17 11 12 6 7"></polyline>
+						</svg> 
+						<span class="jsx-3635512122 alt-text">뒤로</span>
+						</a>
+						</li>
+						</c:when>
+						</c:choose>
 					</ul>
 					
 					<!-- 계정에 'admin'이 포함된 member_id일 때만 글쓰기 버튼이 보이도록 -->
@@ -294,17 +285,12 @@
 			</div>
 		</div>
 	</div>
-
-
 	<br>
 	<br>
 	<br>
-
 
 	<!-- footer 영역 -->
-	<%@ include file="footer.jsp"%>
-
-	
+	<jsp:include page="footer.jsp">
 
 </body>
 </html>

@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mvc.kiview.model.biz.NoticeBiz;
+import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.NoticeVo;
+import com.mvc.kiview.model.vo.PageMaker;
 
 @Controller // 공지관련
 public class NoticeController {
@@ -21,11 +23,17 @@ public class NoticeController {
 
 	/* 키뷰안내, 공지사항 */
 	@RequestMapping("/kiviewnotice.do")
-	public String kiview_notice(Model model) {
+	public String kiview_notice(Model model, Criteria cri) {
 
 		logger.info("NOTICE LIST");
-		model.addAttribute("noticelist", n_biz.noticeList());
-
+		model.addAttribute("noticelist", n_biz.noticeList(cri));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(n_biz.notice_count());
+		
+		model.addAttribute("pageMaker", pageMaker);
+		
 		return "kiview_notice";
 	}
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.kiview.model.dao.NoticeDao;
+import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.FAQVo;
 import com.mvc.kiview.model.vo.NoticeVo;
 
@@ -16,10 +17,15 @@ public class NoticeBizImpl implements NoticeBiz {
 	private NoticeDao n_dao;
 
 	@Override
-	public List<NoticeVo> noticeList() {
-		return n_dao.noticeList();
+	public List<NoticeVo> noticeList(Criteria cri) {
+		return n_dao.noticeList(cri);
 	}
 
+	@Override
+	public int notice_count() {
+		return n_dao.notice_count();
+	}
+	
 	@Override
 	public NoticeVo n_selectOne(int notice_no) {
 
@@ -70,5 +76,10 @@ public class NoticeBizImpl implements NoticeBiz {
 	public int faq_delete(int faq_no) {
 		return 0;
 	}
+
+
+	
+
+	
 
 }
