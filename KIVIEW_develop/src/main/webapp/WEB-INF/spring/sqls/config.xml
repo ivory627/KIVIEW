@@ -20,6 +20,7 @@
 		
 		<!-- 공지사항 -->
 		<typeAlias type="com.mvc.kiview.model.vo.NoticeVo" alias="NoticeVo"/>
+		<typeAlias type="com.mvc.kiview.model.vo.Criteria" alias="Criteria"/>
 		
 		<!-- 즐겨찾기 -->
 		<typeAlias type="com.mvc.kiview.model.vo.FavoriteVo" alias="FavoriteVo"/>

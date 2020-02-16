@@ -154,7 +154,7 @@
 
 
 	<!-- @@ footer 영역 @@ -->
-	<jsp:include page="footer.jsp">
+	<jsp:include page="footer.jsp"/>
 
 	
 
