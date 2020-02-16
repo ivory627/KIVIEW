@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,19 +27,20 @@ public class NoticeController {
 	public String kiview_notice(Model model, Criteria cri) {
 
 		logger.info("NOTICE LIST");
-		model.addAttribute("noticelist", n_biz.noticeList(cri));
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(n_biz.notice_count());
 		
+		model.addAttribute("noticelist", n_biz.noticeList(cri));
 		model.addAttribute("pageMaker", pageMaker);
 		
 		return "kiview_notice";
 	}
 
+	
 	/* 공지사항 selectOne */
-
+	@Transactional
 	@RequestMapping("/kiviewdetail.do")
 	public String kiview_detail(Model model, int notice_no) {
 

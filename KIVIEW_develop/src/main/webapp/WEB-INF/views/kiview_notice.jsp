@@ -220,13 +220,12 @@
 					<!-- ---------@@ 글 목록 끝 @@--------- -->
 				</div>
 
-
 				<!--======================== @@ 페이징 @@=========================-->
 				
 				<div class="jsx-1407906967 board-list-footer">
 					<ul class="jsx-3635512122 pagination pagination--kindergarten">
-						<%-- <c:choose>
-						<c:when test="${pageMaker.prev}"> --%>
+						
+						<c:if test = "${pageMaker.prev}">
 						<li class="jsx-3635512122 prev disabled" >
 						<a href = "kiviewnotice.do?${pageMaker.makeQuery(pageMaker.startPage - 1)}">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -238,18 +237,16 @@
 						</a>
 						<span class="jsx-3635512122 alt-text">앞으로</span>
 						</li>
-						<%-- </c:when>
-						</c:choose> --%>
+						</c:if>
 						
 						<c:forEach begin = "${pageMaker.startPage}" 
 							end = "${pageMaker.endPage}" var = "idx">
 						<li class="jsx-3635512122">
-						<a href = "${pageMaker.makeQuery(idx)}">${idx}</a>
+						<a href = "${pageMaker.makeQuery(idx)}" style = "color:#000;">${idx}</a>
 						</li>
 						</c:forEach>
 						
-						<%-- <c:choose>
-						<c:when test="${pageMaker.next && pageMaker.endPage > 0}"> --%>
+						<c:if test = "${pageMaker.next && pageMaker.endPage > 0}">
 						<li class="jsx-3635512122 next">
 						<a href = "${pageMaker.makeQuery(pageMaker.endPage + 1)}">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -262,10 +259,9 @@
 						<span class="jsx-3635512122 alt-text">뒤로</span>
 						</a>
 						</li>
-						<%-- </c:when>
-						</c:choose> --%>
+						</c:if>
 					</ul>
-					
+
 					<!-- 계정에 'admin'이 포함된 member_id일 때만 글쓰기 버튼이 보이도록 -->
 					<c:set var = "admin_id" value = "${login.member_id}"></c:set>
 					<c:choose>

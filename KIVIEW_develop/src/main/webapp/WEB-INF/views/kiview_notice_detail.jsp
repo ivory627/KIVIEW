@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
-<%
-	response.setContentType("text/html; charset=UTF-8");
-%>
+<% request.setCharacterEncoding("UTF-8");%>
+<% response.setContentType("text/html; charset=UTF-8");%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -16,7 +12,7 @@
 <head>
 <title>KIVIEW &mdash; About</title>
 
-<%@ include file="head.jsp"%>
+<jsp:include page="head.jsp"/>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#btn1").click(function(){
@@ -57,7 +53,7 @@ box-sizing: border-box;
 <body id="body">
 
 	<!-- @@ header 부분 @@ -->
-	<%@ include file="header.jsp"%>
+	<jsp:include page="header.jsp"/>
 
 	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
 	<section class="hero-wrap hero-wrap-2"
@@ -219,8 +215,9 @@ box-sizing: border-box;
 						</button>
 						
 						<c:set var = "admin_id" value = "${login.member_id}"/>
+						<c:set var = "writer" value = "${noticedetail.notice_writer}"/>
 						<c:choose>
-						<c:when test="${fn:contains(admin_id, 'admin')}">
+						<c:when test="${admin_id == writer}">
 						<div class="jsx-2211599338 recommend-box">
 							<button class="jsx-1407906967" id = "writebtn"
 							onclick="location.href='noticeUpdate.do?notice_no=${noticedetail.notice_no}'">수정하기</button>&nbsp;&nbsp;
@@ -247,7 +244,7 @@ box-sizing: border-box;
 
 
 	<!-- @@ footer 영역 @@ -->
-	<%@ include file="footer.jsp"%>
+	<jsp:include page="footer.jsp"/>
 
 
 
