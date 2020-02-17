@@ -8,16 +8,12 @@
 	response.setContentType("text/html; charset=UTF-8");
 %>
 
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <script type="text/javascript">
 $(function(){
 	
-	if(${login==null}){
-		$("#login").show();
-		$("#my").hide();
-	} else { 
-		$("#login").hide();
-		$("#my").show();
-	}
 	
 	$("#notice").hover(function(){
 		$("#notice").children().css("color","#9BDAF2"); 
@@ -96,7 +92,6 @@ $(function(){
 		$("#my_sub").hide();
 	})
 	
-
 })
 </script>
 
@@ -326,4 +321,3 @@ $(function(){
 
 
 <!-- END nav -->
-
