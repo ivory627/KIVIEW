@@ -18,7 +18,7 @@ public interface NoticeDao {
 	public int notice_insert(NoticeVo n_vo); // notice게시판 insert(글쓰기)
 	public int notice_update(NoticeVo n_vo); // notice게시판 글 update(수정)
 	public int notice_delete(int notice_no); // notice게시판 글 delete(삭제)
-	public int notice_count(); //게시글 count
+	public int notice_count(Criteria cri); //게시글 count
 	public void notice_hitupdate(int notice_no); //notice게시글 조회수 update
 	public void notice_hitminus(int notice_no); // notice게시글 조회수 minus
 

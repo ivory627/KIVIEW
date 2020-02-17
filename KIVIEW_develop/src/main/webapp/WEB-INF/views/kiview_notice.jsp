@@ -160,14 +160,7 @@
 				<div class="jsx-723712822 sort-number">
 				
 				<!-- 올라온 글이 몇 개인지 카운팅 -->
-				<c:choose>
-				<c:when test="${param.searchType eq null}">
 				<span class="jsx-723712822 total-number">총 ${pageMaker.totalCount}개</span>
-				</c:when>
-				<c:otherwise>
-				<span class="jsx-723712822 total-number">총 ${pageMaker.totalCount}개</span>
-				</c:otherwise>
-				</c:choose>
 				</div>
 				
 				<div class="jsx-1702879176 board-list-box">

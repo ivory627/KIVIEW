@@ -32,12 +32,12 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 	
 	@Override
-	public int notice_count() {
+	public int notice_count(Criteria cri) {
 
 		int count = 0;
 		
 		try {
-			count = sqlSession.selectOne(namespace + "listCount");
+			count = sqlSession.selectOne(namespace + "listCount", cri);
 		}catch(Exception e) {
 			System.out.println("[error] : notice count");
 			e.printStackTrace();

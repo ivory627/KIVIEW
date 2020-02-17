@@ -13,7 +13,7 @@ public interface NoticeBiz {
 	
 	public List<NoticeVo> noticeList(Criteria cri); //notice게시판 selectList 
 	public NoticeVo n_selectOne(int notice_no); //notice게시판 selectOne 
-	public int notice_count(); //noticelist count
+	public int notice_count(Criteria cri); //noticelist count
 	public int notice_insert(NoticeVo n_vo); //notice게시판 insert(글쓰기) 
 	public int notice_update(NoticeVo n_vo); //notice게시판 글 update(수정) 
 	public int notice_delete(int notice_no); //notice게시판 글 delete(삭제) 

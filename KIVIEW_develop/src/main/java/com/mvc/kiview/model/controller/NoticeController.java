@@ -39,7 +39,7 @@ public class NoticeController {
 
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(n_biz.notice_count());
+		pageMaker.setTotalCount(n_biz.notice_count(cri));
 		
 		model.addAttribute("noticelist", n_biz.noticeList(cri));
 		model.addAttribute("pageMaker", pageMaker);

@@ -27,7 +27,7 @@
 	</select>	
 	
 	<sql id = "searchCondition">
-		<if test = "searchType != null">	
+		<if test = "keyword != null and keyword != ''">	
 			<if test="searchType == 'all'.toString()">
 				WHERE (NOTICE_TITLE LIKE '%' || #{keyword} || '%')
 				OR (NOTICE_CONTENT LIKE '%' ||  #{keyword} || '%')
@@ -50,10 +50,9 @@
 		</if>
 	</sql>
 	
-	<select id="listCount" resultType="int">
+	<select id="listCount" resultType="int" parameterType="Criteria">
 		SELECT COUNT(*) FROM 
-		(SELECT N.* FROM NOTICE N <include refid="searchCondition"/>) 
-		NOTICE WHERE NOTICE_NO > 0
+		NOTICE <include refid="searchCondition"/>
 	</select>
 	
 	<select id="noticeDetail" parameterType="int"
@@ -61,22 +60,27 @@
 		SELECT * FROM NOTICE
 		WHERE NOTICE_NO = #{notice_no}
 	</select>
+	
 	<insert id="noticeInsert" parameterType="noticeVo">
 		INSERT INTO NOTICE VALUES
 		(NOTICE_SEQ.NEXTVAL, #{cat_detail}, #{notice_title}, #{notice_content}, #{notice_writer},
 		TO_DATE(SYSDATE,'YY/MM/DD'), 0)
 	</insert>
+	
 	<update id="noticeUpdate" parameterType="noticeVo">
 		UPDATE NOTICE SET CAT_DETAIL = #{cat_detail}, NOTICE_TITLE =
 		#{notice_title},
 		NOTICE_CONTENT = #{notice_content} WHERE NOTICE_NO = #{notice_no}
 	</update>
+	
 	<delete id="noticeDelete" parameterType="int">
 		DELETE FROM NOTICE WHERE NOTICE_NO = #{notice_no}
 	</delete>
+	
 	<update id="hitupdate" parameterType="int">
 		UPDATE NOTICE SET NOTICE_HIT = NOTICE_HIT+1 WHERE NOTICE_NO = #{notice_no}
 	</update>
+	
 	<update id="hitupdateminus" parameterType="int">
 		UPDATE NOTICE SET NOTICE_HIT = NOTICE_HIT-2 WHERE NOTICE_NO = #{notice_no}
 	</update>

@@ -22,8 +22,8 @@ public class NoticeBizImpl implements NoticeBiz {
 	}
 
 	@Override
-	public int notice_count() {
-		return n_dao.notice_count();
+	public int notice_count(Criteria cri) {
+		return n_dao.notice_count(cri);
 	}
 	
 	@Override
