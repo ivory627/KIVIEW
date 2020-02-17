@@ -17,7 +17,7 @@
   4. Eclipse
   
 🎈 프레임워크
-  1. Spring framework
+  1. Spring framework 3
 
 🎈 Server --> 도메인 구매 후 AWS Route 53 배포 예정
   1. Apache Tomcat v9.0
@@ -27,7 +27,7 @@
   2. Github / Github Desktop
 
 🎈 DBMS 
-  1. Oracle / SQL Developer(IDE)
+  1. Oracle 11g / SQL Developer(IDE)
   
 🎈 OS
   1. Chrome
