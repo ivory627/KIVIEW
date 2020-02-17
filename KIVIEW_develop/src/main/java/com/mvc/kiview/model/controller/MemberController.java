@@ -21,76 +21,75 @@ import com.mvc.kiview.model.vo.MemberVo;
 @Controller // 회원관련
 public class MemberController {
 
-	private Logger logger = LoggerFactory.getLogger(MemberController.class);
+   private Logger logger = LoggerFactory.getLogger(MemberController.class);
 
-	@Autowired
-	private MemberBiz biz;
+   @Autowired
+   private MemberBiz biz;
 
-	@RequestMapping("/kiviewlogin.do")
-	public String kiview_login() {
-		logger.info("login");
-		return "kiview_login";
-	}
+   @RequestMapping("/kiviewlogin.do")
+   public String kiview_login() {
+      logger.info("login");
+      return "kiview_login";
+   }
 
-	@RequestMapping(value = "/ajaxlogin.do", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Boolean> ajaxLogin(HttpSession session, @RequestBody MemberVo vo) {
-		logger.info("ajaxLogin");
-		MemberVo res = biz.login(vo);
-		boolean check = false;
+   @RequestMapping(value = "/ajaxlogin.do", method = RequestMethod.POST)
+   @ResponseBody
+   public Map<String, Boolean> ajaxLogin(HttpSession session, @RequestBody MemberVo vo) {
+      logger.info("ajaxLogin");
+      MemberVo res = biz.login(vo);
+      boolean check = false;
 
-		if (res != null) {
-			session.setAttribute("login", res);
-			check = true;
-		}
-		Map<String, Boolean> map = new HashMap<String, Boolean>();
-		map.put("check", check);
+      if (res != null) {
+         session.setAttribute("login", res);
+         check = true;
+      }
+      Map<String, Boolean> map = new HashMap<String, Boolean>();
+      map.put("check", check);
 
-		return map;
-	}
-	
-	@RequestMapping("/kiviewlogout.do")
-	public String kiview_logout(HttpSession session) {
-		logger.info("loginout");
-		session.invalidate();
+      return map;
+   }
+   
+   @RequestMapping("/kiviewlogout.do")
+   public String kiview_logout(HttpSession session) {
+      logger.info("loginout");
+      session.invalidate();
+      return "index";
+   }
 
-		return "index";
-	}
+   @RequestMapping("/kiviewsignupoption.do")
+   public String kiview_signupOption() {
+      logger.info("signupOption");
+      return "kiview_signup-option";
+   }
 
-	@RequestMapping("/kiviewsignupoption.do")
-	public String kiview_signupOption() {
-		logger.info("signupOption");
-		return "kiview_signup-option";
-	}
-
-	@RequestMapping("/kiviewsignup.do")
-	public String kiview_signup() {
-		logger.info("signup");
-		return "kiview_signup";
-	}
+   @RequestMapping("/kiviewsignup.do")
+   public String kiview_signup() {
+      logger.info("signup");
+      return "kiview_signup";
+   }
 
 
-	@RequestMapping(value="/kiviewidsearch.do", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, MemberVo> kiview_idSearch(@RequestBody MemberVo vo) {
-		logger.info("idSearch");
-		MemberVo res = biz.idSearch(vo);
-		
-		System.out.println(res.getMember_name() + "/" + res.getMember_email()+ "/" + res.getMember_id()); //수정
-		
-		Map<String, MemberVo> map = new HashMap<String, MemberVo>();
-		map.put("idSearch", res);
+   @RequestMapping(value="/kiviewidsearch.do", method=RequestMethod.POST)
+   @ResponseBody
+   public Map<String, MemberVo> kiview_idSearch(@RequestBody MemberVo vo) {
+      logger.info("idSearch");
+      MemberVo res = biz.idSearch(vo);
+      
+      System.out.println(res.getMember_name() + "/" + res.getMember_email()+ "/" + res.getMember_id()); //수정
+      
+      Map<String, MemberVo> map = new HashMap<String, MemberVo>();
+      map.put("idSearch", res);
 
-		return map;
-	}
+      return map;
+   }
 
-	
-	
+   
+   
 
-	
+   
 
-	
-	
-	
+   
+   
+   
 
 }
