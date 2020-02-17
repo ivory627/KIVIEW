@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -41,7 +40,7 @@ public class NoticeController {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(n_biz.notice_count());
-
+		
 		model.addAttribute("noticelist", n_biz.noticeList(cri));
 		model.addAttribute("pageMaker", pageMaker);
 
@@ -126,52 +125,62 @@ public class NoticeController {
 
 	}
 
-	/*
-	 * @RequestMapping("/fileupload.do") public void
-	 * multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response)
-	 * {
-	 * 
-	 * try {
-	 * 
-	 * String sFileInfo = ""; String filename = request.getHeader("file-name");
-	 * String filename_ext = filename.substring(filename.lastIndexOf(".") + 1);
-	 * filename_ext = filename_ext.toLowerCase(); String defaultFilePath =
-	 * request.getSession().getServletContext().getRealPath("/"); String filePath =
-	 * defaultFilePath + "resources" + File.separator + "photo_upload" +
-	 * File.separator;
-	 * 
-	 * System.out.println("NoticeController filePath : " + filePath);
-	 * 
-	 * File file = new File(filePath);
-	 * 
-	 * if (!file.exists()) { file.mkdirs(); }
-	 * 
-	 * String realFileName = ""; SimpleDateFormat formatter = new
-	 * SimpleDateFormat("yyyyMMddHHmmss"); String today = formatter.format(new
-	 * java.util.Date()); realFileName = today + UUID.randomUUID().toString() +
-	 * filename.substring(filename.lastIndexOf("."));
-	 * 
-	 * String rlFileNm = filePath + realFileName;
-	 * 
-	 * InputStream is = request.getInputStream(); OutputStream os = new
-	 * FileOutputStream(rlFileNm);
-	 * 
-	 * int numRead; byte b[] = new
-	 * byte[Integer.parseInt(request.getHeader("file-size"))];
-	 * 
-	 * while ((numRead = is.read(b, 0, b.length)) != -1) { os.write(b, 0, numRead);
-	 * } if (is != null) { is.close(); } os.flush(); os.close();
-	 * 
-	 * sFileInfo += "&bNewLine=true"; sFileInfo += "&sFileName=" + filename;
-	 * sFileInfo += "&sFileURL=" + "resources/photo_upload/" + realFileName;
-	 * 
-	 * PrintWriter print = response.getWriter(); print.print(sFileInfo);
-	 * print.flush(); print.close();
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); }
-	 * 
-	 * }
-	 */
+	@RequestMapping("/fileupload.do")
+	public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+
+			String sFileInfo = "";
+			String filename = request.getHeader("file-name");
+			String filename_ext = filename.substring(filename.lastIndexOf(".") + 1);
+			filename_ext = filename_ext.toLowerCase();
+			String defaultFilePath = request.getSession().getServletContext().getRealPath("/");
+			String filePath = defaultFilePath + "resources" + File.separator + "photo_upload" + File.separator;
+
+			System.out.println("NoticeController filePath : " + filePath);
+
+			File file = new File(filePath);
+
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+
+			String realFileName = "";
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+			String today = formatter.format(new java.util.Date());
+			realFileName = today + UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
+
+			String rlFileNm = filePath + realFileName;
+
+			InputStream is = request.getInputStream();
+			OutputStream os = new FileOutputStream(rlFileNm);
+
+			int numRead;
+			byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
+
+			while ((numRead = is.read(b, 0, b.length)) != -1) {
+				os.write(b, 0, numRead);
+			}
+			if (is != null) {
+				is.close();
+			}
+			os.flush();
+			os.close();
+
+			sFileInfo += "&bNewLine=true";
+			sFileInfo += "&sFileName=" + filename;
+			sFileInfo += "&sFileURL=" + "resources/photo_upload/" + realFileName;
+
+			PrintWriter print = response.getWriter();
+			print.print(sFileInfo);
+			print.flush();
+			print.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	@RequestMapping("/kiviewintro.do")
 	public String kiview_intro() {

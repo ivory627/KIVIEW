@@ -169,8 +169,8 @@ $(function(){
 					class="nav-link">마이페이지</a></li>
 
 				<!-- 스크립트 조건에 소메뉴를 사라지게 해놔서 c태그로 변경 
-                로그인 되어 있을 때 로그아웃, 안되어있을 때 로그인 뜨도록
-            -->
+                	로그인 되어 있을 때 로그아웃, 안되어있을 때 로그인 뜨도록
+           		 -->
 				<c:choose>
 					<c:when test="${empty login}">
 						<li class="nav-item"><a href="kiviewlogin.do"

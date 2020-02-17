@@ -19,12 +19,43 @@
 		SELECT N.*, 
 		ROW_NUMBER() OVER(ORDER BY NOTICE_NO DESC) AS RNUM
 		FROM NOTICE N
+		<include refid="searchCondition"/>
 		) NOTICE
-		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd} ORDER BY NOTICE_NO DESC
+		WHERE 
+		RNUM BETWEEN #{rowStart} AND #{rowEnd} 
+		ORDER BY NOTICE_NO DESC, NOTICE_DATE DESC
 	</select>	
+	
+	<sql id = "searchCondition">
+		<if test = "searchType != null">	
+			<if test="searchType == 'all'.toString()">
+				WHERE (NOTICE_TITLE LIKE '%' || #{keyword} || '%')
+				OR (NOTICE_CONTENT LIKE '%' ||  #{keyword} || '%')
+				OR (NOTICE_WRITER LIKE '%' || #{keyword} || '%')
+			</if>
+			<if test = "searchType == 't'.toString()">
+				WHERE NOTICE_TITLE LIKE '%' || #{keyword} || '%'
+			</if>
+			<if test="searchType == 'con'.toString()">
+				WHERE NOTICE_CONTENT LIKE '%' || #{keyword} || '%'
+			</if>
+			<if test = "searchType == 'tc'.toString()">
+				WHERE (NOTICE_TITLE LIKE '%' || #{keyword} || '%')
+				OR (NOTICE_CONTENT LIKE '%' || #{keyword} || '%')
+			</if>
+			<if test = "searchType == 'cw'.toString()">
+				WHERE (NOTICE_CONTENT LIKE '%' ||  #{keyword} || '%')
+				OR (NOTICE_WRITER LIKE '%' || #{keyword} || '%')
+			</if>
+		</if>
+	</sql>
+	
 	<select id="listCount" resultType="int">
-		SELECT COUNT(*) FROM NOTICE WHERE NOTICE_NO > 0
+		SELECT COUNT(*) FROM 
+		(SELECT N.* FROM NOTICE N <include refid="searchCondition"/>) 
+		NOTICE WHERE NOTICE_NO > 0
 	</select>
+	
 	<select id="noticeDetail" parameterType="int"
 		resultType="noticeVo">
 		SELECT * FROM NOTICE

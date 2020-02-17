@@ -43,6 +43,8 @@ public class NoticeDaoImpl implements NoticeDao {
 			e.printStackTrace();
 		}
 		
+		System.out.println("daoimpl의 list count : " + count);
+		
 		return count;
 		
 	}

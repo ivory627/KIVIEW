@@ -115,28 +115,59 @@
 					</div>
 
 					<div class="jsx-4261166144 search">
+						<form action = "kiviewnotice.do" method = "get" id = "searchform">
+						<input type = "hidden" name = "page" value = "${pageMaker.cri.page}">
+						<input type = "hidden" name = "perPageNum" value = "${pageMaker.cri.perPageNum}">
 						<div class="jsx-1738213615 search-box">
+							<div class="jsx-4261166144 select-box">
+								<div class="jsx-4121141969 select select--none">
+									<div class="jsx-4121141969 choice">
+										  <select class="form-control-sm2" style="cursor:pointer;"
+										  	name = "searchType" id = "searchTypeSel">
+					          				<option value = "sel" selected>선택</option>
+										    <option value="all" 
+										    ${param.searchType eq 'all' ? 'selected':''}>전체</option>
+										    <option value="t"
+										    ${param.searchType eq 't' ? 'selected':''}>제목</option>
+										    <option value="con"
+										    ${param.searchType eq 'con' ? 'selected':''}>내용</option>
+										    <option value="tc"
+										    ${param.searchType eq 'tc' ? 'selected':''}>제목+내용</option>
+										    <option value="cw"
+										    ${param.searchType eq 'cw' ? 'selected':''}>내용+작성자</option>
+										  </select>
+									</div>
+								</div>
+							</div>
+							&nbsp;&nbsp;
 							<div class="jsx-3573217014 input">
 								<input title="검색어 입력" placeholder="검색어를 입력해 주세요."
-									class="jsx-3573217014 input" value="" style="width: 188px;">
+									class="jsx-3573217014 input" id="searchBtn" name="keyword"
+									value="${pageMaker.cri.keyword}" style="width: 188px;">
 							</div>
-							<button type="button" class="jsx-574097175"
+							<button type="button" id = "searchbtn" class="jsx-574097175"
 								style="margin-left: 16px;">검색</button>
 						</div>
+						</form>
 					</div>
 				</div>
 				
+				<script type="text/javascript">
+					
 				
+				</script>
 				
 				<div class="jsx-723712822 sort-number">
 				
 				<!-- 올라온 글이 몇 개인지 카운팅 -->
-				<c:set var="count" value="0"></c:set>
-				<c:forEach var = "n_list" items = "${noticelist}" varStatus = "status">
-				<c:set var="count" value="${noticelist.size()}"></c:set>
-				</c:forEach>
-				
-					<span class="jsx-723712822 total-number">총 ${pageMaker.totalCount}개</span>
+				<c:choose>
+				<c:when test="${param.searchType eq null}">
+				<span class="jsx-723712822 total-number">총 ${pageMaker.totalCount}개</span>
+				</c:when>
+				<c:otherwise>
+				<span class="jsx-723712822 total-number">총 ${pageMaker.totalCount}개</span>
+				</c:otherwise>
+				</c:choose>
 				</div>
 				
 				<div class="jsx-1702879176 board-list-box">
@@ -241,8 +272,8 @@
 						
 						<c:forEach begin = "${pageMaker.startPage}" 
 							end = "${pageMaker.endPage}" var = "idx">
-						<li class="jsx-3635512122">
-						<a href = "${pageMaker.makeQuery(idx)}" style = "color:#000;">${idx}</a>
+						<li class="jsx-3635512122" id = "page${idx}">
+						<a href = "${pageMaker.makeQuery(idx)}" id = "pageclick${idx}" style = "color:#000;">${idx}</a>
 						</li>
 						</c:forEach>
 						
