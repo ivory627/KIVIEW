@@ -119,24 +119,23 @@ box-sizing: border-box;
 								<span class="jsx-1115820773">${noticedetail.notice_writer}</span>
 							</div>
 							<div class="jsx-1115820773 info-box">
-								<span class="jsx-1115820773 info-view"><span
-									class="jsx-1115820773 hide-on-mobile">조회</span>
+								<span class="jsx-1115820773 info-view">
+								<span class="jsx-1115820773 hide-on-mobile">조회</span>
 								<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
 										viewBox="0 0 24 24" fill="none" stroke="#c1c1c1"
 										stroke-width="2" stroke-linecap="round"
 										stroke-linejoin="round"
 										style="position: relative; margin-right: 2px; vertical-align: -2px;">
 										<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-										<circle cx="12" cy="12" r="3"></circle></svg>
-										<span class="jsx-1115820773">${noticedetail.notice_hit}</span></span>
+										<circle cx="12" cy="12" r="3"></circle>
+								</svg>
+										<span class="jsx-1115820773">${noticedetail.notice_hit}</span>
+								</span>
 										<span class="jsx-1115820773 division-line"></span>
 										<span class="jsx-1115820773 info-good">
-										<svg
-										xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-										viewBox="0 0 24 24" fill="none" stroke="#c1c1c1"
-										stroke-width="2" stroke-linecap="round"
-										stroke-linejoin="round"
-										style="position: relative; margin-right: 2px; vertical-align: -2px;">
+										<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+										viewBox="0 0 24 24" fill="none" stroke="#c1c1c1" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" style="position: relative; margin-right: 2px; vertical-align: -2px;">
 										<path
 											d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg><span
 									class="jsx-1115820773 hide-on-mobile">추천</span> 
@@ -155,7 +154,7 @@ box-sizing: border-box;
 						</div>
 					</div>
 					<div class="jsx-3826147658 content_tag">
-						<a class="jsx-3826147658" href="kiviewnotice.do">#다솜어린이집</a>
+						<a class="jsx-3826147658" href="kiviewnotice.do">#공지사항</a>
 					</div>
 					<div class="jsx-2211599338 service">
 						<button type="button" class="jsx-2211599338 btn-view-list" 

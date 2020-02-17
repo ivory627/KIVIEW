@@ -14,6 +14,7 @@
 
 <!-- css -->
 <jsp:include page="head.jsp"/>
+<link rel="stylesheet" href="resources/css/login.css">
 <!-- js -->
 <script type="text/javascript" src = "resources/js/test.js"></script>
 
@@ -128,22 +129,10 @@
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			        <span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="myModalLabel"></h4>
 			      </div>
 			      <!-- modal body -->
 			      <div class="modal-body">
-			        <div class="jsx-2460799870 bar-layout">
-			        <h1>SEARCH</h1>
-					<p class="jsx-2460799870">
-						어떤 <span class="jsx-2460799870">유치원</span>을 찾으세요?
-					</p>
-					<div class="jsx-2460799870 search-box">
-					<div class="jsx-2460799870 search-bar">
-						<input type="text" class="search-bar" />
-						<span><img src="resources/images/main/search02.png"></span>
-					</div>
-					</div>
-					</div>
+			       <img src ="resources/images/main/login_img04.png">
 			      </div>
 			      <!-- modal body 끝 -->
 			    </div>

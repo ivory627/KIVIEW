@@ -1,5 +1,15 @@
 package com.mvc.kiview.model.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,18 +37,17 @@ public class NoticeController {
 	public String kiview_notice(Model model, Criteria cri) {
 
 		logger.info("NOTICE LIST");
-		
+
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(n_biz.notice_count());
-		
+
 		model.addAttribute("noticelist", n_biz.noticeList(cri));
 		model.addAttribute("pageMaker", pageMaker);
-		
+
 		return "kiview_notice";
 	}
 
-	
 	/* 공지사항 selectOne */
 	@Transactional
 	@RequestMapping("/kiviewdetail.do")
@@ -114,6 +123,63 @@ public class NoticeController {
 			return "redirect:kiviewnotice.do";
 		} else {
 			return "redirect:kiviewdetail.do?notice_no" + notice_no;
+		}
+
+	}
+
+	@RequestMapping("/fileupload.do")
+	public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+			
+			String sFileInfo = "";
+			String filename = request.getHeader("file-name");
+			String filename_ext = filename.substring(filename.lastIndexOf(".") + 1);
+			filename_ext = filename_ext.toLowerCase();
+			String defaultFilePath = request.getSession().getServletContext().getRealPath("/");
+			String filePath = defaultFilePath + "resources" + File.separator + "photo_upload" + File.separator;
+
+			System.out.println("NoticeController filePath : " + filePath);
+
+			File file = new File(filePath);
+
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+
+			String realFileName = "";
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+			String today = formatter.format(new java.util.Date());
+			realFileName = today + UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
+
+			String rlFileNm = filePath + realFileName;
+
+			InputStream is = request.getInputStream();
+			OutputStream os = new FileOutputStream(rlFileNm);
+
+			int numRead;
+			byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
+
+			while ((numRead = is.read(b, 0, b.length)) != -1) {
+				os.write(b, 0, numRead);
+			}
+			if (is != null) {
+				is.close();
+			}
+			os.flush();
+			os.close();
+
+			sFileInfo += "&bNewLine=true";
+			sFileInfo += "&sFileName=" + filename;
+			sFileInfo += "&sFileURL=" + "resources/photo_upload/" + realFileName;
+
+			PrintWriter print = response.getWriter();
+			print.print(sFileInfo);
+			print.flush();
+			print.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 	}
