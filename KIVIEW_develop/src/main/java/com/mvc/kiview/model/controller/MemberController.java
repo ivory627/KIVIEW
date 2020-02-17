@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,7 +53,6 @@ public class MemberController {
 	public String kiview_logout(HttpSession session) {
 		logger.info("loginout");
 		session.invalidate();
-		
 		return "index";
 	}
 
@@ -68,13 +68,22 @@ public class MemberController {
 		return "kiview_signup";
 	}
 
-	/*
-	 * @RequestMapping(value="/kiviewidsearch.do", method=RequestMethod.POST)
-	 * 
-	 * @ResponseBody public String kiview_idSearch(@RequestBody MemberVo vo) {
-	 * logger.info("idSearch"); MemberVo res = biz.idSearch(vo); return null; 수정 }
-	 */
-	
+
+	@RequestMapping(value="/kiviewidsearch.do", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, MemberVo> kiview_idSearch(@RequestBody MemberVo vo) {
+		logger.info("idSearch");
+		MemberVo res = biz.idSearch(vo);
+		
+		System.out.println(res.getMember_name() + "/" + res.getMember_email()+ "/" + res.getMember_id()); //수정
+		
+		Map<String, MemberVo> map = new HashMap<String, MemberVo>();
+		map.put("idSearch", res);
+
+		return map;
+	}
+
+
 	
 
 	

@@ -103,7 +103,7 @@
 								<div class="jsx-1458736361 show-password">
 									<div class="jsx-639067573 input">
 										<input type="password" id="member_pwd" minlength="10" maxlength="20" 
-											placeholder="비밀번호를 입력해주세요." class="jsx-639067573 " />
+											placeholder="비밀번호를 입력해주세요." class="jsx-639067573" />
 									</div>
 								</div>
 							</label>
@@ -114,6 +114,7 @@
 						<div class="jsx-1458736361 btn-login">
 							<button type="button" class="jsx-2144885398 " onclick="login();">로그인</button>
 						</div>
+						
 					</form>
 					<!-- /로그인 -->
 
@@ -126,8 +127,8 @@
 
 						<!-- 아이디 찾기 버튼 -->
 						<a class="jsx-1458736361" style="cursor: pointer;"
-							onclick="document.getElementById('id01').style.display='block'"
-							class="w3-button w3-black">아이디찾기</a>
+							onclick="document.getElementById('id01').style.display='block'";
+							class="w3-button w3-black" id="idCkBtn">아이디찾기</a>
 						<!-- /아이디 찾기 버튼 -->
 
 						<span class="jsx-1458736361"></span>
@@ -146,13 +147,14 @@
 									<br>
 									<input required="필수 입력사항" placeholder="이메일" class="find-id" id="idSearch_email">
 									<br>
-									<p id="idSearchHTML1" style="color: red;"></p>
-									<p id="idSearchHTML2" style="color: red;"></p>
+									<p id="idSearchHTML" style="color: red;"></p>
+									<p id="idSearchRes" style="color: blue;"></p>
 									<button type="button" class="jsx-2144885398" onclick="idCk()">검색</button>
 								</div>
 							</div>
 						</div>
 						<!-- /아이디 찾기 modal -->
+						
 
 						<!-- 비밀번호 찾기 버튼 -->
 						<a class="jsx-1458736361" style="cursor: pointer;"
