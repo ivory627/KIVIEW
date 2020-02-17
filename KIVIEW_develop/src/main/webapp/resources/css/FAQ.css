@@ -64,23 +64,11 @@ h2.jsx-1103591975 span.jsx-1103591975 {
 li.jsx-1103591975 {
     border-bottom: 1px solid #ececec;
 }
-li.jsx-1103591975 a.jsx-1103591975 {
-    display: inline-block;
-    width: 100%;
-    font-weight: 700;
-    line-height: 52px;
-}
 li.jsx-1103591975:last-child {
     border-bottom: 0;
 }
 .sidebar--kindergarten.jsx-1103591975 li.active.jsx-1103591975 a.jsx-1103591975 {
     color: #ff9d1f;
-}
-li.jsx-1103591975 a.jsx-1103591975 {
-    display: inline-block;
-    width: 100%;
-    font-weight: 700;
-    line-height: 52px;
 }
 a, a:hover, a:active, a:visited, a:focus {
     text-decoration: none;

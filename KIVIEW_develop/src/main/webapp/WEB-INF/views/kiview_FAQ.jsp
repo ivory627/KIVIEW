@@ -1,37 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<% request.setCharacterEncoding("UTF-8");%>
+<% response.setContentType("text/html; charset=UTF-8");%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
+	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>KIVIEW - FAQ</title>
+<title>KIVIEW &mdash; FAQ</title>
 
-	<%@ include file="head.jsp"%>
-	<link rel="stylesheet" href="resources/css/FAQ.css">
+<!-- css  -->
+<jsp:include page="head.jsp"/>
+<link rel="stylesheet" href="resources/css/FAQ.css">
 
+<!-- js -->	
+<script type="text/javascript" src = "resources/js/test.js"></script>
 
 </head>
 <body>
 
-	<%@ include file="header.jsp"%>
-
+	<!-- header 영역 -->
+	<jsp:include page="header.jsp"/>
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('resources/images/bg_2.jpg');">
-		<div class="overlay"></div>
+		style="background-image: url('resources/images/main/board_img01.png');">
 		<div class="container">
-			<div
-				class="row no-gutters slider-text align-items-center justify-content-center">
+			<div class="row no-gutters slider-text align-items-center justify-content-center">
 				<div class="col-md-9 ftco-animate text-center">
 					<h1 class="mb-2 bread">FAQ</h1>
 					<p class="breadcrumbs">
 						<span class="mr-2"> <a href="index.do">홈 <i
 								class="ion-ios-arrow-forward"></i></a>
-						</span> <span>키뷰안내 <i class="ion-ios-arrow-forward"></i></span> <span>&nbsp;FAQ</span>
+						</span> 
+						<span>키뷰안내 <i class="ion-ios-arrow-forward"></i></span> 
+						<span>&nbsp;FAQ</span>
 					</p>
 				</div>
 			</div>
 		</div>
 	</section>
+	<!-- header 끝 -->
 
 	<div class="jsx-903324597 content">
 		<div class="jsx-3810764099 board-box">
@@ -47,31 +58,39 @@
 						<line x1="16" y1="13" x2="8" y2="13"></line>
 						<line x1="16" y1="17" x2="8" y2="17"></line>
 						<polyline points="10 9 9 9 8 9"></polyline></svg>
-					<span class="jsx-1103591975">공지사항</span>
+					<span class="jsx-1103591975">FAQ</span>
 				</h2>
 				<ul class="jsx-1103591975">
-					<li class="jsx-1103591975 active"><a class="jsx-1103591975"
-						href="kiviewnotice.do">공지사항</a></li>
-					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="kiviewintro.do">키뷰소개</a></li>
-					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="kiviewfaq.do">FAQ</a></li>
+					<li class="jsx-1103591975">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					 id = "menu01" href = "kiviewnotice.do">공지사항</a></li>
+					<li class="jsx-1103591975">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					id = "menu02" href = "kiviewintro.do">키뷰소개</a></li>
+					<li class="jsx-1103591975 active">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					id = "menu03" href = "kiviewfaq.do">FAQ</a></li>
 				</ul>
 			</div>
 
 			<div class="jsx-2342570284 faq-box faq-box--kindergarten">
+				<!-- 분류 카테고리 부분 -->
 				<ul class="jsx-2342570284 faq-tab">
-					<li class="jsx-2342570284"><button
-							class="jsx-2342570284 active">전체</button></li>
-					<li class="jsx-2342570284"><button class="jsx-2342570284 ">별별선생</button></li>
-					<li class="jsx-2342570284"><button class="jsx-2342570284 ">회원</button></li>
-					<li class="jsx-2342570284"><button class="jsx-2342570284 ">서비스</button></li>
+					<li class="jsx-2342570284">
+					<button class="jsx-2342570284 active">전체</button></li>
+					<li class="jsx-2342570284">
+					<button class="jsx-2342570284">리뷰</button></li>
+					<li class="jsx-2342570284">
+					<button class="jsx-2342570284">회원</button></li>
+					<li class="jsx-2342570284">
+					<button class="jsx-2342570284">서비스</button></li>
 				</ul>
+				<!-- 분류 카테고리 끝 -->
 				<div class="jsx-2342570284 faq-item-box">
 					<h3 class="jsx-2342570284">
 						자주 묻는 질문과 답변
-						<ol class="jsx-1271347565 ">
-							<li class="jsx-1271347565">별별질문</li>
+						<ol class="jsx-1271347565">
+							<li class="jsx-1271347565">키뷰안내</li>
 							<li class="jsx-1271347565">FAQ</li>
 						</ol>
 					</h3>
@@ -79,14 +98,12 @@
 					<!-- FAQ 게시글 -->
 					<ul class="jsx-2342570284 faq-item-list">
 						<li class="jsx-357641531 question-item--kindergarten">
-						
 							<button type="button" class="jsx-357641531" id = "faqbtn01" >
 								<span class="jsx-357641531 question-icon">Q</span>
 								<span class="jsx-357641531 tab-name">서비스</span>
 								<p class="jsx-357641531">리뷰를 작성했어요, 언제승인 되나요?</p>
 								<span class="jsx-357641531 arrow"></span>
 							</button>
-							
 							<div class="jsx-357641531 content" id = "faqcomment01">
 								<div class="jsx-2567501591 editor">
 									<div class="fr-view">
@@ -100,32 +117,30 @@
 									</div>
 								</div>
 							</div>
-							
 						</li>
 					</ul>
 
-
-
+					<!-- 페이징 -->
 					<ul class="jsx-2419612476 pagination pagination--kindergarten">
-						<li class="jsx-2419612476 prev disabled"><svg
-								xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+						<li class="jsx-2419612476 prev disabled">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 								viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
 								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
 								style="position: relative;">
 								<polyline points="11 17 6 12 11 7"></polyline>
-								<polyline points="18 17 13 12 18 7"></polyline></svg><span
-							class="jsx-2419612476 alt-text">앞으로</span></li>
+								<polyline points="18 17 13 12 18 7"></polyline></svg>
+						<span class="jsx-2419612476 alt-text">앞으로</span></li>
 						<li class="jsx-2419612476 on">1</li>
 						<li class="jsx-2419612476 ">2</li>
 						<li class="jsx-2419612476 ">3</li>
-						<li class="jsx-2419612476 next disabled"><svg
-								xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+						<li class="jsx-2419612476 next disabled">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 								viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
 								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
 								style="position: relative;">
 								<polyline points="13 17 18 12 13 7"></polyline>
-								<polyline points="6 17 11 12 6 7"></polyline></svg><span
-							class="jsx-2419612476 alt-text">뒤로</span></li>
+								<polyline points="6 17 11 12 6 7"></polyline></svg>
+						<span class="jsx-2419612476 alt-text">뒤로</span></li>
 					</ul>
 				</div>
 			</div>
@@ -138,7 +153,7 @@
 		</div>
 	</section>
 
-	<%@ include file="footer.jsp"%>
+	<jsp:include page="footer.jsp"/>
 
 
 </body>
