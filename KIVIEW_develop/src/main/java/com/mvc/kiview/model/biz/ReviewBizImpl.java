@@ -16,7 +16,6 @@ public class ReviewBizImpl implements ReviewBiz{
 	
 	@Override
 	public List<ReviewVo> reviewList() {
-		// TODO Auto-generated method stub
 		return dao.reviewList();
 	}
 
