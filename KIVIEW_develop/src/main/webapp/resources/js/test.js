@@ -27,12 +27,22 @@ $(function(){
 		
 		if(searchTypeVal == 'sel'){
 			alert("검색 조건을 선택해주세요!");
-		}else if(keywordVal == null || keywordVal == ""){
-			alert("검색어를 입력해주세요!");
-		}else{
-			$("#searchform").submit();
+			return;
 		}
-		
+		if(keywordVal == null || keywordVal == ""){
+			alert("검색어를 입력해주세요!");
+			return;
+		}
+			$("#searchform").submit();
 	});
+	
+	$("#sortsel").on('change', function(){
+		$("#sortform").submit();
+	})
+	
+	$("#selcatd").on('change', function(){
+		$("#catdform").submit();
+	})
+	
 	
 });

@@ -91,10 +91,15 @@
 					<div class="jsx-4261166144 select-box">
 						<div class="jsx-4121141969 select">
 							<div class="jsx-4121141969 choice">
-							<form action="#" class="appointment-form ftco-animate fadeInUp ftco-animated">
-							  <select class="form-control-sm2" style="cursor:pointer;">
-		          				<option selected>분류 전체</option>
-							        <option>공지사항</option>
+							<form action="kiviewnotice.do" class="appointment-form ftco-animate fadeInUp ftco-animated"
+								method = "get" id = "catdform">
+							  	<input type = "hidden" name = "page" value = "${pageMaker.cri.page}"/>	
+								<input type = "hidden" name = "page" value = "${pageMaker.cri.perPageNum}"/>
+							 
+							  <select class="form-control-sm2" style="cursor:pointer;" name = "cat_detail" id = "selcatd">
+		          				<option value = "">분류 전체</option>
+							    <option value = "공지사항" ${param.cat_detail eq '공지사항'? 'selected':''}>공지사항</option>
+							    <option value = "키뷰소식" ${param.cat_detail eq '키뷰소식'? 'selected':''}>키뷰소식</option>
 							  </select>
 						    </form>
 							</div>
@@ -104,10 +109,17 @@
 					<div class="jsx-4261166144 select-box">
 						<div class="jsx-4121141969 select select--none">
 							<div class="jsx-4121141969 choice">
-								<form action="#" class="appointment-form ftco-animate fadeInUp ftco-animated">
-								  <select class="form-control-sm2" style="cursor:pointer;">
-			          				<option selected>최신순</option>
-								        <option>조회순</option>
+							<!-- 최신순, 조회순 선택시 sort 값 보내기 -->
+							   <form action="kiviewnotice.do" 
+									class="appointment-form ftco-animate fadeInUp ftco-animated"
+									method = "post" id = "sortform">
+								<input type = "hidden" name = "page" value = "${pageMaker.cri.page}"/>	
+								<input type = "hidden" name = "page" value = "${pageMaker.cri.perPageNum}"/>	
+								  <select class="form-control-sm2" style="cursor:pointer;"
+								  	name = "sort" id = "sortsel">
+			          					<option value="">유형</option>
+			          					<option value="new" ${param.sort eq 'new'? 'selected':''}>최신순</option>
+								        <option value="view" ${param.sort eq 'view'? 'selected':''}>조회순</option>
 								  </select>
 						  	 	</form>
 							</div>
@@ -115,7 +127,8 @@
 					</div>
 
 					<div class="jsx-4261166144 search">
-						<form action = "kiviewnotice.do" method = "get" id = "searchform">
+						<!-- 검색 조건 보내기 -->
+						<form action = "kiviewnotice.do" method = "post" id = "searchform">
 						<input type = "hidden" name = "page" value = "${pageMaker.cri.page}">
 						<input type = "hidden" name = "perPageNum" value = "${pageMaker.cri.perPageNum}">
 						<div class="jsx-1738213615 search-box">
@@ -152,13 +165,7 @@
 					</div>
 				</div>
 				
-				<script type="text/javascript">
-					
-				
-				</script>
-				
 				<div class="jsx-723712822 sort-number">
-				
 				<!-- 올라온 글이 몇 개인지 카운팅 -->
 				<span class="jsx-723712822 total-number">총 ${pageMaker.totalCount}개</span>
 				</div>
@@ -181,50 +188,29 @@
 					<c:when test="${!empty noticelist}">	
 					<ul class="jsx-1702879176 list-body">
 					<c:forEach items="${noticelist}" var = "n_list">			
-						<li tabindex="0" class="jsx-1066086808 notice">
-						<div class="jsx-1066086808 col-notice hide-on-mobile"
+						<li tabindex="0" class="jsx-2214240288">
+						<div class="jsx-2214240288 col-notice hide-on-mobile"
 								style="max-width: 60px;">${n_list.notice_no}</div>
-							 <div class="jsx-1066086808 col-category"
-								style="max-width: 120px;">${n_list.cat_detail}</div>
-							<div class="jsx-1066086808 col-title" style="max-width: 344px;">
-								<a class="jsx-1066086808" href="kiviewdetail.do?notice_no=${n_list.notice_no}"
+							 <div class="jsx-2214240288 col-category"
+								style="max-width: 120px; font-weight:500">${n_list.cat_detail}</div>
+							<div class="jsx-2214240288 col-title" style="max-width: 344px;">
+								<a class="jsx-2214240288" href="kiviewdetail.do?notice_no=${n_list.notice_no}"
 									style="max-width: 250px;">
-								<span class="jsx-1066086808 notice-badges"></span>
+								<span class="jsx-2214240288 notice-badges"></span>
 									${n_list.notice_title}
 								</a>
 							</div>
-							<div class="jsx-1066086808 nickname" style="max-width: 100px;">
+							<div class="jsx-2214240288 col-nickname" style="max-width: 100px;">
 							${n_list.notice_writer}</div>
-							<div class="jsx-1066086808 col-created" style="max-width: 100px;">
+							<div class="jsx-2214240288 col-created" style="max-width: 100px;">
 							${n_list.notice_date}</div>
-							<div class="jsx-1066086808 read_count hide-on-mobile"
-								style="max-width: 60px;">${n_list.notice_hit}</div>
-							<div class="jsx-1066086808 read_count hide-on-desktop"
-								style="max-width: 60px;">${n_list.notice_hit}</div>
-							<div class="jsx-1066086808 like_count hide-on-desktop"
-								style="max-width: 60px;"></div>
-						</li>
-						
-								
-						<%-- <li tabindex="0" class="jsx-2214240288">
-						<div class="jsx-2214240288 col-notice" style="max-width: 60px;">${n_list.notice_no}</div>
-							<div class="jsx-2214240288 col-category"
-								style="max-width: 120px;">유치원</div>
-							<div class="jsx-2214240288 col-title" style="max-width: 344px;">
-								<a class="jsx-2214240288"
-									href="kiviewdetail.do"
-									style="max-width: 328px;">${n_list.notice_title}</a>
-							</div>
-							<div class="jsx-2214240288 col-nickname"
-								style="max-width: 100px;">헤이i</div>
-							<div class="jsx-2214240288 col-created" style="max-width: 100px;">20.02.05</div>
 							<div class="jsx-2214240288 read_count hide-on-mobile"
-								style="max-width: 60px;">16</div>
+								style="max-width: 60px;">${n_list.notice_hit}</div>
 							<div class="jsx-2214240288 read_count hide-on-desktop"
-								style="max-width: 60px;"></div>
+								style="max-width: 60px;">${n_list.notice_hit}</div>
 							<div class="jsx-2214240288 like_count hide-on-desktop"
 								style="max-width: 60px;"></div>
-						</li> --%>
+						</li>
 					</c:forEach>	
 					</ul>
 					</c:when>

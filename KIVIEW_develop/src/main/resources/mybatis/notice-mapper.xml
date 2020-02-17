@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
 <mapper namespace="notice">
 	<resultMap type="noticeVo" id="noticeMap">
 		<result property="notice_no" column="NOTICE_NO" />
@@ -23,7 +24,7 @@
 		) NOTICE
 		WHERE 
 		RNUM BETWEEN #{rowStart} AND #{rowEnd} 
-		ORDER BY NOTICE_NO DESC, NOTICE_DATE DESC
+		ORDER BY <include refid="sortlist"/>
 	</select>	
 	
 	<sql id = "searchCondition">
@@ -46,6 +47,28 @@
 			<if test = "searchType == 'cw'.toString()">
 				WHERE (NOTICE_CONTENT LIKE '%' ||  #{keyword} || '%')
 				OR (NOTICE_WRITER LIKE '%' || #{keyword} || '%')
+			</if>
+		</if>
+		<if test = "cat_detail != null and cat_detail != ''">
+			<if test = "cat_detail == '공지사항'.toString()">
+				WHERE CAT_DETAIL = #{cat_detail}
+			</if>
+			<if test = "cat_detail == '키뷰소식'.toString()">
+				WHERE CAT_DETAIL = #{cat_detail}
+			</if>
+		</if>
+	</sql>
+	
+	<sql id="sortlist">
+		<if test="sort == null or sort == ''">
+			NOTICE_NO DESC, NOTICE_DATE DESC		
+		</if>
+		<if test = "sort != null and sort != ''">
+			<if test="sort == 'new'.toString()">
+				NOTICE_NO DESC
+			</if>
+			<if test="sort == 'view'.toString()">
+				NOTICE_HIT DESC
 			</if>
 		</if>
 	</sql>

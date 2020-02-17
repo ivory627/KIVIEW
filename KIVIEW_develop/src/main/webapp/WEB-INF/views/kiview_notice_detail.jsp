@@ -52,11 +52,10 @@ box-sizing: border-box;
 
 <body id="body">
 
-	<!-- @@ header 부분 @@ -->
+	<!-- header 부분 -->
 	<jsp:include page="header.jsp"/>
 
-	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
-	<section class="hero-wrap hero-wrap-2"
+	 <section class="hero-wrap hero-wrap-2"
 		style="background-image: url('resources/images/bg_2.jpg');">
 		<div class="overlay"></div>
 		<div class="container">
@@ -75,7 +74,7 @@ box-sizing: border-box;
 			</div>
 		</div>
 	</section>
-	<!-- @@ header 끝 @@ -->
+	<!-- header 끝 -->
 
 	<div class="jsx-903324597 content">
 		<div class="jsx-3810764099 board-box">
@@ -108,7 +107,7 @@ box-sizing: border-box;
 					
 					<div class="jsx-1115820773 board-header board-header--kindergarten">
 						<h4 class="jsx-1115820773">
-							<span class="jsx-1115820773 classfi-text">공지사항</span>${noticedetail.notice_title}
+							<span class="jsx-1115820773 classfi-text">${noticedetail.cat_detail}</span>${noticedetail.notice_title}
 						</h4>
 						<div class="jsx-1115820773 header-info">
 							<div class="jsx-1115820773 avatar-box">
@@ -131,16 +130,9 @@ box-sizing: border-box;
 								</svg>
 										<span class="jsx-1115820773">${noticedetail.notice_hit}</span>
 								</span>
-										<span class="jsx-1115820773 division-line"></span>
-										<span class="jsx-1115820773 info-good">
-										<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-										viewBox="0 0 24 24" fill="none" stroke="#c1c1c1" stroke-width="2" stroke-linecap="round"
-										stroke-linejoin="round" style="position: relative; margin-right: 2px; vertical-align: -2px;">
-										<path
-											d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg><span
-									class="jsx-1115820773 hide-on-mobile">추천</span> 
-									<span class="jsx-1115820773">0</span></span>
 									<span class="jsx-1115820773 division-line"></span>
+									<span class="jsx-1115820773 hide-on-mobile" style = "color:rgb(102, 102, 102)">등록</span>
+									&nbsp;
 									<span class="jsx-1115820773 date">${noticedetail.notice_date}</span>
 							</div>
 						</div>
@@ -154,7 +146,7 @@ box-sizing: border-box;
 						</div>
 					</div>
 					<div class="jsx-3826147658 content_tag">
-						<a class="jsx-3826147658" href="kiviewnotice.do">#공지사항</a>
+						<a class="jsx-3826147658" href="kiviewnotice.do">#${noticedetail.cat_detail}</a>
 					</div>
 					<div class="jsx-2211599338 service">
 						<button type="button" class="jsx-2211599338 btn-view-list" 

@@ -76,8 +76,9 @@
 						<div class="jsx-4121141969 select">
 							<div class="jsx-4121141969 choice">
 							  <select class="form-control-sm2" id = "selcatd" name = "cat_detail" style="cursor:pointer;">
-		          					<option>분류 전체</option>
-							        <option value = "${noticeupdate.cat_detail}">공지사항</option>
+		          					<option value = "">분류 전체</option>
+							        <option value = "공지사항">공지사항</option>
+							        <option value = "키뷰소식">키뷰소식</option>
 							  </select>
 							</div>
 						</div>
@@ -135,8 +136,8 @@
 </body>
 </html>
 	
-	<!-- SmartEditor2 -->
-	<script type="text/javascript">
+<!-- SmartEditor2 -->
+<script type="text/javascript">
 	
 	var oEditors = [];
 	nhn.husky.EZCreator.createInIFrame({
@@ -155,14 +156,32 @@
 			bUseModeChanger : false
 		}
 	});
-	$(function(){
-		$("#savebutton").click(function(){
+	
+	$(function() {
+		$("#savebutton").click(function() {
 			oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);
-		  
-			
-			
-		    $("#noticeWriteForm").submit();
-		});  
+
+			var selcatd = $("#selcatd > option:selected").val();
+			var title = $("#title").val();
+			var content = document.getElementById("smartEditor").value;;
+
+			if (selcatd == "") {
+				alert("카테고리를 선택해주세요.");
+				return;
+			}
+			if (title == null || title == "") {
+				alert("제목을 입력해주세요.");
+				$("#title").focus();
+				return;
+			}
+			if(content == "" || content == null || content == '&nbsp;' || 
+					content == '<br>' || content == '<br/>' || content == '<p>&nbsp;</p>'){
+				alert("본문을 작성해주세요.");
+				oEditors.getById["smartEditor"].exec("FOCUS"); //포커싱
+				return;
+			}
+			$("#noticeWriteForm").submit();
+		});
 	})
 		
 	</script>

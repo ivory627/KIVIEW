@@ -8,9 +8,11 @@ public class Criteria {
 	private int rowEnd; // 한 페이지당 게시글 개수 end
 	// ----> start + end 합쳐서 한 페이지 당 총 10개 보여주기
 
-	// searchType, keyword 추가
+	// searchType, keyword, sort, catd 추가
 	private String searchType;
 	private String keyword;
+	private String sort;
+	private String cat_detail;
 
 	// 생성자
 	public Criteria() {
@@ -18,6 +20,8 @@ public class Criteria {
 		this.perPageNum = 10; // 게시글 10개로 셋팅
 		this.searchType = null;
 		this.keyword = null;
+		this.sort = null;
+		this.cat_detail = null;
 	}
 
 	public void setPage(int page) {
@@ -49,12 +53,27 @@ public class Criteria {
 		this.keyword = keyword;
 	}
 
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+	public void setCat_detail(String cat_detail) {
+		this.cat_detail = cat_detail;
+	}
+
 	public String getSearchType() {
 		return searchType;
 	}
 
 	public String getKeyword() {
 		return keyword;
+	}
+
+	public String getSort() {
+		return sort;
+	}
+	
+	public String getCat_detail() {
+		return cat_detail;
 	}
 
 	public int getPage() {
@@ -81,12 +100,6 @@ public class Criteria {
 	public int getRowEnd() {
 		rowEnd = rowStart + perPageNum - 1;
 		return rowEnd;
-	}
-
-	@Override
-	public String toString() {
-		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", rowStart=" + rowStart + ", rowEnd=" + rowEnd
-				+ "]";
 	}
 
 }

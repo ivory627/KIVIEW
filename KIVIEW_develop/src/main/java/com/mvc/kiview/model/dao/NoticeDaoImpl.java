@@ -19,34 +19,32 @@ public class NoticeDaoImpl implements NoticeDao {
 
 	@Override
 	public List<NoticeVo> noticeList(Criteria cri) {
-		
+
 		List<NoticeVo> list = new ArrayList<NoticeVo>();
-		
+
 		try {
 			list = sqlSession.selectList("noticeList", cri);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println("[error] : notice_list");
 		}
-		
+
 		return list;
 	}
-	
+
 	@Override
 	public int notice_count(Criteria cri) {
 
 		int count = 0;
-		
+
 		try {
 			count = sqlSession.selectOne(namespace + "listCount", cri);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println("[error] : notice count");
 			e.printStackTrace();
 		}
-		
-		System.out.println("daoimpl의 list count : " + count);
-		
+
 		return count;
-		
+
 	}
 
 	@Override
@@ -57,7 +55,7 @@ public class NoticeDaoImpl implements NoticeDao {
 		try {
 			n_vo = sqlSession.selectOne(namespace + "noticeDetail", notice_no);
 		} catch (Exception e) {
-			System.out.println("[error] : n_selectOne");
+			System.out.println("[error] : notice_selectOne");
 			e.printStackTrace();
 		}
 
@@ -155,7 +153,5 @@ public class NoticeDaoImpl implements NoticeDao {
 	public int faq_delete(int faq_no) {
 		return 0;
 	}
-
-	
 
 }
