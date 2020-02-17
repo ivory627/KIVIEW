@@ -105,6 +105,27 @@
         VALUES(CAFE_MEMBER_SEQ.NEXTVAL,#{member_no},#{cafe_no},#{answer},'Y','N',SYSDATE)
      </insert>
      
+      <select id="cafe_search" parameterType="String" resultType="CafeVo">
+        SELECT *
+        FROM CAFE        
+        <choose>
+           <when test="_parameter.length!=0">
+               WHERE TITLE like '%'||#{keyword}||'%' 
+           </when>
+           <when test="_parameter.length==0">
+              
+           </when>              
+        </choose>
+        
+     </select>
+     
+     <select id="cafe_member_list" parameterType="int" resultType="CafeMemberVo">
+     	SELECT *
+     	FROM CAFE_MEMBER
+     	WHERE CAFE_NO = #{cafe_no}
+     
+     
+     </select>
      
      
      

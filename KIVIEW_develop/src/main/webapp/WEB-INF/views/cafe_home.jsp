@@ -28,23 +28,10 @@ a {
 
 <script type="text/javascript">
 
-function cafesearch(){
-   var keyword = $("#cafesearch").val();
-   
-   location.href="cafe_search.do?keyword="+keyword;
+function test(){
+   var keyword = $('#cafesearch').val().trim();
+   location.href="cafesearch.do?keyword="+keyword;   
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 </script>
 
@@ -83,10 +70,11 @@ function cafesearch(){
 
             <!-- 카페 홈 소개 -->
             <div class="col-lg-8 ftco-animate">
-               <a href="cafehome.do?cafe_no=${vo.cafe_no }">
+               <a href="cafehome.do?member_no=${login.member_no}&member_id=${login.member_id}">
                   <h2 class="mb-3" style="font-weight: bold; color: #FFDC00;">
                      <span><img src="resources/images/main/chat.png" /></span>&nbsp;&nbsp;
-                     <span style="color: #9BDAF2;">Kiview</span> Cafe
+                     <span style="color: #9BDAF2;">Ki
+                     view</span> Cafe
                   </h2>
                </a>
                <hr>
@@ -111,11 +99,11 @@ function cafesearch(){
 
                <div class="sidebar-box">
                   <h3>카페 찾기</h3>
-                  <form action="#" class="search-form" style="padding: 0px">
-                     <div class="form-group">
-                        <span class="icon icon-search" style="cursor: pointer"
-                           onclick="cafesearch();"></span> 
-                           <input type="text" class="form-control" placeholder="카페명을 입력해주세요." id="cafesearch">
+                  <form action="cafe_search.do" class="search-form" style="padding: 0px" onsubmit="return false">
+                     <div class="form-group"  >
+                        <span class="icon icon-search" style="cursor: pointer" onclick="test();"></span> 
+                        <input type="text" class="form-control" placeholder="카페명을 입력해주세요." id="cafesearch" onkeypress="if( event.keyCode == 13 ){test();}">
+                           
                      </div>
                   </form>
                </div>
@@ -194,12 +182,12 @@ function cafesearch(){
                               <!-- 가입제한 -->
                               <div class="meta-date text-center p-2">
                                  <span class="mos"> 
-                                    <c:if test="${Ulist.restriction ne 'Y' }">                        
-                                                  바로가입                           
-                                             </c:if> 
-                                             <c:if test="${Ulist.restriction eq 'N'}">
-                                                   승인후 가입
-                                             </c:if>
+                                    <c:if test="${Ulist.restriction eq 'Y'}">                           
+                                                     바로가입                           
+                                    </c:if> 
+                                    <c:if test="${Ulist.restriction eq 'N'}">
+                                                      승인후 가입
+                                    </c:if>
 
                                  </span>
                               </div>

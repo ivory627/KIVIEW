@@ -36,5 +36,9 @@ public interface CafeBiz {
 	public List<CafeCategoryVo> menu_detail2(int no);
 
 	public CafeMenuVo menu_chk(CafeMenuVo menu);
+	
+	public List<CafeVo> cafe_search(String keyword);
+
+	public List<CafeMemberVo> cafe_member_list(int cafe_no);
 
 }

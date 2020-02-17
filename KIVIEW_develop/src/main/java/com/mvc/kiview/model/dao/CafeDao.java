@@ -39,6 +39,8 @@ public interface CafeDao {
 	public List<CafeCategoryVo> menu_detail2(int no);
 
 	public CafeMenuVo menu_chk(CafeMenuVo menu);
+
+	public List<CafeMemberVo> cafe_member_list(int cafe_no);
    
    
    

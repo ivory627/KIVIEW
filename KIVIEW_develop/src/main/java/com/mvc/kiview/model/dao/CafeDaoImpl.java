@@ -175,7 +175,7 @@ public class CafeDaoImpl implements CafeDao {
 			e.printStackTrace();
 			System.out.println("cafe_search 오류");
 		}
-		return null;
+		return res;
 	}
 
 	@Override
@@ -227,6 +227,26 @@ public class CafeDaoImpl implements CafeDao {
 			e.printStackTrace();
 			System.out.println("menu_list 오류");
 		}
+		
+		
+		return res;
+	}
+
+	@Override
+	public List<CafeMemberVo> cafe_member_list(int cafe_no) {
+		
+		List<CafeMemberVo> res = null;
+		
+		
+	try {
+		res = sqlSession.selectList(namespace+"cafe_member_list",cafe_no);
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+		System.out.println("memberlist 오류");
+	} 
+		
+		
 		
 		
 		return res;

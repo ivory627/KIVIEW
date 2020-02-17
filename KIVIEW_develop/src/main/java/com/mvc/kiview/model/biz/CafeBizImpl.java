@@ -125,4 +125,16 @@ public class CafeBizImpl implements CafeBiz {
 		return dao.menu_chk(menu);
 	}
 
+	@Override
+	public List<CafeVo> cafe_search(String keyword) {
+		
+		return dao.cafe_search(keyword);
+	}
+
+	@Override
+	public List<CafeMemberVo> cafe_member_list(int cafe_no) {
+		
+		return dao.cafe_member_list(cafe_no);
+	}
+
 }

@@ -137,30 +137,41 @@
 	function menuinsert_chk(cafe_no){
 		var data = {"cafe_no":cafe_no, "name":$("input[name=name]").val()} 
 		
-		var submit = false;
+		if(do_chk()==false){
+			return false;
+		}
 		
-		$.ajax({
-			type:"post",
-			url:"menuchk.do",
-			data:JSON.stringify(data),
-			contentType:"application/json; charset=UTF-8;",
-			dataType:"json",
-			success:function(data){
-				if(data.check==true){
-					alert("게시판 이름이 중복됩니다.");
-					return false;
+		
+		function do_chk(){
+			alert("do_chk");
+			var submit = false;
+			
+
+			$.ajax({
+				type:"post",
+				url:"menuchk.do",
+				async : false,
+				data:JSON.stringify(data),
+				contentType:"application/json; charset=UTF-8;",
+				dataType:"json",
+				success:function(data){
+					if(data.check==true){
+						alert("게시판 이름이 중복됩니다.");
+						submit = false;
 					
-				} else {
-					return true;
-				}
+					} else {
+						submit = true;
+					}
 				
-			},
-			error:function(error){
-				alert(error);
-			}
-		})
-		
-		
+				},
+				error:function(error){
+					alert(error);
+				}
+			})
+			
+			alert(submit);
+			return submit;
+		}
 		if($("#categorychk").is(":checked")){
 			var category1 = $("#category_insert").find($("input[name=category1]")).val();
 			var category2 = $("#category_insert").find($("input[name=category2]")).val();
@@ -182,8 +193,8 @@
 		
 		}
 		
-		
-		return true;  
+		return submit;
+		  
 		
 		
 	}

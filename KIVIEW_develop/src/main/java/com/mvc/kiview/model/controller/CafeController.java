@@ -13,6 +13,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,11 +85,21 @@ public class CafeController {
    }
 
    @RequestMapping("/cafedetail.do")
-   public String cafe_detail(Model model, int cafe_no, int member_no) {
+   public String cafe_detail(HttpSession session,Model model, int cafe_no, int member_no) {
       // 상세페이지 카페 정보
-      CafeVo vo = biz.cafe_selectone(cafe_no);
-      model.addAttribute("vo", vo);
+      CafeVo cafe = biz.cafe_selectone(cafe_no);
+      List<CafeMenuVo> menu = biz.menu_list(cafe_no);
+      List<CafeMemberVo> member = biz.cafe_member_list(cafe_no);
       
+      
+      List list = new ArrayList();
+      list.add(cafe);
+      list.add(menu);
+      list.add(member);
+      session.setAttribute("cafe_list", list);
+      System.out.println(list);
+      
+      //model.addAttribute("vo", vo);
       
       // 카페 회원 여부 확인 -> 버튼 변경 여부 확인 용
       CafeMemberVo regyn = new CafeMemberVo();
@@ -97,7 +108,7 @@ public class CafeController {
       
       CafeMemberVo res = biz.cafe_regyn(regyn);
       
-      model.addAttribute("caferegyn",res);   
+      //model.addAttribute("caferegyn",res);   
 
       return "cafe_detail";
    }
@@ -349,6 +360,21 @@ public class CafeController {
          return "redirect:cafeopen.do";
       }
 
+   }
+   
+   
+   /////////////////////////////////////  검색  /////////////////////////////////////////
+   @RequestMapping("/cafesearch.do")
+   public String cafe_search(Model model,String keyword) {
+      
+      
+      
+      
+      List<CafeVo> slist = biz.cafe_search(keyword);
+      
+      model.addAttribute("Slist",slist);      
+      model.addAttribute("keyword",keyword);
+      return "cafe_search";
    }
 
 }
