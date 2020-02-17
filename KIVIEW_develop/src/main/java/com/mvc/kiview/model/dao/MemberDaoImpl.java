@@ -21,7 +21,19 @@ public class MemberDaoImpl implements MemberDao{
 			res=sqlSession.selectOne(namespace+"login",vo);
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("[error] : LOGIN");
+			System.out.println("[error] : login");
+		}		
+		return res;
+	}
+
+	@Override
+	public MemberVo idSearch(MemberVo vo) {
+		MemberVo res = null;
+		try {
+			res=sqlSession.selectOne(namespace+"idSearch",vo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("[error] : idSearch");
 		}		
 		return res;
 	}

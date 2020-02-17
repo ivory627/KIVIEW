@@ -7,5 +7,7 @@ public interface MemberDao {
 	String namespace = "member.";
 	
 	public MemberVo login(MemberVo vo);
+
+	public MemberVo idSearch(MemberVo vo);
 	
 }

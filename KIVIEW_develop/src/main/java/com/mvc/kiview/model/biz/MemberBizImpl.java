@@ -17,4 +17,9 @@ public class MemberBizImpl implements MemberBiz {
 		return dao.login(vo);
 	}
 
+	@Override
+	public MemberVo idSearch(MemberVo vo) {
+		return dao.idSearch(vo);
+	}
+
 }

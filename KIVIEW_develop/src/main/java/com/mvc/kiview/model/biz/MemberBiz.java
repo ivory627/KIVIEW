@@ -6,4 +6,6 @@ public interface MemberBiz {
 	
 	public MemberVo login(MemberVo vo);
 
+	public MemberVo idSearch(MemberVo vo);
+
 }

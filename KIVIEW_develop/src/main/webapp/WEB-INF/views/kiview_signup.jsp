@@ -126,19 +126,19 @@
 						</label>
 					</div>
 
+					<div class="jsx-3372927190 btn-box">
+						<div class="jsx-3372927190 btn-prev">
+							<button type="button" class="jsx-462732305" id="prev-page"
+								onclick="location.href='kiviewsignupoption.do'">이전</button>
+						</div>
+						<div class="jsx-3372927190 btn-finish">
+							<button type="submit" class="jsx-1380763286 " id="complete-page">가입완료</button>
+						</div>
+					</div>
 				</form>
 				<div class="jsx-2358275923 banner">
 					<span class="jsx-2358275923 alt-text">아직도 댓글 알바에 속으세요? 댓글알바,
 						더이상 속지마세요! 솔직통쾌한 리뷰와 깨끗한 정보가 필요하다면?</span>
-				</div>
-				<div class="jsx-3372927190 btn-box">
-					<div class="jsx-3372927190 btn-prev">
-						<button type="button" class="jsx-462732305" id="prev-page"
-							onclick="location.href='kiviewsignupoption.do'">이전</button>
-					</div>
-					<div class="jsx-3372927190 btn-finish">
-						<button type="button" class="jsx-1380763286 " id="complete-page">가입완료</button>
-					</div>
 				</div>
 			</div>
 			<address class="jsx-253692965">Copyright © Kiview Corp. All
