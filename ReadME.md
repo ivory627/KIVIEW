@@ -11,7 +11,7 @@
 
 
 🎈 사용 언어 및 IDE
-  1. Java
+  1. Java 8 / jre 1.8.0_202
   2. JavaScript, jQuery
   3. HTML5, CSS
   4. Eclipse
@@ -20,7 +20,7 @@
   1. Spring framework
 
 🎈 Server --> 도메인 구매 후 AWS Route 53 배포 예정
-  1. Apache Tomcat 9.0
+  1. Apache Tomcat v9.0
  
 🎈 협업/형상관리 Tool
   1. Slack
@@ -29,7 +29,8 @@
 🎈 DBMS 
   1. Oracle / SQL Developer(IDE)
   
-
+🎈 OS
+  1. Chrome
 
 
 
