@@ -105,7 +105,7 @@ textarea{
                   
                   <table style="border:0px" > 
                   <a style="color:blue"><span class="icon-person"></span>${cafe_list[0].admin }</a>
-                  <tr><th>회원수</th><td>${fn:length(cafe_list[2]) }</td></tr>    
+                  <tr><th>회원수</th><td>${fn:length(cafe_list[2]) }명</td></tr>    
                   <tr><th>게시글</th><td>2341개</td></tr>
                   </table>
                   <a href="cafeconfig.do?cafe_no=${cafe_list[0].cafe_no }" style="color:blue"># 카페 관리</a>
@@ -132,7 +132,7 @@ textarea{
                   <c:forEach var="menu" items="${cafe_list[1] }">
                       <c:choose>
                                
-                     <c:when test="${menu.concept eq 'table' }">                          
+                     <c:when test="${menu.concept eq 'table' }">                           
                            <li><i class="fas fa-clipboard-list"></i><a href="#"> ${menu.name}</a></li>                        
                      </c:when>
                      <c:otherwise>

@@ -238,16 +238,31 @@ public class CafeDaoImpl implements CafeDao {
 		List<CafeMemberVo> res = null;
 		
 		
-	try {
-		res = sqlSession.selectList(namespace+"cafe_member_list",cafe_no);
+		try {
+			res = sqlSession.selectList(namespace+"cafe_member_list",cafe_no);
 		
-	} catch (Exception e) {
-		e.printStackTrace();
-		System.out.println("memberlist 오류");
-	} 
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("memberlist 오류");
+		} 
 		
 		
 		
+		
+		return res;
+	}
+
+	@Override
+	public int menu_delete(int cafe_menu_no) {
+		int res = 0;
+		
+		try {
+			res = sqlSession.delete(namespace+"menu_delete",cafe_menu_no);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("menudelete 오류");
+		}
 		
 		return res;
 	}

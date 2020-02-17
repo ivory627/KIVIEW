@@ -146,7 +146,7 @@ $(function(){
 <!-- 키뷰 메인메뉴 -->
 <nav
 	class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light"
-	id="ftco-navbar"> 
+	id="ftco-navbar">
 
 	<div class="container d-flex align-items-center">
 		<a class="navbar-brand" href="index.do">Kiview</a>
@@ -158,30 +158,45 @@ $(function(){
 		<!-- <p class="button-custom order-lg-last mb-0"><a href="appointment.html" class="btn btn-secondary py-2 px-3">Make An Appointment</a></p> -->
 		<div class="collapse navbar-collapse" id="ftco-nav">
 
-			<ul class="navbar-nav ml-auto" > 
-				
-				
+			<ul class="navbar-nav ml-auto">
+
+
 				<li class="nav-item"><a href="index.do" class="nav-link pl-0">홈</a></li>
 				<li id="notice" class="nav-item"><a href="kiviewnotice.do"
 					class="nav-link">키뷰안내</a></li>
 				<li id="kinder" class="nav-item"><a href="kindersearch.do"
 					class="nav-link">유치원</a></li>
-				<li id="cafe" class="nav-item"><a href="cafehome.do?member_no=${login.member_no }&member_id=${login.member_id}"
-               class="nav-link">키뷰 카페</a></li> 
-				
+				<li id="cafe" class="nav-item"><a
+					href="cafehome.do?member_no=${login.member_no }&member_id=${login.member_id}"
+					class="nav-link">키뷰 카페</a></li>
+
 				<li id="my" class="nav-item"><a href="kiviewmypage.do"
 					class="nav-link">마이페이지</a></li>
-					<li id="login" class="nav-item"><a href="kiviewlogin.do"
-					class="nav-link">로그인</a></li>
+
+				<!-- 스크립트 조건에 소메뉴를 사라지게 해놔서 c태그로 변경 
+                로그인 되어 있을 때 로그아웃, 안되어있을 때 로그인 뜨도록
+            -->
+				<c:choose>
+					<c:when test="${empty login}">
+						<li class="nav-item"><a href="kiviewlogin.do"
+							class="nav-link">로그인</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="nav-item"><a href="kiviewlogout.do"
+							class="nav-link">로그아웃</a></li>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</div>
 	</div>
 </nav>
 
 <!-- 키뷰 안내 소메뉴 -->
-<nav  
+<nav
 	class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light"
-	id="notice_sub" style="display:none; height:50px; padding:20px; border:1px solid lightgray">     <!-- id="ftco-navbar" -->
+	id="notice_sub"
+	style="display: none; height: 50px; padding: 20px; border: 1px solid lightgray">
+	<!-- id="ftco-navbar" -->
 
 	<div class="container d-flex align-items-center">
 		<a class="navbar-brand" href="kiviewnotice.do">키뷰 안내</a>
@@ -191,27 +206,27 @@ $(function(){
 			<span class="oi oi-menu"></span> Menu
 		</button>
 		<!-- <p class="button-custom order-lg-last mb-0"><a href="appointment.html" class="btn btn-secondary py-2 px-3">Make An Appointment</a></p> -->
-		
-		<div class="collapse navbar-collapse" id="ftco-nav"> 
 
-			<ul class="navbar-nav" style="margin-left:570px" >       
-			<!-- <ul class="navbar-nav ml-auto" >   --> 
-				
-				<li class="nav-item"><a href="kiviewnotice.do"
-					class="nav-link">공지사항</a></li>
-				<li class="nav-item"><a href="kiviewintro.do"
-					class="nav-link">키뷰 소개</a></li>
-					<li class="nav-item"><a href="kiviewfaq.do"
-					class="nav-link">FAQ</a></li>
+		<div class="collapse navbar-collapse" id="ftco-nav">
+
+			<ul class="navbar-nav" style="margin-left: 570px">
+				<!-- <ul class="navbar-nav ml-auto" >   -->
+
+				<li class="nav-item"><a href="kiviewnotice.do" class="nav-link">공지사항</a></li>
+				<li class="nav-item"><a href="kiviewintro.do" class="nav-link">키뷰
+						소개</a></li>
+				<li class="nav-item"><a href="kiviewfaq.do" class="nav-link">FAQ</a></li>
 			</ul>
 		</div>
 	</div>
 </nav>
 
 <!-- 유치원 소메뉴 -->
-<nav  
+<nav
 	class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light"
-	id="kinder_sub" style="display:none; height:50px; padding:20px; border:1px solid lightgray">     <!-- id="ftco-navbar" -->
+	id="kinder_sub"
+	style="display: none; height: 50px; padding: 20px; border: 1px solid lightgray">
+	<!-- id="ftco-navbar" -->
 
 	<div class="container d-flex align-items-center">
 		<a class="navbar-brand" href="#">유치원</a>
@@ -221,26 +236,28 @@ $(function(){
 			<span class="oi oi-menu"></span> Menu
 		</button>
 		<!-- <p class="button-custom order-lg-last mb-0"><a href="appointment.html" class="btn btn-secondary py-2 px-3">Make An Appointment</a></p> -->
-		
-		<div class="collapse navbar-collapse" id="ftco-nav"> 
 
-			<ul class="navbar-nav" style="margin-left:700px" >    
-			<!-- <ul class="navbar-nav ml-auto" >   --> 
-				
-				
-				<li class="nav-item"><a href="kindersearch.do"
-					class="nav-link">유치원 검색</a></li>
-				<li class="nav-item"><a href="reviewboard.do"
-					class="nav-link">유치원 리뷰</a></li>
+		<div class="collapse navbar-collapse" id="ftco-nav">
+
+			<ul class="navbar-nav" style="margin-left: 700px">
+				<!-- <ul class="navbar-nav ml-auto" >   -->
+
+
+				<li class="nav-item"><a href="kindersearch.do" class="nav-link">유치원
+						검색</a></li>
+				<li class="nav-item"><a href="reviewlist.do" class="nav-link">유치원
+						리뷰</a></li>
 			</ul>
 		</div>
 	</div>
 </nav>
 
 <!-- 카페 소메뉴 -->
-<nav  
+<nav
 	class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light"
-	id="cafe_sub" style="display:none; height:50px; padding:20px; border:1px solid lightgray">     <!-- id="ftco-navbar" -->
+	id="cafe_sub"
+	style="display: none; height: 50px; padding: 20px; border: 1px solid lightgray">
+	<!-- id="ftco-navbar" -->
 
 	<div class="container d-flex align-items-center">
 		<a class="navbar-brand" href="#">키뷰카페</a>
@@ -250,15 +267,16 @@ $(function(){
 			<span class="oi oi-menu"></span> Menu
 		</button>
 		<!-- <p class="button-custom order-lg-last mb-0"><a href="appointment.html" class="btn btn-secondary py-2 px-3">Make An Appointment</a></p> -->
-		
-		<div class="collapse navbar-collapse" id="ftco-nav"> 
 
-			<ul class="navbar-nav" style="margin-left:780px" >    
-			<!-- <ul class="navbar-nav ml-auto" >   -->
-				
-				
-				<li class="nav-item"><a href="cafehome.do?member_no=${login.member_no }&member_id=${login.member_id}"
-               class="nav-link">카페 홈</a></li> 
+		<div class="collapse navbar-collapse" id="ftco-nav">
+
+			<ul class="navbar-nav" style="margin-left: 780px">
+				<!-- <ul class="navbar-nav ml-auto" >   -->
+
+
+				<li class="nav-item"><a
+					href="cafehome.do?member_no=${login.member_no }&member_id=${login.member_id}"
+					class="nav-link">카페 홈</a></li>
 				<li class="nav-item"><a href="kiview_search.jsp"
 					class="nav-link">카페 관리</a></li>
 			</ul>
@@ -267,10 +285,12 @@ $(function(){
 </nav>
 
 <!-- 마이페이지 소메뉴 -->
-<nav  
+<nav
 	class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light"
-	id="my_sub" style="display:none; height:50px; padding:20px; border:1px solid lightgray">     <!-- id="ftco-navbar" -->
- 
+	id="my_sub"
+	style="display: none; height: 50px; padding: 20px; border: 1px solid lightgray">
+	<!-- id="ftco-navbar" -->
+
 	<div class="container d-flex align-items-center">
 		<a class="navbar-brand" href="#">마이페이지</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -279,19 +299,18 @@ $(function(){
 			<span class="oi oi-menu"></span> Menu
 		</button>
 		<!-- <p class="button-custom order-lg-last mb-0"><a href="appointment.html" class="btn btn-secondary py-2 px-3">Make An Appointment</a></p> -->
-		
-		<div class="collapse navbar-collapse" id="ftco-nav"> 
 
-			<ul class="navbar-nav" style="margin-left:800px" >    
-			<!-- <ul class="navbar-nav ml-auto" >   --> 
-				
-				
+		<div class="collapse navbar-collapse" id="ftco-nav">
+
+			<ul class="navbar-nav" style="margin-left: 850px">
+				<!-- <ul class="navbar-nav ml-auto" >   -->
+
+
 				<li class="nav-item"><a href=" kiviewmypage.do"
 					class="nav-link">내 정보</a></li>
 				<li class="nav-item"><a href="kiviewmyactivity.do"
 					class="nav-link">내 활동</a></li>
-				<li class="nav-item"><a href="kiviewlogout.do"
-					class="nav-link">로그아웃</a></li>
+				
 			</ul>
 		</div>
 	</div>

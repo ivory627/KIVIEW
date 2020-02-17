@@ -41,4 +41,6 @@ public interface CafeBiz {
 
 	public List<CafeMemberVo> cafe_member_list(int cafe_no);
 
+	public int menu_delete(int cafe_menu_no);
+
 }

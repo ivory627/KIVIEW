@@ -143,7 +143,7 @@
 		
 		
 		function do_chk(){
-			alert("do_chk");
+			
 			var submit = false;
 			
 
@@ -169,7 +169,7 @@
 				}
 			})
 			
-			alert(submit);
+			
 			return submit;
 		}
 		if($("#categorychk").is(":checked")){
@@ -184,12 +184,27 @@
 			}
 			
 			
-			if(category1 == category2 || category2 == category3 || category1 == category3){
-				 
-				alert("말머리 이름이 중복됩니다.");
+			if(category1!=""){ 
+				if(category1==category2 || category1==category3){
+					return false;
+				}
 				
-				return false;
 			}
+			
+			if(category2!=""){ 
+				if(category2==category3 || category2==category1){
+					return false;
+				}
+				
+			}
+			
+			if(category3!=""){ 
+				if(category1==category3 || category2==category3){
+					return false;
+				}
+				
+			}
+		 	
 		
 		}
 		

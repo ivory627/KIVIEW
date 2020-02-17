@@ -99,16 +99,12 @@ public class CafeController {
       session.setAttribute("cafe_list", list);
       System.out.println(list);
       
-      //model.addAttribute("vo", vo);
-      
       // 카페 회원 여부 확인 -> 버튼 변경 여부 확인 용
       CafeMemberVo regyn = new CafeMemberVo();
       regyn.setCafe_member_no(member_no);
       regyn.setCafe_no(cafe_no);
       
-      CafeMemberVo res = biz.cafe_regyn(regyn);
-      
-      //model.addAttribute("caferegyn",res);   
+      CafeMemberVo res = biz.cafe_regyn(regyn); 
 
       return "cafe_detail";
    }
@@ -186,9 +182,28 @@ public class CafeController {
    }
    
    @RequestMapping("/menudelete.do")
-   public String menu_delete(CafeMenuVo menu) {
-	   System.out.println(menu);
-	   return null;
+   public void menu_delete(HttpServletResponse response, int cafe_no, int cafe_menu_no) throws IOException {
+	   
+	   	   
+	   
+	   int res = 0;
+	   res = biz.menu_delete(cafe_menu_no);
+	   
+	   PrintWriter out = response.getWriter();
+	   
+	   if(res>0) {
+		   
+		   out.print("<script> alert('게시판을 삭제하였습니다.'); location.href='cafeconfig.do?'"+cafe_no
+		   		+ "+</script>");
+		   
+	   } else {
+		   out.print("<script> alert('명령 실행 중 오류.'); location.href='cafeconfig.do?'"+cafe_no
+			   		+ "+</script>");
+	   }
+	   
+	   
+	   
+	   
    }
    
    
