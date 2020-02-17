@@ -42,7 +42,7 @@
   - kiview_notice.jsp 
     - selectList, sort, paging, search functions 
   - kiview_notice_detail.jsp
-    - selectOne
+    - selectOne, delete, update(mapping 연결)
   - kiview_notice_write.jsp 
     - insert, smartEditor2(API)
   - kiview_notice_update.jsp
