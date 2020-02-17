@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
-<%
-	response.setContentType("text/html; charset=UTF-8");
-%>
+<% request.setCharacterEncoding("UTF-8");%>
+<% response.setContentType("text/html; charset=UTF-8");%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.List" %>
 
 <!DOCTYPE html>
 <html>
@@ -172,10 +170,9 @@ form select {
 				<div class="col-md-9 ftco-animate text-center">
 					<h1 class="mb-2 bread">리뷰 게시판</h1>
 					<p class="breadcrumbs">
-						<span class="mr-2"><a href="index.do">홈
+						<span class="mr-2"><a href="index.jsp">홈
 						 <i class="ion-ios-arrow-forward"></i></a></span> 
-						 <span class="mr-2"><a href=".do">리뷰 게시판
-						 <!-- 나중에 리뷰 게시판 부분에 보내고 싶은 jsp 보내기 -->
+						 <span class="mr-2"><a href="kiview_reviewboard.jsp">리뷰 게시판 
 						 <i class="ion-ios-arrow-forward"></i></a></span>
 					</p>
 				</div>
@@ -226,10 +223,12 @@ form select {
 
 			<div class="ftco-animate" style="margin: 40px; margin-bottom: 0px;">
 				<h2>
-					<label><span style="color: #fda638">유치원</span>에 대한 <span
-						style="color: #fda638">321</span>건의 리뷰가 검색되었습니다.</label>
+					<label><span style="color: #fda638">유치원</span>에 대한 <span style="color: #fda638">321</span>건의 리뷰가 검색되었습니다.</label>
+					<!-- 해인 : 유치원명 name으로, 갯수 부분 review_no개로 받기 -->
+					<!-- 삭제 글 갯수를 마이너스 해 줘야 하기 때문에 delete 만들 때 n/y로 삭제 유무 확인할 수 있도록 체크해야 될 듯 -->
 				</h2>
 			</div>
+			
 			<!-- 리뷰리스트 영역 -->
 			<div class="text px-4 ftco-animate"
 				style="background-color: white; margin-top: 20px; 
@@ -238,37 +237,39 @@ form select {
 					class="btn btn-secondary" id="myBtn" type="button" value="리뷰쓰기">
 				<br>
 				<br>
+				
 				<!-- 여기서부터 반복 -->
+				<c:forEach items="${list}" var="review">
 				<div class="row">
-
-
 					<div class="col-md-12 course d-lg-flex ftco-animate"
 						style="padding: 30px;">
+						<!-- 해인 : 여기에서부터 묶어서 list 반복되도록 만들기 -->
+					
 						<div class="review"
 							style="width: 25%; margin-right: 30px; border-right: 1px solid lightgray">
 							<h3>
 								<label>총점</label>&nbsp;&nbsp;&nbsp;<span> 3.6 /5.0</span> <br>
+								<!-- 해인 : 총점 계산하기: 평점 세 개의 평균 내기(double) -->
 							</h3>
-							<br> <label style="font-size: 20px;">평점</label><span
+							<br> <label style="font-size: 20px;">원장/교사</label><span
 								style="font-size: 20px; position: relative; left: 20%">★★★★★</span>
-							<br> <label style="font-size: 20px;">평점</label><span
+							<br> <label style="font-size: 20px;">과정/수업</label><span
 								style="font-size: 20px; position: relative; left: 20%">★★★★★</span>
-							<br> <label style="font-size: 20px;">평점</label><span
+							<br> <label style="font-size: 20px;">시설/청결</label><span
 								style="font-size: 20px; position: relative; left: 20%">★★★★★</span>
-							<br>
+							<br>	<!-- 해인 : 별 부분 이미지 넣고 평점마다 연결될 수 있도록 구현하기 -->
 
 						</div>
+					
 
 						<div style="width: 70%">
 							<h3>
-								<label>" 선생님들이 모두 친절하십니다! "</label>
+								<label>제목 “ ${review.review_title} ”</label>
 							</h3>
 							<p class="subheading">
-								<span>U****</span> | <span>2017년 등원</span> | <span>2019-06-12</span>
+								<span> ID ${review.review_writer} </span> | <span>등원시기 2017년 등원</span> | <span>${review.review_date} </span>
 							</p>
-							<p>아직 오래다니지 않아서 자세히는 모르지만 겨울철 난방이 잘되고 있고 아이들에게 필요한 시설들이 잘
-								갖춰져있어 아이들이 편안함을 느끼기 좋은환경이며 아동대비 선생님비율이 높아서 아이에게 더 많은 관심과 애정을 주시며
-								잘 돌봐주시는것같음 아파트 정문에 위치하고 있어서 접근성이 좋다</p>
+							<p>내용 ${review.review_content} </p>
 						</div>
 					</div>
 
@@ -280,8 +281,8 @@ form select {
 						<hr>
 					</div>
 
-
 				</div>
+				</c:forEach>
 				<!-- 여기까지 반복 -->
 
 				<!-- 여기서부터 반복 -->
@@ -294,11 +295,11 @@ form select {
 							<h3>
 								<label>총점</label>&nbsp;&nbsp;&nbsp;<span> 3.6 /5.0</span> <br>
 							</h3>
-							<br> <label style="font-size: 20px;">평점</label><span
+							<br> <label style="font-size: 20px;">원장/교사</label><span
 								style="font-size: 20px; position: relative; left: 20%">★★★★★</span>
-							<br> <label style="font-size: 20px;">평점</label><span
+							<br> <label style="font-size: 20px;">과정/수업</label><span
 								style="font-size: 20px; position: relative; left: 20%">★★★★★</span>
-							<br> <label style="font-size: 20px;">평점</label><span
+							<br> <label style="font-size: 20px;">시설/청결</label><span
 								style="font-size: 20px; position: relative; left: 20%">★★★★★</span>
 							<br>
 
