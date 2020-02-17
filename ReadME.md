@@ -10,10 +10,11 @@
 
 
 
-🎈 사용 언어 
+🎈 사용 언어 및 IDE
   1. Java
   2. JavaScript, jQuery
   3. HTML5, CSS
+  4. Eclipse
   
 🎈 프레임워크
   1. Spring framework
@@ -23,7 +24,7 @@
  
 🎈 협업/형상관리 Tool
   1. Slack
-  2. Github
+  2. Github / Github Desktop
 
 🎈 DBMS 
   1. Oracle / SQL Developer(IDE)
