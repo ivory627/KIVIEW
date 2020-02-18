@@ -152,7 +152,31 @@ public class CafeBizImpl implements CafeBiz {
 		
 		return dao.category_delete_all(cafe_menu_no);
 	}
+	
+	//------------------------------- 게시판 -----------------------------//
+	   @Override
+	   public List<CafeBoardVo> cafe_board(int cafe_no) {
+	      
+	      return dao.cafe_board(cafe_no);
+	   }
 
+	   @Override
+	   public List<CafeBoardVo> cafe_boardlist(int cafe_menu_no) {
+	      
+	      return dao.cafe_boardlist(cafe_menu_no);
+	   }
+
+	   @Override
+	   public String cafe_menu_name(int cafe_menu_no) {
+	      
+	      return dao.cafe_menu_name(cafe_menu_no);
+	   }
+
+	@Override
+	public int menu_update(CafeMenuVo menu) {
+		
+		return dao.menu_update(menu);
+	}
 	
 
 }

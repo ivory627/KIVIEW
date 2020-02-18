@@ -3,8 +3,10 @@
 
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
-	
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+   
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!DOCTYPE html>
@@ -21,8 +23,8 @@
   
   <body id = "body">
  <%@include file="cafe_modal.jsp" %> 
-	  <!-- @@ header 부분 @@ -->
-	  <%@ include file = "header.jsp" %>
+     <!-- @@ header 부분 @@ -->
+     <%@ include file = "header.jsp" %>
     
      <!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
     <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">
@@ -38,72 +40,102 @@
     </section>
      <!-- @@ header 끝 @@ -->
      
-		
-		<section class="ftco-section bg-light">
-			<div class="container" style="margin-left:30px; ">   
-			<div class="row" style="width:1400px; overflow:auto;"> 
-				<!-- 카페 메뉴 -->
-				<div class="col-lg-3 sidebar ftco-animate" style="padding:25px; margin-right:30px;  background-color:white; border:1px solid lightgray;" >
-					 
-					
-					<%@include file="cafe_sidebar.jsp" %>
+      
+      <section class="ftco-section bg-light">
+         <div class="container" style="margin-left:30px; ">   
+         <div class="row" style="width:1400px; overflow:auto;"> 
+            <!-- 카페 메뉴 -->
+            <div class="col-lg-3 sidebar ftco-animate" style="padding:25px; margin-right:30px;  background-color:white; border:1px solid lightgray;" >
+                
+               
+               <%@include file="cafe_sidebar.jsp" %>
 
-				</div>
+            </div>
 
-				<!-- 카페 홈  -->
-				
-				<div id="home" class="col-lg-8 ftco-animate" style="padding:25px; margin-left:0px; background-color:white; border:1px solid lightgray; "> 
-					<h2 class="mb-3"><b># 공지사항</b></h2>
-					 
-					
-					<table class="table table" style="text-align:center">
-						<col width="10%"><col width="10%"><col width="50%"><col width="20%"><col width="10%">
-						<tr><th>번 호</th><th>작성자</th><th>제 목</th><th>작성일</th><th>조회수</th></tr> 
-						<tr>
-						<td>1</td>
-						<td>user</td>
-						<td><a href="cafe_board_detail.jsp" style="font-size:small; text-align:left">[공지]서울유치원 학부모 모임에 오신걸 환영합니다! [1]</a></td>
-						<td>2019-01-12</td><td>221</td> 
-						</tr>
-						
-						
-						
-						
-					</table> 
-					
-					<div align=right>
-					<input type="button" value="글작성" class="btn btn-secondary" onclick="location.href='cafe_board_write.jsp'">
-					</div>
-					
-					<div align=center>
-					<form>
-					<select style="height:30px"><option>제 목</option><option>작성자</option></select>
-					<input style="height:30px" type="text" name="keyword">
-					<input style="height:30px;border-top-width: 0px;" type="submit" value="검색"> 
-					</form>
-					</div>
-					<br>
-					<br>
-				</div>
-				
+            <!-- 카페 홈  -->
+            
+            <div id="home" class="col-lg-8 ftco-animate" style="padding:25px; margin-left:0px; background-color:white; border:1px solid lightgray; "> 
+               <h2 class="mb-3">
+                  <b>${cafe_menu_name }</b>
+               </h2>
+                
+               
+               <table class="table table" style="text-align:center">
+                  <col width="10%"><col width="10%"><col width="50%"><col width="20%"><col width="10%">
+                  <tr>
+                  <th>번 호</th>
+                  <th>작성자</th>
+                  <th>제 목</th>
+                  <th>작성일</th>
+                  <th>조회수</th>
+                  </tr>
+                  <c:choose>
+                  <c:when test="${fn:length(cafe_list[3]) == 0 }" >
+                  <tr>
+                     <td  colspan="5" >
+                        <p>작성 된 게시글이 없습니다.</p>
+                     </td>
+                  </tr>                  
+                  </c:when>
+                  
+                  <c:otherwise>
+                  <c:forEach var="boardlist" items="${cafe_list[3] }">
+                  <tr>
+                  <td>${boardlist.cafe_board_no }</td>
+                  <td>${boardlist.writer }</td>
+                  <td><a href="cafe_board_detail.jsp" style="font-size:small; text-align:left">
+                  <c:if test="${fn:length(boardlist.catergory)!=0}">
+                  [ ${boardlist.category } ]
+                  </c:if>
+                  ${boardlist.title }
+                  
+                  [1] 댓글 추가하자!
+                  
+                  </a></td>
+                  <td>${boardlist.regdate }</td>
+                  <td>${boardlist.hit }</td> 
+                  </tr>
+                  </c:forEach>
+                  </c:otherwise>
+                  </c:choose>
+                  
+                  
+                  
+               </table> 
+               
+               <div align=right>
+               <input type="button" value="글작성" class="btn btn-secondary" onclick="location.href='cafeboardwrite.do'">
+               </div>
+               
+               <div align=center>
+               <form>
+               <select style="height:30px"><option>제 목</option><option>작성자</option></select>
+               <input style="height:30px" type="text" name="keyword">
+               <input style="height:30px;border-top-width: 0px;" type="submit" value="검색"> 
+               </form>
+               </div>
+               <br>
+               <br>
+            </div>
+            
 
-				
+            
 
-			</div>
-
-
-			
-			
+         </div>
 
 
-		</div>
-		</section>
+         
+         
 
-		
-	<!-- @@ footer 영역 @@ -->
-	<%@ include file="footer.jsp"%>
-	
-	
+
+      </div>
+      </section>
+
+      
+   <!-- @@ footer 영역 @@ -->
+   <%@ include file="footer.jsp"%>
+   
+   
 
 
     

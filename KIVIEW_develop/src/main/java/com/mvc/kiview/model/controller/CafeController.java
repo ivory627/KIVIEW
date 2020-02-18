@@ -40,6 +40,8 @@ import com.mvc.kiview.model.vo.CafeVo;
 @Controller // 카페관련
 public class CafeController {
    
+	
+	
    @Autowired
    private FileValidate filevalidate;
 
@@ -83,21 +85,31 @@ public class CafeController {
       return "cafe_my";
 
    }
+   
+   
+   //-----------------------카페 세부사항 -----------------------------------------
+   
+   public List sidebar(int cafe_no) {
+	   CafeVo cafe = biz.cafe_selectone(cafe_no);
+	   List<CafeMenuVo> menu = biz.menu_list(cafe_no);
+	   List<CafeMemberVo> member = biz.cafe_member_list(cafe_no);
+	      
+	      
+	   List list = new ArrayList();
+	   list.add(cafe);
+	   list.add(menu);
+	   list.add(member);
+	   
+	   return list;
+   }
 
    @RequestMapping("/cafedetail.do")
    public String cafe_detail(HttpSession session,Model model, int cafe_no, int member_no) {
       // 상세페이지 카페 정보
-      CafeVo cafe = biz.cafe_selectone(cafe_no);
-      List<CafeMenuVo> menu = biz.menu_list(cafe_no);
-      List<CafeMemberVo> member = biz.cafe_member_list(cafe_no);
       
+	  List list = sidebar(cafe_no); 
+      model.addAttribute("cafe_list", list );
       
-      List list = new ArrayList();
-      list.add(cafe);
-      list.add(menu);
-      list.add(member);
-      session.setAttribute("cafe_list", list);
-      System.out.println(list);
       
       // 카페 회원 여부 확인 -> 버튼 변경 여부 확인 용
       CafeMemberVo regyn = new CafeMemberVo();
@@ -113,6 +125,9 @@ public class CafeController {
    ////////////////////////////  카페 관리 ///////////////////////////////
    @RequestMapping("/cafeconfig.do")
    public String cafe_config(Model model, int cafe_no) {
+	  List list = sidebar(cafe_no); 
+	  model.addAttribute("cafe_list", list ); 
+	   
       CafeVo cafe = biz.cafe_selectone(cafe_no);
       model.addAttribute("vo", cafe);
       
@@ -132,15 +147,16 @@ public class CafeController {
 
       int res = biz.menu_insert(vo, cat1, cat2, cat3);
 
+      PrintWriter out = response.getWriter();
       response.setContentType("text/html; charset=UTF-8");
 
       if (res > 0) {
-         PrintWriter out = response.getWriter();
+         
          out.print("<script> alert('게시판을 추가하였습니다.'); location.href='cafeconfig.do?cafe_no=" + vo.getCafe_no()
                + "'</script> ");
 
       } else {
-         PrintWriter out = response.getWriter();
+         
          out.print("<script> alert('명령 실행 중 오류'); location.href='cafeconfig.do?cafe_no=" + vo.getCafe_no()
                + "'</script> ");
          out.flush();
@@ -188,20 +204,20 @@ public class CafeController {
 	   
 	   int res = 0;
 	   
-	   res = category_delete_all(cafe_menu_no);
-	   
-	   //res = biz.menu_delete(cafe_menu_no);
+	  
+	   res = biz.menu_delete(cafe_menu_no);
 	   
 	   PrintWriter out = response.getWriter();
+	   response.setContentType("text/html; charset=UTF-8");
 	   
 	   if(res>0) {
 		   
-		   out.print("<script> alert('게시판을 삭제하였습니다.'); location.href='cafeconfig.do?'"+cafe_no
-		   		+ "+</script>");
+		   out.print("<script> alert('게시판을 삭제하였습니다.'); location.href='cafeconfig.do?cafe_no="+cafe_no
+		   		+ "'</script>");
 		   
 	   } else {
-		   out.print("<script> alert('명령 실행 중 오류.'); location.href='cafeconfig.do?'"+cafe_no
-			   		+ "+</script>");
+		   out.print("<script> alert('명령 실행 중 오류.'); location.href='cafeconfig.do?cafe_no="+cafe_no
+			   		+ "'</script>");
 	   }
 	   
 	   
@@ -209,18 +225,94 @@ public class CafeController {
 	   
    }
    
-   public int category_delete_all(int cafe_menu_no) {
-	   int res = 0;
+   @RequestMapping("/menuupdate.do")
+   public void menu_update(HttpServletResponse response, CafeMenuVo menu, String cafe_menu_no, HttpServletRequest request)  throws IOException {
 	   
-	   res = biz.category_delete_all(cafe_menu_no);
+	   int category_no1 = Integer.parseInt(request.getParameter("category_no1"));
+	   String category1 = request.getParameter("category1").trim();
+	   int category_no2 = Integer.parseInt(request.getParameter("category_no2"));
+	   String category2 = request.getParameter("category2").trim();
+	   int category_no3 = Integer.parseInt(request.getParameter("category_no3"));
+	   String category3 = request.getParameter("category3").trim();
+	   System.out.println(category1); 
 	   
-	   return res;
+	   int res = 0 ;
+	   res = biz.menu_update(menu);
+	   
+	   PrintWriter out = response.getWriter();
+	   response.setContentType("text/html charset=utf-8"); 
+	   
+	   if(category_no1>0) {
+		   System.out.println("1번 있음");
+		   
+		   if(category1.length()<=1) {
+			   System.out.println("1번 있으나 말머리 없음 -> 삭제");
+			   res += biz.menu_delete(category_no1);
+					   
+		   } else if(category1.length()>1) {
+			   System.out.println("1번 있고 말머리 있음 -> 수정");
+		   }
+		   
+	   } else if(category_no1==0) {
+		   
+		   if(category1.length()>1) {
+			   System.out.println("번호 없고 말머리 있음 -> 추가");
+		   }
+	   }
+	   
+	   if(category_no2>0) {
+		   System.out.println("2번 있음");
+		   
+		   if(category2.length()<=1) {
+			   System.out.println("2번 있으나 말머리 없음 -> 삭제");
+		  
+		   } else if(category2.length()>1) {
+			   System.out.println("2번 있고 말머리 있음 -> 수정");
+		   
+		   }
+		   
+	   } else if(category_no2==0) {
+		   
+		   if(category2.length()>1 ) {
+			   System.out.println("번호 없고 말머리 있음 -> 추가");
+		   }
+	   }
+	   
+	   if(category_no3>0) {
+		   System.out.println("3번 있음");
+		   if(category3.length()<=1) {
+			   System.out.println("3번 있으나 말머리 없음 -> 삭제");
+		   } else if(category3.length()>1) {
+			   System.out.println("3번 있고 말머리 있음 -> 수정");
+		   }
+	   } else if(category_no3==0) {
+		   
+		   if(category3.length()>1) {
+			   System.out.println("번호 없고 말머리 있음 -> 추가");
+		   }
+	   }
+	   
+	   
+	   
+	   
+	   if(res>0) {
+		   out.print("<script> alert('변경 사항이 적용되었습니다.'); location.href='cafeconfig.do?cafe_no="+menu.getCafe_no()
+			   		+ "'</script>");
+	   } else {
+		   out.print("<script> alert('다시 입력해주세요.'); location.href='cafeconfig.do?cafe_no="+menu.getCafe_no()
+	   		+ "'</script>");
+	   }
+	   
+	   
+	   
+	   
+	   
    }
    
    
    
    
-   
+   ////////////////////////////////////// 카페 회원가입  //////////////////////////////////////////
    
    
    
@@ -228,6 +320,9 @@ public class CafeController {
    
    @RequestMapping("/cafejoinform.do")
    public String cafe_joinbefore(Model model, int cafe_no) {
+	  List list = sidebar(cafe_no); 
+	  model.addAttribute("cafe_list", list ); 
+	   
 
       CafeVo vo = biz.cafe_selectone(cafe_no);
 
@@ -402,5 +497,43 @@ public class CafeController {
       model.addAttribute("keyword",keyword);
       return "cafe_search";
    }
-
+   
+   
+   
+   ///////////////////////////////////// 게시판 /////////////////////////////////////////////
+   @RequestMapping("/cafeboardlist.do")
+   public String cafe_board_list(Model model,int cafe_no, int cafe_menu_no) {
+	  List list = sidebar(cafe_no); 
+	  model.addAttribute("cafe_list", list ); 
+	   
+      
+      String cafemenuname = biz.cafe_menu_name(cafe_menu_no);
+      List<CafeBoardVo> Blist = biz.cafe_boardlist(cafe_menu_no);
+      model.addAttribute("Blist",Blist);
+      model.addAttribute("cafe_menu_name",cafemenuname);
+      return "cafe_board";
+   }
+   
+   @RequestMapping("/cafeboardwrite.do")
+   public String cafe_boardwrite() {
+      return "cafe_board_write";
+   }
+   
+   @RequestMapping(value="/ajaxcategory.do", method=RequestMethod.POST)
+   @ResponseBody
+   public Map<String,Object> ajaxcategory(int no){   
+      
+      System.out.println("ajax콘트롤러 확인용"+no);
+      
+      List<CafeCategoryVo> reslist = biz.menu_detail2(no);
+      // System.out.println(reslist);
+      Map<String,Object> map = new HashMap<String,Object>();
+      map.put("category2",reslist);
+      
+      /*
+       * for(String key : map.keySet()) { String value = map.get(key).toString();
+       * System.out.println("[key] : "+key+"[value] : "+value); }
+       */
+      return map;
+   }
 }

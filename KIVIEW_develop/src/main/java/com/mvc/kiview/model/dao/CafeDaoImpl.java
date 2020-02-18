@@ -258,6 +258,7 @@ public class CafeDaoImpl implements CafeDao {
 		
 		try {
 			res = sqlSession.delete(namespace+"menu_delete",cafe_menu_no);
+			System.out.println(res);
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -282,7 +283,61 @@ public class CafeDaoImpl implements CafeDao {
 		return res;
 	}
 
+	// ---------------------------  게시판 -------------------------------------------
 	
+	   @Override
+	   public List<CafeBoardVo> cafe_board(int cafe_no) {
+	      List<CafeBoardVo> res = null;
+	      
+	      try {
+	         res = sqlSession.selectList(namespace+"cafe_board_menu",cafe_no);
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         System.out.println("board menu 오류");
+	      }
+	      return res;
+	   }
+
+	   @Override
+	   public List<CafeBoardVo> cafe_boardlist(int cafe_menu_no) {
+	      List<CafeBoardVo> res= null;
+	      
+	      try {
+	         res = sqlSession.selectList(namespace+"cafe_board_list",cafe_menu_no);
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         System.out.println("board list 오류");
+	         
+	      }
+	      return res;
+	   }
+
+	   @Override
+	   public String cafe_menu_name(int cafe_menu_no) {
+	      String res = null;
+	      try {
+	         res = sqlSession.selectOne(namespace+"cafe_menu_name",cafe_menu_no);
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         System.out.println("cafe_menu_name 오류");
+	      }
+	      System.out.println(res);
+	      return res;
+	   }
+
+	@Override
+	public int menu_update(CafeMenuVo menu) {
+		int res = 0 ;
+		
+		try {
+	         res = sqlSession.update(namespace+"menu_update",menu);
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         System.out.println("cafe_menu_name 오류");
+	      }
+		
+		return res;
+	}
 
 	
 

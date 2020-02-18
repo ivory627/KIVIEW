@@ -110,9 +110,12 @@
 				$("#menuupdate_form").find($("input[name=cafe_menu_no]")).val(data.menu.cafe_menu_no);
 				$("#menuupdate_form").find($("input[name=authority]:input[value="+data.menu.authority+"]")).prop("checked",true);  
 				$("#menuupdate_form").find($("input[name=concept]:input[value="+data.menu.concept+"]")).prop("checked",true);  
-				$("#category_update").find($("input[name=category1]")).val(data.category[0].category);  
+				$("#category_update").find($("input[name=category1]")).val(data.category[0].category);
+				$("#category_update").find($("input[name=category_no1]")).val(data.category[0].cafe_category_no);
 				$("#category_update").find($("input[name=category2]")).val(data.category[1].category);
+				$("#category_update").find($("input[name=category_no2]")).val(data.category[1].cafe_category_no);
 				$("#category_update").find($("input[name=category3]")).val(data.category[2].category); 
+				$("#category_update").find($("input[name=category_no3]")).val(data.category[2].cafe_category_no);
 			
 			
 			},
@@ -429,7 +432,9 @@
 							<!-- 게시판 수정 -->
 							<div id="menuupdate_form" class="col-lg-4 ftco-animate"
 								style="border-left: 1px solid lightgray; padding: 20px; display: none">
-								<form action="menuupdate">
+								<form action="menuupdate.do" method="get">
+									<input type="hidden" name="cafe_no" value="${cafe_list[0].cafe_no }">
+									<input type="hidden" name="cafe_menu_no">
 									<div class="form-group">
 										<label>게시판명</label><br> 
 											<input type="text" size="60" name="name" minlength="4" maxlength="10" required> <br> <br> 
@@ -439,31 +444,33 @@
 										<br> 
 										
 										<label>게시판 형식</label><br> 
-											<input type="radio" value="table" name="concept" disabled>게시판
+											<input type="radio" name="concept" value="table" disabled>게시판 
 										&nbsp;&nbsp;&nbsp; 
-											<input type="radio" value="guest" name="concept" disabled>방명록<br> <br> 
+											<input type="radio" name="concept" value="guest" disabled>방명록<br> <br> 
 										
 										
 										<div id="category_update">
 											<label style="margin:0px;">말머리 정보</label> 
 											<ol style="padding:10px; margin:0px;"> 
-												<li><input type="text" name="category1" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
-												<li><input type="text" name="category2" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
-												<li><input type="text" name="category3" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
+												<li><input type="text" name="category1" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br>
+												<input type="hidden" name="category_no1" value="0"></li>
+												<li><input type="text" name="category2" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br>
+												<input type="hidden" name="category_no2" value="0"></li>
+												<li><input type="text" name="category3" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br>
+												<input type="hidden" name="category_no3" value="0"></li>
 											</ol>
 										</div>
-
+										<br>
 									</div>
 
-									<div class="form-group" style="position: relative; left: 60%">
+									<div class="form-group" style="position: relative; left: 85%">
 										<input type="submit" value="수정"
 											class="btn btn-secondary py-3 px-5">
-										<input type="button" onclick="menu_delete()" value="삭제"
-											class="btn btn-primary py-3 px-5">	
+										
 									</div>
 								</form>
 
-
+ 
 							</div>
 						</div>
 					</div>
