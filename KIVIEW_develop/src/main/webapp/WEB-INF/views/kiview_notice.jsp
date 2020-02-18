@@ -94,7 +94,7 @@
 							<form action="kiviewnotice.do" class="appointment-form ftco-animate fadeInUp ftco-animated"
 								method = "get" id = "catdform">
 							  	<input type = "hidden" name = "page" value = "${pageMaker.cri.page}"/>	
-								<input type = "hidden" name = "page" value = "${pageMaker.cri.perPageNum}"/>
+								<input type = "hidden" name = "perPageNum" value = "${pageMaker.cri.perPageNum}"/>
 							 
 							  <select class="form-control-sm2" style="cursor:pointer;" name = "cat_detail" id = "selcatd">
 		          				<option value = "">분류 전체</option>

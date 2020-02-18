@@ -5,7 +5,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class PageMaker {
 
 	private int totalCount;
-	private int startPage;
+	private int startPage = 1;
 	private int endPage;
 	private boolean prev;
 	private boolean next;
@@ -70,7 +70,13 @@ public class PageMaker {
 	public String makeQuery(int page) {
 		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance().queryParam("page", page)
 				.queryParam("perPageNum", this.cri.getPerPageNum());
-
+		
+		//FAQ의 분류 카테고리를 눌렀을 때 ?
+		if(this.cri.getKeyword() != null) {
+			uriComponentsBuilder.queryParam("keyword", this.cri.getKeyword()).queryParam("keyword",
+					this.cri.getKeyword());
+		}
+		
 		// 검색 한 경우
 		if (this.cri.getSearchType() != null) {
 			uriComponentsBuilder.queryParam("searchType", this.cri.getSearchType()).queryParam("keyword",

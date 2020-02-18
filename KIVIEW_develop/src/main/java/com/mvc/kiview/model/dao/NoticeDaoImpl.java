@@ -23,7 +23,7 @@ public class NoticeDaoImpl implements NoticeDao {
 		List<NoticeVo> list = new ArrayList<NoticeVo>();
 
 		try {
-			list = sqlSession.selectList("noticeList", cri);
+			list = sqlSession.selectList(namespace+"noticeList", cri);
 		} catch (Exception e) {
 			System.out.println("[error] : notice_list");
 		}
@@ -130,28 +130,92 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 	@Override
-	public List<FAQVo> faqList() {
-		return null;
+	public List<FAQVo> faqList(Criteria cri) {
+
+		List<FAQVo> faqList = new ArrayList<FAQVo>();
+
+		try {
+			faqList = sqlSession.selectList(namespace + "faqlist",cri);
+		} catch (Exception e) {
+			System.out.println("[error] : FAQ_list");
+			e.printStackTrace();
+		}
+
+		return faqList;
 	}
 
 	@Override
 	public FAQVo f_selectOne(int faq_no) {
-		return null;
+
+		FAQVo f_vo = null;
+
+		try {
+			f_vo = sqlSession.selectOne(namespace + "faqDetail" + faq_no);
+		} catch (Exception e) {
+			System.out.println("[error] : FAQ_selectOne");
+			e.printStackTrace();
+		}
+
+		return f_vo;
+	}
+
+	@Override
+	public int faq_count(Criteria cri) {
+
+		int res = 0;
+
+		try {
+			res = sqlSession.selectOne(namespace + "faqCount",cri);
+		} catch (Exception e) {
+			System.out.println("[error] : faq_count");
+		}
+
+		return res;
 	}
 
 	@Override
 	public int faq_insert(FAQVo f_vo) {
-		return 0;
+
+		int res = 0;
+
+		try {
+			res = sqlSession.insert(namespace + "faqInsert",f_vo);
+		} catch (Exception e) {
+			System.out.println("[error] : faq_insert");
+			e.printStackTrace();
+		}
+
+		return res;
 	}
 
 	@Override
 	public int faq_update(FAQVo f_vo) {
-		return 0;
+
+		int res = 0;
+
+		try {
+			res = sqlSession.update(namespace + "faqUpdate",f_vo);
+		} catch (Exception e) {
+			System.out.println("[error] : faq_update");
+			e.printStackTrace();
+		}
+
+		return res;
 	}
 
 	@Override
 	public int faq_delete(int faq_no) {
-		return 0;
+
+		int res = 0;
+
+		try {
+			res = sqlSession.update(namespace + "faqDelete",faq_no);
+		} catch (Exception e) {
+			System.out.println("[error] : faq_delete");
+			e.printStackTrace();
+		}
+
+		return res;
 	}
 
 }

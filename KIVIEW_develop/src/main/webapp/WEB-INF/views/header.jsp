@@ -208,8 +208,7 @@ $(function(){
 				<!-- <ul class="navbar-nav ml-auto" >   -->
 
 				<li class="nav-item"><a href="kiviewnotice.do" class="nav-link">공지사항</a></li>
-				<li class="nav-item"><a href="kiviewintro.do" class="nav-link">키뷰
-						소개</a></li>
+				<li class="nav-item"><a href="kiviewintro.do" class="nav-link">키뷰소개</a></li>
 				<li class="nav-item"><a href="kiviewfaq.do" class="nav-link">FAQ</a></li>
 			</ul>
 		</div>

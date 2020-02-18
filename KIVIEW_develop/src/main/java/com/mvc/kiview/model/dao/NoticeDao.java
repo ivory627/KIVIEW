@@ -25,11 +25,12 @@ public interface NoticeDao {
 	
 	
 	/* FAQ관련 method */
-
-	public List<FAQVo> faqList(); // FAQ게시판 selectList
+	public List<FAQVo> faqList(Criteria cri); // FAQ게시판 selectList
 	public FAQVo f_selectOne(int faq_no); // FAQ게시판 selectOne
+	public int faq_count(Criteria cri); //게시글 count
 	public int faq_insert(FAQVo f_vo); // FAQ게시판 insert
 	public int faq_update(FAQVo f_vo); // FAQ게시판 update
 	public int faq_delete(int faq_no); // FAQ게시판 delete
+	
 
 }

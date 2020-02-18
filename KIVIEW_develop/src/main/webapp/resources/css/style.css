@@ -189,6 +189,23 @@ abbr[title], abbr[data-original-title] {
 	text-decoration-skip-ink: none;
 }
 
+#modal-btnclo{
+	position:relative;
+	left:48%; 
+	top:10px;
+	font-size:2rem;
+	cursor: pointer;
+}
+#introimg01{
+	position:relative; 
+	left:30%;
+}
+#introimg02{
+	position:relative; 
+	left:32%;
+	cursor: pointer;
+}
+
 address {
 	margin-bottom: 1rem;
 	font-style: normal;
@@ -10717,6 +10734,7 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 .hero-wrap.hero-wrap-2 .slider-text .bread {
 	font-weight: 900;
 	color: #fff;
+	font-size: 3rem;
 }
 
 .hero-wrap.hero-wrap-2 .slider-text .breadcrumbs {
