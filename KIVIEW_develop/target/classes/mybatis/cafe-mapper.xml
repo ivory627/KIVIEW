@@ -3,7 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="cafe">
-  
+  	
+  	<!-- 카페 CRUD -->
      <insert id="cafe_insert" parameterType="CafeVo">
         INSERT INTO CAFE
         VALUES(CAFE_SEQ.NEXTVAL, #{title},#{admin},#{intro},#{thumb},#{background},#{restriction},#{question})
@@ -11,12 +12,71 @@
      
      </insert>
      
+     <!-- 이건 카페CRUD에 두세요. -->
      <insert id="cafe_insert2" parameterType="CafeMemberVo" >
         INSERT INTO CAFE_MEMBER
-        VALUES(CAFE_MEMBER_SEQ.NEXTVAL,#{member_no}, CAFE_SEQ.CURRVAL,#{answer},#{signyn},'N',SYSDATE)
+        VALUES(CAFE_MEMBER_SEQ.NEXTVAL,#{member_no}, CAFE_SEQ.CURRVAL,#{name},#{answer},#{signyn},'N',SYSDATE)
      </insert>
      
+     <update id="cafe_update" parameterType="CafeVo">
+     	UPDATE CAFE
+     	SET INTRO=#{intro}, RESTRICTION=#{restriction}, QUESTION=#{question}
+     	WHERE CAFE_NO=#{cafe_no}
      
+     </update>
+     
+     <select id="cafe_chk" parameterType="String" resultType="CafeVo">
+     	SELECT *
+     	FROM CAFE
+     	WHERE TITLE= #{title}
+     </select>
+     
+     
+     <select id="cafe_Ulist" parameterType="int" resultType="CafeVo">
+        SELECT * 
+        FROM CAFE 
+        WHERE CAFE_NO IN (SELECT CAFE_NO FROM CAFE_MEMBER WHERE MEMBER_NO = #{member_no} AND (SIGNYN = 'Y' OR SIGNYN='A') )
+     </select>
+     
+     <select id="cafe_Alist" parameterType="String" resultType="CafeVo">
+        SELECT * 
+        FROM CAFE 
+        WHERE ADMIN =#{member_id }
+     </select>
+   
+   	<select id="cafe_my" parameterType="String" resultType="CafeVo">
+        SELECT *
+        FROM CAFE
+        WHERE ADMIN LIKE #{admin}
+     
+     </select>
+     
+     <select id="cafe_search" parameterType="String" resultType="CafeVo">
+        SELECT *
+        FROM CAFE        
+        <choose>
+           <when test="_parameter.length!=0">
+               WHERE TITLE like '%'||#{keyword}||'%' 
+           </when>
+           <when test="_parameter.length==0">
+              
+           </when>              
+        </choose>
+        
+     </select>
+   	
+
+     <select id="cafe_selectone" parameterType="int" resultType="CafeVo">
+        SELECT *
+        FROM CAFE
+        WHERE CAFE_NO = #{cafe_no}
+     
+     </select>
+     
+     
+
+     
+     <!-- 메뉴 CRUD -->
      
      <insert id="menu_insert" parameterType="CafeMenuVo">
         INSERT INTO CAFE_MENU
@@ -60,14 +120,15 @@
      
      </select>
      
-     <select id="category_delete_all" parameterType="int">
-     	SELECT *
-     	FROM CAFE_CATEGORY
+     <update id="menu_update" parameterType="CafeMenuVo">
+     	UPDATE CAFE_MENU
+     	SET NAME=#{name}, AUTHORITY=#{authority}
      	WHERE CAFE_MENU_NO = #{cafe_menu_no}
-     </select>
      
-     <!-- 카테고리  -->
-
+     </update>
+     
+     
+     <!-- 카테고리 CRUD -->
      <insert id="category_insert" parameterType="String">
         
         
@@ -84,6 +145,12 @@
      
      </delete>
      
+     <select id="category_delete_all" parameterType="int">
+     	SELECT *
+     	FROM CAFE_CATEGORY
+     	WHERE CAFE_MENU_NO = #{cafe_menu_no}
+     </select>
+     
      <update id="category_update">
      	UPDATE CAFE_CATEGORY
      	SET CATEGORY=#{category}
@@ -95,80 +162,9 @@
      	VALUES(CAFE_CATEGORY_SEQ.NEXTVAL, #{cafe_menu_no}, #{category})
      </update>
      
-     
-     
-     
-<!--수정 예정  -->     
-      <select id="cafe_Ulist" parameterType="int" resultType="CafeVo">
-        SELECT * 
-        FROM CAFE 
-        WHERE CAFE_NO IN (SELECT CAFE_NO FROM CAFE_MEMBER WHERE MEMBER_NO = #{member_no} AND (SIGNYN = 'Y' OR SIGNYN='A') )
-     </select>
-     
-     <select id="cafe_Alist" parameterType="String" resultType="CafeVo">
-        SELECT * 
-        FROM CAFE 
-        WHERE ADMIN =#{member_id }
-     </select>
    
-     <select id="cafe_regyn" parameterType="CafeMemberVo" resultType="CafeMemberVo">
-        SELECT *
-        FROM CAFE_MEMBER WHERE CAFE_NO = #{cafe_no} AND MEMBER_NO = #{member_no} AND SIGNYN = 'Y'
-     </select>
-     
-     
- <!--  -->   
-     
-     <select id="cafe_my" parameterType="String" resultType="CafeVo">
-        SELECT *
-        FROM CAFE
-        WHERE ADMIN LIKE #{admin}
-     
-     </select>
-     
-     <select id="cafe_selectone" parameterType="int" resultType="CafeVo">
-        SELECT *
-        FROM CAFE
-        WHERE CAFE_NO = #{cafe_no}
-     
-     </select>
-     
-     <insert id="cafejoin" parameterType="CafeMemberVo" >
-        INSERT INTO CAFE_MEMBER
-        VALUES(CAFE_MEMBER_SEQ.NEXTVAL,#{member_no},#{cafe_no},#{answer},'Y','N',SYSDATE)
-     </insert>
-     
-      <select id="cafe_search" parameterType="String" resultType="CafeVo">
-        SELECT *
-        FROM CAFE        
-        <choose>
-           <when test="_parameter.length!=0">
-               WHERE TITLE like '%'||#{keyword}||'%' 
-           </when>
-           <when test="_parameter.length==0">
-              
-           </when>              
-        </choose>
-        
-     </select>
-     
-     <select id="cafe_member_list" parameterType="int" resultType="CafeMemberVo">
-     	SELECT *
-     	FROM CAFE_MEMBER
-     	WHERE CAFE_NO = #{cafe_no}
-     
-     
-     </select>
-     
-     <update id="menu_update" parameterType="CafeMenuVo">
-     	UPDATE CAFE_MENU
-     	SET NAME=#{name}, AUTHORITY=#{authority}
-     	WHERE CAFE_MENU_NO = #{cafe_menu_no}
-     
-     </update>
-     
-     
-    <!-- 게시판 -->
+  
+    <!-- 카페 게시판 -->
       <select id="cafe_board_menu" parameterType="int" resultType="CafeBoardVo">
         SELECT * FROM CAFE_BOARD WHERE CAFE_MENU_NO IN (SELECT CAFE_CATEGORY_NO FROM CAFE_CATEGORY WHERE CAFE_MENU_NO IN (SELECT CAFE_MENU_NO FROM CAFE_MENU WHERE CAFE_NO = #{cafe_no}))
      </select>
@@ -180,6 +176,45 @@
       <select id="cafe_menu_name" parameterType="int" resultType="String">
          SELECT NAME FROM CAFE_MENU WHERE CAFE_MENU_NO = #{cafe_menu_no}
       </select>
+      
+      
+      <!-- 카페 회원 CRUD-->
+      <select id="cafe_member_list" parameterType="int" resultType="CafeMemberVo">
+     	SELECT *
+     	FROM CAFE_MEMBER
+     	WHERE CAFE_NO = #{cafe_no}
+
+     </select>
+     
+     <update id="cafe_member_block" parameterType="int">
+     	UPDATE CAFE_MEMBER
+     	SET BLOCKYN = #{blockyn}
+     	WHERE CAFE_MEMBER_NO=#{cafe_member_no}
+     
+     </update>
+     
+     <update id="cafe_member_sign" parameterType="int">
+     	UPDATE CAFE_MEMBER
+     	SET SIGNYN = #{signyn}, SIGNDATE = sysdate
+     	WHERE CAFE_MEMBER_NO=#{cafe_member_no}
+     
+     </update>
+     
+     <delete id="cafe_member_out" parameterType="int">
+     	DELETE FROM CAFE_MEMBER
+     	WHERE CAFE_MEMBER_NO=#{cafe_member_no}
+     
+     </delete>
+     
+      <insert id="cafejoin" parameterType="CafeMemberVo" >
+        INSERT INTO CAFE_MEMBER
+        VALUES(CAFE_MEMBER_SEQ.NEXTVAL,#{member_no},#{cafe_no},#{answer},'Y','N',SYSDATE)
+     </insert>
+     
+     <select id="cafe_regyn" parameterType="CafeMemberVo" resultType="CafeMemberVo">
+        SELECT *
+        FROM CAFE_MEMBER WHERE CAFE_NO = #{cafe_no} AND MEMBER_NO = #{member_no} AND SIGNYN = 'Y'
+     </select>
      
      
   

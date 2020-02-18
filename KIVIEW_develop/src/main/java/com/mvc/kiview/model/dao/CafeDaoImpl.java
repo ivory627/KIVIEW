@@ -383,6 +383,51 @@ public class CafeDaoImpl implements CafeDao {
 		
 		return res;
 	}
+
+	@Override
+	public int cafe_update(CafeVo cafe) {
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(namespace+"cafe_update", cafe);
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("cafe_update 오류");
+		}
+		return res;
+	}
+
+	@Override
+	public CafeVo cafe_chk(String title) {
+		CafeVo res = null;
+				
+		try {
+			res = sqlSession.selectOne(namespace+"cafe_chk", title);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("cafe_chk 오류");
+		}
+		
+		return res;
+	}
+
+	@Override
+	public int member_block(int cafe_member_no) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int member_sign(int cafe_member_no) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int member_cancle(int cafe_member_no) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 

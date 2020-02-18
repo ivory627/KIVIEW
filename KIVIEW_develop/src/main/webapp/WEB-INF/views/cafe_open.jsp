@@ -34,6 +34,40 @@ function check(){
 	
 	}
 	
+	if(do_chk()==false){
+		alert("해당 카페명은 이미 사용중입니다.")
+		return false;
+	}
+	
+	
+	function do_chk(){
+		
+		var submit = true;
+	
+		$.ajax({
+			url:"cafechk.do",
+			type:"post",
+			async : false,
+			data:{"title":$("input[name='title']").val()},
+			dataType:"JSON",
+			success:function(data){
+				
+				if(data.check==false){
+					$("#check").append("<a>카페명이 중복됩니다.</a>")
+					submit = false;
+				} 
+				
+				
+			},
+			error:function(error){
+				alert(error)
+			}
+		})
+		
+		return submit;
+	
+	}
+	
 	return true;
 }
 
@@ -90,16 +124,17 @@ function check(){
                	<input type="hidden" name="member_no" value="${login.member_no }">
                   <div class="form-group">
                      <label>카페명</label><br>
-                     <input name="title" type="text" class="form-control" placeholder="카페명을 입력하세요.">
+                     <input name="title" type="text" class="form-control" placeholder="카페명을 입력하세요."
+                      minlength="2" maxlength="30" required><span id="check"></span>
                   </div>
                   <div class="form-group">
                      <label>대표 썸네일</label><br>
-                     <input type="file"  name="file1">
+                     <input type="file"  name="file1" accept="image/*" required>
                   </div>
                
                   <div class="form-group">
                      <label>배경 이미지</label><br> 
-                     <input type="file"  name="file2">
+                     <input type="file"  name="file2" accept="image/*" required>
                   </div>
                   
                   <div id="restriction" class="form-group">
@@ -113,7 +148,8 @@ function check(){
                   
                   <div id="question" class="form-group" >
                         <label>가입 질문</label><br> <input type="text" name="question"
-                           size="55" placeholder="가입시 질문을 입력하세요.">
+                           size="55" placeholder="가입시 질문을 입력하세요."
+                           minlength="2" maxlength="100" required>
 
 
                   </div>
@@ -124,7 +160,7 @@ function check(){
                   <div class="form-group">
                      <label>한줄 소개</label><br>
                      <textarea name="intro" id="" cols="30" rows="7" class="form-control"
-                        placeholder="간단한 소개글을 입력하세요."></textarea>
+                        placeholder="간단한 소개글을 입력하세요."  minlength="2" maxlength="100" required></textarea>
                   </div>
                   
                   

@@ -10,6 +10,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
 <!DOCTYPE html>
@@ -298,6 +299,18 @@
 		
 		
 	}
+	
+	function cancle(cafe_member_no){
+		
+	}
+	
+	function block(cafe_member_no){
+		
+	}
+	
+	function sign(cafe_member_no){
+		
+	}
 </script>
 </head>
 <body id="body">
@@ -363,19 +376,22 @@
 						</h2>
 						<hr>
 						<br>
-						<form action="cafeupdate.do?cafe_no=${vo.cafe_no }">
+						<form:form action="cafeupdate.do" method="post" enctype="multipart/form-data"> 
+							<input type="hidden" name="cafe_no" value="${cafe_list[0].cafe_no }">
+							<input type="hidden" name="thumb" value="${cafe_list[0].thumb }">
+							<input type="hidden" name="background" value="${cafe_list[0].background }">
+							
 							<div class="form-group">
-								<label>카페명</label><br> <input name="title" type="text"
-									size="60" class="form-control" value="${vo.title }" readonly>
+								<label>카페명</label><br> <input type="text"
+									size="60" class="form-control" value="${cafe_list[0].title }" readonly>
 							</div>
 							<div class="form-group">
-								<label>대표 썸네일</label><br> <input type="file" value="파일 선택"
-									name="thumb" value="http://localhost:8787/img/${vo.thumb }">
+								<label>대표 썸네일</label><br> <input type="file"
+									name="file1">
 							</div>
 							<div class="form-group">
-								<label>배경 이미지</label><br> <input type="file" value="파일 선택"
-									name="background"
-									value="http://localhost:8787/img/${vo.background }">
+								<label>배경 이미지</label><br> <input type="file"
+									name="file2">
 							</div>
 
 							<div id="restriction" class="form-group">
@@ -387,7 +403,8 @@
 
 							<div class="form-group">
 								<label>가입 질문</label><br> <input type="text" name="question"
-									size="60" value="${vo.question }">
+									size="60" minlength="10" maxlength="100" required
+									value="${cafe_list[0].question }">
 
 
 							</div>
@@ -397,7 +414,9 @@
 							<div class="form-group">
 								<label>한줄 소개</label><br>
 								<textarea name="intro" id="" cols="30" rows="7"
-									class="form-control" placeholder="간단한 소개글을 입력하세요.">${vo.intro }</textarea>
+									class="form-control" placeholder="간단한 소개글을 입력하세요."
+									minlength="10" maxlength="200" required
+									>${cafe_list[0].intro }</textarea>
 							</div>
 
 
@@ -407,7 +426,7 @@
 							</div>
 
 
-						</form>
+						</form:form>
 					</div>
 
 
@@ -565,7 +584,7 @@
 							<b>회원 관리</b>
 						</h2>
 						<hr>
-						<br> <label>회원 목록</label>
+						<br> <label>가입 목록</label>
 						<table class="table table" style="text-align: center">
 							<col width="10%">
 							<col width="50%">
@@ -579,16 +598,34 @@
 								<th>작성글</th>
 								<th>활동제한</th>
 							</tr>
-							<tr>
-								<td>user1</td>
-								<td>바로가입 회원입니다.</td>
-								<td>2019-06-18</td>
-								<td>5개</td>
-								<td><input type="button" class="btn btn-primary" value="블락"></td>
-							</tr>
-
+							<c:choose>
+								
+								<c:when test="${empty cafe_list[2]}">
+									<tr>
+										<td colspan="5">====== 가입 회원이 없습니다 ======</td>
+									<tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="member" items="${cafe_list[2]}">
+										<c:if test="${member.signyn eq 'Y' || member.signyn eq 'A' }"> 
+											<tr>
+												<td>${member.name }</td>
+												<td>${member.answer }</td>
+												<td>${member.signdate }</td>
+												<td>5개</td>
+												<td>
+													<c:if test="${member.signyn eq 'Y' }">
+														<input type="button" class="btn btn-primary" style="background-color:black" value="블락"
+														onclick="block(${member.cafe_member_no})">
+													</c:if>
+												</td>
+											</tr>
+										</c:if> 
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 						</table>
-						<br> <label>신청 목록</label>
+						<br> <label>신청 목록</label>  
 						<table class="table table" style="text-align: center">
 							<col width="10%">
 							<col width="50%">
@@ -601,14 +638,34 @@
 								<th>신청일</th>
 								<th colspan="2">처리</th>
 							</tr>
-							<tr>
-								<td>user2</td>
-								<td>햇님반</td>
-								<td>2019-12-18</td>
-								<td colspan="2"><input type="button"
-									class="btn btn-secondary" value="가입"> <input
-									type="button" class="btn btn-primary" value="거절"></td>
-							</tr>
+							<c:choose>
+								
+								<c:when test="${empty cafe_list[2]}">
+									<tr>
+										<td colspan="5">====== 신청 목록이 없습니다 ======</td>
+									<tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="member" items="${cafe_list[2]}">
+										<c:if test="${member.signyn eq 'N' }"> 
+											<tr>
+												<td>${member.name }</td>
+												<td>${member.answer }</td>
+												<td>${member.signdate }</td>
+												<td>5개</td>
+												<td>
+													
+													<input type="button" class="btn btn-secondary" value="가입"
+													onclick="sign(${member.cafe_member_no})">
+													<input type="button" class="btn btn-primary" value="취소"
+													onclick="cancle(${member.cafe_member_no})">
+													
+												</td>
+											</tr>
+										</c:if> 
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 
 						</table>
 					</div>

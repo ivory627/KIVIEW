@@ -63,5 +63,15 @@ public interface CafeDao {
 
 	public int category_update_insert(CafeCategoryVo category);
 
+	public int cafe_update(CafeVo cafe);
+
+	public CafeVo cafe_chk(String title);
+
+	public int member_block(int cafe_member_no);
+	
+	public int member_sign(int cafe_member_no);
+	
+	public int member_cancle(int cafe_member_no);
+
 	
 }

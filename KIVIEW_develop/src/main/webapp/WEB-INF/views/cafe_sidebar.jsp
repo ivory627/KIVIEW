@@ -100,14 +100,16 @@ textarea{
                   
                   <br> 
                   <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                  <h3 style="cursor:pointer"><b onclick="location.href='cafe_detail.jsp'">${cafe_list[0].title }</b></h3>
+                  <h3 style="cursor:pointer"><b 
+                  onclick="location.href='cafedetail.do?cafe_no=${cafe_list[0].cafe_no}&member_no=${login.member_no }'"> 
+                  ${cafe_list[0].title }</b></h3>
                   
                   
                   <table style="border:0px" > 
                   <a style="color:blue"><span class="icon-person"></span>${cafe_list[0].admin }</a>
                   <tr><th>회원수</th><td>${fn:length(cafe_list[2]) }명</td></tr>    
                   <tr><th>게시글</th><td>${fn:length(cafe_list[3]) }개</td></tr>
-                  </table>
+                  </table> 
                   <a href="cafeconfig.do?cafe_no=${cafe_list[0].cafe_no }" style="color:blue"># 카페 관리</a>
                   <br><br>
 <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->                  

@@ -9,7 +9,7 @@ import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.CafeVo;
 
 public interface CafeBiz {
-	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ수정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	
 
 	public List<CafeVo> cafe_Ulist(int member_no);
 
@@ -17,9 +17,14 @@ public interface CafeBiz {
 
 	public CafeMemberVo cafe_regyn(CafeMemberVo regyn);
 
-//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   
+
+	//--카페 CRUD--
 
 	public int cafe_insert(CafeVo vo1, CafeMemberVo vo2);
+	
+	public CafeVo cafe_chk(String title);
+	
+	
 
 	public CafeVo cafe_selectone(int cafe_no);
 
@@ -53,13 +58,27 @@ public interface CafeBiz {
 	
 	public int category_update_insert(CafeCategoryVo category);
 	
-	//////////////////////////////  게시판 //////////////////////////////////
+	public int cafe_update(CafeVo cafe);
+	
+	//--게시판--//
 	
 	public List<CafeBoardVo> cafe_board(int cafe_no);
 
 	public List<CafeBoardVo> cafe_boardlist(int cafe_menu_no);
 
 	public String cafe_menu_name(int cafe_menu_no);
+	
+	
+	//--멤버관리--//
+	public int member_block(int cafe_member_no);
+	
+	public int member_sign(int cafe_member_no);
+	
+	public int member_cancle(int cafe_member_no);
+
+	
+
+	
 
 	
 

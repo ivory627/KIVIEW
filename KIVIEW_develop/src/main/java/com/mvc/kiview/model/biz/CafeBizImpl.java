@@ -170,7 +170,9 @@ public class CafeBizImpl implements CafeBiz {
 	      
 	      return dao.cafe_menu_name(cafe_menu_no);
 	   }
-    //-------------------------------------------------------------------//
+    
+	   
+	   //--게시판 관리--//
 	
 	   @Override
 	public int menu_update(CafeMenuVo menu) {
@@ -194,6 +196,38 @@ public class CafeBizImpl implements CafeBiz {
 	public int category_update_insert(CafeCategoryVo category) {
 		
 		return dao.category_update_insert(category);
+	}
+
+	@Override
+	public int cafe_update(CafeVo cafe) {
+		
+		return dao.cafe_update(cafe);
+	}
+
+	@Override
+	public CafeVo cafe_chk(String title) {
+		
+		return dao.cafe_chk(title);
+	}
+
+	
+	//--회원관리--//
+	@Override
+	public int member_block(int cafe_member_no) {
+		
+		return dao.member_block(cafe_member_no);
+	}
+
+	@Override
+	public int member_sign(int cafe_member_no) {
+		
+		return dao.member_sign(cafe_member_no);
+	}
+
+	@Override
+	public int member_cancle(int cafe_member_no) {
+		
+		return dao.member_cancle(cafe_member_no);
 	}
 	
 
