@@ -1,7 +1,12 @@
 package com.mvc.kiview.model.controller;
 
+
 import java.util.ArrayList;
 import java.util.List;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,11 +14,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mvc.kiview.model.biz.ReviewBiz;
+
 import com.mvc.kiview.model.vo.LikeVo;
 import com.mvc.kiview.model.vo.ReviewVo;
 
+
 @Controller //리뷰관련
 public class ReviewController {
+	
+
+	private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
 	
 	@Autowired
 	private ReviewBiz biz;
@@ -28,6 +38,13 @@ public class ReviewController {
 		
 		
 		model.addAttribute("reviewList", reviewList);
+		return "kiview_reviewboard";
+	}
+	
+	@RequestMapping("/reviewlist.do")
+	public String list(Model model) {
+		logger.info("SELECT reviewlist");
+		model.addAttribute("list", biz.reviewList());
 		return "kiview_reviewboard";
 	}
 

@@ -9,6 +9,7 @@
 %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!DOCTYPE html>
@@ -21,17 +22,48 @@
 </style>
 <script>
 	$(function() {
+		
+		$("#categorychk").on("change",function(){
+			if($("#categorychk").is(":checked")){  
+				$("#category_insert").show();
+			} else { 
+				$("#category_insert").hide(); 
+				$("input[name=category1]").val("");
+				$("input[name=category2]").val("");
+				$("input[name=category3]").val(""); 
+			}
+		})
+		
+		$("input[type=radio]").each(function(){
+			if($(this).val()=="${vo.restriction}"){
+				$(this).prop("checked",true)
+			}
+			
+			
+		})  
+		
+		$("#categorychk").on("click",function(){
+			if(("#categorychk").is(":checked")){
+				$("input[name=category1]").val("");
+				$("input[name=category2]").val("");
+				$("input[name=category3]").val(""); 
+			}
+		})
 
-		$("input[value='no']").on("click", function() {
-			$("#question").show();
-		})
-		$("input[value='yes']").on("click", function() {
-			$("#question").hide();
-		})
+		
 
 		$("#select").on("change", function() {
 
 			if ($("#select option:selected").text() == "기본 정보") {
+				
+				$("input[type=radio]").each(function(){
+					if($(this).val()=="${vo.restriction}"){
+						$(this).prop("checked",true)
+					}
+					
+					
+				})
+				
 
 				$("#basic").show();
 				$("#member").hide();
@@ -41,6 +73,8 @@
 				$("#basic").hide();
 				$("#member").hide();
 				$("#board").show();
+				$("#menuinsert_form").show();
+				$("#menuupdate_form").hide(); 
 			} else {
 			
 				$("#basic").hide();
@@ -50,9 +84,138 @@
 		})
 
 	})
+	
+	function menuinsert(){
+		$("#menuinsert_form").show(); 
+		$("#menuupdate_form").hide();
+	}
+	
+	function menudetail(no){
+		
+		
+		$.ajax({
+			type:"post", 
+			url:"menudetail.do",
+			data:{"no":no}, 
+			dataType:"json",
+			success:function(data){
+				
+				$("#category_update").find($("input[name=category1]")).val("");  
+				$("#category_update").find($("input[name=category2]")).val("");
+				$("#category_update").find($("input[name=category3]")).val("");
+			
+				$("#menuinsert_form").hide();
+				$("#menuupdate_form").show();
+				$("#menuupdate_form").find($("input[name=name]")).val(data.menu.name);
+				$("#menuupdate_form").find($("input[name=cafe_menu_no]")).val(data.menu.cafe_menu_no);
+				$("#menuupdate_form").find($("input[name=authority]:input[value="+data.menu.authority+"]")).prop("checked",true);  
+				$("#menuupdate_form").find($("input[name=concept]:input[value="+data.menu.concept+"]")).prop("checked",true);  
+				$("#category_update").find($("input[name=category1]")).val(data.category[0].category);  
+				$("#category_update").find($("input[name=category2]")).val(data.category[1].category);
+				$("#category_update").find($("input[name=category3]")).val(data.category[2].category); 
+			
+			
+			},
+			error:function(request,status,error){
+				alert(request);
+				alert(status);
+				alert(error);
+			}
+			 
+			
+		})
+	}
+	
+	function menu_delete(cafe_no, cafe_menu_no){
+		
+		
+		if(confirm("삭제하시겠습니까?")){
+			location.href="menudelete.do?cafe_no="+cafe_no+"&cafe_menu_no="+cafe_menu_no;
+		}
+	}
+	
+	function menuinsert_chk(cafe_no){
+		var data = {"cafe_no":cafe_no, "name":$("input[name=name]").val()} 
+		
+		if(do_chk()==false){
+			return false;
+		}
+		
+		
+		function do_chk(){
+			
+			var submit = false;
+			
+
+			$.ajax({
+				type:"post",
+				url:"menuchk.do",
+				async : false,
+				data:JSON.stringify(data),
+				contentType:"application/json; charset=UTF-8;",
+				dataType:"json",
+				success:function(data){
+					if(data.check==true){
+						alert("게시판 이름이 중복됩니다.");
+						submit = false;
+					
+					} else {
+						submit = true;
+					}
+				
+				},
+				error:function(error){
+					alert(error);
+				}
+			})
+			
+			
+			return submit;
+		}
+		if($("#categorychk").is(":checked")){
+			var category1 = $("#category_insert").find($("input[name=category1]")).val();
+			var category2 = $("#category_insert").find($("input[name=category2]")).val();
+			var category3 = $("#category_insert").find($("input[name=category3]")).val(); 
+			
+			if(category1 == "" && category2 == "" && category3 == ""){
+				alert("최소 한개의 말머리를 입력하세요.");
+				
+				return false;
+			}
+			
+			
+			if(category1!=""){ 
+				if(category1==category2 || category1==category3){
+					return false;
+				}
+				
+			}
+			
+			if(category2!=""){ 
+				if(category2==category3 || category2==category1){
+					return false;
+				}
+				
+			}
+			
+			if(category3!=""){ 
+				if(category1==category3 || category2==category3){
+					return false;
+				}
+				
+			}
+		 	
+		
+		}
+		
+		return submit;
+		  
+		
+		
+	}
 </script>
 </head>
-<body id = "body">
+<body id="body">
 
 
 	<%@include file="cafe_modal.jsp"%>
@@ -61,7 +224,7 @@
 
 	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('images/bg_2.jpg');">
+		style="background-image: url('resources/images/bg_2.jpg');">
 		<div class="overlay"></div>
 		<div class="container">
 			<div
@@ -115,30 +278,31 @@
 						</h2>
 						<hr>
 						<br>
-						<form action="#">
+						<form action="cafeupdate.do?cafe_no=${vo.cafe_no }">
 							<div class="form-group">
 								<label>카페명</label><br> <input name="title" type="text"
-									class="form-control" value="서울유치원 학부모 모임" readonly>
+									size="60" class="form-control" value="${vo.title }" readonly>
 							</div>
 							<div class="form-group">
 								<label>대표 썸네일</label><br> <input type="file" value="파일 선택"
-									name="thumb" accpect="img/*">
+									name="thumb" value="http://localhost:8787/img/${vo.thumb }">
 							</div>
 							<div class="form-group">
 								<label>배경 이미지</label><br> <input type="file" value="파일 선택"
-									name="background" accpect="img/*">
+									name="background"
+									value="http://localhost:8787/img/${vo.background }">
 							</div>
 
 							<div id="restriction" class="form-group">
-								<label>가입 방식</label><br> <input type="radio" value="yes"
+								<label>가입 방식</label><br> <input type="radio" value="Y"
 									name="restriction" checked="true"> 바로 가입 <br> <input
-									type="radio" value="no" name="restriction"> 승인 후 가입
+									type="radio" value="N" name="restriction"> 승인 후 가입
 
 							</div>
 
-							<div id="question" class="form-group" style="display: none">
+							<div class="form-group">
 								<label>가입 질문</label><br> <input type="text" name="question"
-									size="60">
+									size="60" value="${vo.question }">
 
 
 							</div>
@@ -148,9 +312,9 @@
 							<div class="form-group">
 								<label>한줄 소개</label><br>
 								<textarea name="intro" id="" cols="30" rows="7"
-									class="form-control" placeholder="간단한 소개글을 입력하세요.">서울 유치원 학부모 모임 카페입니다 ㅎㅎ</textarea>
+									class="form-control" placeholder="간단한 소개글을 입력하세요.">${vo.intro }</textarea>
 							</div>
-							
+
 
 							<div class="form-group" style="position: relative; left: 40%">
 								<input type="submit" value="수정"
@@ -173,7 +337,7 @@
 							<b>게시판 관리</b>
 						</h2>
 						<hr>
-						
+
 						<div class="row" style="height: 100%">
 
 
@@ -182,34 +346,119 @@
 							<div class="col-lg-4 ftco-animate"
 								style="padding: 20px; overflow-y: scroll;">
 								<label style="position: relative; left: 35%">게시판 선택</label> <br>
-								<br>
-								<ul>
-									<li># 공지사항</li>
-									<li># 잡 담</li>
+
+								<ul style="padding-left:10px">  
+									<c:choose>
+										<c:when test="${empty menu }">
+									<li>게시판이 존재하지 않습니다.</li><br>
+										</c:when>
+									
+										<c:otherwise>
+											<c:forEach var="menu" items="${menu }">
+												<li style="display:inline" onclick="menudetail(${menu.cafe_menu_no })">${menu.name }</li>
+												<a style="cursor:pointer" onclick="menu_delete(${menu.cafe_no},${menu.cafe_menu_no })">&nbsp;&nbsp;X</a><br>
+											</c:forEach>
+											<br>
+										</c:otherwise>
+									</c:choose>
+									
+									<c:if test="${fn:length(menu) < 5 }">
+									<li><a style="position:relative; left:27%" onclick="menuinsert()">+&nbsp;게시판 추가하기</a></li>
+									</c:if>
+									<c:if test="${fn:length(menu) >= 5 }">
+									<li><a style="position: relative; left: 20%">&nbsp;더 이상 만들수 없습니다.</a></li>
+									</c:if>
 								</ul>
 
 
 							</div>
 
-							<!-- 게시판 설정 -->
-							<div class="col-lg-4 ftco-animate"
+							<!-- 게시판 추가 -->
+							<div id="menuinsert_form" class="col-lg-4 ftco-animate"
 								style="border-left: 1px solid lightgray; padding: 20px;">
-								<div class="form-group">
-									<label>게시판명</label><br> <input type="text" size="60"
-										value="공지사항"><br> <br> 
+								<form id="menuinsert" action="menuinsert.do" onsubmit="return menuinsert_chk(${vo.cafe_no})">
+									<input type="hidden" name="cafe_no" value="${vo.cafe_no }">
+									 
+									<div class="form-group">
+										<label>게시판명</label><br> 
+											<input type="text" size="60" name="name" minlength="4" maxlength="10" required> <br> <br> 
+										<label>글쓰기 권한</label><br> 
+											<input type="radio" value="Y" name="authority" checked="true">관리자 &nbsp;&nbsp;&nbsp; 
+											<input type="radio" value="N" name="authority">모 두 <br> 
+										<br> 
+										
+										<label>게시판 형식</label><br> 
+											<input type="radio" value="table" name="concept" checked="true">게시판
+										&nbsp;&nbsp;&nbsp; 
+											<input type="radio" value="guest" name="concept">방명록<br> <br> 
+										
+										<label>말머리</label><br>
+											<input id="categorychk" type="checkbox">적용<br><br> 
+										
+										<div id="category_insert" style="display:none">
+											<label style="margin:0px;">말머리 정보</label> 
+											<ol style="padding:10px; margin:0px;"> 
+												<li><input type="text" name="category1" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
+												<li><input type="text" name="category2" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
+												<li><input type="text" name="category3" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
+											</ol>
+										</div>
+
+									</div>
 
 
-									<label>글쓰기 권한</label><br> <input type="radio" value="yes"
-										name="restriction" checked="true">관리자
-									&nbsp;&nbsp;&nbsp; <input type="radio" value="no"
-										name="restriction">모 두 <br>
-									<br>
-								</div>
+									<c:if test="${fn:length(menu) >= 5 }">
+										<div class="form-group" style="position: relative; left: 65%">
+											<a>&nbsp;더 이상 만들수 없습니다.</a>
+										</div>
+									</c:if>
+									<c:if test="${fn:length(menu) < 5 }">
+										<div class="form-group" style="position: relative; left: 85%">
+											<input type="submit" value="추가"
+												class="btn btn-primary py-3 px-5">
+										</div>
+									</c:if>
+								</form>
 
-								<div class="form-group" style="position: relative; left: 85%">
-									<input type="submit" value="수정"
-										class="btn btn-primary py-3 px-5">
-								</div>
+							</div>
+
+
+							<!-- 게시판 수정 -->
+							<div id="menuupdate_form" class="col-lg-4 ftco-animate"
+								style="border-left: 1px solid lightgray; padding: 20px; display: none">
+								<form action="menuupdate">
+									<div class="form-group">
+										<label>게시판명</label><br> 
+											<input type="text" size="60" name="name" minlength="4" maxlength="10" required> <br> <br> 
+										<label>글쓰기 권한</label><br> 
+											<input type="radio" value="Y" name="authority">관리자 &nbsp;&nbsp;&nbsp; 
+											<input type="radio" value="N" name="authority">모 두 <br>
+										<br> 
+										
+										<label>게시판 형식</label><br> 
+											<input type="radio" value="table" name="concept" disabled>게시판
+										&nbsp;&nbsp;&nbsp; 
+											<input type="radio" value="guest" name="concept" disabled>방명록<br> <br> 
+										
+										
+										<div id="category_update">
+											<label style="margin:0px;">말머리 정보</label> 
+											<ol style="padding:10px; margin:0px;"> 
+												<li><input type="text" name="category1" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
+												<li><input type="text" name="category2" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
+												<li><input type="text" name="category3" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
+											</ol>
+										</div>
+
+									</div>
+
+									<div class="form-group" style="position: relative; left: 60%">
+										<input type="submit" value="수정"
+											class="btn btn-secondary py-3 px-5">
+										<input type="button" onclick="menu_delete()" value="삭제"
+											class="btn btn-primary py-3 px-5">	
+									</div>
+								</form>
 
 
 							</div>
@@ -227,9 +476,7 @@
 							<b>회원 관리</b>
 						</h2>
 						<hr>
-						<br>
-
-						<label>회원 목록</label>
+						<br> <label>회원 목록</label>
 						<table class="table table" style="text-align: center">
 							<col width="10%">
 							<col width="50%">
@@ -252,8 +499,7 @@
 							</tr>
 
 						</table>
-						<br> 
-						<label>신청 목록</label>
+						<br> <label>신청 목록</label>
 						<table class="table table" style="text-align: center">
 							<col width="10%">
 							<col width="50%">
@@ -268,12 +514,11 @@
 							</tr>
 							<tr>
 								<td>user2</td>
-								<td>햇님반 </td>
+								<td>햇님반</td>
 								<td>2019-12-18</td>
-								<td colspan="2">
-								<input type="button" class="btn btn-secondary" value="가입">
-								<input type="button" class="btn btn-primary" value="거절">
-								</td>
+								<td colspan="2"><input type="button"
+									class="btn btn-secondary" value="가입"> <input
+									type="button" class="btn btn-primary" value="거절"></td>
 							</tr>
 
 						</table>

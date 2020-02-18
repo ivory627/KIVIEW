@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 
 <script type="text/javascript">
-window.onload = function(){
-	location.href="index.do"
-}
 
+window.onload = function(){
+	location.href="index.do";
+}
 
 
 </script>

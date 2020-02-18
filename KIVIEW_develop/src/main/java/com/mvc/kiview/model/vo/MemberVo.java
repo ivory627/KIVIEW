@@ -8,6 +8,21 @@ public class MemberVo {
 	private String member_addr;
 	private String member_phone;
 	private String member_email;
+	
+	public MemberVo() {}
+	
+	public MemberVo(int member_no, String member_id, String member_pwd, String member_name, String member_addr,
+			String member_phone, String member_email) {
+		super();
+		this.member_no = member_no;
+		this.member_id = member_id;
+		this.member_pwd = member_pwd;
+		this.member_name = member_name;
+		this.member_addr = member_addr;
+		this.member_phone = member_phone;
+		this.member_email = member_email;
+	}
+	
 	public int getMember_no() {
 		return member_no;
 	}
@@ -50,6 +65,7 @@ public class MemberVo {
 	public void setMember_email(String member_email) {
 		this.member_email = member_email;
 	}
+	
 	@Override
 	public String toString() {
 		return "MemberVo [member_no=" + member_no + ", member_id=" + member_id + ", member_pwd=" + member_pwd

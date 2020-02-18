@@ -15,7 +15,7 @@
 <head>
 <title>KIVIEW &mdash; Main</title>
 
-<%@ include file="head.jsp"%>
+<jsp:include page="head.jsp"/>
 
 <style type="text/css">
 
@@ -63,7 +63,7 @@ h1{
 <body id = "body">
 
 	<!-- @@ header 부분 @@ -->
-	<%@ include file="header.jsp"%>
+	<jsp:include page="header.jsp"/>
 
 	<!-- @@ Main 이미지 부분 @@ -->
 	<section class="home-slider owl-carousel">
@@ -108,65 +108,7 @@ h1{
 	</section>
 	<!-- @@ Main 이미지 부분 끝 @@ -->
 	
-
-
-	<!-- @@ Main 이미지 하단에 있던 section 부분 주석 @@ -->
-
-	<!-- <section class="ftco-services ftco-no-pb">
-			<div class="container-wrap">
-				 <div class="row no-gutters">
-          <div class="col-md-3 d-flex services align-self-stretch pb-4 px-4 ftco-animate bg-primary">
-            <div class="media block-6 d-block text-center">
-              <div class="icon d-flex justify-content-center align-items-center">
-            		<span class="flaticon-teacher"></span>
-              </div>
-              <div class="media-body p-2 mt-3">
-                <h3 class="heading">Certified Teachers</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-              </div>
-            </div>      
-          </div>
-          <div class="col-md-3 d-flex services align-self-stretch pb-4 px-4 ftco-animate bg-tertiary">
-            <div class="media block-6 d-block text-center">
-              <div class="icon d-flex justify-content-center align-items-center">
-            		<span class="flaticon-reading"></span>
-              </div>
-              <div class="media-body p-2 mt-3">
-                <h3 class="heading">Special Education</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-              </div>
-            </div>    
-          </div>
-          <div class="col-md-3 d-flex services align-self-stretch pb-4 px-4 ftco-animate bg-fifth">
-            <div class="media block-6 d-block text-center">
-              <div class="icon d-flex justify-content-center align-items-center">
-            		<span class="flaticon-books"></span>
-              </div>
-              <div class="media-body p-2 mt-3">
-                <h3 class="heading">Book &amp; Library</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-              </div>
-            </div>      
-          </div>
-          <div class="col-md-3 d-flex services align-self-stretch pb-4 px-4 ftco-animate bg-quarternary">
-            <div class="media block-6 d-block text-center">
-              <div class="icon d-flex justify-content-center align-items-center">
-            		<span class="flaticon-diploma"></span>
-              </div>
-              <div class="media-body p-2 mt-3">
-                <h3 class="heading">Certification</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-              </div>
-            </div>      
-          </div>
-        </div> 
-		</div>
-	</section> -->
-
-	<!-- @@ 주석 끝 @@ -->
-
-	
-
+	<!-- searchBar -->
 	<div class="jsx-2460799870 bar-layout">
 		<p class="jsx-2460799870">
 			어떤 <span class="jsx-2460799870">유치원</span>을 찾으세요?
@@ -201,9 +143,6 @@ h1{
 		</div>
 		</div>
 	      </div>
-	      <!-- <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-	      </div> -->
 	    </div>
 	  </div>
 	</div>
@@ -283,7 +222,7 @@ h1{
 				<div
 					class="col-md-5 order-md-last wrap-about py-5 wrap-about bg-light">
 					<div class="text px-4 ftco-animate">
-						<h2 class="mb-4">Welcome to Kiddos Learning School</h2>
+						<h2 class="mb-4">이 부분 어떻게 쓸까나</h2>
 						<p>On her way she met a copy. The copy warned the Little Blind
 							Text, that where it came from it would have been rewritten a
 							thousand times and everything that was left from its origin would
@@ -299,7 +238,7 @@ h1{
 					</div>
 				</div>
 				<div class="col-md-7 wrap-about py-5 pr-md-4 ftco-animate">
-					<h2 class="mb-4">What We Offer</h2>
+					<h2 class="mb-4">뭘로 사용할까나</h2>
 					<p>On her way she met a copy. The copy warned the Little Blind
 						Text, that where it came from it would have been rewritten a
 						thousand times and everything that was left from its origin would
@@ -491,24 +430,6 @@ h1{
 	</section>
 	<!-- @@ 리뷰 끝 @@ -->
 
-
-	<!-- @@ Teaching Your Child Some Good Manners 이미지 부분 @@  -->
-
-	<!-- <section class="ftco-intro" style="background-image: url(images/bg_3.jpg);" data-stellar-background-ratio="0.5">
-			<div class="overlay"></div>
-			<div class="container">
-				<div class="row">
-					<div class="col-md-9">
-						<h2>Teaching Your Child Some Good Manners</h2>
-						<p class="mb-0">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-					</div>
-					<div class="col-md-3 d-flex align-items-center">
-						<p class="mb-0"><a href="#" class="btn btn-secondary px-4 py-3">Take a Course</a></p>
-					</div>
-				</div>
-			</div>
-		</section> -->
-	<!-- @@ 이미지 제거하자 @@ -->
 
 
 	<!-- @@ 선생님 소개 영역 @@ -->
@@ -996,7 +917,7 @@ h1{
 
 
 	<!-- @@ footer 영역 @@ -->
-	<%@ include file="footer.jsp"%>
+	<jsp:include page="footer.jsp"/>
 
 
 	

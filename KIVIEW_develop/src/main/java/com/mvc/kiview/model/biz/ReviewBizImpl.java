@@ -16,10 +16,12 @@ public class ReviewBizImpl implements ReviewBiz{
 	private ReviewDao dao;
 	
 	@Override
+
 	public List<ReviewVo> reviewList(LikeVo vo) {
 		// TODO Auto-generated method stub
 		return dao.reviewList(vo);
-	}
+
+	
 
 	@Override
 	public int reviewInsert() {

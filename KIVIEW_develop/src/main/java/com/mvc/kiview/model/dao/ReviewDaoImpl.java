@@ -1,5 +1,6 @@
 package com.mvc.kiview.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -16,10 +17,12 @@ public class ReviewDaoImpl implements ReviewDao{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
+
 	public List<ReviewVo> reviewList(LikeVo vo) {
 		// TODO Auto-generated method stub
 		
 		return sqlSession.selectList(namespace+"reviewList", vo);
+
 	}
 
 	@Override

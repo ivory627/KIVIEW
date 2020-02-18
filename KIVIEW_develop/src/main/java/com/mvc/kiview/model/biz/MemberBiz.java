@@ -1,6 +1,11 @@
 package com.mvc.kiview.model.biz;
 
+import com.mvc.kiview.model.vo.MemberVo;
+
 public interface MemberBiz {
-	public boolean login(String id, String pwd);
+	
+	public MemberVo login(MemberVo vo);
+
+	public MemberVo idSearch(MemberVo vo);
 
 }

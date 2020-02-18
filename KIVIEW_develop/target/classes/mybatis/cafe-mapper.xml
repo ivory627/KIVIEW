@@ -4,5 +4,145 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="cafe">
   
+     <insert id="cafe_insert" parameterType="CafeVo">
+        INSERT INTO CAFE
+        VALUES(CAFE_SEQ.NEXTVAL, #{title},#{admin},#{intro},#{thumb},#{background},#{restriction},#{question})
+     
+     
+     </insert>
+     
+     <insert id="cafe_insert2" parameterType="CafeMemberVo" >
+        INSERT INTO CAFE_MEMBER
+        VALUES(CAFE_MEMBER_SEQ.NEXTVAL,#{member_no}, CAFE_SEQ.CURRVAL,#{answer},#{signyn},'N',SYSDATE)
+     </insert>
+     
+     
+     
+     <insert id="menu_insert" parameterType="CafeMenuVo">
+        INSERT INTO CAFE_MENU
+        VALUES(CAFE_MENU_SEQ.NEXTVAL, #{cafe_no}, #{name}, #{authority}, #{concept})
+        
+     
+     </insert>
+     
+     <select id="menu_select" parameterType="int" resultType="CafeMenuVo">
+     	SELECT *
+     	FROM CAFE_MENU
+     	WHERE CAFE_NO = #{cafe_no}
+     
+     </select>
+     
+     <select id="menu_detail1" parameterType="int" resultType="CafeMenuVo">
+     	SELECT * 
+     	FROM CAFE_MENU
+     	WHERE CAFE_MENU_NO = #{no} 
+     </select>
+     
+     <select id="menu_detail2" parameterType="int" resultType="CafeCategoryVo">
+     	SELECT * 
+     	FROM CAFE_Category
+     	WHERE CAFE_MENU_NO = #{no} 
+     </select>
+     
+     <select id="menu_chk" parameterType="CafeMenuVo" resultType="CafeMenuVo">
+     	SELECT *
+     	FROM CAFE_MENU
+     	WHERE CAFE_NO = #{cafe_no} AND NAME = #{name}
+     
+     
+     
+     </select>
+     
+     <select id="menu_delete" parameterType="int">
+     	DELETE FROM
+     	CAFE_MENU
+     	WHERE CAFE_MENU_NO = #{cafe_menu_no}
+     
+     </select>
+     
+     <select id="category_delete" parameterType="int">
+     	DELETE FROM
+     	CAFE_CATEGORY
+     	WHERE CAFE_MENU_NO = #{cafe_menu_no}
+     
+     </select>
+     
+     
+     <insert id="category_insert" parameterType="String">
+        
+        
+        INSERT INTO CAFE_CATEGORY
+        VALUES(CAFE_CATEGORY_SEQ.NEXTVAL, CAFE_MENU_SEQ.CURRVAL, #{cat})
+        
+     
+     </insert>
+     
+     
+     
+<!--수정 예정  -->     
+      <select id="cafe_Ulist" parameterType="int" resultType="CafeVo">
+        SELECT * 
+        FROM CAFE 
+        WHERE CAFE_NO IN (SELECT CAFE_NO FROM CAFE_MEMBER WHERE MEMBER_NO = #{member_no} AND (SIGNYN = 'Y' OR SIGNYN='A') )
+     </select>
+     
+     <select id="cafe_Alist" parameterType="String" resultType="CafeVo">
+        SELECT * 
+        FROM CAFE 
+        WHERE ADMIN =#{member_id }
+     </select>
+   
+     <select id="cafe_regyn" parameterType="CafeMemberVo" resultType="CafeMemberVo">
+        SELECT *
+        FROM CAFE_MEMBER WHERE CAFE_NO = #{cafe_no} AND MEMBER_NO = #{member_no} AND SIGNYN = 'Y'
+     </select>
+     
+     
+ <!--  -->   
+     
+     <select id="cafe_my" parameterType="String" resultType="CafeVo">
+        SELECT *
+        FROM CAFE
+        WHERE ADMIN LIKE #{admin}
+     
+     </select>
+     
+     <select id="cafe_selectone" parameterType="int" resultType="CafeVo">
+        SELECT *
+        FROM CAFE
+        WHERE CAFE_NO = #{cafe_no}
+     
+     </select>
+     
+     <insert id="cafejoin" parameterType="CafeMemberVo" >
+        INSERT INTO CAFE_MEMBER
+        VALUES(CAFE_MEMBER_SEQ.NEXTVAL,#{member_no},#{cafe_no},#{answer},'Y','N',SYSDATE)
+     </insert>
+     
+      <select id="cafe_search" parameterType="String" resultType="CafeVo">
+        SELECT *
+        FROM CAFE        
+        <choose>
+           <when test="_parameter.length!=0">
+               WHERE TITLE like '%'||#{keyword}||'%' 
+           </when>
+           <when test="_parameter.length==0">
+              
+           </when>              
+        </choose>
+        
+     </select>
+     
+     <select id="cafe_member_list" parameterType="int" resultType="CafeMemberVo">
+     	SELECT *
+     	FROM CAFE_MEMBER
+     	WHERE CAFE_NO = #{cafe_no}
+     
+     
+     </select>
+     
+     
+     
+  
   </mapper>
   

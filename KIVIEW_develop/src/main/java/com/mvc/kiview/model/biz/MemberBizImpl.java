@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.kiview.model.dao.MemberDao;
+import com.mvc.kiview.model.vo.MemberVo;
 
 @Service
 public class MemberBizImpl implements MemberBiz {
@@ -12,9 +13,13 @@ public class MemberBizImpl implements MemberBiz {
 	private MemberDao dao;
 	
 	@Override
-	public boolean login(String id, String pwd) {
-		// TODO Auto-generated method stub
-		return dao.login(id, pwd);
+	public MemberVo login(MemberVo vo) {
+		return dao.login(vo);
+	}
+
+	@Override
+	public MemberVo idSearch(MemberVo vo) {
+		return dao.idSearch(vo);
 	}
 
 }

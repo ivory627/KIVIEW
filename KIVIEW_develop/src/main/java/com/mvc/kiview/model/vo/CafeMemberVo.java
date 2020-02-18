@@ -10,6 +10,20 @@ public class CafeMemberVo {
 	private String signyn;
 	private String blockyn;
 	private Date signdate;
+	
+	
+	
+	public CafeMemberVo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public CafeMemberVo(int member_no, String answer, String signyn) {
+		super();
+		this.member_no = member_no;
+		this.answer = answer;
+		this.signyn = signyn;
+		
+	}
 	public int getCafe_member_no() {
 		return cafe_member_no;
 	}

@@ -4,6 +4,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mvc.kiview.model.vo.MemberVo;
+
 @Repository
 public class MemberDaoImpl implements MemberDao{
 
@@ -11,9 +13,32 @@ public class MemberDaoImpl implements MemberDao{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public boolean login(String id, String pwd) {
-		// TODO Auto-generated method stub
-		return false;
+	public MemberVo login(MemberVo vo) {
+		MemberVo res = null;
+		System.out.println(vo.getMember_id()+"/"+vo.getMember_pwd());
+		
+		try {
+			res=sqlSession.selectOne(namespace+"login",vo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("[error] : login");
+		}		
+		return res;
+	}
+
+	@Override
+	public MemberVo idSearch(MemberVo vo) {
+		MemberVo res = null;
+		try {
+			res=sqlSession.selectOne(namespace+"idSearch",vo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("[error] : idSearch");
+		}		
+		return res;
 	}
 
 }
+
+
+
