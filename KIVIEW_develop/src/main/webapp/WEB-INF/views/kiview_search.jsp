@@ -32,6 +32,175 @@
 	}
 	
     </style>
+    <script type="text/javascript">
+    $(function(){
+    	
+    	$('#searchres').hide();
+
+    	   $("#sido").change(function() {
+                var province = $('#sido option:selected').val();
+                //alert(province);
+                if(province=="세종특별자치시"){
+                	$.ajax({
+                        type: "POST",
+                        url: "ajaxdong.do",
+                        data: province,
+                        contentType:"application/json;charset=UTF-8",
+                        dataType: "json",
+                        success: function(res) {
+                     	  //alert(res);
+                     	  $('#sigungu').hide();
+                     	  $('#dong').show();
+                     	  $('#dong').empty();
+                     	  $("#dong").html("<option value=''>읍/면/동</option>");
+                   	  	  $.each(res,function(idx, code){
+                   	      if($('#sido option:selected').val() == province && code!=null){
+                   		  		var newOpt=$('<option>').html(code.town);
+                   		  		$('#dong').append(newOpt);
+                   		  }
+                   	  	});
+                       },
+                       error: function(e) {
+                          alert("통신실패");
+                       }
+                    });
+                }else{
+                   $.ajax({
+                       type: "POST",
+                       url: "ajaxsigungu.do",
+                       data: province,
+                       contentType:"application/json;charset=UTF-8",
+                       dataType: "json",
+                       success: function(res) {
+                    	  $('#sigungu').show();
+                    	  $('#sigungu').empty();
+                    	  $('#dong').show();
+                    	  $('#dong').empty();
+                    	  $("#sigungu").html("<option value=''>시/군/구</option>");
+                    	  $("#dong").html("<option value=''>읍/면/동</option>");
+                    	  $.each(res,function(idx, code){
+                    	      if($('#sido > option:selected').val() == province && code.city!=null){
+                    	    	  var newOpt=$('<option>').html(code.city);
+                    	    	  $('#sigungu').append(newOpt);
+                    		  }
+                    	  });
+
+                    	        
+                      },
+                      error: function(e) {
+                         alert("통신실패");
+                      }
+                   });
+                	
+                }
+               });
+    	   
+    	   $("#sigungu").change(function(){
+    		   var city = $('#sigungu option:selected').val();
+    		   //alert(city);
+    		   $.ajax({
+                   type: "POST",
+                   url: "ajaxdong.do",
+                   data: city,
+                   contentType:"application/json;charset=UTF-8",
+                   dataType: "json",
+                   success: function(res) {
+                	  if(res.length != 1){
+                	  $('#dong').show();
+                	  $('#dong').empty();
+                	  $("#dong").html("<option value=''>읍/면/동</option>");
+                	  $.each(res,function(idx, code){
+                	      if($('#sigungu > option:selected').val() == city && code!=null){
+                		  		var newOpt=$('<option>').html(code.town);
+                		  		$('#dong').append(newOpt);
+                		  }
+                	  });
+                		  
+                	  }else{
+                		  $('#dong').hide();
+                	  }
+                	        
+                  },
+                  error: function(e) {
+                     alert("통신실패");
+                  }
+               });
+    	   });
+    	   
+    	   $('.type').on('click',function(){
+    		  //alert($(this).attr('id'));
+    		  var type = $(this).attr('id');
+    		  var list = new Array();
+    		  <c:choose>
+    		  <c:when test="${localvo != null && localvo !='' }">
+    		  <c:forEach items="${localvo}" var="vo">
+    		  list.push("${vo.kinder_no}");
+    		  </c:forEach>
+    		  </c:when>
+    		  <c:when test="${namevo != null && namevo !='' }">
+    		  <c:forEach items="${namevo}" var="vo">
+    		  list.push("${vo.kinder_no}");
+    		  </c:forEach>
+    		  </c:when>
+    		  </c:choose>
+    		  console.log(list);
+    		  
+    		 /*  var arr = new Array();
+    		  <c:forEach items="${localvo}" var="vo">
+    		  	var json = new Object();
+    		  	json.kinder_no = "${vo.kinder_no}";
+    		  	arr.push(json);
+    		  </c:forEach>
+    		  console.log(JSON.stringify(arr));
+    		  //var list = '<c:out value="${localvo}"/>';
+    		  //var list2 = '<c:out value="${namevo}"/>';
+    		  //console.log(typeof list);
+    		  $.ajax({
+    	            type: "POST",
+    	            url: "ajaxtypesearch.do",
+    	            data: JSON.stringify(arr),
+    	            contentType:"application/json;charset=UTF-8",
+    	            dataType: "json",
+    	            success: function(res) {
+    	            	alert(res);
+    	         	        
+    	           },
+    	           error: function(e) {
+    	              alert("통신실패");
+    	           }
+    	        }); */
+    	   });
+    })
+    
+    function localChk(){
+    	//alert($('#sido option:selected').val());
+    	if($('#sido option:selected').val() == null || $('#sido option:selected').val() == ""){
+    		alert("시/도를  선택해주세요.");
+    		return false;
+    	}else if($('#sigungu option:selected').val() == null || $('#sigungu option:selected').val() == ""){
+    		if($('#sido option:selected').val() == "세종특별자치시"){
+    			$('#localForm').submit();
+    		}else{
+   			alert("시/군/구를  선택해주세요.");
+   			return false;    			
+    		}
+   		}else{
+   			$('#localForm').submit();
+   			
+   		}
+    }
+    
+    function nameChk(){
+    	//alert($('#kindername').val().trim());
+    	if($('#kindername').val()==null || $('#kindername').val().trim()==""){
+    		alert("유치원 명을 입력해주세요.");
+    		return false;
+    	}else{
+    		$('#nameForm').submit();
+    		
+    	}
+    }
+    </script>
     
   </head>
 <body id = "body">
@@ -47,7 +216,7 @@
             <h1 class="mb-2 bread">유치원 검색</h1>
             <p class="breadcrumbs">
             <span class="mr-2">
-            <a href="index.jsp">홈 <i class="ion-ios-arrow-forward"></i></a></span> 
+            <a href="index.do">홈 <i class="ion-ios-arrow-forward"></i></a></span> 
             <span>검색 <i class="ion-ios-arrow-forward"></i></span></p>
           </div>
         </div>
@@ -62,130 +231,51 @@
            			 <h2 class="mb-4"><span>지역별</span> 유치원 검색</h2>
 						<hr>
           			</div>
-				<!-- <div class="row" style="width:100%;"> -->
           			<div style="width:100%;height:100%;margin:0 auto;" class="col-md-5 heading-section ftco-animate fadeInUp ftco-animated">
           				<div class="dg-map-area">
   							<%@ include file = "map.jsp" %>
 						</div>
           			</div>
           			<div style="width:100%;margin:0 auto;margin-top:80px;line-height:5;" class="col-md-5 heading-section ftco-animate fadeInUp ftco-animated">
-          				<div style="padding: 20px">
+          				<div style="padding: 20px;width: max-content;">
           				<h4><b>지역</b></h4>
-          				<form action="#" class="appointment-form ftco-animate fadeInUp ftco-animated">
-	    					<!-- <select class="form-control-sm" style="overflow:scroll">
-          				<option selected>시/도</option>
-					    <optgroup label="도">
-					        <option>강원도</option>
-					        <option>경기도</option>
-					        <option>경상남도</option>
-					        <option>경상북도</option>
-					        <option>전라남도</option>
-					        <option>전라북도</option>
-					        <option>제주도</option>
-					        <option>충청남도</option>
-					        <option>충청북도</option>
-					    </optgroup>
-					    <optgroup label="시">
-					      <option>광주광역시</option>
-					      <option>대구광역시</option>
-					      <option>대전광역시</option>
-					      <option>부산광역시</option>
-					      <option>서울특별시</option>
-					      <option>세종특별자치시</option>
-					      <option>울산광역시</option>
-					      <option>인천광역시</option>
-					    </optgroup>
-					  </select> -->
-					  <select class="form-control-sm" style="overflow:scroll">
-          				<option selected>시/군/구</option>
-					    <optgroup label="시">
-					        <option>강원도</option>
-					        <option>경기도</option>
-					        <option>경상남도</option>
-					        <option>경상북도</option>
-					        <option>전라남도</option>
-					        <option>전라북도</option>
-					        <option>제주도</option>
-					        <option>충청남도</option>
-					        <option>충청북도</option>
-					    </optgroup>
-					    <optgroup label="군">
-					      <option>광주광역시</option>
-					      <option>대구광역시</option>
-					      <option>대전광역시</option>
-					      <option>부산광역시</option>
-					      <option>서울특별시</option>
-					      <option>세종특별자치시</option>
-					      <option>울산광역시</option>
-					      <option>인천광역시</option>
-					    </optgroup>
-					    <optgroup label="구">
-					      <option>광주광역시</option>
-					      <option>대구광역시</option>
-					      <option>대전광역시</option>
-					      <option>부산광역시</option>
-					      <option>서울특별시</option>
-					      <option>세종특별자치시</option>
-					      <option>울산광역시</option>
-					      <option>인천광역시</option>
-					    </optgroup>
+          				<form id="localForm" action="localsearch.do" method="post" class="appointment-form ftco-animate fadeInUp ftco-animated">
+	    				<select id="sido" name="province" class="form-control-sm" style="overflow:scroll">
+          					<option value="">시/도</option>
+          					<c:forEach items="${sido}" var="sido">
+          					<option value="${sido.province }">${sido.province }</option>
+          					</c:forEach>
+					  	</select>
+					  <select id="sigungu" name="city" class="form-control-sm" style="overflow:scroll">
+          				<option value="">시/군/구</option>
 					  </select>
-					  <select class="form-control-sm" style="overflow:scroll">
-          				<option selected>읍/면/동</option>
-					    <optgroup label="읍">
-					        <option>강원도</option>
-					        <option>경기도</option>
-					        <option>경상남도</option>
-					        <option>경상북도</option>
-					        <option>전라남도</option>
-					        <option>전라북도</option>
-					        <option>제주도</option>
-					        <option>충청남도</option>
-					        <option>충청북도</option>
-					    </optgroup>
-					    <optgroup label="면">
-					      <option>광주광역시</option>
-					      <option>대구광역시</option>
-					      <option>대전광역시</option>
-					      <option>부산광역시</option>
-					      <option>서울특별시</option>
-					      <option>세종특별자치시</option>
-					      <option>울산광역시</option>
-					      <option>인천광역시</option>
-					    </optgroup>
-					    <optgroup label="동">
-					      <option>광주광역시</option>
-					      <option>대구광역시</option>
-					      <option>대전광역시</option>
-					      <option>부산광역시</option>
-					      <option>서울특별시</option>
-					      <option>세종특별자치시</option>
-					      <option>울산광역시</option>
-					      <option>인천광역시</option>
-					    </optgroup>
+					  <select id="dong" name="town" class="form-control-sm" style="overflow:scroll">
+          				<option value="">읍/면/동</option>
 					  </select>
+					  <button type="button" id="localBtn" class="btn btn-secondary" onclick="localChk();"><i class="icon ion-ios-search"></i></button>
 	    				</form>
 	    				
           				</div>
           				<div style="padding: 20px">
     					<h4><b>설립유형</b></h4>
-         				<button class="btn btn-secondary px-4 py-3">전체 </button>
-         				<button class="btn btn-secondary px-4 py-3">국립 </button>
-         				<button class="btn btn-secondary px-4 py-3">사립 </button>
-         				<button class="btn btn-secondary px-4 py-3">민간 </button>
+         				<button id="all" class="type btn btn-secondary px-4 py-3">전체 </button>
+         				<button id="public" class="type btn btn-secondary px-4 py-3">국공립 </button>
+         				<button id="corporate" class="type btn btn-secondary px-4 py-3">법인 </button>
+         				<button id="private" class="type btn btn-secondary px-4 py-3">사립</button>
           				</div>
           				<div style="padding: 20px">
          				<h4><b>유치원</b></h4>
-                  			<input type="text" class="form-control-lg" placeholder="이름">
-                		<button type="submit" class="btn-lg btn btn-secondary"><i class="icon ion-ios-search"></i></button>
+                  		<form id="nameForm" action="namesearch.do" method="post">
+                  		<input type="text" id="kindername" name="name" class="form-control-lg" placeholder="이름">
+                		<button type="button" id="nameBtn" class="btn-lg btn btn-secondary" onclick="nameChk();"><i class="icon ion-ios-search"></i></button>
+                  		</form>
           				</div>
           			</div>
-          			<!-- </div> -->
         		</div>
 			</div>
 			
 		</section>
-		 <section class="ftco-section bg-light" style="padding: 0.0em 0;">
+		 <section id="searchres" class="ftco-section bg-light" style="padding: 0.0em 0;">
 			<div class="container">
 				<div class="row" id="box">
           			<div style="width:100%;margin:0 auto;" class="col-md-8 text-center heading-section ftco-animate fadeInUp ftco-animated">
@@ -202,24 +292,64 @@
 						   </tr>
 						   </thead>
 						   <tbody>
-						   <tr>
-						     <td>경기도</td>
-						     <td><a href="searchdetail.do">새롬 유치원 </a></td>
-						     <td>국립</td>
-						     <td>★★★</td>
-						   </tr>
-						   <tr>
-						     <td>강원도</td>
-						     <td><a href="searchdetail.do">안녕 유치원</a></td>
-						     <td>사립 </td>
-						     <td>★★★★</td>
-						   </tr>
-						   <tr>
-						     <td>서울</td>
-						     <td><a href="searchdetail.do">강남 유치원</a></td>
-						     <td>민간 </td>
-						     <td>★★★★</td>
-						   </tr>      
+						   <c:if test="${localvo != null && localvo !='' }">
+						   <c:choose>
+						   	 <c:when test="${empty localvo }">
+						   	 <script>
+						   	 $(function(){
+						   		$('#searchres').show();						   		 
+						   	 })
+						   	 </script>
+						   	 	<tr>
+						   	 		<td colspan="4" align="center">검색결과가 없습니다.</td>
+						   	 	</tr>
+						   	 </c:when>
+						   	 <c:otherwise>
+						   	 <script>
+						   	 $(function(){
+						   		$('#searchres').show();						   		 
+						   	 })
+						   	 </script>
+						   	 	<c:forEach items="${localvo }" var="vo">
+						   	 		<tr>
+						   	 			<td>${vo.addr2 }</td>
+						   	 			<td><a href="searchdetail.do?kinder_no=${vo.kinder_no }">${vo.name }</a></td>
+						   	 			<td>${vo.type }</td>
+						   	 			<td>★★★★</td>
+						   	 		</tr>
+						   	 	</c:forEach>
+						   	 </c:otherwise>						   
+						   </c:choose>  
+						   </c:if>  
+						   <c:if test="${namevo != null && namevo !='' }">
+						   <c:choose>
+						   	 <c:when test="${empty namevo }">
+						   	 <script>
+						   	 $(function(){
+						   		$('#searchres').show();						   		 
+						   	 })
+						   	 </script>
+						   	 	<tr>
+						   	 		<td colspan="4" align="center">검색결과가 없습니다.</td>
+						   	 	</tr>
+						   	 </c:when>
+						   	 <c:otherwise>
+						   	 <script>
+						   	 $(function(){
+						   		$('#searchres').show();						   		 
+						   	 })
+						   	 </script>
+						   	 	<c:forEach items="${namevo }" var="vo">
+						   	 		<tr>
+						   	 			<td>${vo.addr2 }</td>
+						   	 			<td><a href="searchdetail.do?kinder_no=${vo.kinder_no}">${vo.name }</a></td>
+						   	 			<td>${vo.type }</td>
+						   	 			<td>★★★★</td>
+						   	 		</tr>
+						   	 	</c:forEach>
+						   	 </c:otherwise>						   
+						   </c:choose>  
+						   </c:if>  
 						 </tbody>
 					</table>
 					</div>

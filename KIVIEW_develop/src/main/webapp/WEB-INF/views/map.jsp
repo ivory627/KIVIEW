@@ -13,33 +13,68 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+
+function clickMap(className){
+	$('.'+className).on('click',function(){
+		var myprovince = $('text.'+className).text().trim();
+		console.log(myprovince);
+		//alert(myprovince);
+		$('path.'+className).css('fill','rgb(255,207,126)');
+	    $('rect.'+className).css('fill','rgb(255,157,31)');
+	    $('text.'+className).css('fill','white');
+	    $('.'+className).off();
+	    $('svg').css('pointer-events','none');
+	});	
+}
+
+function reset(className){
+		$('button').on('click',function(){
+		$('path.'+className).css('fill','white');
+	    $('rect.'+className).css('fill','white');
+	    $('text.'+className).css('fill','black');
+		$('svg').css('pointer-events','auto');
+		hoverMap(className);
+		clickMap(className);
+	});
+}
+function hoverMap(className){
+	$('.'+className).hover(function(){
+		$('path.'+className).css('fill','rgb(255,207,126)');
+		$('rect.'+className).css('fill','rgb(255,157,31)');
+		$('text.'+className).css('fill','white');
+	},
+    function(){
+    	 $('path.'+className).css('fill','white');
+	     $('rect.'+className).css('fill','white');
+	     $('text.'+className).css('fill','black');
+    });
+}
 $(function(){
 	
 	$("text").each(function(index) {
 		
 		var className = $(this).attr("class");
+		//console.log(className);
 		
-		console.log(className);
-		
-	  	  $('.'+className).hover(function(){
-		       $('path.'+className).css('fill','rgb(255,207,126)');
-		       $('rect.'+className).css('fill','rgb(255,157,31)');
-		       $('text.'+className).css('fill','white');
-					 $('.'+className).on('click',function(){
-						$('path.'+className).css('fill','rgb(255,207,126)');
-					    $('rect.'+className).css('fill','rgb(255,157,31)');
-					    $('text.'+className).css('fill','white');
-					    $('.'+className).off();
-					    $('svg').css('pointer-events','none');
-					})
-		    },
+	
+		hoverMap(className);
+		clickMap(className);
+		reset(className);
+	  	   /* $('.'+className).hover(function(){
+				$('path.'+className).css('fill','rgb(255,207,126)');
+				$('rect.'+className).css('fill','rgb(255,157,31)');
+				$('text.'+className).css('fill','white');
+	    	},
 		    function(){
 		    	 $('path.'+className).css('fill','white');
 			     $('rect.'+className).css('fill','white');
 			     $('text.'+className).css('fill','black');
-		    })
-		    
-		    $('button').on('click',function(){
+		    });
+		     
+	  		 clickMap(className); 
+		  	
+	  	  
+		      $('button').on('click',function(){
 		    	$('path.'+className).css('fill','white');
 			    $('rect.'+className).css('fill','white');
 			    $('text.'+className).css('fill','black');
@@ -48,25 +83,19 @@ $(function(){
 		    	$('.'+className).hover(function(){
 				       $('path.'+className).css('fill','rgb(255,207,126)');
 				       $('rect.'+className).css('fill','rgb(255,157,31)');
-				       $('text.'+className).css('fill','white');
-							 $('.'+className).on('click',function(){
-								$('path.'+className).css('fill','rgb(255,207,126)');
-							    $('rect.'+className).css('fill','rgb(255,157,31)');
-							    $('text.'+className).css('fill','white');
-							    $('.'+className).off();
-							    $('svg').css('pointer-events','none');
-							})
+				       $('text.'+className).css('fill','white');				
 				    },
 				    function(){
 				    	 $('path.'+className).css('fill','white');
 					     $('rect.'+className).css('fill','white');
 					     $('text.'+className).css('fill','black');
-				    })
-			})
+				    });
+		    	
+		    	clickMap(className);
+			});  */ 
 		    
 
 	});
-	
     
  })
 </script>
@@ -303,7 +332,7 @@ $(function(){
 			<tspan dy="5.71875"
 				style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">제주</tspan></text>
 				</svg>
-			<button class="btn btn-secondary2" style="position: relative;left:170px;">다시선택</button>
+			<button class="btn btn-secondary2" style="position: relative;left:170px;" onclick="reset();">다시선택</button>
 	</div>
 </body>
 </html>

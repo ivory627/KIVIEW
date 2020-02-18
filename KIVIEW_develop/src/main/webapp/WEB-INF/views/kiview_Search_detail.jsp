@@ -3,7 +3,8 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
 	
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -81,7 +82,6 @@
             cursor: pointer;
         }
     </style>
-    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
 		$(function(){
 			$("#myBtn").on("click",function(){
@@ -105,7 +105,7 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
             <h1 class="mb-2 bread">검색 결과</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="index.jsp">홈 
+            <p class="breadcrumbs"><span class="mr-2"><a href="index.do">홈 
             <i class="ion-ios-arrow-forward"></i></a></span> 
             <span>검색 결과 <i class="ion-ios-arrow-forward"></i></span></p>
           </div>
@@ -121,9 +121,9 @@
            			 <h2 class="mb-4"><span><img id = "kinder" 
            			 style = "height: 45px; position:relative; bottom: 5px;"
            			 src = "resources/images/main/kindergarden.png"/></span>
-           			 	<span> 안녕</span><span style = "color:#FFDC00;"> 유치원</span></h2><br>
-         				<button class="btn btn-secondary px-4 py-3">사립 </button>
-         				<button class="btn btn-secondary px-4 py-3"><i class="icon icon-map-marker"></i>  강원도 강릉시 </button>
+           			 	<span> ${kindervo.name}</span><!-- <span style = "color:#FFDC00;"> 유치원</span> --></h2><br>
+         				<button class="btn btn-secondary px-4 py-3">${kindervo.type} </button>
+         				<button class="btn btn-secondary px-4 py-3"><i class="icon icon-map-marker"></i>   ${kindervo.addr2}</button>
          				<button id="star" class="btn btn-secondary px-4 py-3">4.5/5</button>
 						<hr>
 						<div style="padding: 20px">
@@ -168,8 +168,35 @@
            			 <h2 class="mb-4"><span>유치원 정보</span></h2>
            			 <hr>
            			 </div>
-           			 <div style="width:100%;margin:0 auto;height:20%;background-color:beige;height:400px;" class="col-md-15 text-center heading-section ftco-animate fadeInUp ftco-animated">
+           			 <div id="map" style="width:100%;margin:0 auto;height:20%;height:400px;" class="col-md-15 text-center heading-section ftco-animate fadeInUp ftco-animated">
            			 </div>
+           			 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=194487849edd2decd3a36dbefacead0d"></script>
+						<script type="text/javascript">
+							var latitude = ${kindervo.latitude};
+							var longitude = ${kindervo.longitude};
+							//console.log(latitude);
+							var container = document.getElementById('map');
+							var options = {
+									center: new kakao.maps.LatLng(longitude,latitude),
+									level: 2
+								};
+					
+							var map = new kakao.maps.Map(container, options);
+							
+							var imageSrc = 'resources/images/main/marker.png',    
+						    imageSize = new kakao.maps.Size(64, 64),
+						    imageOption = {offset: new kakao.maps.Point(27, 69)};
+						      
+							var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+							    markerPosition = new kakao.maps.LatLng(longitude, latitude);
+	
+							var marker = new kakao.maps.Marker({
+							    position: markerPosition, 
+							    image: markerImage
+							});
+	
+							marker.setMap(map);
+						</script>
            			 <div style="width:100%;margin:0 auto;padding:20px;" class="col-md-15 heading-section ftco-animate fadeInUp ftco-animated">
           				<h4><b>기본정보</b></h4>
           				<div style="width:100%;margin:0 auto;" class="ftco-animate fadeInUp ftco-animated">
@@ -177,19 +204,28 @@
 					  <tbody>
 					    <tr>
 					      <th scope="row">개원일</th>
-					      <td>2020-02-04</td>
+					      <td><fmt:formatDate value="${kindervo.opendate}" pattern="yyyy.MM.dd"/></td>
 					      <th>전화번호</th>
-					      <td>033-111-2222</td>
+					      <td>${kindervo.phone }</td>
 					    </tr>
 					    <tr>
-					      <th scope="row">주소</th>
-					      <td>강원도 강릉시 어쩌구</td>
+					      <th scope="row">원장명</th>
+					      <td>${kindervo.director }</td>
 					      <th>홈페이지</th>
-					      <td>hi_kindergarten.com</td>
+					      <c:choose>
+					      	<c:when test="${kindervo.homepage != null && kindervo.homepage != ' ' }">
+					      		<td>${kindervo.homepage }</td>
+					      	</c:when>
+					      	<c:otherwise>
+					      		<td>X</td>
+					      	</c:otherwise>
+					      </c:choose>
 					    </tr>
 					    <tr>
-					      <th scope="row">통학차량운영여부</th>
-					      <td colspan="3">운영</td>
+					      <th scope="row">구주소</th>
+					      <td>${kindervo.addr2 }</td>
+					      <th>도로명주소</th>
+					      <td>${kindervo.addr1 }</td>
 					    </tr>
 					  </tbody>
 					</table>
@@ -201,22 +237,36 @@
           			<table class="table table-bordered">
 						  <thead>
 						    <tr>
-						      <th scope="col">3세이상</th>
-						      <th scope="col">4세이상</th>
-						      <th scope="col">5세이상</th>
-						      <th scope="col">어쩌구</th>
-						      <th scope="col">저쩌구</th>
-						      <th scope="col">몰라</th>
+						      <th scope="col">학급수</th>
+						      <th scope="col">유아수</th>
+						      <th scope="col">교직원수</th>
+						      <th scope="col">차량운영</th>
+						      <th scope="col">급식운영방식</th>
+						      <th scope="col">CCTV</th>
 						    </tr>
 						  </thead>
 						  <tbody>
 						    <tr>
-						      <td>4</td>
-						      <td>4</td>
-						      <td>3</td>
-						      <td>5</td>
-						      <td>3</td>
-						      <td>8</td>
+						      <td>${kindervo.class_num }</td>
+						      <td>${kindervo.children_num }</td>
+						      <td>${kindervo.staff_num }</td>
+						      <c:choose>
+						      	<c:when test="${kindervo.drive_yn == 'Y' }">
+						      		<td>O</td>
+						      	</c:when>
+						      	<c:otherwise>
+						      		<td>X</td>
+						      	</c:otherwise>
+						      </c:choose>
+						      <td>${kindervo.meal_yn }</td>
+						      <c:choose>
+						      	<c:when test="${kindervo.cctv_yn == 'Y' }">
+						      		<td>O</td>
+						      	</c:when>
+						      	<c:otherwise>
+						      		<td>X</td>
+						      	</c:otherwise>
+						      </c:choose>
 						    </tr>
 						  </tbody>
 						</table>
@@ -247,11 +297,11 @@
 									<h4 style="margin-bottom: 16px;">로그인하고 전체보기</h4>
 									<div class="jsx-2941005022 btn-box">
 										<div>
-											<button type="button" class="btn btn-secondary ">회원가입</button>
+											<button type="button" class="btn btn-secondary " onclick="location.href='kiviewsignupoption.do'">회원가입</button>
 										</div>
 										&nbsp;&nbsp;
 										<div>
-											<button type="button" class="btn btn-secondary ">로그인</button>
+											<button type="button" class="btn btn-secondary " onclick="location.href='kiviewlogin.do'">로그인</button>
 										</div>
 									</div>
 								</div>
