@@ -19,7 +19,6 @@ public class LikeBizImpl implements LikeBiz{
 	
 	@Override
 	public int likeInsert(LikeVo vo) {
-		
 		return dao.likeInsert(vo);
 	}
 
