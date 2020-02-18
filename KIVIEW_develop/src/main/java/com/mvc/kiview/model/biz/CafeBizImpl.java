@@ -19,7 +19,7 @@ public class CafeBizImpl implements CafeBiz {
 	@Autowired
 	private CafeDao dao;
 
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ수정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   
+
 	@Override
 	public List<CafeVo> cafe_Ulist(int member_no) {
 
@@ -37,7 +37,6 @@ public class CafeBizImpl implements CafeBiz {
 		return dao.cafe_regyn(regyn);
 	}
 
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@Transactional
 	@Override
 	public int cafe_insert(CafeVo vo1, CafeMemberVo vo2) {
@@ -171,11 +170,30 @@ public class CafeBizImpl implements CafeBiz {
 	      
 	      return dao.cafe_menu_name(cafe_menu_no);
 	   }
-
-	@Override
+    //-------------------------------------------------------------------//
+	
+	   @Override
 	public int menu_update(CafeMenuVo menu) {
 		
 		return dao.menu_update(menu);
+	}
+
+	@Override
+	public int category_update(CafeCategoryVo category) {
+		
+		return dao.category_update(category);
+	}
+
+	@Override
+	public int category_delete(int category_no) {
+		
+		return dao.category_delete(category_no);
+	}
+
+	@Override
+	public int category_update_insert(CafeCategoryVo category) {
+		
+		return dao.category_update_insert(category);
 	}
 	
 

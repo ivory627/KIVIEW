@@ -200,12 +200,11 @@ public class CafeController {
    @RequestMapping("/menudelete.do")
    public void menu_delete(HttpServletResponse response, int cafe_no, int cafe_menu_no) throws IOException {
 	   
-	   System.out.println(cafe_menu_no);
+
 	   
 	   int res = 0;
-	   
-	  
 	   res = biz.menu_delete(cafe_menu_no);
+	   
 	   
 	   PrintWriter out = response.getWriter();
 	   response.setContentType("text/html; charset=UTF-8");
@@ -217,16 +216,16 @@ public class CafeController {
 		   
 	   } else {
 		   out.print("<script> alert('명령 실행 중 오류.'); location.href='cafeconfig.do?cafe_no="+cafe_no
-			   		+ "'</script>");
+		      		+ "'</script>");
 	   }
 	   
-	   
+	  
 	   
 	   
    }
    
    @RequestMapping("/menuupdate.do")
-   public void menu_update(HttpServletResponse response, CafeMenuVo menu, String cafe_menu_no, HttpServletRequest request)  throws IOException {
+   public void menu_update(HttpServletResponse response, CafeMenuVo menu, HttpServletRequest request)  throws IOException {
 	   
 	   int category_no1 = Integer.parseInt(request.getParameter("category_no1"));
 	   String category1 = request.getParameter("category1").trim();
@@ -234,7 +233,7 @@ public class CafeController {
 	   String category2 = request.getParameter("category2").trim();
 	   int category_no3 = Integer.parseInt(request.getParameter("category_no3"));
 	   String category3 = request.getParameter("category3").trim();
-	   System.out.println(category1); 
+	  
 	   
 	   int res = 0 ;
 	   res = biz.menu_update(menu);
@@ -242,53 +241,81 @@ public class CafeController {
 	   PrintWriter out = response.getWriter();
 	   response.setContentType("text/html charset=utf-8"); 
 	   
+	   if(res==0) {
+		   out.print("<script> alert('게시판 이름을 확인하세요.'); location.href='cafeconfig.do?cafe_no="+menu.getCafe_no()
+	   		+ "'</script>");
+	   }
+	   
+	  
+	   
+	   CafeCategoryVo category = new CafeCategoryVo(); 
+	   
 	   if(category_no1>0) {
 		   System.out.println("1번 있음");
 		   
 		   if(category1.length()<=1) {
-			   System.out.println("1번 있으나 말머리 없음 -> 삭제");
-			   res += biz.menu_delete(category_no1);
+			   
+			   res += biz.category_delete(category_no1);
 					   
 		   } else if(category1.length()>1) {
-			   System.out.println("1번 있고 말머리 있음 -> 수정");
+			   
+			   category.setCafe_category_no(category_no1);
+			   category.setCategory(category1);		   
+			   res += biz.category_update(category);
 		   }
 		   
 	   } else if(category_no1==0) {
 		   
 		   if(category1.length()>1) {
-			   System.out.println("번호 없고 말머리 있음 -> 추가");
+			   
+			   category.setCafe_menu_no(menu.getCafe_menu_no());
+			   category.setCategory(category1);
+			   res += biz.category_update_insert(category);
 		   }
 	   }
 	   
 	   if(category_no2>0) {
-		   System.out.println("2번 있음");
+		  
 		   
 		   if(category2.length()<=1) {
-			   System.out.println("2번 있으나 말머리 없음 -> 삭제");
-		  
+			   
+			   res += biz.category_delete(category_no2);
 		   } else if(category2.length()>1) {
-			   System.out.println("2번 있고 말머리 있음 -> 수정");
+			   
+			   category.setCafe_category_no(category_no2);
+			   category.setCategory(category2);		   
+			   res += biz.category_update(category);
 		   
 		   }
 		   
 	   } else if(category_no2==0) {
 		   
 		   if(category2.length()>1 ) {
-			   System.out.println("번호 없고 말머리 있음 -> 추가");
+			   
+			   category.setCafe_menu_no(menu.getCafe_menu_no());
+			   category.setCategory(category2);
+			   res += biz.category_update_insert(category);
 		   }
 	   }
 	   
 	   if(category_no3>0) {
-		   System.out.println("3번 있음");
+		  
 		   if(category3.length()<=1) {
-			   System.out.println("3번 있으나 말머리 없음 -> 삭제");
+			   
+			   res += biz.category_delete(category_no3);
 		   } else if(category3.length()>1) {
-			   System.out.println("3번 있고 말머리 있음 -> 수정");
+			   
+			   category.setCafe_category_no(category_no3);
+			   category.setCategory(category3);		   
+			   res += biz.category_update(category);
 		   }
 	   } else if(category_no3==0) {
 		   
 		   if(category3.length()>1) {
-			   System.out.println("번호 없고 말머리 있음 -> 추가");
+			   
+			   category.setCafe_menu_no(menu.getCafe_menu_no());
+			   category.setCategory(category3);
+			   res += biz.category_update_insert(category);
 		   }
 	   }
 	   

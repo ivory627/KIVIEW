@@ -46,7 +46,7 @@ public interface CafeDao {
 
 	public int category_delete_all(int cafe_menu_no);
 
-	
+	public int category_update(CafeCategoryVo category);
    
    //-------------------------------  게시판 --------------------------------
    
@@ -57,4 +57,11 @@ public interface CafeDao {
 	public String cafe_menu_name(int cafe_menu_no);
 
 	public int menu_update(CafeMenuVo menu);
+	//------------------------------------------------------------------------
+	
+	public int category_delete(int category_no);
+
+	public int category_update_insert(CafeCategoryVo category);
+
+	
 }

@@ -77,12 +77,12 @@
      
      </insert>
      
-     <select id="category_delete" parameterType="int">
+     <delete id="category_delete" parameterType="int">
      	DELETE FROM
      	CAFE_CATEGORY
-     	WHERE CAFE_MENU_NO = #{cafe_menu_no}
+     	WHERE CAFE_CATEGORY_NO = #{category_no}
      
-     </select>
+     </delete>
      
      <update id="category_update">
      	UPDATE CAFE_CATEGORY
@@ -90,9 +90,9 @@
      	WHERE CAFE_CATEGORY_NO = #{cafe_category_no}
      </update>
      
-     <update id="category_update_insert">
+     <update id="category_update_insert" parameterType="CafeCategoryVo">
      	INSERT INTO CAFE_CATEGORY
-     	VALUES(CAFE_CATEGORY_SEQ.NEXTVAL, #{cafe_menu_seq}, #{category})
+     	VALUES(CAFE_CATEGORY_SEQ.NEXTVAL, #{cafe_menu_no}, #{category})
      </update>
      
      

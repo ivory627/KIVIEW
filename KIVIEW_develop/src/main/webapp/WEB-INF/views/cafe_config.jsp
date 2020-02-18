@@ -175,6 +175,7 @@
 			
 			return submit;
 		}
+		
 		if($("#categorychk").is(":checked")){
 			var category1 = $("#category_insert").find($("input[name=category1]")).val();
 			var category2 = $("#category_insert").find($("input[name=category2]")).val();
@@ -213,6 +214,84 @@
 		 	
 		
 		}
+		
+		return submit;
+		  
+		
+		
+	}
+	
+	function menuinsert_chk2(cafe_no){
+		var data = {"cafe_no":cafe_no, "name":$("#category_update").find($("input[name=name]")).val()}  
+		
+		if(do_chk()==false){
+			return false;
+		}
+		
+		
+		function do_chk(){
+			
+			var submit = false;
+			
+
+			$.ajax({
+				type:"post",
+				url:"menuchk.do",
+				async : false,
+				data:JSON.stringify(data),
+				contentType:"application/json; charset=UTF-8;",
+				dataType:"json",
+				success:function(data){
+					if(data.check==true){
+						alert("게시판 이름이 중복됩니다.");
+						submit = false;
+					
+					} else {
+						submit = true;
+					}
+				
+				},
+				error:function(error){
+					alert(error);
+				}
+			})
+			
+			
+			return submit;
+		}
+		
+		
+			var category1 = $("#category_update").find($("input[name=category1]")).val();
+			var category2 = $("#category_update").find($("input[name=category2]")).val();
+			var category3 = $("#category_update").find($("input[name=category3]")).val(); 
+			
+			
+			if(category1!=""){ 
+				if(category1==category2 || category1==category3){
+					alert(category1+"은 중복입니다.")
+					return false;
+				}
+				
+			}
+			
+			if(category2!=""){ 
+				if(category2==category3 || category2==category1){
+					alert(category2+"은 중복입니다.")
+					return false;
+				}
+				
+			}
+			
+			if(category3!=""){ 
+				if(category1==category3 || category2==category3){
+					alert(category3+"은 중복입니다.")
+					return false;
+				}
+				
+			}
+		 	
+		
+		
 		
 		return submit;
 		  
@@ -432,7 +511,7 @@
 							<!-- 게시판 수정 -->
 							<div id="menuupdate_form" class="col-lg-4 ftco-animate"
 								style="border-left: 1px solid lightgray; padding: 20px; display: none">
-								<form action="menuupdate.do" method="get">
+								<form action="menuupdate.do" onsubmit="return menuinsert_chk2(${cafe_list[0].cafe_no})" method="get">
 									<input type="hidden" name="cafe_no" value="${cafe_list[0].cafe_no }">
 									<input type="hidden" name="cafe_menu_no">
 									<div class="form-group">

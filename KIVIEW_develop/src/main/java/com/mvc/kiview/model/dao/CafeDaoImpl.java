@@ -20,7 +20,7 @@ public class CafeDaoImpl implements CafeDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
 	@Override
 	public List<CafeVo> cafe_Ulist(int member_no) {
 
@@ -66,7 +66,6 @@ public class CafeDaoImpl implements CafeDao {
 		return res;
 	}
 
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@Override //카페 오픈시 cafe 테이블 추가
 	public int cafe_insert(CafeVo vo) {
 
@@ -325,6 +324,9 @@ public class CafeDaoImpl implements CafeDao {
 	      return res;
 	   }
 
+	 //------------------------------------------------------------------------  
+	   
+	   
 	@Override
 	public int menu_update(CafeMenuVo menu) {
 		int res = 0 ;
@@ -338,6 +340,51 @@ public class CafeDaoImpl implements CafeDao {
 		
 		return res;
 	}
+
+	@Override
+	public int category_update(CafeCategoryVo category) {
+		int res = 0 ;
+		
+		try {
+	         res = sqlSession.update(namespace+"category_update",category);
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         System.out.println("category_update 오류");
+	      }
+		
+		return res;
+	}
+
+	@Override
+	public int category_delete(int category_no) {
+		int res = 0 ;
+		
+		try {
+	         res = sqlSession.delete(namespace+"category_delete",category_no);
+	         System.out.println("삭제"+res);
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         System.out.println("category_delete 오류");
+	      }
+		
+		return res;
+	}
+
+	@Override
+	public int category_update_insert(CafeCategoryVo category) {
+		int res = 0 ;
+		
+		try {
+	         res = sqlSession.update(namespace+"category_update_insert",category);
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         System.out.println("category_update_insert 오류");
+	      }
+		
+		return res;
+	}
+	
+	
 
 	
 

@@ -45,6 +45,14 @@ public interface CafeBiz {
 	
 	public int category_delete_all(int cafe_menu_no);
 	
+	public int menu_update(CafeMenuVo menu);
+	
+	public int category_update(CafeCategoryVo category);
+	
+	public int category_delete(int category_no);
+	
+	public int category_update_insert(CafeCategoryVo category);
+	
 	//////////////////////////////  게시판 //////////////////////////////////
 	
 	public List<CafeBoardVo> cafe_board(int cafe_no);
@@ -53,6 +61,12 @@ public interface CafeBiz {
 
 	public String cafe_menu_name(int cafe_menu_no);
 
-	public int menu_update(CafeMenuVo menu);
+	
+
+	
+
+	
+	
+	
 
 }
