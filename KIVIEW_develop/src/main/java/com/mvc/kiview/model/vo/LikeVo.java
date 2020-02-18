@@ -29,7 +29,5 @@ public class LikeVo {
 	public void setLikeyn(String likeyn) {
 		this.likeyn = likeyn;
 	}
-	
-	
 
 }

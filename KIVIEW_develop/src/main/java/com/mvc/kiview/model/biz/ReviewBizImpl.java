@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.kiview.model.dao.ReviewDao;
+import com.mvc.kiview.model.vo.LikeVo;
 import com.mvc.kiview.model.vo.ReviewVo;
 
 @Service
@@ -15,9 +16,9 @@ public class ReviewBizImpl implements ReviewBiz{
 	private ReviewDao dao;
 	
 	@Override
-	public List<ReviewVo> reviewList() {
+	public List<ReviewVo> reviewList(LikeVo vo) {
 		// TODO Auto-generated method stub
-		return dao.reviewList();
+		return dao.reviewList(vo);
 	}
 
 	@Override

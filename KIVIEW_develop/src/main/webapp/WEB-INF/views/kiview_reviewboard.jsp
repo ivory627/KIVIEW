@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
@@ -153,8 +156,31 @@ form select {
 		$(".close").on("click", function() {
 			$("#myModal2").hide();
 		})
-
-	})
+		
+		
+		})
+		
+//////////////////////////////////////////////////////////		
+var likeSubmit = function(reviewSeq){
+		$.ajax({
+			url:'/kiview/likeSubmit.do',
+			dataType:'json',
+			type:'POST',
+			data:{'reviewSeq':reviewSeq},
+			success:function(data){
+				var resultFlag = data.resultFlag;
+				var resultMsg = data.resultMsg;
+				if(resultFlag > 0){
+				 	if(resultMsg == "insert"){
+						alert("좋아요 누름");
+					}else if(resultMsg == "delete"){
+						alert("좋아요 지움");
+					}
+				}
+			}
+		});
+	}
+//////////////////////////////////////////////////////////
 </script>
 </head>
 
@@ -237,11 +263,10 @@ form select {
 					class="btn btn-secondary" id="myBtn" type="button" value="리뷰쓰기">
 				<br>
 				<br>
-				<!-- 여기서부터 반복 -->
-				<div class="row">
-
-
-					<div class="col-md-12 course d-lg-flex ftco-animate"
+				<c:set value="1" var="test"  />
+				<c:forEach items="${reviewList }" var="reviewObj" varStatus="status">
+					<div class="row">
+						<div class="col-md-12 course d-lg-flex ftco-animate"
 						style="padding: 30px;">
 						<div class="review"
 							style="width: 25%; margin-right: 30px; border-right: 1px solid lightgray">
@@ -260,7 +285,7 @@ form select {
 
 						<div style="width: 70%">
 							<h3>
-								<label>" 선생님들이 모두 친절하십니다! "</label>
+								<label></label>
 							</h3>
 							<p class="subheading">
 								<span>U****</span> | <span>2017년 등원</span> | <span>2019-06-12</span>
@@ -272,19 +297,14 @@ form select {
 					</div>
 
 					<div class="reviewBtn" style="padding: 30px; width: 100%;">
-						<input id="myBtn2" class="btn btn-secondary" type="button"
-							value="수정"> <input class="btn btn-primary" type="button"
-							value="삭제"> <input class="btn btn-primary" type="button"
-							value="좋아요">
+						<input class="btn btn-secondary" type="button" value="수정">
+						<input class="btn btn-primary" type="button" value="삭제"> 
+						<input class="btn btn-primary" type="button" value="좋아요" onclick="likeSubmit('${reviewObj.review_no}')">
 						<hr>
 					</div>
-
-
-				</div>
-				<!-- 여기까지 반복 -->
-
-				<!-- 여기서부터 반복 -->
-				<div class="row">
+					</div>
+				</c:forEach>
+				<!-- <div class="row">
 
 					<div class="col-md-12 course d-lg-flex ftco-animate"
 						style="padding: 30px;">
@@ -322,7 +342,7 @@ form select {
 						<input class="btn btn-primary" type="button" value="좋아요">
 						<hr>
 					</div>
-				</div>
+				</div> -->
 				<!-- 여기까지 반복 -->
 			</div>
 		</div>

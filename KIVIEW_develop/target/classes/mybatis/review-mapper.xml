@@ -3,5 +3,19 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="review">
-  
+  	
+  	<select id="reviewList" resultType="ReviewVo" parameterType="LikeVo">
+  		SELECT
+		   R.*,
+		   (
+		    SELECT 
+		        COUNT(*) CNT 
+		    FROM 
+		        LIKETABLE 
+		    WHERE 
+		        REVIEW_NO = R.REVIEW_NO AND 
+		        MEMBER_NO = #{member_no}
+		    ) likeYn
+		FROM REVIEW R
+  	</select>
   </mapper>

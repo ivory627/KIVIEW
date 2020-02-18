@@ -85,10 +85,10 @@ table{
 					</h2>
 					
 					<br>
-					<label><a style="color:black" href="kiview_mypage.jsp">내 정보</a></label>
+					<label><a style="color:black" href="kiviewmypage.do">내 정보</a></label>
 					<hr style="margin:0px; ">
 					<br>
-					<label><a href="kiview_myactivity.jsp">내 활동</a></label>
+					<label><a href="kiviewmyactivity.do">내 활동</a></label>
 					<hr style="margin:0px">  
 					 
 

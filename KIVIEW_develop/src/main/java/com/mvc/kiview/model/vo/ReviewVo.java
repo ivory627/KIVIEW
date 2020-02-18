@@ -12,6 +12,8 @@ public class ReviewVo {
 	private String review_content;
 	private String review_writer;
 	private Date review_date;
+	private int likeYn;
+	
 	public int getReview_no() {
 		return review_no;
 	}
@@ -71,6 +73,12 @@ public class ReviewVo {
 		return "ReviewVo [review_no=" + review_no + ", name=" + name + ", avg_score1=" + avg_score1 + ", avg_score2="
 				+ avg_score2 + ", avg_score3=" + avg_score3 + ", review_title=" + review_title + ", review_content="
 				+ review_content + ", review_writer=" + review_writer + ", review_date=" + review_date + "]";
+	}
+	public int getLikeYn() {
+		return likeYn;
+	}
+	public void setLikeYn(int likeYn) {
+		this.likeYn = likeYn;
 	}
 	
 	

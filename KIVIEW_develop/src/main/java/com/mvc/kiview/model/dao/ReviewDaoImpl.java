@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mvc.kiview.model.vo.LikeVo;
 import com.mvc.kiview.model.vo.ReviewVo;
 
 @Repository
@@ -15,9 +16,10 @@ public class ReviewDaoImpl implements ReviewDao{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<ReviewVo> reviewList() {
+	public List<ReviewVo> reviewList(LikeVo vo) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		return sqlSession.selectList(namespace+"reviewList", vo);
 	}
 
 	@Override

@@ -75,10 +75,10 @@ label {
 						<b>마이페이지</b>
 					</h2>
 					<br>
-					<label><a  href="mypage.jsp">내 정보</a></label>
+					<label><a href="kiview_mypage.do">내 정보</a></label>
 					<hr style="margin:0px; ">   
 					<br>
-					<label><a  style="color:black" href="kiview_myactivity.jsp">내 활동</a></label>
+					<label><a style="color:black" href="kiview_myactivity.do">내 활동</a></label>
 					<hr style="margin:0px">  
 					 
 
@@ -145,6 +145,9 @@ label {
 
 
 		</div>
+		<button onclick="location.href='likeinsert.do?member=${member_no}&review=${review_no}'">등록</button>
+		<button onclick="location.href='likedelete.do?member=${member_no}&review=${review_no}'">삭제</button>
+		
 	</section>
 
 

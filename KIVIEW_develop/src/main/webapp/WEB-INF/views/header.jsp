@@ -151,13 +151,13 @@ $(function(){
 				
 				
 				<li class="nav-item"><a href="index.do" class="nav-link pl-0">홈</a></li>
-				<li id="notice" class="nav-item"><a href="notice.do"
+				<li id="notice" class="nav-item"><a href="kiviewnotice.do"
 					class="nav-link">키뷰안내</a></li>
 				<li id="kinder" class="nav-item"><a href="kindersearch.do"
 					class="nav-link">유치원</a></li>
 				<li id="cafe" class="nav-item"><a href="cafehome.do" class="nav-link">키뷰카페</a></li>
 				
-				<li id="my" class="nav-item"><a href="mypage.do"
+				<li id="my" class="nav-item"><a href="kiview_myactivity.do"
 					class="nav-link">마이페이지</a></li>
 					<li class="nav-item"><a href="kiviewlogin.do"
 					class="nav-link">로그인</a></li>
@@ -275,9 +275,9 @@ $(function(){
 			<!-- <ul class="navbar-nav ml-auto" >   --> 
 				
 				
-				<li class="nav-item"><a href="mypage.do"
+				<li class="nav-item"><a href="kiview_mypage.do"
 					class="nav-link">내 정보</a></li>
-				<li class="nav-item"><a href="myactivity.do"
+				<li class="nav-item"><a href="kiview_mypage.do"
 					class="nav-link">내 활동</a></li>
 				<li class="nav-item"><a href="kiview_search.jsp"
 					class="nav-link">로그아웃</a></li>
