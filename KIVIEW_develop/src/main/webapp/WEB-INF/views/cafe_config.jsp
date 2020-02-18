@@ -186,6 +186,7 @@
 			
 			if(category1!=""){ 
 				if(category1==category2 || category1==category3){
+					alert(category1+"은 중복입니다.")
 					return false;
 				}
 				
@@ -193,6 +194,7 @@
 			
 			if(category2!=""){ 
 				if(category2==category3 || category2==category1){
+					alert(category2+"은 중복입니다.")
 					return false;
 				}
 				
@@ -200,6 +202,7 @@
 			
 			if(category3!=""){ 
 				if(category1==category3 || category2==category3){
+					alert(category3+"은 중복입니다.")
 					return false;
 				}
 				

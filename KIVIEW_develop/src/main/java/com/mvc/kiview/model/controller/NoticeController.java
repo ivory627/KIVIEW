@@ -49,7 +49,7 @@ public class NoticeController {
 	}
 
 	/* 공지사항 selectOne */
-	@Transactional
+	
 	@RequestMapping("/kiviewdetail.do")
 	public String kiview_detail(Model model, int notice_no) {
 

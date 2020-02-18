@@ -240,7 +240,7 @@ public class CafeDaoImpl implements CafeDao {
 		
 		try {
 			res = sqlSession.selectList(namespace+"cafe_member_list",cafe_no);
-		
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("memberlist 오류");
@@ -262,6 +262,21 @@ public class CafeDaoImpl implements CafeDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("menudelete 오류");
+		}
+		
+		return res;
+	}
+
+	@Override
+	public int category_delete_all(int cafe_menu_no) {
+		int res = 0;
+		
+		try {
+			res = sqlSession.delete(namespace+"category_delete_all",cafe_menu_no);
+			System.out.println(res);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("category_delete_all 오류");
 		}
 		
 		return res;

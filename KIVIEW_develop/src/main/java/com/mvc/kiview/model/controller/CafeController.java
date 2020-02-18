@@ -184,10 +184,13 @@ public class CafeController {
    @RequestMapping("/menudelete.do")
    public void menu_delete(HttpServletResponse response, int cafe_no, int cafe_menu_no) throws IOException {
 	   
-	   	   
+	   System.out.println(cafe_menu_no);
 	   
 	   int res = 0;
-	   res = biz.menu_delete(cafe_menu_no);
+	   
+	   res = category_delete_all(cafe_menu_no);
+	   
+	   //res = biz.menu_delete(cafe_menu_no);
 	   
 	   PrintWriter out = response.getWriter();
 	   
@@ -204,6 +207,14 @@ public class CafeController {
 	   
 	   
 	   
+   }
+   
+   public int category_delete_all(int cafe_menu_no) {
+	   int res = 0;
+	   
+	   res = biz.category_delete_all(cafe_menu_no);
+	   
+	   return res;
    }
    
    

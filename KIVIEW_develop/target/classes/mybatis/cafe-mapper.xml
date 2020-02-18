@@ -60,6 +60,12 @@
      
      </select>
      
+     <select id="category_delete_all" parameterType="int">
+     	SELECT *
+     	FROM CAFE_CATEGORY
+     	WHERE CAFE_MENU_NO = #{cafe_menu_no}
+     </select>
+     
      <select id="category_delete" parameterType="int">
      	DELETE FROM
      	CAFE_CATEGORY
@@ -140,6 +146,8 @@
      
      
      </select>
+     
+     
      
      
      

@@ -136,11 +136,23 @@ public class CafeBizImpl implements CafeBiz {
 		
 		return dao.cafe_member_list(cafe_no);
 	}
-
+	
+	
 	@Override
 	public int menu_delete(int cafe_menu_no) {
 		
+			
 		return dao.menu_delete(cafe_menu_no);
+			
 	}
+	
+
+	@Override
+	public int category_delete_all(int cafe_menu_no) {
+		
+		return dao.category_delete_all(cafe_menu_no);
+	}
+
+	
 
 }
