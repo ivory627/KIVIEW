@@ -41,48 +41,52 @@
 					Kiview에서 활동하실 아이디와 비밀번호,<br class="jsx-3372927190">주소 등의 기본정보를
 					생성합니다.
 				</p>
-				<form class="jsx-3372927190">
+				<form class="jsx-3372927190" action="kiviewsignupres.do" id="signupForm" onsubmit="return signupChk()">
 					<div class="jsx-3372927190 label-box">
 						<label class="jsx-3712571264 "> <span
 							class="jsx-3712571264">이름&nbsp;</span>
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
 									<input required="" autocomplete="new-password"
-										placeholder="이름을 입력해주세요." class="jsx-639067573 " value="">
+										placeholder="이름을 입력해주세요" class="jsx-639067573 "
+										name="member_name">
 								</div>
 							</div>
 						</label>
 					</div>
 					<div class="jsx-3372927190 label-box">
 						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">아이디(이메일 주소)&nbsp;</span>
+							class="jsx-3712571264">아이디&nbsp;</span><span id="signupIdChk"></span>
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
 									<input required="" autocomplete="new-password"
-										placeholder="아이디로 사용될 이메일 주소를 입력해 주세요." class="jsx-639067573 "
-										value="">
+										placeholder="아이디를 입력해 주세요" class="jsx-639067573 "
+										name="member_id" id="member_id" onkeydown="idChkChk()">
+									<input type="hidden" name="idChkChk" value="idUnchecked" />
 								</div>
 								<button class="jsx-771227029 btn-id-check" type="button"
-									style="margin-left: 16px;">중복확인</button>
+									style="margin-left: 16px;" onclick="signupIdCkBtn()">중복확인</button>
 							</div></label>
 					</div>
 					<div class="jsx-3372927190 label-box">
 						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">비밀번호&nbsp;</span>
+							class="jsx-3712571264">비밀번호&nbsp;</span><span
+							id="signupPwdChkMsg"></span>
 							<div class="jsx-3372927190 first-password">
 								<div class="jsx-639067573 input">
 									<input type="password" minlength="10" maxlength="20"
-										required="" placeholder="비밀번호를 입력해주세요 (10~20자리)"
-										class="jsx-639067573 " value="">
+										required="" placeholder="비밀번호를 입력해주세요 (영문,숫자,특수문자 포함 10~20자리)"
+										class="jsx-639067573 " name="member_pwd" id="signupPwd">
 								</div>
-							</div></label>
-						<div class="jsx-3372927190">
-							<div class="jsx-639067573 input">
-								<input type="password" minlength="10" maxlength="20" required=""
-									placeholder="비밀번호를 다시 한번 확인 입력해 주세요." class="jsx-639067573 "
-									value="">
 							</div>
-						</div>
+							<div class="jsx-3372927190">
+								<div class="jsx-639067573 input">
+									<input type="password" minlength="10" maxlength="20"
+										required="" placeholder="비밀번호를 다시 한번 확인 입력해 주세요"
+										class="jsx-639067573 " id="signupPwdChk">
+								</div>
+							</div>
+						</label>
 					</div>
 					<div class="jsx-3372927190 label-box">
 						<label class="jsx-3712571264 "> <span
@@ -90,11 +94,22 @@
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
 									<input required="" autocomplete="new-password"
-										placeholder="휴대폰 번호를 입력해주세요(숫자만 입력)" class="jsx-639067573 "
-										value="">
+										placeholder="휴대폰 번호를 입력해주세요 (숫자만 입력)" class="jsx-639067573 "
+										name="member_phone">
 								</div>
 							</div>
 						</label>
+						<div class="jsx-3372927190 label-box">
+							<label class="jsx-3712571264 "> <span
+								class="jsx-3712571264">이메일&nbsp;</span>
+								<div class="jsx-3372927190 input-flex">
+									<div class="jsx-639067573 input">
+										<input required="" placeholder="이메일을 입력해주세요"
+											class="jsx-639067573 " name="member_email">
+									</div>
+								</div>
+							</label>
+						</div>
 					</div>
 					<div class="jsx-3372927190 label-box">
 						<label class="jsx-3712571264 "> <span
@@ -112,7 +127,7 @@
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
 									<input required="필수 입력사항" placeholder="도로명주소"
-										class="jsx-639067573 " value="">
+										class="jsx-639067573 " name="member_addr">
 								</div>
 							</div>
 						</label> <label class="jsx-3712571264 "> <span
@@ -132,10 +147,11 @@
 								onclick="location.href='kiviewsignupoption.do'">이전</button>
 						</div>
 						<div class="jsx-3372927190 btn-finish">
-							<button type="submit" class="jsx-1380763286 " id="complete-page">가입완료</button>
+							<button type="submit" class="jsx-1380763286" id="complete-page">가입완료</button>
 						</div>
 					</div>
 				</form>
+				
 				<div class="jsx-2358275923 banner">
 					<span class="jsx-2358275923 alt-text">아직도 댓글 알바에 속으세요? 댓글알바,
 						더이상 속지마세요! 솔직통쾌한 리뷰와 깨끗한 정보가 필요하다면?</span>
@@ -150,6 +166,9 @@
 
 	<!-- script -->
 	<script src="js/signup.min.js"></script>
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="resources/js/signup.js?version=1.0"></script>
 
 
 </body>

@@ -22,4 +22,14 @@ public class MemberBizImpl implements MemberBiz {
 		return dao.idSearch(vo);
 	}
 
+	@Override
+	public int signup(MemberVo vo) {
+		return dao.signup(vo);
+	}
+
+	@Override
+	public MemberVo signupIdChk(MemberVo vo) {
+		return dao.signupIdChk(vo);
+	}
+
 }

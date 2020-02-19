@@ -29,11 +29,38 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public MemberVo idSearch(MemberVo vo) {
 		MemberVo res = null;
+		
 		try {
 			res=sqlSession.selectOne(namespace+"idSearch",vo);
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("[error] : idSearch");
+		}		
+		return res;
+	}
+
+	@Override
+	public int signup(MemberVo vo) {
+		int res = 0;
+		
+		try {
+			res=sqlSession.insert(namespace+"signup",vo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("[error] : signup");
+		}		
+		return res;
+	}
+
+	@Override
+	public MemberVo signupIdChk(MemberVo vo) {
+		MemberVo res = null;	
+		
+		try {
+			res=sqlSession.selectOne(namespace+"signupIdChk",vo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("[error] : signup");
 		}		
 		return res;
 	}

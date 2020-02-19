@@ -1,7 +1,10 @@
+var searchedId = "";
+
 $(function() {
 	$('#loginChk').hide();
 	$('#loginIdChk').hide();
 	$('#loginPwdChk').hide();
+	$('#idUseBtn').hide();
 
 	$('.jsx-639067573').keydown(function(key) {
 		// 키의 코드가 13번일 경우 (엔터의 키코드는 13)
@@ -9,30 +12,22 @@ $(function() {
 			login();
 		}
 	});
-	
+
 	$('.find-id').keydown(function(key) {
 		if (key.keyCode == 13) {
 			idCk();
 		}
 	});
-	
-	$('#idCkBtn').click(function(){
+
+	$('#idCkBtn').click(function() {
 		$('#idSearchHTML').hide();
+		$('#idSearchRes').hide();
 		$('#idSearch_name').val("");
 		$('#idSearch_email').val("");
-		
+
 	});
 
 });
-
-$(function() {
-	$('#idCkBtn').click(function(){
-	      $('#idSearchHTML1').hide();
-	      $('#idSearchHTML2').hide();
-	      $('#idSearchRes').hide();
-	      
-	   });
-	});
 
 function login() {
 	var member_id = $("#member_id").val().trim();
@@ -46,14 +41,14 @@ function login() {
 	if (member_id == null || member_id == "") {
 		$('#loginChk').hide();
 		$('#loginPwdChk').hide();
-		$("#loginIdChk").show().html("ID를 입력해주세요.");
+		$("#loginIdChk").show().html("&nbsp;&nbsp;아이디를 입력해주세요.");
 		$('input').eq(0).val("");
 		$('input').eq(1).val("");
 
 	} else if (member_pwd == null || member_pwd == "") {
 		$('#loginChk').hide();
 		$('#loginIdChk').hide();
-		$("#loginPwdChk").show().html("PW를 입력해주세요.");
+		$("#loginPwdChk").show().html("&nbsp;&nbsp;비밀번호를 입력해주세요.");
 		$('input').eq(1).val("");
 
 	} else {
@@ -70,7 +65,7 @@ function login() {
 				} else {
 					$('#loginIdChk').hide();
 					$('#loginPwdChk').hide();
-					$("#loginChk").show().html("ID 혹은 PW가 잘못 되었습니다.");
+					$("#loginChk").show().html("아이디 혹은 비밀번호가 잘못 되었습니다.");
 					$('input').eq(0).val("");
 					$('input').eq(1).val("");
 				}
@@ -82,9 +77,8 @@ function login() {
 	}
 }
 
-		
-function idCk(){
-	
+function idCk() {
+
 	var member_name = $("#idSearch_name").val().trim();
 	var member_email = $('#idSearch_email').val().trim();
 
@@ -110,6 +104,10 @@ function idCk(){
 				if (msg != null) {
 					$('#idSearchHTML').hide();
 					$('#idSearchRes').show().html("ID: " + msg.idSearch.member_id);
+					searchedId = msg.idSearch.member_id;
+					
+					$('#idChkBtn').hide();
+					$('#idUseBtn').show();
 				} else {
 					$('#idSearchHTML').hide();
 					$("#idSearchHTML").show().html("이름 혹은 이메일이 잘못 되었습니다.");
@@ -124,22 +122,17 @@ function idCk(){
 				$('#idSearch_email').val("");
 			}
 		});
-		
+
 		$("#idSearchRes").hide();
-	
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
 
-
-
-
+function idUse(){
+	var id = searchedId;
+	$('#member_id').val(id);
+	$('#id01').hide();
+}
 
 

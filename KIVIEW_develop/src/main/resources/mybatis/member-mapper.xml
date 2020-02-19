@@ -4,19 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 
-	<select id="login" parameterType="memberVo"
-		resultType="memberVo">
+	<select id="login" parameterType="memberVo" resultType="memberVo">
 		SELECT * FROM MEMBER
 		WHERE MEMBER_ID = #{member_id} AND MEMBER_PWD = #{member_pwd}
 	</select>
 
-	<select id="idSearch" parameterType="memberVo"
-		resultType="memberVo">
+	<select id="idSearch" parameterType="memberVo" resultType="memberVo">
 		SELECT * FROM MEMBER
 		WHERE MEMBER_NAME = #{member_name} AND MEMBER_EMAIL = #{member_email}
 	</select>
 	
+	<insert id="signup" parameterType="memberVo">
+		INSERT INTO MEMBER
+		VALUES(member_seq.nextval, #{member_id}, #{member_pwd}, #{member_name}, #{member_addr}, #{member_phone}, #{member_email})
+	</insert>
 	
+	<select id="signupIdChk" parameterType="memberVo" resultType="memberVo">
+		SELECT * FROM MEMBER
+		WHERE MEMBER_ID = #{member_id}
+	</select>
 	
 	
 </mapper>
