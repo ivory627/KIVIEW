@@ -57,6 +57,14 @@ public interface CafeDao {
 	public String cafe_menu_name(int cafe_menu_no);
 
 	public int menu_update(CafeMenuVo menu);
+	
+	public int cafe_board_insert(CafeBoardVo cafeboardvo);
+
+	public CafeBoardVo cafe_board_detail(int cafe_board_no);
+
+	public int cafe_board_delete(int cafe_board_no);
+
+	public int cafe_board_update(CafeBoardVo cafeboardvo);
 	//------------------------------------------------------------------------
 	
 	public int category_delete(int category_no);
@@ -72,6 +80,8 @@ public interface CafeDao {
 	public int member_sign(int cafe_member_no);
 	
 	public int member_cancle(int cafe_member_no);
+
+	public List<CafeMemberVo> member_selectAll();
 
 	
 }

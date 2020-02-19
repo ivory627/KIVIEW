@@ -33,6 +33,10 @@ a {
 		var keyword = $('#cafesearch').val().trim();
 		location.href = "cafesearch.do?keyword=" + keyword;
 	}
+	
+	
+	
+	
 </script>
 
 </head>
@@ -81,14 +85,15 @@ a {
 
 					<!-- 여기서부터 반복 -->
 					<c:choose>
-						<c:when test="${empty list }">
+						<c:when test="${empty cafe }">
 							<div class="row">
 								<label>가입한 카페가 없습니다.</label>
 
 							</div>
 						</c:when>
 						<c:otherwise>
-							<c:forEach items="${list }" var="vo">
+							<c:forEach items="${cafe }" var="cafe">
+								
 
 								<div class="row">
 
@@ -96,9 +101,9 @@ a {
 									<div class="col-md-12 course d-lg-flex ftco-animate"
 										style="padding: 30px; margin: 0px; padding-bottom: 0px;">
 										<div style="width: 25%; margin-right: 30px;">
-											<a href="cafedetail.do?cafe_no=${vo.cafe_no }"> <span><img
+											<a href="cafedetail.do?cafe_no=${cafe.cafe_no }&member_no=${login.member_no}"> <span><img
 													style="width: 80%; height: 100%"
-													src='http://localhost:8787/img/${vo.thumb }' /></span></a>
+													src='http://localhost:8787/img/${cafe.thumb }' /></span></a>
 
 
 
@@ -106,30 +111,65 @@ a {
 
 										<div style="width: 70%">
 											<h3 style="margin: 0px">
-												<a href="cafedetail.do?cafe_no=${vo.cafe_no }"
-													style="cursor: pointer">" ${vo.title } "</a>
+												<a href="cafedetail.do?cafe_no=${cafe.cafe_no }&member_no=${login.member_no}"
+													style="cursor: pointer">" ${cafe.title } "</a>
 											</h3>
+											
+											
 											<p>
-												<span>${vo.admin }</span> | <span>게시글 수</span> | <span>회원
-													수</span>
-
+												<span>${cafe.admin }</span> | <span>게시글 수</span> | 
+												
+												<c:set var="count" value="0"/>
+													<c:forEach items="${member }" var="member">
+													
+														<c:if test="${cafe.cafe_no == member.cafe_no }">
+															<c:set var="count" value="${count+1 }"/>
+															
+																
+																<span>${count}</span>
+															
+														
+														</c:if>
+													
+													</c:forEach>
+												
 											</p>
-											<p class="intro">${vo.intro }</p>
-
+											
+											<p class="intro">${cafe.intro }</p>
+											
 
 										</div>
 
 									</div>
 
 									<div style="padding: 0px; width: 100%;">
-										<br> <input style="position: relative; left: 90%;"
-											class="btn btn-secondary" type="button" value="탈퇴">
-										<hr>
+										
+										<c:if test="${cafe.admin ne login.member_id }">
+											<c:forEach var="member" items="${member }">
+												<c:if test="${cafe.cafe_no == member.cafe_no }">
+													<br> <input style="position: relative; left: 90%; background-color:black"
+														class="btn btn-secondary" type="button" value="탈퇴"
+														onclick="location.href='memberdelete.do?cafe_member_no=${member.cafe_member_no}'" >
+													<hr> 
+												</c:if>
+											</c:forEach>
+										</c:if>  
+										<c:if test="${cafe.admin eq login.member_id }">
+											<c:forEach var="member" items="${member }">
+												<c:if test="${cafe.cafe_no == member.cafe_no }">
+													<br> <input style="position: relative; left: 90%; background-color:black"
+														class="btn btn-secondary" type="button" value="폐쇄"
+														onclick="location.href='cafedelete.do?cafe_no=${member.cafe_no}'" >
+													<hr> 
+												</c:if>
+											</c:forEach>
+										</c:if>
 									</div>
 
 
 								</div>
-							</c:forEach>
+								</c:forEach> 
+							
 						</c:otherwise>
 
 					</c:choose>

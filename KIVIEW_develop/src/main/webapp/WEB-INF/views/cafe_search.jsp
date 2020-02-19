@@ -109,7 +109,7 @@ function test(){
               <div class="col-md-6 col-lg-4 ftco-animate"
                      style="position: relative; left: 40%">
                      <br>
-                     <br> 검색 된 카페가 없습니다. <br>
+                     <br> 검색 된 카페가 없습니다. [버튼] 추가 하자 카페 전체 목록 뿌려주자. <br>
                      <br>
                   </div>         
             
@@ -121,7 +121,7 @@ function test(){
             <div class="col-md-6 col-lg-4 ftco-animate">
                <div class="blog-entry">
                   <!-- 썸네일 -->
-                  <a href="cafedetail.do?cafe_no=${Slist.cafe_no }&member_no=${login.member_no }" class="block-20 d-flex align-items-end"
+                  <a href="cafedetail.do?cafe_no=${Slist.cafe_no }&memberno=${login.member_no }" class="block-20 d-flex align-items-end"
                      style="background-image: url('http://localhost:8787/img/${Slist.thumb }');"> <!-- 가입제한 -->
                      <div class="meta-date text-center p-2">
                         <span class="mos"> 
@@ -138,14 +138,14 @@ function test(){
                   <div class="text bg-white p-4">
                      <!-- 카페명 -->
                      <h3 class="heading">
-                        <a href="cafe_detail.do?cafe_no=${Slist.cafe_no}&member_no=${login.member_no }">${Slist.title }</a>
+                        <a href="cafe_detail.do?cafe_no=${Slist.cafe_no}&memberno=${login.member_no }">${Slist.title }</a>
                      </h3>
 
                      <!-- 카페소개 -->
                      <p>${Slist.intro }</p>
                      <div class="d-flex align-items-center mt-4">
                         <p class="mb-0">
-                           <a href="cafedetail.do?cafe_no=${Slist.cafe_no }&member_no=${login.member_no }" class="btn btn-secondary">들어가기 <span
+                           <a href="cafedetail.do?cafe_no=${Slist.cafe_no }&memberno=${login.member_no }" class="btn btn-secondary">들어가기 <span
                               class="ion-ios-arrow-round-forward"></span></a>
                         </p>
                         <p class="ml-auto mb-0">

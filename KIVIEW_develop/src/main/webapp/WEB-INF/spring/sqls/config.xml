@@ -7,8 +7,9 @@
 	<typeAliases>
 		
 		<!-- 유치원 관련 -->
-		<typeAlias type="com.mvc.kiview.model.vo.KinderVo" alias="KinderVo"/>
 		<typeAlias type="com.mvc.kiview.model.vo.ProvinceVo" alias="ProvinceVo"/>
+		<typeAlias type="com.mvc.kiview.model.vo.KinderVo" alias="KinderVo"/>
+		
 		
 		<!-- 카페 관련 -->
 		<typeAlias type="com.mvc.kiview.model.vo.CafeVo" alias="CafeVo"/>

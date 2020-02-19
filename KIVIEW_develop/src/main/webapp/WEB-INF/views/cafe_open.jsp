@@ -149,7 +149,7 @@ function check(){
                   <div id="question" class="form-group" >
                         <label>가입 질문</label><br> <input type="text" name="question"
                            size="55" placeholder="가입시 질문을 입력하세요."
-                           minlength="2" maxlength="100" required>
+                           minlength="4" maxlength="100" required>
 
 
                   </div>
@@ -160,7 +160,7 @@ function check(){
                   <div class="form-group">
                      <label>한줄 소개</label><br>
                      <textarea name="intro" id="" cols="30" rows="7" class="form-control"
-                        placeholder="간단한 소개글을 입력하세요."  minlength="2" maxlength="100" required></textarea>
+                        placeholder="간단한 소개글을 입력하세요."  minlength="4" maxlength="100" required></textarea>
                   </div>
                   
                   

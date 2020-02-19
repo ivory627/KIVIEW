@@ -69,9 +69,15 @@ public class CafeController {
 	@RequestMapping("cafemy.do")
 	public String cafe_my(Model model, int member_no) {
 
-		List<CafeVo> list = new ArrayList();
-
-		model.addAttribute("list", biz.cafe_Ulist(member_no));
+		List<CafeVo> cafe = biz.cafe_Ulist(member_no);
+		List<CafeMemberVo> member = biz.member_selectAll(); 
+		
+		
+		model.addAttribute("cafe", cafe);
+		model.addAttribute("member",member);
+		
+		System.out.println(cafe);
+		System.out.println(member);
 
 		return "cafe_my";
 
@@ -439,6 +445,12 @@ public class CafeController {
 		return map;
 	}
 	
+	@RequestMapping("/memberdelete.do")
+	public String member_delete() {
+		
+		return null;
+	}
+	
 	
 	
 	
@@ -675,4 +687,87 @@ public class CafeController {
 		 */
 		return map;
 	}
+	
+	
+	@RequestMapping("/cafeboardinsert")
+	   public String cafe_board_insert(String title,String content,String category, String writer, int cafe_menu_no, int cafe_no) {
+	      
+	      
+	      CafeBoardVo cafeboardvo = new CafeBoardVo();
+	      cafeboardvo.setCafe_menu_no(cafe_menu_no);
+	      cafeboardvo.setCategory(category.trim());      
+	      cafeboardvo.setTitle(title);
+	      cafeboardvo.setWriter(writer);
+	      cafeboardvo.setContent(content);
+	            
+	      int res = biz.cafe_board_insert(cafeboardvo);   
+	      
+	                  
+	       if(res>0) {
+	          System.out.println("111111");
+	          return "redirect:cafeboardlist.do?cafeno="+cafe_no+"&cafe_menu_no="+cafe_menu_no;
+	          
+	       }else {
+	          System.out.println("2222222");          
+	          return "redirect:cafeboardwriteform?cafeno="+cafe_no+"cafe_menu_no="+cafe_menu_no;
+	       }
+	      
+	   }
+	   @RequestMapping("/cafeboarddetail.do")
+	   public String cafe_board_detail(int cafe_board_no , Model model,int cafe_menu_no,int cafe_no) {
+	      List list = sidebar(cafe_no); 
+	      model.addAttribute("cafe_list", list );
+	      
+	      CafeBoardVo cafeboardvo = biz.cafe_board_detail(cafe_board_no);
+	      model.addAttribute("cafe_board_detail",cafeboardvo);      
+	      model.addAttribute("cafe_no",cafe_no);
+	      model.addAttribute("cafe_menu_no",cafe_menu_no);
+	      
+	      return "cafe_board_detail";
+	   }
+	   @RequestMapping("/cafeboarddelete.do")
+	   public String cafe_board_delete(Model model,int cafe_board_no , int cafe_menu_no,int cafe_no) {
+	      int res = biz.cafe_board_delete(cafe_board_no);
+	      
+	      System.out.println(res);
+	      if(res>0) {
+	            return "redirect:cafeboardlist.do?cafe_no="+cafe_no+"&cafe_menu_no="+cafe_menu_no;
+	      }else {
+	         return "redirect:cafeboarddetail.do?cafe_no="+cafe_no+"&cafe_menu_no="+cafe_menu_no+"&cafe_board_no="+cafe_board_no;
+	      }      
+	      
+	   }
+	   @RequestMapping("/cafeboardupdateform.do")
+	   public String cafe_board_updateform(Model model,int cafe_board_no,int cafe_no,int cafe_menu_no) {
+	      CafeBoardVo cafeboardvo = biz.cafe_board_detail(cafe_board_no);
+	      
+	      List list = sidebar(cafe_no); 
+	      model.addAttribute("cafe_list", list );
+	      
+	      model.addAttribute("cafeboardvo",cafeboardvo);
+	      model.addAttribute("cafe_no",cafe_no);
+	      model.addAttribute("cafe_menu_no",cafe_menu_no);
+	      model.addAttribute("cafe_board_no",cafe_board_no);
+	      return "cafe_board_update";
+	   }
+	   
+	   
+	   @RequestMapping("/cafeboardupdate.do")
+	   public String cafe_board_update(Model model,int cafe_no,int cafe_board_no,int cafe_menu_no,CafeBoardVo cafeboardvo) {
+	      List list = sidebar(cafe_no); 
+	      model.addAttribute("cafe_list", list );
+	      
+	         int res = biz.cafe_board_update(cafeboardvo);
+	         
+	         if(res>0) {
+	            return "redirect:cafeboarddetail.do?cafe_no="+cafe_no+"&cafe_menu_no="+cafe_menu_no+"&cafe_board_no="+cafe_board_no;
+	         }else {
+	            return "redirect:cafeboardupdateform.do?cafe_no="+cafe_no+"&cafe_menu_no="+cafe_menu_no+"&cafeboardvo"+cafeboardvo+"&cafe_board_no"+cafe_board_no;
+	         }
+	      
+	   }
+	
+	
+	
+	
 }

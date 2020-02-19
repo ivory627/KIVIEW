@@ -16,9 +16,15 @@
     
     <%@ include file = "head.jsp" %>
 <style type="text/css">
-
+	
 
 </style>
+<script type="text/javascript">
+$(function(){
+	alert('${cafe_list[0].cafe_no}');
+})
+
+</script>
   </head>
   
   <body id = "body">
@@ -70,7 +76,7 @@
                   <th>조회수</th>
                   </tr>
                   <c:choose>
-                  <c:when test="${fn:length(cafe_list[3]) == 0 }" >
+                  <c:when test="${fn:length(Blist) == 0 }" >
                   <tr>
                      <td  colspan="5" >
                         <p>작성 된 게시글이 없습니다.</p>
@@ -79,19 +85,22 @@
                   </c:when>
                   
                   <c:otherwise>
-                  <c:forEach var="boardlist" items="${cafe_list[3] }">
+                  <c:forEach var="boardlist" items="${Blist }">
                   <tr>
                   <td>${boardlist.cafe_board_no }</td>
                   <td>${boardlist.writer }</td>
-                  <td><a href="cafe_board_detail.jsp" style="font-size:small; text-align:left">
-                  <c:if test="${fn:length(boardlist.catergory)!=0}">
-                  [ ${boardlist.category } ]
-                  </c:if>
+                  <td> 
+                  <a href="cafeboarddetail.do?cafe_board_no=${boardlist.cafe_board_no }&cafe_menu_no=${cafe_list[1].cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }" style="font-size:small; text-align:left">
+                  <c:if test="${fn:length(boardlist.category) != 0 && boardlist.category ne 'null' }">
+                  [ ${boardlist.category } ] ${boardlist.title } 
+                  </c:if> 
+                  
                   ${boardlist.title }
                   
                   [1] 댓글 추가하자!
                   
-                  </a></td>
+                  </a>
+                  </td>
                   <td>${boardlist.regdate }</td>
                   <td>${boardlist.hit }</td> 
                   </tr>
@@ -104,7 +113,7 @@
                </table> 
                
                <div align=right>
-               <input type="button" value="글작성" class="btn btn-secondary" onclick="location.href='cafeboardwrite.do'">
+               <input type="button" value="글작성" class="btn btn-secondary" onclick="location.href='cafeboardwriteform.do?cafe_menu_no=${cafe_list[1].cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }'">
                </div>
                
                <div align=center>

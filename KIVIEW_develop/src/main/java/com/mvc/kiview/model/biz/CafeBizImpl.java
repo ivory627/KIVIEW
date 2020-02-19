@@ -172,7 +172,31 @@ public class CafeBizImpl implements CafeBiz {
 	   }
     
 	   
-	   //--게시판 관리--//
+	   @Override
+	   public int cafe_board_insert(CafeBoardVo cafeboardvo) {
+	      
+	      return dao.cafe_board_insert(cafeboardvo);
+	   }
+
+	   @Override
+	   public CafeBoardVo cafe_board_detail(int cafe_board_no) {
+	      
+	      return dao.cafe_board_detail(cafe_board_no);
+	   }
+
+	   @Override
+	   public int cafe_board_delete(int cafe_board_no) {
+	      
+	      return dao.cafe_board_delete(cafe_board_no);
+	   }
+
+	   @Override
+	   public int cafe_board_update(CafeBoardVo cafeboardvo) {
+	      
+	      return dao.cafe_board_update(cafeboardvo);
+	   }
+	   
+	   //
 	
 	   @Override
 	public int menu_update(CafeMenuVo menu) {
@@ -228,6 +252,12 @@ public class CafeBizImpl implements CafeBiz {
 	public int member_cancle(int cafe_member_no) {
 		
 		return dao.member_cancle(cafe_member_no);
+	}
+
+	@Override
+	public List<CafeMemberVo> member_selectAll() {
+		
+		return dao.member_selectAll();
 	}
 	
 
