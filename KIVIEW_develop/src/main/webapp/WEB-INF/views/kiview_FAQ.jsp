@@ -19,6 +19,7 @@
 
 <!-- js -->	
 <script type="text/javascript" src = "resources/js/faq.js"></script>
+<script type="text/javascript" src = "resources/js/test.js"></script>
 
 
 </head>
@@ -77,20 +78,20 @@
 			<div class="jsx-2342570284 faq-box faq-box--kindergarten">
 			
 				<!-- 분류 카테고리 부분 -->
-				<form action="" method = "get" id = "faqform">
-				<ul class="jsx-2342570284 faq-tab">
+				<form action="kiviewfaq.do" method = "get" name = "faqcatdform">
+				<ul class="jsx-2342570284 faq-tab" id = "tabul">
 					<li class="jsx-2342570284">
-					<button class="jsx-2342570284 " ${param.keyword eq '' ? 'active':''} id = "btn01" name="keyword" value="">전체</button></li>
+					<button class="jsx-2342570284 ${param.keyword eq '' ? 'active':''}" type = "submit" id = "btn01" 
+					name="keyword" value="">전체</button></li>
 					<li class="jsx-2342570284">
-					<button class="jsx-2342570284 " id = "btn02" name="keyword" value="리뷰">리뷰</button></li>
+					<button class="jsx-2342570284 ${param.keyword eq '리뷰' ? 'active':''}" type = "submit" id = "btn02" name="keyword" value="리뷰">리뷰</button></li>
 					<li class="jsx-2342570284">
-					<button class="jsx-2342570284 " id = "btn03" name="keyword" value="회원">회원</button></li>
+					<button class="jsx-2342570284 ${param.keyword eq '회원' ? 'active':''}" type = "submit" id = "btn03" name="keyword" value="회원">회원</button></li>
 					<li class="jsx-2342570284">
-					<button class="jsx-2342570284 " id = "btn04" name="keyword" value="서비스">서비스</button></li>
-					
-					
+					<button class="jsx-2342570284 ${param.keyword eq '서비스' ? 'active':''}" type = "submit" id = "btn04" name="keyword" value="서비스">서비스</button></li>
 				</ul>
 				</form>
+				
 				<!-- 분류 카테고리 끝 -->
 				<div class="jsx-2342570284 faq-item-box">
 					<h3 class="jsx-2342570284">
@@ -106,18 +107,22 @@
 					<c:when test="${!empty faqlist}">
 					<c:forEach var = "faqlist" items = "${faqlist}" varStatus="status">
 					<ul class="jsx-2342570284 faq-item-list" id = "faqul">
-						<li class="jsx-357641531 question-item--kindergarten" id = "faqli">
-							<button type="button" class="jsx-357641531" id = "subbtn" name="faq_no" 
+						<li class="jsx-357641531 question-item--kindergarten" id = "faqli${faqlist.faq_no}">
+							<button type="button" class="jsx-357641531" id = "subbtn${faqlist.faq_no}" name="faq_no" 
 							value="${faqlist.faq_no}" style = "outline:none;">
 								<span class="jsx-357641531 question-icon" style = "background-color:#FFDC00;">Q</span>
 								<span class="jsx-357641531 tab-name">${faqlist.faq_catd}</span>
-								<p class="jsx-357641531" >${faqlist.faq_title}</p>
+								<p class="jsx-357641531" id = "title${faqlist.faq_no}">${faqlist.faq_title}</p>
 								<span class="jsx-357641531 arrow"></span>
 							</button>
 							<div class="jsx-357641531 content" id = "comment">
 								<div class="jsx-2567501591 editor">
 									<div class="fr-view">
-										<p id = "comm">${faqlist.faq_content}</p>
+										<p id = "${faqlist.faq_no}">${faqlist.faq_content}</p>
+									</div>
+									<div class="jsx-1407906967 btn-write btn-write--kindergarten fix-position">
+									<button class="jsx-1407906967"><span>수정</span></button>
+									<button class="jsx-1407906967"><span>삭제</span></button>
 									</div>
 								</div>
 							</div>

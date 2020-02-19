@@ -100,7 +100,11 @@ a, a:hover, a:active, a:visited, a:focus {
     flex-basis: 25%;
 }
 .faq-box--kindergarten.jsx-2342570284 .faq-tab.jsx-2342570284 li.jsx-2342570284 button.active.jsx-2342570284 {
-    color: rgb(255, 157, 31);
+    color: #ff9d1f;
+}
+.faq-tab.jsx-2342570284 li.jsx-2342570284 button.active.jsx-2342570284{
+	background-color: #ffffff;
+    font-weight: 700;
 }
 button {
     background: none;
@@ -193,6 +197,16 @@ p {
     border-right: 7px solid transparent;
     border-left: 7px solid transparent;
 }
+
+li.open.jsx-357641531 .arrow.jsx-357641531 {
+    border-top: none;
+    border-bottom: 8px solid rgb(143, 143, 143);
+}
+
+li.question-item--kindergarten.open.jsx-357641531 p.jsx-357641531{
+	color:rgb(231, 108, 7);
+}
+
 .pagination.jsx-2419612476 {
     display: flex;
     -webkit-box-pack: center;

@@ -74,13 +74,13 @@
 	<sql id="catdlist">
 		<if test = "keyword != null and keyword != ''">
 			<if test="keyword == '리뷰'.toString()">
-				WHERE FAQ_CATD LIKE '%' ||  #{keyword} || '%'
+				WHERE FAQ_CATD = #{keyword}
 			</if>
 			<if test="keyword == '회원'.toString()">
-				WHERE FAQ_CATD LIKE '%' ||  #{keyword} || '%'
+				WHERE FAQ_CATD = #{keyword} 
 			</if>
 			<if test="keyword == '서비스'.toString()">
-				WHERE FAQ_CATD LIKE '%' ||  #{keyword} || '%'
+				WHERE FAQ_CATD = #{keyword}
 			</if>
 		</if>
 	</sql>

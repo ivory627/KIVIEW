@@ -3,6 +3,7 @@ $(function(){
 	$("#faqul li").find("#comment").hide(); 
 	//#faqul id의 자식 li에서 #comment id를 가진 요소를 찾아서 hide
 	
+	
 $("button[name='faq_no']").click(function(){
 		
 		var faq_no = $(this).val();
@@ -19,10 +20,18 @@ $("button[name='faq_no']").click(function(){
 				dataType: "json",
 				success:function(result){
 					
+					$("#"+result.faq_no).html(result.faq_content);
+					$("#"+"faqli"+result.faq_no).addClass("open");
+					
+					$("#"+"subbtn"+result.faq_no).click(function(){
+						$("#"+"faqli"+result.faq_no).removeClass("open");
+					})
+					
 				},error:function(){
 					alert("통신 실패");
 				}
 			});
 		}
 	});
+
 })

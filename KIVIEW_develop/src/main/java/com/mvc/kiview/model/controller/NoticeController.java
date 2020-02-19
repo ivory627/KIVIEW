@@ -165,6 +165,7 @@ public class NoticeController {
 
 		return map;
 	}
+	
 
 	/* FAQ 글쓰기 폼 */
 	@RequestMapping("/kiviewfaqwrite.do")
@@ -190,5 +191,11 @@ public class NoticeController {
 		}
 
 	}
+	
+	
+	
+	
+	
+	
 
 }
