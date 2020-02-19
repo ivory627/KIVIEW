@@ -73,8 +73,7 @@ public class PageMaker {
 		
 		//FAQ의 분류 카테고리를 눌렀을 때 ?
 		if(this.cri.getKeyword() != null) {
-			uriComponentsBuilder.queryParam("keyword", this.cri.getKeyword()).queryParam("keyword",
-					this.cri.getKeyword());
+			uriComponentsBuilder.queryParam("keyword", this.cri.getKeyword());
 		}
 		
 		// 검색 한 경우

@@ -38,102 +38,12 @@ $(function(){
 	
 	$("#sortsel").on('change', function(){
 		$("#sortform").submit();
-	})
+		
+	});
 	
 	$("#selcatd").on('change', function(){
 		$("#catdform").submit();
-	})
-	
-	$("#btn01").click(function(){
-		$("#btn01").addClass("active");
-	})
-	$("#btn02").click(function(){
-		$("#btn02").addClass("active");
-	})
+	});
 	
 });
-
-/*function all(){
-	
-	$("#faqform").submit();
-	
-	var page = $("#page").val();
-	var perPageNum = $("#perPageNum").val();
-	var keyword = $("#btn01").val();
-	
-	var data = {"page":page,
-				"perPageNum":perPageNum,
-				 "keyword":keyword
-				};
-	
-	var ajaxOption = {
-			url:"kiviewfaq.do?page="+page+"&perPageNum="+perPageNum+"&keyword="+keyword,
-			type:"get",
-			data:data,
-			dataType:"html"
-		}
-	
-	$.ajax(ajaxOption).done(function(data){
-		$("#faqul").remove();
-		$("#faqul").html(data);
-	});
-	
-}
-function review(){
-	
-	$("#faqform").submit();
-	
-	$.ajax({
-		type:"post",
-		url:"kiviewfaq.do",
-		dataType: "html",
-		success:function(msg){
-			alert("리뷰 alert");
-			if($("#btn02").val() == '리뷰'){
-				$("#btn02").css("color", "rgb(255, 157, 31)");
-			}
-			
-		},
-		error:function(){
-			alert("통신 실패");
-		}
-	});
-	
-	
-}
-function member(){
-	
-	$("#faqform").submit();
-	
-	var page = $("#page").val();
-	var perPageNum = $("#perPageNum").val();
-	var keyword = $("#btn03").val();
-	
-	var data = {"page":page,
-				"perPageNum":perPageNum,
-				 "keyword":keyword
-				};
-	
-	var ajaxOption = {
-			url:"kiviewfaq.do",
-			type:"get",
-			data:data,
-			dataType:"html"
-		}
-	
-	$.ajax(ajaxOption).done(function(data){
-		$("#faqul").remove();
-		$("#faqul").html(data);
-	});
-	
-	
-}
-function service(){
-	
-	$("#faqform").submit();
-	
-	
-	
-}*/
-
 

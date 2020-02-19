@@ -150,7 +150,7 @@ public class NoticeDaoImpl implements NoticeDao {
 		FAQVo f_vo = null;
 
 		try {
-			f_vo = sqlSession.selectOne(namespace + "faqDetail" + faq_no);
+			f_vo = sqlSession.selectOne(namespace + "faqDetail",faq_no);
 		} catch (Exception e) {
 			System.out.println("[error] : FAQ_selectOne");
 			e.printStackTrace();
@@ -217,5 +217,6 @@ public class NoticeDaoImpl implements NoticeDao {
 
 		return res;
 	}
+
 
 }

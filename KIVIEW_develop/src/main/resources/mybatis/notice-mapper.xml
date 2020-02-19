@@ -113,7 +113,7 @@
 		SELECT * FROM NOTICE
 		WHERE NOTICE_NO = #{notice_no}
 	</select>
-	<select id="faqDetail" parameterType="int" resultType="noticeVo">
+	<select id="faqDetail" parameterType="int" resultType="FAQVo">
 		SELECT FAQ_CONTENT FROM FAQ
 		WHERE FAQ_NO = #{faq_no}
 	</select>

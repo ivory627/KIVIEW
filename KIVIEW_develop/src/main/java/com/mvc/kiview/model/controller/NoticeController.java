@@ -1,27 +1,22 @@
 package com.mvc.kiview.model.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mvc.kiview.model.biz.NoticeBiz;
 import com.mvc.kiview.model.vo.Criteria;
+import com.mvc.kiview.model.vo.FAQVo;
 import com.mvc.kiview.model.vo.NoticeVo;
 import com.mvc.kiview.model.vo.PageMaker;
 
@@ -42,7 +37,7 @@ public class NoticeController {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(n_biz.notice_count(cri));
-		
+
 		model.addAttribute("noticelist", n_biz.noticeList(cri));
 		model.addAttribute("pageMaker", pageMaker);
 
@@ -127,32 +122,49 @@ public class NoticeController {
 
 	}
 
+	/* kiview 소개 페이지 */
 	@RequestMapping("/kiviewintro.do")
 	public String kiview_intro() {
 		return "kiview_intro";
 	}
 
+	/* FAQ 처음 로딩시 전체 list */
 	@RequestMapping("/kiviewfaq.do")
 	public String kiview_faq(Model model, Criteria cri) {
-		
+
 		logger.info("FAQ LIST");
-		
+
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(n_biz.faq_count(cri));
-		
+
 		model.addAttribute("faqlist", n_biz.faqList(cri));
 		model.addAttribute("pageMaker", pageMaker);
-		
+
 		return "kiview_FAQ";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+	/* FAQ 질문 Detail AJAX 처리 메소드 */
+	@RequestMapping("/kiviewone.do")
+	@ResponseBody
+	public Map<String, Object> kiview_faq_one(@RequestParam("faq_no") int faq_no, Criteria cri) {
+
+		logger.info("FAQ SELECT ONE");
+
+		FAQVo faq_one = new FAQVo();
+		List<FAQVo> list = new ArrayList<>();
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		faq_one = n_biz.f_selectOne(faq_no);
+		list = n_biz.faqList(cri);
+		String content = faq_one.getFaq_content();
+		map.put("faq_content", content);
+		map.put("list", list);
+		map.put("faq_no", faq_no);
+		
+		
+		return map;
+	}
 
 }
