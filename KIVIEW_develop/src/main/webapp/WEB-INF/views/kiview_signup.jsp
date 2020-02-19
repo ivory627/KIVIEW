@@ -41,7 +41,7 @@
 					Kiview에서 활동하실 아이디와 비밀번호,<br class="jsx-3372927190">주소 등의 기본정보를
 					생성합니다.
 				</p>
-				<form class="jsx-3372927190" action="kiviewsignupres.do" id="signupForm" onsubmit="return signupChk()">
+				<form class="jsx-3372927190" action="kiviewsignupres.do" name="signupForm" id="signupForm" onsubmit="return signupChk()">
 					<div class="jsx-3372927190 label-box">
 						<label class="jsx-3712571264 "> <span
 							class="jsx-3712571264">이름&nbsp;</span>
@@ -49,20 +49,20 @@
 								<div class="jsx-639067573 input">
 									<input required="" autocomplete="new-password"
 										placeholder="이름을 입력해주세요" class="jsx-639067573 "
-										name="member_name">
+										name="member_name" id="member_name">
 								</div>
 							</div>
 						</label>
 					</div>
 					<div class="jsx-3372927190 label-box">
 						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">아이디&nbsp;</span><span id="signupIdChk"></span>
+							class="jsx-3712571264">아이디&nbsp;</span><span class="jsx-3712571264" id="signupIdChk"></span>
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
 									<input required="" autocomplete="new-password"
 										placeholder="아이디를 입력해 주세요" class="jsx-639067573 "
 										name="member_id" id="member_id" onkeydown="idChkChk()">
-									<input type="hidden" name="idChkChk" value="idUnchecked" />
+									<input type="hidden" id="idChkChk" value="idUnchecked" />
 								</div>
 								<button class="jsx-771227029 btn-id-check" type="button"
 									style="margin-left: 16px;" onclick="signupIdCkBtn()">중복확인</button>
@@ -70,8 +70,7 @@
 					</div>
 					<div class="jsx-3372927190 label-box">
 						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">비밀번호&nbsp;</span><span
-							id="signupPwdChkMsg"></span>
+							class="jsx-3712571264">비밀번호&nbsp;</span><span class="jsx-3712571264" id="signupPwdChkMsg"></span>
 							<div class="jsx-3372927190 first-password">
 								<div class="jsx-639067573 input">
 									<input type="password" minlength="10" maxlength="20"
@@ -168,7 +167,97 @@
 	<script src="js/signup.min.js"></script>
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" src="resources/js/signup.js?version=1.0"></script>
+	<!-- <script type="text/javascript" src="resources/js/signup.js?version=1.0"></script> -->
+	
+	<script type="text/javascript">
+
+	$(function() {
+		$('#signupIdChk').hide();
+		$('#signupPwdChkMsg').hide();
+	});
+
+	//아이디 중복체크
+	function signupIdCkBtn(){
+		var member_id = $("#member_id").val();
+		
+		var idChkVal = {
+			"member_id" : member_id,
+		};
+		
+		//아이디 정규식
+		var idReg =  /^[a-z]{1}[a-z0-9]{4,19}$/;
+        if( !idReg.test( member_id ) ) {
+            $("#signupIdChk").show().html("");
+            $("#signupIdChk").show().css("color","red").html("&nbsp;&nbsp;영소문자 혹은 영소문자/숫자 조합, 5~20자리로 입력해주세요");
+            return;
+            
+        } else {
+			$.ajax({
+				type : "post",
+				url : "kiviewsignupidchk.do",
+				data : JSON.stringify(idChkVal),
+				contentType : "application/json",
+				dataType : "json",
+				success : function(msg) {
+						$("#signupIdChk").show().html("");
+						$("#signupIdChk").show().css("color","red").html("&nbsp;&nbsp;사용 불가능한 아이디입니다");
+				},
+				error : function() {
+					$("#signupIdChk").show().html("");
+					$("#signupIdChk").show().css("color","blue").html("&nbsp;&nbsp;사용 가능한 아이디입니다");
+				}
+			});
+		
+		}
+		
+	}
+
+
+
+	//회원가입 확인
+	function signupChk(){
+
+		//비밀번호 확인
+		var signupPwd = $("#signupPwd").val();
+		var signupPwdChk = $("#signupPwdChk").val();
+		
+		if(signupPwd != signupPwdChk){
+			$("#signupPwdChkMsg").show().html("");
+			$("#signupPwdChkMsg").show().css('color', 'red').html("&nbsp;&nbsp;비밀번호가 일치하지 않습니다");
+			
+			var offset = $('#member_name').offset();
+			$('html').animate({scrollTop : offset.top}, 400);
+
+			return false;
+			
+		} else{
+
+			//비밀번호 정규식
+			if (!/^.*(?=^.{10,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(signupPwd)) {
+				$("#signupPwdChkMsg").show().html("");
+				$("#signupPwdChkMsg").show().css('color', 'red').html("&nbsp;&nbsp;영문, 숫자, 특수문자를 포함 10~20자리를 사용해야 합니다");
+				
+				var offset = $('#member_name').offset();
+				$('html').animate({scrollTop : offset.top}, 400);
+
+				return false;
+			}
+
+			return true;
+
+		}
+	}
+
+
+	function idChkChk(){	//??
+		alert("!!!");
+		document.signupForm.idChkChk.value = "idUncheck";
+		$('#idChkChk').val("idUnchecked");
+		alert($('#idChkChk').val());
+	}
+
+
+	</script>
 
 
 </body>

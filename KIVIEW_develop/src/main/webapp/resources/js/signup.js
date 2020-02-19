@@ -76,6 +76,7 @@ function signupChk(){
 
 
 function idChkChk(){
+	alert(event.keycode);//삭제
 	$('#idChkChk').val("idUnchecked");
 	alert($('#idChkChk').val());//삭제
 }
