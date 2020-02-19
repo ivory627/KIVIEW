@@ -112,36 +112,37 @@
                                     
                   <br>
                   
-                  <form action="cafejoin.do">
-                     <input type="hidden" name="cafe_no" value="${cafevo.cafe_no }" />
-                     <input type="hidden" name="memberno" value="${login.member_no }"/>
+                  <form action="cafejoin.do" method="get">
+                     <input type="hidden" name="cafe_no" value="${cafe_list[0].cafe_no }" />
+                     <input type="hidden" name="member_no" value="${login.member_no }"/>
+                     <input type="hidden" name="name" value="${login.member_id }">
                          <div class="form-group">
                            <label>카페명</label><br>
-                           <p>${cafevo.title }</p> 
+                           <p>${cafe_list[0].title }</p> 
                         </div>
-                        <br>
+                        <br> 
                         <div class="form-group">
                            <label>한줄 소개</label><br>
-                           <p>${cafevo.intro }</p>                           
+                           <p>${cafe_list[0].intro }</p>                           
                         </div>
                         <br>
                         <div class="form-group">
-                           <label>${cafevo.question }</label>&nbsp;<span style="color:red">*</span><br> 
+                           <label>${cafe_list[0].question }</label>&nbsp;<span style="color:red">*</span><br> 
                            <input type="text" size="95" placeholder="질문에 답변해주세요." name="answer">   
                         </div>
                         <br>            
                         <div class="form-group" style="position: relative; left: 40%">
-<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->                        
+                       
                         <c:choose>
-                           <c:when test="${cafevo.restriction eq 'Y' }">
-                           <input type="hidden" name="signyn" value="Y"> 
-                           <input type="submit" value="가입 신청"    class="btn btn-primary py-3 px-5">
+                           <c:when test="${cafe_list[0].restriction eq 'Y' }">
+	                           <input type="hidden" name="signyn" value="Y"> 
+	                           <input type="submit" value="바로 가입"    class="btn btn-primary py-3 px-5">
                            </c:when>
-                           <c:when test="${cafevo.restriction eq 'N' }">
-                           <input type="hidden" name="signyn" value="N"> 
-                           <input type="submit" value="즉시가입신청" class="btn btn-primary py-3 px-5">
+                           <c:when test="${cafe_list[0].restriction eq 'N' }">
+	                           <input type="hidden" name="signyn" value="N"> 
+	                           <input type="submit" value="가입 신청" class="btn btn-primary py-3 px-5">
                            </c:when>
-<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->                           
+                          
                         </c:choose>   
                         </div>
    

@@ -192,7 +192,7 @@
      </delete>
      
      <update id="cafe_board_update" parameterType="CafeBoardVo">
-        UPDATE CAFE_BOARD SET CATERGORY=#{category},TITLE=#{title},CONTENT=#{content} WHERE CAFE_BOARD_NO=#{cafe_board_no}
+        UPDATE CAFE_BOARD SET CATEGORY='11',TITLE=#{title},CONTENT=#{content} WHERE CAFE_BOARD_NO=#{cafe_board_no}
      </update>
      
       
@@ -203,7 +203,7 @@
      	FROM CAFE_MEMBER
      </select>
       
-      <select id="cafe_member_list" parameterType="int" resultType="CafeMemberVo">
+      <select id="cafe_member_list" parameterType="int" resultType="CafeMemberVo"> 
      	SELECT *
      	FROM CAFE_MEMBER
      	WHERE CAFE_NO = #{cafe_no}
@@ -232,7 +232,7 @@
      
       <insert id="cafejoin" parameterType="CafeMemberVo" >
         INSERT INTO CAFE_MEMBER
-        VALUES(CAFE_MEMBER_SEQ.NEXTVAL,#{member_no},#{cafe_no},#{answer},'Y','N',SYSDATE)
+        VALUES(CAFE_MEMBER_SEQ.NEXTVAL,#{member_no},#{cafe_no},#{name},#{answer},'Y','N',SYSDATE)
      </insert>
      
      <select id="cafe_regyn" parameterType="CafeMemberVo" resultType="CafeMemberVo">

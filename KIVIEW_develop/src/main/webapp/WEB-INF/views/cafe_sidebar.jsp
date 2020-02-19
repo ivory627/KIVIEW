@@ -119,18 +119,19 @@ textarea{
                				<c:when test="${login.member_no == member.member_no }">
                			        
 									<c:if test="${member.signyn eq 'Y' || member.signyn eq 'A' }">
-									<p class="mb-0" align=center><a href="cafejoinform.do?cafe_no=${cafe_list[0].cafe_no }" class="btn btn-secondary" style="width:100%; border-radius:0px;" >채팅방 입장하기</a></p>
+										<p class="mb-0" align=center><a href="cafejoinform.do?cafe_no=${cafe_list[0].cafe_no }" class="btn btn-secondary" style="width:100%; border-radius:0px;" >채팅방 입장하기</a></p>
 									 
             					
             						</c:if>
+            						
             						<c:if test="${member.signyn eq 'N' }">
-            						<p class="mb-0" align=center><a href="#" class="btn btn-secondary" style="width:100%; border-radius:0px;" >가입 승인 대기 </a></p>
+            							<p class="mb-0" align=center><a href="#" class="btn btn-secondary" style="width:100%; border-radius:0px;" >가입 승인 대기 </a></p>
             						</c:if>
             				</c:when>
             				
             				<c:otherwise>
             					<p class="mb-0" align=center><a href="cafejoinform.do?cafe_no=${cafe_list[0].cafe_no }&member_no=${login.member_no }" class="btn btn-secondary" style="width:100%; border-radius:0px;" >카페 가입하기 </a></p>
-            				</c:otherwise>
+            				</c:otherwise>   
             				
             			</c:choose>
             		</c:forEach> 

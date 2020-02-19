@@ -65,9 +65,9 @@
                <br>
             
                <div align="right" style="margin-right:60px; margin-top:10px">
-               <input type="button" onclick="location.href='cafeboardupdateform.do?cafe_board_no=${cafe_board_detail.cafe_board_no}&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_no }'" value="수 정" class="btn btn-primary" style="width:10%">
-               <input type="button" value="삭 제" class="btn btn-secondary" style="width:10%" onclick="location.href='cafeboarddelete.do?cafe_board_no=${cafe_board_detail.cafe_board_no}&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_no }'"> 
-               <input type="button" value="목 록" class="btn btn-primary" style="width:10%" onclick="location.href='cafeboardlist.do?&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_no }'"> 
+               <input type="button" onclick="location.href='cafeboardupdateform.do?cafe_board_no=${cafe_board_detail.cafe_board_no}&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }'" value="수 정" class="btn btn-primary" style="width:10%">
+               <input type="button" value="삭 제" class="btn btn-secondary" style="width:10%" onclick="location.href='cafeboarddelete.do?cafe_board_no=${cafe_board_detail.cafe_board_no}&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }'"> 
+               <input type="button" value="목 록" class="btn btn-primary" style="width:10%" onclick="location.href='cafeboardlist.do?&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }'"> 
                </div>
                
                

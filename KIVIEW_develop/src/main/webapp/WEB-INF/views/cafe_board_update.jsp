@@ -54,11 +54,12 @@
                <hr>
                 
                <form action="cafeboardupdate.do">
-               <input type="hidden" name="cafe_no" value="${cafe_no }">
+               <input type="hidden" name="cafe_no" value="${cafe_list[0].cafe_no }">
                <input type="hidden" name="cafe_board_no" value="${cafeboardvo.cafe_board_no}">
                <input type="hidden" name="cafe_menu_no" value="${cafe_menu_no }">
                <label>게시판 말머리</label>
                   ${cafeboardvo.category } 이것도 추후에 건들예쩡&nbsp;&nbsp;&nbsp; || ${cafeboardvo.hit }
+                  <br>
                <label>제 목</label><br>
                   <input type="text" value="${cafeboardvo.title }" name="title" size="70">
                   <br><br>

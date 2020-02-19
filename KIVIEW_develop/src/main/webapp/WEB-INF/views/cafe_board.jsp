@@ -20,9 +20,7 @@
 
 </style>
 <script type="text/javascript">
-$(function(){
-	alert('${cafe_list[0].cafe_no}');
-})
+
 
 </script>
   </head>
@@ -86,24 +84,23 @@ $(function(){
                   
                   <c:otherwise>
                   <c:forEach var="boardlist" items="${Blist }">
-                  <tr>
-                  <td>${boardlist.cafe_board_no }</td>
-                  <td>${boardlist.writer }</td>
-                  <td> 
-                  <a href="cafeboarddetail.do?cafe_board_no=${boardlist.cafe_board_no }&cafe_menu_no=${cafe_list[1].cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }" style="font-size:small; text-align:left">
-                  <c:if test="${fn:length(boardlist.category) != 0 && boardlist.category ne 'null' }">
-                  [ ${boardlist.category } ] ${boardlist.title } 
-                  </c:if> 
+	                  <tr>
+		                  <td>${boardlist.cafe_board_no }</td>
+		                  <td>${boardlist.writer }</td>
+		                  <td> 
+                  			<a href="boarddetail.do?cafe_no=${cafe_list[0].cafe_no }&cafe_board_no=${boardlist.cafe_board_no }&cafe_menu_no=${cafe_menu_no}" style="font-size:small; text-align:left">
+			                  <c:if test="${fn:length(boardlist.category) != 0 && boardlist.category ne 'null' }">
+			                 	 [ ${boardlist.category } ] 
+			                  </c:if> 
+          							${boardlist.title }
+				                  
+				                  [1] 댓글 추가하자!
                   
-                  ${boardlist.title }
-                  
-                  [1] 댓글 추가하자!
-                  
-                  </a>
-                  </td>
-                  <td>${boardlist.regdate }</td>
-                  <td>${boardlist.hit }</td> 
-                  </tr>
+		                  	</a>
+		                  </td>
+		                  <td>${boardlist.regdate }</td>
+		                  <td>${boardlist.hit }</td> 
+                 	 </tr>
                   </c:forEach>
                   </c:otherwise>
                   </c:choose>
@@ -113,7 +110,8 @@ $(function(){
                </table> 
                
                <div align=right>
-               <input type="button" value="글작성" class="btn btn-secondary" onclick="location.href='cafeboardwriteform.do?cafe_menu_no=${cafe_list[1].cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }'">
+	               <input type="button"  value="글작성" class="btn btn-secondary"
+	               onclick="location.href='boardwrite.do?cafe_no=${cafe_list[0].cafe_no}&cafe_menu_no=${cafe_menu_no }'">  
                </div>
                
                <div align=center>

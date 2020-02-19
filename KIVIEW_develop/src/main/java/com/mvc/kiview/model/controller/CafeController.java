@@ -462,32 +462,27 @@ public class CafeController {
 		List list = sidebar(cafe_no);
 		model.addAttribute("cafe_list", list);
 
-		CafeVo vo = biz.cafe_selectone(cafe_no);
-
-		model.addAttribute("cafevo", vo);
+		
 
 		return "cafe_join";
 	}
 
 	@RequestMapping("/cafejoin.do")
-	public String cafe_join(Model model, int cafe_no, String answer, String signyn, int memberno) {
+	public String cafe_join(Model model, int cafe_no, CafeMemberVo member) {
 
-		CafeMemberVo vo = new CafeMemberVo();
-		vo.setAnswer(answer);
-		vo.setCafe_no(cafe_no);
-		vo.setMember_no(memberno);
-		vo.setSignyn(signyn);
 
-		int res = biz.cafe_join(vo);
+		int res = biz.cafe_join(member);
 
 		if (res > 0) {
 			System.out.println("가입을 신청하셨습니다.");
-			return "redirect:cafedetail.do?cafeno=" + cafe_no;
+			return "redirect:cafedetail.do?cafe_no=" + cafe_no + "&member_no="+ member.getMember_no();
 
 		} else {
 			System.out.println("입력사항을 확인해주세요.");
-			return "redirect:insertform.do?cafeno=" + cafe_no;
+			return "redirect:cafejoinform.do?cafe_no=" + cafe_no;
 		}
+		
+		
 	}
 
 	// ------------------------카페 오픈---------------------------//
@@ -662,11 +657,18 @@ public class CafeController {
 		List<CafeBoardVo> Blist = biz.cafe_boardlist(cafe_menu_no);
 		model.addAttribute("Blist", Blist);
 		model.addAttribute("cafe_menu_name", cafemenuname);
+		model.addAttribute("cafe_menu_no", cafe_menu_no);  
 		return "cafe_board";
 	}
 
-	@RequestMapping("/cafeboardwrite.do")
-	public String cafe_boardwrite() {
+	@RequestMapping("/boardwrite.do")
+	public String board_write(Model model, int cafe_no, int  cafe_menu_no) {
+		List list = sidebar(cafe_no);
+	    model.addAttribute("cafe_list", list );
+	     
+	     
+	    model.addAttribute("cafe_menu_no",cafe_menu_no);
+		
 		return "cafe_board_write";
 	}
 
@@ -705,22 +707,21 @@ public class CafeController {
 	                  
 	       if(res>0) {
 	          System.out.println("111111");
-	          return "redirect:cafeboardlist.do?cafeno="+cafe_no+"&cafe_menu_no="+cafe_menu_no;
-	          
+	          return "redirect:cafeboardlist.do?cafe_no="+cafe_no+"&cafe_menu_no="+cafe_menu_no;
+	           
 	       }else {
 	          System.out.println("2222222");          
-	          return "redirect:cafeboardwriteform?cafeno="+cafe_no+"cafe_menu_no="+cafe_menu_no;
+	          return "redirect:cafeboardwriteform?cafe_no="+cafe_no+"cafe_menu_no="+cafe_menu_no;
 	       }
 	      
 	   }
-	   @RequestMapping("/cafeboarddetail.do")
-	   public String cafe_board_detail(int cafe_board_no , Model model,int cafe_menu_no,int cafe_no) {
-	      List list = sidebar(cafe_no); 
+	   @RequestMapping("/boarddetail.do")
+	   public String board_detail(Model model, int cafe_board_no , int cafe_menu_no, int cafe_no) {
+	      List list = sidebar(cafe_no);  
 	      model.addAttribute("cafe_list", list );
 	      
 	      CafeBoardVo cafeboardvo = biz.cafe_board_detail(cafe_board_no);
 	      model.addAttribute("cafe_board_detail",cafeboardvo);      
-	      model.addAttribute("cafe_no",cafe_no);
 	      model.addAttribute("cafe_menu_no",cafe_menu_no);
 	      
 	      return "cafe_board_detail";
@@ -753,16 +754,17 @@ public class CafeController {
 	   
 	   
 	   @RequestMapping("/cafeboardupdate.do")
-	   public String cafe_board_update(Model model,int cafe_no,int cafe_board_no,int cafe_menu_no,CafeBoardVo cafeboardvo) {
+	   public String cafe_board_update(Model model,int cafe_no,CafeBoardVo board) {
 	      List list = sidebar(cafe_no); 
 	      model.addAttribute("cafe_list", list );
 	      
-	         int res = biz.cafe_board_update(cafeboardvo);
+	         int res = biz.cafe_board_update(board); 
+	         System.out.println(board);
 	         
 	         if(res>0) {
-	            return "redirect:cafeboarddetail.do?cafe_no="+cafe_no+"&cafe_menu_no="+cafe_menu_no+"&cafe_board_no="+cafe_board_no;
+	            return "redirect:boarddetail.do?cafe_no="+cafe_no+"&cafe_menu_no="+board.getCafe_menu_no()+"&cafe_board_no="+board.getCafe_board_no();
 	         }else {
-	            return "redirect:cafeboardupdateform.do?cafe_no="+cafe_no+"&cafe_menu_no="+cafe_menu_no+"&cafeboardvo"+cafeboardvo+"&cafe_board_no"+cafe_board_no;
+	            return "redirect:cafeboardupdateform.do?cafe_no="+cafe_no+"&cafe_menu_no="+board.getCafe_menu_no()+"&cafe_board_no="+board.getCafe_board_no();
 	         }
 	      
 	   }
