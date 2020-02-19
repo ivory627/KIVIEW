@@ -96,12 +96,12 @@ textarea{
 </head>
 <body id = "body">
 
-<div class="sidebar-box ftco-animate" style="margin-right:30px; border-bottom:1px solid lightgray; background-color:white;">
+<div class="sidebar-box ftco-animate" style="margin-right:30px; background-color:white; padding-left:15px" > 
                   
                   <br> 
                   <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                   <h3 style="cursor:pointer"><b onclick="location.href='cafe_detail.jsp'">${cafe_list[0].title }</b></h3>
-                  
+                  <hr>
                   
                   <table style="border:0px" > 
                   <a style="color:blue"><span class="icon-person"></span>${cafe_list[0].admin }</a>
@@ -134,13 +134,15 @@ textarea{
             				
             			</c:choose>
             		</c:forEach> 
-				</div>
+				
 <!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->                       
                
                
-               <div class="sidebar-box ftco-animate">         
-                 
-                  <h3><b>게시판</b></h3>       
+               
+                 <br>
+                  <h3><b>게시판</b></h3>
+                  <hr>
+                        
                          
                     
                   <c:if test="${!empty cafe_list[1] }">
@@ -163,5 +165,6 @@ textarea{
                      
 
                </div>
+	</div>
 </body>
 </html>
