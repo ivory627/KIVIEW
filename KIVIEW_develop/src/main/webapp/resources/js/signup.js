@@ -45,8 +45,6 @@ function signupChk(){
 	var signupPwd = $("#signupPwd").val();
 	var signupPwdChk = $("#signupPwdChk").val();
 	
-	alert(signupPwd, signupPwdChk); //삭제
-
 	if(signupPwd != signupPwdChk){
 		$("#signupPwdChkMsg").show().html("");
 		$("#signupPwdChkMsg").show().css('color', 'red').html("&nbsp;&nbsp;비밀번호가 일치하지 않습니다");
@@ -79,6 +77,7 @@ function signupChk(){
 
 function idChkChk(){
 	$('#idChkChk').val("idUnchecked");
+	alert($('#idChkChk').val());//삭제
 }
 
 
