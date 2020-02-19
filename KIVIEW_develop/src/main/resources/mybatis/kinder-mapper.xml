@@ -62,6 +62,35 @@
 	<select id="kinderListName" parameterType="String" resultMap="KinderMap">
 		SELECT * FROM KINDER WHERE NAME LIKE '%${name}%'
 	</select>
+	<select id="kinderListType" parameterType="HashMap" resultMap="KinderMap">
+		SELECT * FROM KINDER WHERE 1=1
+		<choose>
+			<when test='town!=null and !town.equals("")'>
+				AND (ADDR2 LIKE '%${province}%${city}%${town}%')
+				<if test='type.equals("public")'>
+					AND (TYPE LIKE '%국립%' OR TYPE LIKE '%공립%')
+				</if>
+				<if test='type.equals("corporate")'>
+					AND TYPE LIKE '%법인%'
+				</if>
+				<if test='type.equals("private")'>
+					AND TYPE LIKE '%사립%'
+				</if>				
+			</when>
+			<otherwise>
+				AND (ADDR2 LIKE '%${province}%${city}%')
+				<if test='type.equals("public")'>
+					AND (TYPE LIKE '%국립%' OR TYPE LIKE '%공립%')
+				</if>
+				<if test='type.equals("corporate")'>
+					AND TYPE LIKE '%법인%'
+				</if>
+				<if test='type.equals("private")'>
+					AND TYPE LIKE '%사인%'
+				</if>
+			</otherwise>
+		</choose>
+	</select>
 	<select id="kinderDetail" parameterType="int" resultType="KinderVo">
 		SELECT * FROM KINDER WHERE KINDER_NO = #{kinder_no}
 	</select>

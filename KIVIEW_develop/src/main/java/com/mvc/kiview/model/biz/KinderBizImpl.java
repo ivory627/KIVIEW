@@ -1,5 +1,6 @@
 package com.mvc.kiview.model.biz;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,14 @@ public class KinderBizImpl implements KinderBiz {
 	}
 
 	@Override
-	public List<KinderVo> TypeSearch(String type) {
+	public List<KinderVo> TypeSearch(HashMap<String, String> map) {
 		
-		return dao.TypeSearch(type);
+		return dao.TypeSearch(map);
 	}
 
 	@Override
 	public List<KinderVo> NameSearch(String name) {
-		
+			
 		return dao.NameSearch(name);
 	}
 

@@ -1,6 +1,7 @@
 package com.mvc.kiview.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -29,9 +30,15 @@ public class KinderDaoImpl implements KinderDao{
 	}
 
 	@Override
-	public List<KinderVo> TypeSearch(String type) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<KinderVo> TypeSearch(HashMap<String, String> map) {
+		List<KinderVo> list = new ArrayList<KinderVo>();
+		try {
+			list = sqlSession.selectList(namespace+"kinderListType",map);
+		}catch(Exception e) {
+			System.out.println("error:kinder list type");
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	@Override

@@ -128,48 +128,62 @@
     	   });
     	   
     	   $('.type').on('click',function(){
-    		  //alert($(this).attr('id'));
-    		  var type = $(this).attr('id');
-    		  var list = new Array();
-    		  <c:choose>
-    		  <c:when test="${localvo != null && localvo !='' }">
-    		  <c:forEach items="${localvo}" var="vo">
-    		  list.push("${vo.kinder_no}");
-    		  </c:forEach>
-    		  </c:when>
-    		  <c:when test="${namevo != null && namevo !='' }">
-    		  <c:forEach items="${namevo}" var="vo">
-    		  list.push("${vo.kinder_no}");
-    		  </c:forEach>
-    		  </c:when>
-    		  </c:choose>
-    		  console.log(list);
-    		  
-    		 /*  var arr = new Array();
-    		  <c:forEach items="${localvo}" var="vo">
-    		  	var json = new Object();
-    		  	json.kinder_no = "${vo.kinder_no}";
-    		  	arr.push(json);
-    		  </c:forEach>
-    		  console.log(JSON.stringify(arr));
-    		  //var list = '<c:out value="${localvo}"/>';
-    		  //var list2 = '<c:out value="${namevo}"/>';
-    		  //console.log(typeof list);
-    		  $.ajax({
-    	            type: "POST",
-    	            url: "ajaxtypesearch.do",
-    	            data: JSON.stringify(arr),
-    	            contentType:"application/json;charset=UTF-8",
-    	            dataType: "json",
-    	            success: function(res) {
-    	            	alert(res);
-    	         	        
-    	           },
-    	           error: function(e) {
-    	              alert("통신실패");
-    	           }
-    	        }); */
+    		   //alert($(this).attr('id'));
+    		   //alert("${vo.province}");
+    		   //alert("${vo.city}");
+    		   //alert("${vo.town}");
+    		   <c:if test="${not empty vo}">
+    		   var type = $(this).attr('id');
+    		   var province = "${vo.province}";
+    		   var city = "${vo.city}";
+    		   var town = "${vo.town}";
+    		   console.log(type+"/"+province+"/"+city+"/"+town);
+    		   var typeSearchVal ={
+    				   "type":type,
+    				   "province":province,
+    				   "city":city,
+    				   "town":town
+    		   };
+    		   $.ajax({
+   	            type: "POST",
+   	            url: "ajaxtypesearch.do",
+   	            data: JSON.stringify(typeSearchVal),
+   	            contentType:"application/json;charset=UTF-8",
+   	            dataType: "json",
+   	            success: function(res) {
+   	            	//console.log(res);
+   	            	
+   	            	$("#tbody").empty();
+   	            	if(res.length!=0){
+   	            	
+   	            	 $.each(res,function(idx, code){
+              	      
+              	     $("#tbody").append(
+              	  		$("<tr>").append(
+              	  			$("<td>").append(code.addr2),
+              	  			$("<td>").append(code.name),
+              	  			$("<td>").append(code.type),
+              	  			$("<td>").append("★★★")	
+              	  		)
+              	  	);	
+              	  });    	            		
+   	            	}else{
+   	            		$("#tbody").append(
+   	               	  		$("<tr>").append(
+   	               	  			$("<td colspan='4' align='center'>").append("검색결과가 없습니다.")
+   	               	  		)
+   	               	  	);	
+   	            	}
+   	         	        
+   	           },
+   	           error: function(e) {
+   	              alert("통신실패");
+   	           }
+   	        });
+    		   </c:if>
+
     	   });
+    	   
     })
     
     function localChk(){
@@ -201,9 +215,9 @@
     	}
     }
     </script>
-    
   </head>
 <body id = "body">
+
 	<!-- @@ header 부분 @@ -->
 	  <%@ include file = "header.jsp" %>
     
@@ -291,7 +305,7 @@
 						     <th style="width:20%">평점</th>
 						   </tr>
 						   </thead>
-						   <tbody>
+						   <tbody id="tbody">
 						   <c:if test="${localvo != null && localvo !='' }">
 						   <c:choose>
 						   	 <c:when test="${empty localvo }">

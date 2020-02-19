@@ -74,10 +74,12 @@ public class KinderController {
 		if(vo.getTown()==null&&vo.getTown()=="") {
 			vo = new ProvinceVo(vo.getProvince(),vo.getCity());
 			mav.addObject("localvo",biz.LocalSerach(vo));
+			mav.addObject("vo",vo);
 			//System.out.println(biz.LocalSerach(vo));
 		}else {
 			vo = new ProvinceVo(vo.getProvince(),vo.getCity(),vo.getTown());
 			mav.addObject("localvo",biz.LocalSerach(vo));
+			mav.addObject("vo",vo);
 			//System.out.println(biz.LocalSerach(vo));
 		}
 		
@@ -102,9 +104,11 @@ public class KinderController {
 	@ResponseBody
 	public List<KinderVo> typeSearch(@RequestBody HashMap<String, String> map){
 		
-//		System.out.println(type);
-		System.out.println(map.toString());
-		return null;
+		//System.out.println(map);
+		List<KinderVo> list = biz.TypeSearch(map);
+		//System.out.println(list.size());
+		
+		return list;
 	}
 
 }
