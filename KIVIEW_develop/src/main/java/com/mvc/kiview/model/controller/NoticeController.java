@@ -153,18 +153,42 @@ public class NoticeController {
 
 		FAQVo faq_one = new FAQVo();
 		List<FAQVo> list = new ArrayList<>();
-		
+
 		Map<String, Object> map = new HashMap<>();
-		
+
 		faq_one = n_biz.f_selectOne(faq_no);
 		list = n_biz.faqList(cri);
 		String content = faq_one.getFaq_content();
 		map.put("faq_content", content);
 		map.put("list", list);
 		map.put("faq_no", faq_no);
-		
-		
+
 		return map;
+	}
+
+	/* FAQ 글쓰기 폼 */
+	@RequestMapping("/kiviewfaqwrite.do")
+	public String kiview_faq_write() {
+
+		logger.info("FAQ INSERT FORM");
+
+		return "kiview_faq_write";
+	}
+
+	/* FAQ 글작성 insert redirect */
+	@RequestMapping("/faqwriteRes.do")
+	public String kiview_faqwriteRes(FAQVo f_vo) {
+
+		logger.info("FAQ INSERT RESULT");
+
+		int res = n_biz.faq_insert(f_vo);
+
+		if (res > 0) {
+			return "redirect:kiviewfaq.do";
+		} else {
+			return "redirect:kiviewfaqwrite.do";
+		}
+
 	}
 
 }

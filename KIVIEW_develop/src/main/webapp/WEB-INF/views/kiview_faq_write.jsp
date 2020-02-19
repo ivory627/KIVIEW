@@ -66,7 +66,7 @@
 					</div>
 
 					<!-- 제목/작성자/내용/분류 카테고리 넘기기  -->
-					<form action="faqwrite.do" method="post" id="faqWriteForm">
+					<form action="faqwriteRes.do" method="post" id="faqWriteForm">
 
 						<div class="jsx-4261166144 select-wrap">
 							<div class="jsx-4261166144 select-box">
@@ -74,6 +74,7 @@
 									<div class="jsx-4121141969 choice">
 										<select class="form-control-sm2" id="selcatd"
 											name="faq_catd" style="cursor: pointer;">
+											<option value="">카테고리 선택</option>
 											<option value="리뷰">리뷰</option>
 											<option value="회원">회원</option>
 											<option value="서비스">서비스</option>
