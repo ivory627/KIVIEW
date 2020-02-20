@@ -111,7 +111,7 @@
 					</div>
 					<div class="jsx-3372927190 label-box">
 						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">연락처&nbsp;</span>
+							class="jsx-3712571264">연락처&nbsp;</span><span class="jsx-3712571264" id="signupPhoneChkMsg"></span>
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
 									<input required="" autocomplete="new-password"

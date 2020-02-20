@@ -5,6 +5,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+/*
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+*/
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,10 @@ public class MemberController {
 	@Autowired
 	private MemberBiz biz;
 
+	/*
+	 @Autowired BCryptPasswordEncoder passwordEncoder;
+	 */
+	
 	//로그인
 	@RequestMapping("/kiviewlogin.do")
 	public String kiview_login() {
@@ -81,7 +89,7 @@ public class MemberController {
 		return "kiview_signup-option";
 	}
 	
-	//회원가입 페이지
+	//kiview 회원가입 페이지
 	@RequestMapping("/kiviewsignup.do")
 	public String kiview_signup() {
 		logger.info("signup");
@@ -110,17 +118,27 @@ public class MemberController {
 	@RequestMapping("/kiviewsignupres.do")
 	public String kiview_signup(MemberVo vo) {
 		logger.info("signupRes");
-		System.out.println(vo);
+		
+		//vo.setMember_pwd(passwordEncoder.encode(vo.getMember_pwd()));
+		//System.out.println("암호화된 비밀번호: " + vo);
 		
 		int res = biz.signup(vo);
 		
-		return "index";
+		/* 
+		if(res > 0) {
+			return "redirect:index.do";
+		}else {
+			return "redirect:kiviewsignup.do";
+		}
+		*/
+		
+		return "redirect:index.do";
 
 	}
 	
 	@RequestMapping("/kiviewjusopopup")
 	public String kiview_jusoPopup() {
-		logger.info("jusoPopup");
+		logger.info("addrPopup");
 		return "addrPopup";
 	}
 
