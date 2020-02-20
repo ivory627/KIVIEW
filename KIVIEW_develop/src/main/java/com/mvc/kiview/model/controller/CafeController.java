@@ -76,12 +76,49 @@ public class CafeController {
 		model.addAttribute("cafe", cafe);
 		model.addAttribute("member",member);
 		
-		System.out.println(cafe);
-		System.out.println(member);
 
 		return "cafe_my";
 
 	}
+	
+	@RequestMapping("/memberout.do")
+	public void member_out(HttpServletResponse response, int member_no, int cafe_member_no) throws IOException {
+		int res = biz.member_delete(cafe_member_no);
+			
+		response.setContentType("text/html charset=utf-8");
+		PrintWriter out = response.getWriter();
+			
+		if(res>0) {
+			out.print("<script> alert('카페를 탈퇴하였습니다.'); location.href='cafemy.do?member_no=" + member_no 
+			+ "'</script>");
+		} else {
+			out.print("<script> alert('명령 실행 중 오류.'); location.href='cafemy.do?member_no=" + member_no 
+					+ "'</script>");
+			}
+			
+			
+		}
+	
+	@RequestMapping("/cafedelete.do")
+	public void cafe_delete(HttpServletResponse response, int member_no, int cafe_no) throws IOException {
+		int res = biz.cafe_delete(cafe_no);
+		
+		response.setContentType("text/html charset=utf-8");
+		PrintWriter out = response.getWriter();
+			
+		if(res>0) {
+			out.print("<script> alert('카페를 폐쇄하였습니다.'); location.href='cafemy.do?member_no=" + member_no 
+			+ "'</script>");
+		} else {
+			out.print("<script> alert('명령 실행 중 오류.'); location.href='cafemy.do?member_no=" + member_no 
+					+ "'</script>");
+		}
+			
+			
+		
+		
+	}
+	
 
 	// ----------------------------카페 검색 -------------------------- ///
 	@RequestMapping("/cafesearch.do")
@@ -95,6 +132,7 @@ public class CafeController {
 	}
 
 	///////////////////////////// 카페 안 /////////////////////////////////
+	// ----------------------------카페 디테일 -------------------------- ///
 
 	public List sidebar(int cafe_no) {
 		CafeVo cafe = biz.cafe_selectone(cafe_no);
@@ -127,7 +165,10 @@ public class CafeController {
 		return "cafe_detail";
 	}
 
-	// --------------------- 카페 관리---------------------///
+	
+	
+	
+	// --------------------- 내 카페 관리---------------------///
 	@RequestMapping("/cafeconfig.do")
 	public String cafe_config(Model model, int cafe_no) {
 		List list = sidebar(cafe_no);
@@ -142,6 +183,8 @@ public class CafeController {
 		model.addAttribute("menu", menu);
 		return "cafe_config";
 	}
+	
+	
 
 	@RequestMapping("/cafeupdate.do")
 	public void cafe_update(HttpServletRequest request, HttpServletResponse response, CafeVo cafe, uploadFile file,
@@ -435,21 +478,76 @@ public class CafeController {
 	
 	// ----------------------- 회원 관리  ----------------------------//
 	@RequestMapping("/memberblock.do")
-	public Map member_block(int cafe_member_no) {
+	@ResponseBody
+	public Map member_block(int cafe_no, int cafe_member_no) {
+		int res = biz.member_block(cafe_member_no);
+		
+		
+		List<CafeMemberVo> list = biz.cafe_member_list(cafe_no);
 		Map map = new HashMap();
 		
-		int res = 0;
-		res = biz.member_block(cafe_member_no);
+		for(int i=0; i<list.size(); i++) {		
+			map.put(i, list.get(i));
+	
+		}
 		
 		
 		return map;
 	}
 	
-	@RequestMapping("/memberdelete.do")
-	public String member_delete() {
+	@RequestMapping("/memberunblock.do")
+	@ResponseBody
+	public Map member_unblock(int cafe_no, int cafe_member_no) {
+		int res = biz.member_unblock(cafe_member_no);
+				
+		List<CafeMemberVo> list = biz.cafe_member_list(cafe_no);
+		Map map = new HashMap();
 		
-		return null;
+		for(int i=0; i<list.size(); i++) {		
+			map.put(i, list.get(i));
+	
+		}
+		
+		System.out.println(map);
+		return map;
 	}
+
+	
+	@RequestMapping("/membercancle.do")
+	@ResponseBody
+	public Map member_cancle(int cafe_no, int cafe_member_no) {
+		int res= biz.member_delete(cafe_member_no);
+		
+		List<CafeMemberVo> list = biz.cafe_member_list(cafe_no);
+		Map map = new HashMap();
+
+		for(int i=0; i<list.size(); i++) {		
+			map.put(i, list.get(i));
+	
+		}
+		
+		
+		return map;
+	}
+	
+	@RequestMapping("membersign.do")
+	@ResponseBody
+	public Map member_sign(int cafe_no, int cafe_member_no) {
+		int res = biz.member_sign(cafe_member_no);
+		
+		List<CafeMemberVo> list = biz.cafe_member_list(cafe_no);
+		Map map = new HashMap();
+		
+		for(int i=0; i<list.size(); i++) {
+			map.put(i, list.get(i));
+		}
+		
+		return map;
+	}
+	
+	
+	
+	
 	
 	
 	
@@ -706,11 +804,11 @@ public class CafeController {
 	      
 	                  
 	       if(res>0) {
-	          System.out.println("111111");
+	         
 	          return "redirect:cafeboardlist.do?cafe_no="+cafe_no+"&cafe_menu_no="+cafe_menu_no;
 	           
 	       }else {
-	          System.out.println("2222222");          
+	             
 	          return "redirect:cafeboardwriteform?cafe_no="+cafe_no+"cafe_menu_no="+cafe_menu_no;
 	       }
 	      

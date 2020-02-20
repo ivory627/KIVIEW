@@ -9,8 +9,9 @@
 %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmf" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 <!DOCTYPE html>
@@ -301,15 +302,255 @@
 	}
 	
 	function cancle(cafe_member_no){
-		
+		if(confirm("해당 유저의 가입을 거절하시겠습니까?")){
+			$("#sign_list").find("tr").nextAll().remove();
+			
+			
+			$.ajax({
+				type:"post",
+				url:"membercancle.do",
+				data:{"cafe_no":'${cafe_list[0].cafe_no}', "cafe_member_no":cafe_member_no},
+				
+				dataType:"json",
+				success:function(data){
+					
+					 $.each(data, function(idx, value){
+
+						 if(value.signyn=="N"){
+						 
+							 $("#sign_list").append( 
+									 			 	
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td>"+value.signdate+"</td>"
+										+"<td> <input type='button' class='btn btn-secondary' value='가입' onclick='sign("+value.cafe_member_no+")'>"
+										+"<input type='button' class='btn btn-primary' value='거절'onclick='cancle("+value.cafe_member_no+")'>"
+										+"</td></tr>"
+									
+							) 
+						
+						} 
+					 
+					 })
+					
+						
+						
+						
+					
+				},
+				error:function(error){
+					alert(error);
+				}
+			})
+		}
 	}
 	
+	
+	function unblock(cafe_member_no){
+		if(confirm("해당 유저를 블락 해제하시겠습니까?")){
+			$("#member_list").find("tr").nextAll().remove();
+			
+			$.ajax({
+				type:"post",
+				url:"memberunblock.do",
+				data:{"cafe_no":'${cafe_list[0].cafe_no}', "cafe_member_no":cafe_member_no},
+				
+				dataType:"json",
+				success:function(data){
+					
+					 $.each(data, function(idx, value){
+						
+						
+						 if(value.signyn=="Y" && value.blockyn=="N"){
+						 
+							 $("#member_list").append( 
+									 	
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										+"<td> <input type='button' class='btn btn-primary' style='background-color:black' value='블락' onclick='block("+ value.cafe_member_no
+										+")'</td></tr>"
+			
+									
+							) 
+						
+						} 
+						 
+						 if(value.signyn=="Y" && value.blockyn=="Y"){
+							 
+							 $("#member_list").append( 
+									 	
+									 //<fmf:formatDate value="${member.signdate }" pattern="yyyy-MM-dd"/>
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										+"<td> <input type='button' class='btn btn-primary' value='해제' onclick='unblock("+ value.cafe_member_no
+										+")'</td></tr>"
+			
+									
+							) 
+						
+						} 
+						 
+						 if(value.signyn=="A"){
+							 
+							 $("#member_list").append( 
+									 	
+									 //<fmf:formatDate value="${member.signdate }" pattern="yyyy-MM-dd"/>
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										+"<td></td></tr>"
+			
+									
+							) 
+						
+						} 
+					 })
+					
+						
+						
+						
+					
+				},
+				error:function(error){
+					alert("에러!");
+				}
+			})
+		}
+		
+		
+		
+	}
 	function block(cafe_member_no){
+		if(confirm("해당 유저를 블락하시겠습니까?")){
+			$("#member_list").find("tr").nextAll().remove();
+			
+			$.ajax({
+				type:"post",
+				url:"memberblock.do",
+				data:{"cafe_no":'${cafe_list[0].cafe_no}', "cafe_member_no":cafe_member_no},
+				
+				dataType:"json",
+				success:function(data){
+					
+					 $.each(data, function(idx, value){
+				
+						if(value.signyn=="Y" && value.blockyn=="Y"){
+							 
+							 $("#member_list").append( 
+									 	
+									 //<fmf:formatDate value="${member.signdate }" pattern="yyyy-MM-dd"/>
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										+"<td> <input type='button' class='btn btn-primary' value='해제' onclick='unblock("+ value.cafe_member_no
+										+")'</td></tr>"											
+							) 						
+						} 
+ 						
+ 						if(value.signyn=="Y" && value.blockyn=="N"){
+							 
+							 $("#member_list").append( 
+									 	
+									 //<fmf:formatDate value="${member.signdate }" pattern="yyyy-MM-dd"/>
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										+"<td> <input type='button' class='btn btn-primary' style='background-color:black' value='블락' onclick='block("+ value.cafe_member_no
+										+")'</td></tr>"			
+									
+							) 
+						
+						} 
+						 
+						 if(value.signyn=="A"){
+							 
+							 $("#member_list").append( 
+									 	
+									 //<fmf:formatDate value="${member.signdate }" pattern="yyyy-MM-dd"/>
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										+"<td></td></tr>"
+			
+									
+							) 
+						
+						}
+					 })
+			
+				},
+				error:function(error){
+					alert("에러!");
+				}
+			})
+		}
 		
 	}
 	
 	function sign(cafe_member_no){
-		
+		if(confirm("해당 유저의 가입을 승인하시겠습니까?")){
+			$("#sign_list").find("tr").nextAll().remove();
+			$("#member_list").find("tr").nextAll().remove();
+			
+			$.ajax({
+				type:"post",
+				url:"membersign.do",
+				data:{"cafe_no":'${cafe_list[0].cafe_no}', "cafe_member_no":cafe_member_no},
+				
+				dataType:"json",
+				success:function(data){
+					
+					 $.each(data, function(idx, value){
+						
+						
+						 if(value.signyn=="N"){
+						 
+							 $("#sign_list").append( 
+					
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										+"<td> <input type='button' class='btn btn-secondary' value='가입' onclick='sign("+value.cafe_member_no+")'>"
+										+"<input type='button' class='btn btn-primary' value='거절'onclick='cancle("+value.cafe_member_no+")'>"
+										+"</td></tr>"									
+							) 
+						
+						}
+						 
+ 						if(value.signyn=="Y" && value.blockyn=="Y"){
+							 
+							 $("#member_list").append( 
+									 	
+									
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										+"<td> <input type='button' class='btn btn-primary' value='해제' onclick='unblock("+ value.cafe_member_no
+										+")'</td></tr>"		
+									
+							) 
+						
+						} 
+ 						
+ 						if(value.signyn=="Y" && value.blockyn=="N"){
+							 
+							 $("#member_list").append( 
+									 	
+									 //<fmf:formatDate value="${member.signdate }" pattern="yyyy-MM-dd"/>
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										+"<td> <input type='button' class='btn btn-primary' style='background-color:black' value='블락' onclick='block("+ value.cafe_member_no
+										+")'</td></tr>"			
+									
+							) 
+						
+						} 
+						 
+						 if(value.signyn=="A"){
+							 
+							 $("#member_list").append( 
+									 	
+									 //<fmf:formatDate value="${member.signdate }" pattern="yyyy-MM-dd"/>
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										+"<td></td></tr>"								
+							) 
+						
+						} 
+					 })
+					
+						
+						
+						
+					
+				},
+				error:function(error){
+					alert(error);
+				}
+			})
+		}
 	}
 </script>
 </head>
@@ -376,22 +617,23 @@
 						</h2>
 						<hr>
 						<br>
-						<form:form action="cafeupdate.do" method="post" enctype="multipart/form-data"> 
-							<input type="hidden" name="cafe_no" value="${cafe_list[0].cafe_no }">
+						<form:form action="cafeupdate.do" method="post"
+							enctype="multipart/form-data">
+							<input type="hidden" name="cafe_no"
+								value="${cafe_list[0].cafe_no }">
 							<input type="hidden" name="thumb" value="${cafe_list[0].thumb }">
-							<input type="hidden" name="background" value="${cafe_list[0].background }">
-							
+							<input type="hidden" name="background"
+								value="${cafe_list[0].background }">
+
 							<div class="form-group">
-								<label>카페명</label><br> <input type="text"
-									size="60" class="form-control" value="${cafe_list[0].title }" readonly>
+								<label>카페명</label><br> <input type="text" size="60"
+									class="form-control" value="${cafe_list[0].title }" readonly>
 							</div>
 							<div class="form-group">
-								<label>대표 썸네일</label><br> <input type="file"
-									name="file1">
+								<label>대표 썸네일</label><br> <input type="file" name="file1">
 							</div>
 							<div class="form-group">
-								<label>배경 이미지</label><br> <input type="file"
-									name="file2">
+								<label>배경 이미지</label><br> <input type="file" name="file2">
 							</div>
 
 							<div id="restriction" class="form-group">
@@ -415,8 +657,7 @@
 								<label>한줄 소개</label><br>
 								<textarea name="intro" id="" cols="30" rows="7"
 									class="form-control" placeholder="간단한 소개글을 입력하세요."
-									minlength="4" maxlength="200" required
-									>${cafe_list[0].intro }</textarea>
+									minlength="4" maxlength="200" required>${cafe_list[0].intro }</textarea>
 							</div>
 
 
@@ -451,26 +692,32 @@
 								style="padding: 20px; overflow-y: scroll;">
 								<label style="position: relative; left: 35%">게시판 선택</label> <br>
 
-								<ul style="padding-left:10px">  
+								<ul style="padding-left: 10px">
 									<c:choose>
 										<c:when test="${empty menu }">
-									<li>게시판이 존재하지 않습니다.</li><br>
+											<li>게시판이 존재하지 않습니다.</li>
+											<br>
 										</c:when>
-									
+
 										<c:otherwise>
 											<c:forEach var="menu" items="${menu }">
-												<li style="display:inline" onclick="menudetail(${menu.cafe_menu_no })">${menu.name }</li>
-												<a style="cursor:pointer" onclick="menu_delete(${menu.cafe_no},${menu.cafe_menu_no })">&nbsp;&nbsp;X</a><br>
+												<li style="display: inline"
+													onclick="menudetail(${menu.cafe_menu_no })">${menu.name }</li>
+												<a style="cursor: pointer"
+													onclick="menu_delete(${menu.cafe_no},${menu.cafe_menu_no })">&nbsp;&nbsp;X</a>
+												<br>
 											</c:forEach>
 											<br>
 										</c:otherwise>
 									</c:choose>
-									
+
 									<c:if test="${fn:length(menu) < 5 }">
-									<li><a style="position:relative; left:27%" onclick="menuinsert()">+&nbsp;게시판 추가하기</a></li>
+										<li><a style="position: relative; left: 27%"
+											onclick="menuinsert()">+&nbsp;게시판 추가하기</a></li>
 									</c:if>
 									<c:if test="${fn:length(menu) >= 5 }">
-									<li><a style="position: relative; left: 20%">&nbsp;더 이상 만들수 없습니다.</a></li>
+										<li><a style="position: relative; left: 20%">&nbsp;더
+												이상 만들수 없습니다.</a></li>
 									</c:if>
 								</ul>
 
@@ -480,31 +727,32 @@
 							<!-- 게시판 추가 -->
 							<div id="menuinsert_form" class="col-lg-4 ftco-animate"
 								style="border-left: 1px solid lightgray; padding: 20px;">
-								<form id="menuinsert" action="menuinsert.do" onsubmit="return menuinsert_chk(${vo.cafe_no})">
+								<form id="menuinsert" action="menuinsert.do"
+									onsubmit="return menuinsert_chk(${vo.cafe_no})">
 									<input type="hidden" name="cafe_no" value="${vo.cafe_no }">
-									 
+
 									<div class="form-group">
-										<label>게시판명</label><br> 
-											<input type="text" size="60" name="name" minlength="4" maxlength="10" required> <br> <br> 
-										<label>글쓰기 권한</label><br> 
-											<input type="radio" value="Y" name="authority" checked="true">관리자 &nbsp;&nbsp;&nbsp; 
-											<input type="radio" value="N" name="authority">모 두 <br> 
-										<br> 
-										
-										<label>게시판 형식</label><br> 
-											<input type="radio" value="table" name="concept" checked="true">게시판
-										&nbsp;&nbsp;&nbsp; 
-											<input type="radio" value="guest" name="concept">방명록<br> <br> 
-										
-										<label>말머리</label><br>
-											<input id="categorychk" type="checkbox">적용<br><br> 
-										
-										<div id="category_insert" style="display:none">
-											<label style="margin:0px;">말머리 정보</label> 
-											<ol style="padding:10px; margin:0px;"> 
-												<li><input type="text" name="category1" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
-												<li><input type="text" name="category2" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
-												<li><input type="text" name="category3" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
+										<label>게시판명</label><br> <input type="text" size="60"
+											name="name" minlength="4" maxlength="10" required> <br>
+										<br> <label>글쓰기 권한</label><br> <input type="radio"
+											value="Y" name="authority" checked="true">관리자
+										&nbsp;&nbsp;&nbsp; <input type="radio" value="N"
+											name="authority">모 두 <br> <br> <label>게시판
+											형식</label><br> <input type="radio" value="table" name="concept"
+											checked="true">게시판 &nbsp;&nbsp;&nbsp; <input
+											type="radio" value="guest" name="concept">방명록<br>
+										<br> <label>말머리</label><br> <input id="categorychk"
+											type="checkbox">적용<br> <br>
+
+										<div id="category_insert" style="display: none">
+											<label style="margin: 0px;">말머리 정보</label>
+											<ol style="padding: 10px; margin: 0px;">
+												<li><input type="text" name="category1"
+													placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
+												<li><input type="text" name="category2"
+													placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
+												<li><input type="text" name="category3"
+													placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br></li>
 											</ol>
 										</div>
 
@@ -530,32 +778,36 @@
 							<!-- 게시판 수정 -->
 							<div id="menuupdate_form" class="col-lg-4 ftco-animate"
 								style="border-left: 1px solid lightgray; padding: 20px; display: none">
-								<form action="menuupdate.do" onsubmit="return menuinsert_chk2(${cafe_list[0].cafe_no})" method="get">
-									<input type="hidden" name="cafe_no" value="${cafe_list[0].cafe_no }">
-									<input type="hidden" name="cafe_menu_no">
+								<form action="menuupdate.do"
+									onsubmit="return menuinsert_chk2(${cafe_list[0].cafe_no})"
+									method="get">
+									<input type="hidden" name="cafe_no"
+										value="${cafe_list[0].cafe_no }"> <input type="hidden"
+										name="cafe_menu_no">
 									<div class="form-group">
-										<label>게시판명</label><br> 
-											<input type="text" size="60" name="name" minlength="4" maxlength="10" required> <br> <br> 
-										<label>글쓰기 권한</label><br> 
-											<input type="radio" value="Y" name="authority">관리자 &nbsp;&nbsp;&nbsp; 
-											<input type="radio" value="N" name="authority">모 두 <br>
-										<br> 
-										
-										<label>게시판 형식</label><br> 
-											<input type="radio" name="concept" value="table" disabled>게시판 
-										&nbsp;&nbsp;&nbsp; 
-											<input type="radio" name="concept" value="guest" disabled>방명록<br> <br> 
-										
-										
+										<label>게시판명</label><br> <input type="text" size="60"
+											name="name" minlength="4" maxlength="10" required> <br>
+										<br> <label>글쓰기 권한</label><br> <input type="radio"
+											value="Y" name="authority">관리자 &nbsp;&nbsp;&nbsp; <input
+											type="radio" value="N" name="authority">모 두 <br>
+										<br> <label>게시판 형식</label><br> <input type="radio"
+											name="concept" value="table" disabled>게시판
+										&nbsp;&nbsp;&nbsp; <input type="radio" name="concept"
+											value="guest" disabled>방명록<br> <br>
+
+
 										<div id="category_update">
-											<label style="margin:0px;">말머리 정보</label> 
-											<ol style="padding:10px; margin:0px;"> 
-												<li><input type="text" name="category1" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br>
-												<input type="hidden" name="category_no1" value="0"></li>
-												<li><input type="text" name="category2" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br>
-												<input type="hidden" name="category_no2" value="0"></li>
-												<li><input type="text" name="category3" placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br>
-												<input type="hidden" name="category_no3" value="0"></li>
+											<label style="margin: 0px;">말머리 정보</label>
+											<ol style="padding: 10px; margin: 0px;">
+												<li><input type="text" name="category1"
+													placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br>
+													<input type="hidden" name="category_no1" value="0"></li>
+												<li><input type="text" name="category2"
+													placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br>
+													<input type="hidden" name="category_no2" value="0"></li>
+												<li><input type="text" name="category3"
+													placeholder="말머리를 입력하세요." minlength="2" maxlength="6"><br>
+													<input type="hidden" name="category_no3" value="0"></li>
 											</ol>
 										</div>
 										<br>
@@ -564,11 +816,11 @@
 									<div class="form-group" style="position: relative; left: 85%">
 										<input type="submit" value="수정"
 											class="btn btn-secondary py-3 px-5">
-										
+
 									</div>
 								</form>
 
- 
+
 							</div>
 						</div>
 					</div>
@@ -585,53 +837,61 @@
 						</h2>
 						<hr>
 						<br> <label>가입 목록</label>
-						<table class="table table" style="text-align: center">
+						<table id="member_list" class="table table"
+							style="text-align: center">
 							<col width="10%">
 							<col width="50%">
 							<col width="20%">
-							<col width="10%">
-							<col width="10%">
+
+							<col width="20%">
 							<tr>
 								<th>아이디</th>
 								<th>질답</th>
 								<th>가입일</th>
-								<th>작성글</th>
+
 								<th>활동제한</th>
 							</tr>
 							<c:choose>
-								
+
 								<c:when test="${empty cafe_list[2]}">
 									<tr>
-										<td colspan="5">====== 가입 회원이 없습니다 ======</td>
 									<tr>
 								</c:when>
 								<c:otherwise>
 									<c:forEach var="member" items="${cafe_list[2]}">
-										<c:if test="${member.signyn eq 'Y' || member.signyn eq 'A' }"> 
+										<c:if test="${member.signyn eq 'Y' || member.signyn eq 'A' }">
 											<tr>
 												<td>${member.name }</td>
 												<td>${member.answer }</td>
-												<td>${member.signdate }</td>
-												<td>5개</td>
-												<td>
-													<c:if test="${member.signyn eq 'Y' }">
-														<input type="button" class="btn btn-primary" style="background-color:black" value="블락"
-														onclick="block(${member.cafe_member_no})">
-													</c:if>
-												</td>
+												<td><fmf:formatDate value="${member.signdate }"
+														pattern="yyyy-MM-dd" /></td>
+
+												<td><c:if
+														test="${member.signyn eq 'Y' && member.blockyn eq 'N' }">
+														<input type="button" class="btn btn-primary"
+															style="background-color: black" value="블락"
+															onclick="block(${member.cafe_member_no})">
+													</c:if> <c:if
+														test="${member.signyn eq 'Y' && member.blockyn eq 'Y' }">
+														<input type="button" class="btn btn-primary" value="해제"
+															onclick="unblock(${member.cafe_member_no})">
+													</c:if> <c:if test="${member.signyn eq 'A'}">
+
+													</c:if></td>
 											</tr>
-										</c:if> 
+										</c:if>
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
 						</table>
-						<br> <label>신청 목록</label>  
-						<table class="table table" style="text-align: center">
+						<br> <label>신청 목록</label>
+						<table id="sign_list" class="table table"
+							style="text-align: center">
 							<col width="10%">
 							<col width="50%">
 							<col width="20%">
-							<col width="10%">
-							<col width="10%">
+
+							<col width="20%">
 							<tr>
 								<th>아이디</th>
 								<th>질답</th>
@@ -639,30 +899,27 @@
 								<th colspan="2">처리</th>
 							</tr>
 							<c:choose>
-								
+
 								<c:when test="${empty cafe_list[2]}">
 									<tr>
-										<td colspan="5">====== 신청 목록이 없습니다 ======</td>
 									<tr>
 								</c:when>
 								<c:otherwise>
 									<c:forEach var="member" items="${cafe_list[2]}">
-										<c:if test="${member.signyn eq 'N' }"> 
+										<c:if test="${member.signyn eq 'N' }">
+
 											<tr>
 												<td>${member.name }</td>
 												<td>${member.answer }</td>
-												<td>${member.signdate }</td>
-												<td>5개</td>
-												<td>
-													
-													<input type="button" class="btn btn-secondary" value="가입"
-													onclick="sign(${member.cafe_member_no})">
-													<input type="button" class="btn btn-primary" value="취소"
-													onclick="cancle(${member.cafe_member_no})">
-													
-												</td>
+												<td><fmf:formatDate value="${member.signdate }"
+														pattern="yyyy-MM-dd" /></td>
+
+												<td><input type="button" class="btn btn-secondary"
+													value="가입" onclick="sign(${member.cafe_member_no})">
+													<input type="button" class="btn btn-primary" value="거절"
+													onclick="cancle(${member.cafe_member_no})"></td>
 											</tr>
-										</c:if> 
+										</c:if>
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>

@@ -227,7 +227,7 @@ public class CafeDaoImpl implements CafeDao {
 		
 		
 		try {
-			res = sqlSession.selectList(namespace+"cafe_member_list",cafe_no);
+			res = sqlSession.selectList(namespace+"member_list",cafe_no);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -478,21 +478,53 @@ public class CafeDaoImpl implements CafeDao {
 
 	@Override
 	public int member_block(int cafe_member_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		int res=0;
+		
+		try {
+			res = sqlSession.update(namespace+"member_block", cafe_member_no);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("member_block 오류");
+		}
+		
+		
+		return res;
+	}
+	
+	@Override
+	public int member_unblock(int cafe_member_no) {
+		int res=0;
+		
+		try {
+			res = sqlSession.update(namespace+"member_unblock", cafe_member_no);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("member_unblock 오류");
+		}
+		
+		
+		return res;
 	}
 
 	@Override
 	public int member_sign(int cafe_member_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		int res=0;
+		
+		try {
+			res = sqlSession.update(namespace+"member_sign", cafe_member_no);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("member_update 오류");
+		}
+		
+		
+		return res;
 	}
 
-	@Override
-	public int member_cancle(int cafe_member_no) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 	@Override
 	public List<CafeMemberVo> member_selectAll() {
@@ -504,6 +536,38 @@ public class CafeDaoImpl implements CafeDao {
 		} catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("member_selectAll 오류");
+		}
+		
+		
+		return res;
+	}
+
+	@Override
+	public int member_delete(int cafe_member_no) {
+		int res=0;
+		
+		try {
+			res = sqlSession.delete(namespace+"member_delete", cafe_member_no);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("member_delete 오류");
+		}
+		
+		
+		return res;
+	}
+
+	@Override
+	public int cafe_delete(int cafe_no) {
+		int res=0;
+		
+		try {
+			res = sqlSession.delete(namespace+"cafe_delete", cafe_no);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("cafe_delete 오류");
 		}
 		
 		

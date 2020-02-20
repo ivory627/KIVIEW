@@ -128,7 +128,7 @@
                         <br>
                         <div class="form-group">
                            <label>${cafe_list[0].question }</label>&nbsp;<span style="color:red">*</span><br> 
-                           <input type="text" size="95" placeholder="질문에 답변해주세요." name="answer">   
+                           <input type="text" size="95" placeholder="질문에 답변해주세요." name="answer" minlength="4", maxlength="50" required>   
                         </div>
                         <br>            
                         <div class="form-group" style="position: relative; left: 40%">

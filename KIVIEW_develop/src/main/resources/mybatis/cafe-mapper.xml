@@ -73,6 +73,11 @@
      
      </select>
      
+     <delete id="cafe_delete" parameterType="int">
+      DELETE FROM CAFE
+      WHERE CAFE_NO = #{cafe_no}
+     
+     </delete>
      
 
      
@@ -202,29 +207,38 @@
      	SELECT *
      	FROM CAFE_MEMBER
      </select>
+     
       
-      <select id="cafe_member_list" parameterType="int" resultType="CafeMemberVo"> 
+      
+      <select id="member_list" parameterType="int" resultType="CafeMemberVo"> 
      	SELECT *
      	FROM CAFE_MEMBER
      	WHERE CAFE_NO = #{cafe_no}
 
      </select>
      
-     <update id="cafe_member_block" parameterType="int">
+     <update id="member_block" parameterType="int">
      	UPDATE CAFE_MEMBER
-     	SET BLOCKYN = #{blockyn}
+     	SET BLOCKYN = 'Y'
      	WHERE CAFE_MEMBER_NO=#{cafe_member_no}
      
      </update>
      
-     <update id="cafe_member_sign" parameterType="int">
+     <update id="member_unblock" parameterType="int">
      	UPDATE CAFE_MEMBER
-     	SET SIGNYN = #{signyn}, SIGNDATE = sysdate
+     	SET BLOCKYN = 'N'
      	WHERE CAFE_MEMBER_NO=#{cafe_member_no}
      
      </update>
      
-     <delete id="cafe_member_out" parameterType="int">
+     <update id="member_sign" parameterType="int">
+     	UPDATE CAFE_MEMBER
+     	SET SIGNYN = 'Y', SIGNDATE = SYSDATE
+     	WHERE CAFE_MEMBER_NO=#{cafe_member_no}
+     
+     </update>
+     
+     <delete id="member_delete" parameterType="int">
      	DELETE FROM CAFE_MEMBER
      	WHERE CAFE_MEMBER_NO=#{cafe_member_no}
      
@@ -232,7 +246,7 @@
      
       <insert id="cafejoin" parameterType="CafeMemberVo" >
         INSERT INTO CAFE_MEMBER
-        VALUES(CAFE_MEMBER_SEQ.NEXTVAL,#{member_no},#{cafe_no},#{name},#{answer},'Y','N',SYSDATE)
+        VALUES(CAFE_MEMBER_SEQ.NEXTVAL,#{member_no},#{cafe_no},#{name},#{answer},#{signyn},'N',SYSDATE) 
      </insert>
      
      <select id="cafe_regyn" parameterType="CafeMemberVo" resultType="CafeMemberVo">

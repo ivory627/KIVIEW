@@ -17,6 +17,9 @@ $(function(){
    })
 })
 
+function sign_ready(){
+	alert('${login.member_id}님은 승인 대기중이십니다.');
+}
 
 
 </script>
@@ -100,7 +103,7 @@ textarea{
                   
                   <br> 
                   <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                  <h3 style="cursor:pointer"><b onclick="location.href='cafe_detail.jsp'">${cafe_list[0].title }</b></h3>
+                  <h3 style="cursor:pointer"><b onclick="location.href='cafedetail.do?cafe_no=${cafe_list[0].cafe_no }&member_no=${login.member_no }'">${cafe_list[0].title }</b></h3>
                   <hr>
                   
                   <table style="border:0px" > 
@@ -114,27 +117,44 @@ textarea{
            
                
               	<div>
-               		<c:forEach var="member" items="${cafe_list[2] }">
-               			<c:choose>
-               				<c:when test="${login.member_no == member.member_no }">
-               			        
-									<c:if test="${member.signyn eq 'Y' || member.signyn eq 'A' }">
-										<p class="mb-0" align=center><a href="cafejoinform.do?cafe_no=${cafe_list[0].cafe_no }" class="btn btn-secondary" style="width:100%; border-radius:0px;" >채팅방 입장하기</a></p>
-									 
-            					
-            						</c:if>
+              		<c:set var="count" value="0"/>
+               			<c:forEach var="member" items="${cafe_list[2] }">
+		
+               				<c:if test="${login.member_no == member.member_no }">
+               					<c:set var="count" value="${count+1 }"/>
+               					<c:if test="${count>0 }">
+               							<c:if test="${member.signyn eq 'Y' || member.signyn eq 'A' }">
+											<p class="mb-0" align=center><a href="cafejoinform.do?cafe_no=${cafe_list[0].cafe_no }" 
+											class="btn btn-secondary" style="width:100%; border-radius:0px;" >채팅방 입장하기</a></p>
+            							</c:if>
             						
-            						<c:if test="${member.signyn eq 'N' }">
-            							<p class="mb-0" align=center><a href="#" class="btn btn-secondary" style="width:100%; border-radius:0px;" >가입 승인 대기 </a></p>
-            						</c:if>
-            				</c:when>
+	            						<c:if test="${member.signyn eq 'N' }">
+	            							<p class="mb-0" align=center><a onclick="sign_ready()" class="btn btn-secondary" 
+	            							style="width:100%; border-radius:0px;" >가입 승인 대기 </a></p>
+	            						</c:if>
+               				</c:if>
+		
+            				</c:if>
+            			</c:forEach> 	
+            			
             				
-            				<c:otherwise>
-            					<p class="mb-0" align=center><a href="cafejoinform.do?cafe_no=${cafe_list[0].cafe_no }&member_no=${login.member_no }" class="btn btn-secondary" style="width:100%; border-radius:0px;" >카페 가입하기 </a></p>
-            				</c:otherwise>   
             				
-            			</c:choose>
-            		</c:forEach> 
+            				<c:if test="${count==0 }">
+               							<p class="mb-0" align=center><a href="cafejoinform.do?cafe_no=${cafe_list[0].cafe_no }&member_no=${login.member_no }" 
+               							class="btn btn-secondary" style="width:100%; border-radius:0px;" >카페 가입하기 </a></p>
+               				</c:if>
+            				
+            				
+            				
+							
+							
+            						
+            				  
+							
+            				
+            				
+            			
+            			
 				
 <!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->                       
                

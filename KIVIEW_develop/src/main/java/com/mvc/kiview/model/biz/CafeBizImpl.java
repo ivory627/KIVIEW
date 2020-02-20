@@ -241,6 +241,12 @@ public class CafeBizImpl implements CafeBiz {
 		
 		return dao.member_block(cafe_member_no);
 	}
+	
+	@Override
+	public int member_unblock(int cafe_member_no) {
+		
+		return dao.member_unblock(cafe_member_no);
+	}
 
 	@Override
 	public int member_sign(int cafe_member_no) {
@@ -248,16 +254,24 @@ public class CafeBizImpl implements CafeBiz {
 		return dao.member_sign(cafe_member_no);
 	}
 
-	@Override
-	public int member_cancle(int cafe_member_no) {
-		
-		return dao.member_cancle(cafe_member_no);
-	}
+	
 
 	@Override
 	public List<CafeMemberVo> member_selectAll() {
 		
 		return dao.member_selectAll();
+	}
+
+	@Override
+	public int member_delete(int cafe_member_no) {
+		
+		return dao.member_delete(cafe_member_no);
+	}
+
+	@Override
+	public int cafe_delete(int cafe_no) {
+		
+		return dao.cafe_delete(cafe_no);
 	}
 	
 

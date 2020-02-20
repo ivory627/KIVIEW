@@ -18,6 +18,8 @@ public interface CafeDao {
    public CafeMemberVo cafe_regyn(CafeMemberVo regyn);
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   
    
+   public int cafe_delete(int cafe_no);
+   
    public int cafe_insert(CafeVo vo);
     
    public int cafe_insert2(CafeMemberVo vo);
@@ -47,6 +49,8 @@ public interface CafeDao {
 	public int category_delete_all(int cafe_menu_no);
 
 	public int category_update(CafeCategoryVo category);
+	
+	public int menu_update(CafeMenuVo menu);
    
    //-------------------------------  게시판 --------------------------------
    
@@ -56,7 +60,7 @@ public interface CafeDao {
 
 	public String cafe_menu_name(int cafe_menu_no);
 
-	public int menu_update(CafeMenuVo menu);
+	
 	
 	public int cafe_board_insert(CafeBoardVo cafeboardvo);
 
@@ -74,14 +78,23 @@ public interface CafeDao {
 	public int cafe_update(CafeVo cafe);
 
 	public CafeVo cafe_chk(String title);
+	
+	
+	  //------------------------------- 회원관리 --------------------------------
 
 	public int member_block(int cafe_member_no);
 	
 	public int member_sign(int cafe_member_no);
 	
-	public int member_cancle(int cafe_member_no);
+	
 
 	public List<CafeMemberVo> member_selectAll();
+
+	public int member_delete(int cafe_member_no);
+
+	public int member_unblock(int cafe_member_no);
+
+	
 
 	
 }

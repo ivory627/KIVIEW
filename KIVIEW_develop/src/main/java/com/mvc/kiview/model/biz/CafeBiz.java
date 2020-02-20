@@ -24,33 +24,38 @@ public interface CafeBiz {
 	
 	public CafeVo cafe_chk(String title);
 	
+	public int cafe_delete(int cafe_no);
 	
-
 	public CafeVo cafe_selectone(int cafe_no);
-
-	public int menu_insert(CafeMenuVo vo, String cat1, String cat2, String cat3);
-
-	public int category_insert(String cat);
-
-	public int cafe_join(CafeMemberVo vo);
-
+	
+	public List<CafeVo> cafe_search(String keyword);
+	
+	public int cafe_update(CafeVo cafe);
+	
+	//--메뉴 CRUD--
+	
 	public List<CafeMenuVo> menu_list(int cafe_no);
 
+	public int menu_insert(CafeMenuVo vo, String cat1, String cat2, String cat3);
+	
 	public CafeMenuVo menu_detail1(int no);
 
 	public List<CafeCategoryVo> menu_detail2(int no);
-
+	
 	public CafeMenuVo menu_chk(CafeMenuVo menu);
 	
-	public List<CafeVo> cafe_search(String keyword);
-
-	public List<CafeMemberVo> cafe_member_list(int cafe_no);
-
 	public int menu_delete(int cafe_menu_no);
+
+	public int menu_update(CafeMenuVo menu);
+	
+	//--카테고리 CRUD
+	public int category_insert(String cat);
+
+	public int cafe_join(CafeMemberVo vo);
+		
+	public List<CafeMemberVo> cafe_member_list(int cafe_no);	
 	
 	public int category_delete_all(int cafe_menu_no);
-	
-	public int menu_update(CafeMenuVo menu);
 	
 	public int category_update(CafeCategoryVo category);
 	
@@ -58,7 +63,7 @@ public interface CafeBiz {
 	
 	public int category_update_insert(CafeCategoryVo category);
 	
-	public int cafe_update(CafeVo cafe);
+	
 	
 	//--게시판--//
 	
@@ -80,12 +85,19 @@ public interface CafeBiz {
 	//--멤버관리--//
 	public int member_block(int cafe_member_no);
 	
+	public int member_unblock(int cafe_member_no);
+	
 	public int member_sign(int cafe_member_no);
 	
-	public int member_cancle(int cafe_member_no);
+	
 
 	public List<CafeMemberVo> member_selectAll();
 
+	public int member_delete(int cafe_member_no);
+
+	
+
+	
 	
 
 	

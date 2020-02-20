@@ -34,7 +34,21 @@ a {
 		location.href = "cafesearch.do?keyword=" + keyword;
 	}
 	
+	function member_out(member_no, cafe_member_no){
+		
+				
+		if(confirm("해당 카페를 탈퇴하시겠습니까?")){
+			location.href="memberout.do?member_no="+member_no+"&cafe_member_no="+cafe_member_no
+		}
+	}
 	
+	function cafe_delete(member_no, cafe_no){ 
+		
+		
+		if(confirm("해당 카페를 폐쇄하시겠습니까? \n\n주의 : 다시 복구하실 수 없습니다.")){
+			location.href="cafedelete.do?member_no="+member_no+"&cafe_no="+cafe_no 
+		}
+	}
 	
 	
 </script>
@@ -119,19 +133,17 @@ a {
 											<p>
 												<span>${cafe.admin }</span> | <span>게시글 수</span> | 
 												
+												
 												<c:set var="count" value="0"/>
 													<c:forEach items="${member }" var="member">
 													
 														<c:if test="${cafe.cafe_no == member.cafe_no }">
 															<c:set var="count" value="${count+1 }"/>
-															
-																
-																<span>${count}</span>
-															
-														
+
 														</c:if>
 													
 													</c:forEach>
+													<span>${count}</span>
 												
 											</p>
 											
@@ -146,25 +158,23 @@ a {
 										
 										<c:if test="${cafe.admin ne login.member_id }">
 											<c:forEach var="member" items="${member }">
-												<c:if test="${cafe.cafe_no == member.cafe_no }">
+												<c:if test="${login.member_no == member.member_no && cafe.cafe_no == member.cafe_no }">
 													<br> <input style="position: relative; left: 90%; background-color:black"
 														class="btn btn-secondary" type="button" value="탈퇴"
-														onclick="location.href='memberdelete.do?cafe_member_no=${member.cafe_member_no}'" >
+														onclick="member_out(${login.member_no },${member.cafe_member_no})" > 
 													<hr> 
 												</c:if>
-											</c:forEach>
+											</c:forEach> 
 										</c:if>  
 										<c:if test="${cafe.admin eq login.member_id }">
-											<c:forEach var="member" items="${member }">
-												<c:if test="${cafe.cafe_no == member.cafe_no }">
+											
 													<br> <input style="position: relative; left: 90%; background-color:black"
 														class="btn btn-secondary" type="button" value="폐쇄"
-														onclick="location.href='cafedelete.do?cafe_no=${member.cafe_no}'" >
+														onclick="cafe_delete(${login.member_no },${cafe.cafe_no})" >
 													<hr> 
-												</c:if>
-											</c:forEach>
+												
 										</c:if>
-									</div>
+									</div> 
 
 
 								</div>

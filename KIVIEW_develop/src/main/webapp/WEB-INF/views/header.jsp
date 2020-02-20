@@ -272,7 +272,7 @@ $(function(){
             <li class="nav-item"><a
                href="cafehome.do?member_no=${login.member_no }&member_id=${login.member_id}"
                class="nav-link">카페 홈</a></li>
-            <li class="nav-item"><a href="kiview_search.jsp"
+            <li class="nav-item"><a href="cafemy.do?member_no=${login.member_no }"
                class="nav-link">카페 관리</a></li>
          </ul>
       </div>
