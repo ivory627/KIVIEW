@@ -94,5 +94,8 @@
 	<select id="kinderDetail" parameterType="int" resultType="KinderVo">
 		SELECT * FROM KINDER WHERE KINDER_NO = #{kinder_no}
 	</select>
+	<select id="kinderListKeyword" parameterType="String" resultMap="KinderMap">
+		<![CDATA[ SELECT NAME FROM KINDER WHERE NAME LIKE '%${name}%' AND ROWNUM <= 15 ]]>
+	</select>
 
 </mapper>

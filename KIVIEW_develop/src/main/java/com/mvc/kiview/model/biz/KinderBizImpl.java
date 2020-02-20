@@ -58,4 +58,10 @@ public class KinderBizImpl implements KinderBiz {
 		return dao.TownList(city);
 	}
 
+	@Override
+	public List<KinderVo> KinderList(String keyword) {
+
+		return dao.KinderList(keyword);
+	}
+
 }

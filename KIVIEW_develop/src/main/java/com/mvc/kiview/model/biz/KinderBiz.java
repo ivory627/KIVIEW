@@ -14,5 +14,6 @@ public interface KinderBiz {
 	public List<ProvinceVo> ProvinceList();
 	public List<ProvinceVo> CityList(String province);
 	public List<ProvinceVo> TownList(String city);
+	public List<KinderVo> KinderList(String keyword);
 
 }

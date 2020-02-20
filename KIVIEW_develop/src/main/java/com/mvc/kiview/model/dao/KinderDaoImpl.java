@@ -100,6 +100,19 @@ public class KinderDaoImpl implements KinderDao{
 		}
 		return list;
 	}
+
+	@Override
+	public List<KinderVo> KinderList(String keyword) {
+		List<KinderVo> list = new ArrayList<KinderVo>();
+		try {
+			list = sqlSession.selectList(namespace+"kinderListKeyword",keyword);
+		}catch(Exception e) {
+			System.out.println("error:kinder list keyword");
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 	
 	
 }

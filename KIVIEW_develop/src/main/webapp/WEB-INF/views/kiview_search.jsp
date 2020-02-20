@@ -9,7 +9,7 @@
   <head>
     <title>KIVIEW &mdash; Search</title>
     
-    <%@ include file = "head.jsp" %>
+    <jsp:include page="head.jsp"/>
     
     <style type="text/css">
     a{
@@ -380,7 +380,7 @@
      
      
      <!-- @@ footer 영역 @@ -->
-	<%@ include file="footer.jsp"%>
+	<jsp:include page="footer.jsp"/>
 	
 	
 

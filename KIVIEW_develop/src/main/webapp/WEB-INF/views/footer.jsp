@@ -84,10 +84,9 @@
     </footer>
     
     
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="resources/js/main.kiview.js"></script>
-	<script src="resources/js/jquery.min.js"></script>
-	<script src="resources/js/jquery-migrate-3.0.1.min.js"></script>
+	<!-- <script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/jquery-migrate-3.0.1.min.js"></script> -->
 	<script src="resources/js/popper.min.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
 	<script src="resources/js/jquery.easing.1.3.js"></script>
@@ -98,6 +97,4 @@
 	<script src="resources/js/aos.js"></script>
 	<script src="resources/js/jquery.animateNumber.min.js"></script>
 	<script src="resources/js/scrollax.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="resources/js/main.js"></script>
