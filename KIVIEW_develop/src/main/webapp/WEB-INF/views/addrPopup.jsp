@@ -9,12 +9,12 @@
 	//request.setCharacterEncoding("EUC-KR");  //해당시스템의 인코딩타입이 EUC-KR일경우에
 	String inputYn = request.getParameter("inputYn"); 
 	String roadFullAddr = request.getParameter("roadFullAddr"); 
-	String member_addr = request.getParameter("member_addr"); 
+	String roadAddrPart1 = request.getParameter("roadAddrPart1"); 
 	String roadAddrPart2 = request.getParameter("roadAddrPart2"); 
 	String engAddr = request.getParameter("engAddr"); 
 	String jibunAddr = request.getParameter("jibunAddr"); 
 	String zipNo = request.getParameter("zipNo"); 
-	String member_addrDetail = request.getParameter("member_addrDetail"); 
+	String addrDetail = request.getParameter("addrDetail"); 
 	String admCd    = request.getParameter("admCd");
 	String rnMgtSn = request.getParameter("rnMgtSn");
 	String bdMgtSn  = request.getParameter("bdMgtSn");
@@ -59,7 +59,7 @@ function init(){
 		//document.form.action="http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do"; //모바일 웹인 경우, 인터넷망
 		document.form.submit();
 	}else{
-		opener.jusoCallBack("<%=roadFullAddr%>","<%=member_addr%>","<%=member_addrDetail%>","<%=roadAddrPart2%>", "<%=engAddr%>", "<%=jibunAddr%>","<%=zipNo%>","<%=admCd%>","<%=rnMgtSn%>","<%=bdMgtSn%>", "<%=detBdNmList%>","<%=bdNm%>","<%=bdKdcd%>", "<%=siNm%>","<%=sggNm%>","<%=emdNm%>", "<%=liNm%>","<%=rn%>","<%=udrtYn%>","<%=buldMnnm%>","<%=buldSlno%>","<%=mtYn%>", "<%=lnbrMnnm%>","<%=lnbrSlno%>","<%=emdNo%>);
+		opener.jusoCallBack("<%=roadFullAddr%>","<%=roadAddrPart1%>","<%=addrDetail%>","<%=roadAddrPart2%>","<%=engAddr%>","<%=jibunAddr%>","<%=zipNo%>", "<%=admCd%>", "<%=rnMgtSn%>", "<%=bdMgtSn%>", "<%=detBdNmList%>", "<%=bdNm%>", "<%=bdKdcd%>", "<%=siNm%>", "<%=sggNm%>", "<%=emdNm%>", "<%=liNm%>", "<%=rn%>", "<%=udrtYn%>", "<%=buldMnnm%>", "<%=buldSlno%>", "<%=mtYn%>", "<%=lnbrMnnm%>", "<%=lnbrSlno%>", "<%=emdNo%>");
 		window.close();
 		}
 }
