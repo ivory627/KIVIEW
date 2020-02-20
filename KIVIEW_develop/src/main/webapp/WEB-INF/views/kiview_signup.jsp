@@ -61,7 +61,7 @@
 								<div class="jsx-639067573 input">
 									<input required="" autocomplete="new-password"
 										placeholder="아이디를 입력해 주세요" class="jsx-639067573 "
-										name="member_id" id="member_id" onkeydown="idChkChk()">
+										name="member_id" id="member_id" onkeydown="idChk_chk()">
 									<input type="hidden" id="idChkChk" value="idUnchecked" />
 								</div>
 								<button class="jsx-771227029 btn-id-check" type="button"
@@ -205,6 +205,8 @@
 				error : function() {
 					$("#signupIdChk").show().html("");
 					$("#signupIdChk").show().css("color","blue").html("&nbsp;&nbsp;사용 가능한 아이디입니다");
+					alert("성공");
+					$('#idChkChk').val("idChecked");
 				}
 			});
 		
@@ -242,18 +244,23 @@
 
 				return false;
 			}
+			
+			if( $('#idChkChk').val() == "idUnchecked" ){
+				alert("!!!");
+				$('html').animate({scrollTop : offset.top}, 400);
+				return false;
+			}
 
 			return true;
 
 		}
 	}
 
-
-	function idChkChk(){	//??
-		alert("!!!");
-		document.signupForm.idChkChk.value = "idUncheck";
+	//중복확인 여부
+	function idChk_chk(){
+		alert("아이디 변경");
 		$('#idChkChk').val("idUnchecked");
-		alert($('#idChkChk').val());
+		$("#signupIdChk").show().css('color', 'red').html("&nbsp;&nbsp;중복확인을 해주세요");
 	}
 
 
