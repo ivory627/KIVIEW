@@ -51,6 +51,8 @@ function signupChk(){
 	var signupPwdChk = $("#signupPwdChk").val();
 	
 	if(signupPwd != signupPwdChk){
+		$("#signupEmailChkMsg").hide();
+		$("#signupPhoneChkMsg").hide();
 		$("#signupPwdChkMsg").show().html("");
 		$("#signupPwdChkMsg").show().css('color', 'red').html("&nbsp;&nbsp;비밀번호가 일치하지 않습니다");
 		
@@ -58,67 +60,66 @@ function signupChk(){
 		$('html').animate({scrollTop : member_name.top}, 400);
 
 		return false;
-		
-	} else{
-
-		//비밀번호 정규식
-		if (!/^.*(?=^.{10,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(signupPwd)) {
-			$("#signupEmailChkMsg").hide();
-			$("#signupPhoneChkMsg").hide();
-			$("#signupPwdChkMsg").show().html("");
-			$("#signupPwdChkMsg").show().css('color', 'red').html("&nbsp;&nbsp;영문, 숫자, 특수문자를 포함 10~20자리를 사용해야 합니다");
-			
-			var member_name = $('#member_name').offset();
-			$('html').animate({scrollTop : member_name.top}, 400);
-
-			return false;
-		}
-		
-		//중복확인 여부
-		if( $('#idChkChk').val() == "idUnchecked" ){
-			var member_name = $('#member_name').offset();
-			$('html').animate({scrollTop : member_name.top}, 400);
-			
-			return false;
-		}
-		
-		//이메일 정규식
-		var member_email = $("#member_email").val(); 
-		var idReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-        if( !idReg.test( member_email ) ) {
-        	$("#signupPwdChkMsg").hide();
-        	$("#signupPhoneChkMsg").hide();
-        	$("#signupEmailChkMsg").show().css('color', 'red').html("&nbsp;&nbsp;올바른 이메일형식으로 입력해주세요&nbsp;&nbsp;ex)test01@email.com");
-        	
-        	var member_addr = $('#member_addr').offset();
-			$('html').animate({scrollTop : member_addr.top}, 200);
-			
-            return false;
-        }
-        
-        //전화번호 정규식
-		var member_phone = $("#member_phone").val(); 
-		var idReg = /^[0-9]*$/;
-        if( !idReg.test( member_phone ) ) {
-        	$("#signupEmailChkMsg").hide();
-        	$("#signupPwdChkMsg").hide();
-        	$("#signupPhoneChkMsg").show().css('color', 'red').html("&nbsp;&nbsp;숫자만 입력해주세요&nbsp;&nbsp;ex)01011112222");
-        	
-        	var member_addr = $('#member_addr').offset();
-			$('html').animate({scrollTop : member_addr.top}, 200);
-			
-            return false;
-        }
-        
-        //도로명주소+상세주소
-        var member_addrRes = $('#member_addr').val() + " " + $('#member_addrDetail').val();
-        $('#member_addr').val(member_addrRes);
-		
-		alert("성공적으로 KIVIEW의 회원이 되셨습니다");
-
-		return true;
-
 	}
+
+	//비밀번호 정규식
+	if (!/^.*(?=^.{10,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(signupPwd)) {
+		$("#signupEmailChkMsg").hide();
+		$("#signupPhoneChkMsg").hide();
+		$("#signupPwdChkMsg").show().html("");
+		$("#signupPwdChkMsg").show().css('color', 'red').html("&nbsp;&nbsp;영문, 숫자, 특수문자를 포함 10~20자리를 사용해야 합니다");
+		
+		var member_name = $('#member_name').offset();
+		$('html').animate({scrollTop : member_name.top}, 400);
+
+		return false;
+	}
+	
+	//중복확인 여부
+	if( $('#idChkChk').val() == "idUnchecked" ){
+		var member_name = $('#member_name').offset();
+		$('html').animate({scrollTop : member_name.top}, 400);
+		
+		return false;
+	}
+	
+	//이메일 정규식
+	var member_email = $("#member_email").val(); 
+	var idReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	if( !idReg.test( member_email ) ) {
+    	$("#signupPwdChkMsg").hide();
+    	$("#signupPhoneChkMsg").hide();
+    	$("#signupEmailChkMsg").show().css('color', 'red').html("&nbsp;&nbsp;올바른 이메일형식으로 입력해주세요&nbsp;&nbsp;ex)test01@email.com");
+    	
+    	var member_addr = $('#member_addr').offset();
+		$('html').animate({scrollTop : member_addr.top}, 200);
+		
+        return false;
+    }
+    
+    //전화번호 정규식
+	var member_phone = $("#member_phone").val(); 
+	var idReg = /^[0-9]*$/;
+    if( !idReg.test( member_phone ) ) {
+    	$("#signupEmailChkMsg").hide();
+    	$("#signupPwdChkMsg").hide();
+    	$("#signupPhoneChkMsg").show().css('color', 'red').html("&nbsp;&nbsp;숫자만 입력해주세요&nbsp;&nbsp;ex)01011112222");
+    	
+    	var member_addr = $('#member_addr').offset();
+		$('html').animate({scrollTop : member_addr.top}, 200);
+		
+        return false;
+    }
+    
+    //도로명주소+상세주소
+    var member_addrRes = $('#member_addr').val() + " " + $('#member_addrDetail').val();
+    $('#member_addr').val(member_addrRes);
+	
+	alert("성공적으로 KIVIEW의 회원이 되셨습니다");
+
+	return true;
+
+	
 }
 
 //중복확인 여부

@@ -51,6 +51,10 @@ public class MemberController {
 
 		if (res != null) {
 			session.setAttribute("login", res);
+			
+			//세션 유지 시간 1시간으로 설정
+			session.setMaxInactiveInterval(60*60) ;
+
 			check = true;
 		}
 		Map<String, Boolean> map = new HashMap<String, Boolean>();

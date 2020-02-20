@@ -1,11 +1,14 @@
-var searchedId = "";
 
 $(function() {
+	//시작 이벤트
+	alert("!!!!");
 	$('#loginChk').hide();
 	$('#loginIdChk').hide();
 	$('#loginPwdChk').hide();
 	$('#idUseBtn').hide();
-
+	$("#member_id").focus();	//??
+	
+	//엔터 이벤트
 	$('.jsx-639067573').keydown(function(key) {
 		// 키의 코드가 13번일 경우 (엔터의 키코드는 13)
 		if (key.keyCode == 13) {
@@ -19,11 +22,14 @@ $(function() {
 		}
 	});
 
+	//클릭 이벤트
 	$('#idCkBtn').click(function() {
+		alert("@@@@");
 		$('#idSearchHTML').hide();
 		$('#idSearchRes').hide();
 		$('#idSearch_name').val("");
 		$('#idSearch_email').val("");
+		$("#idSearch_name").focus();	//??
 
 	});
 
@@ -77,6 +83,8 @@ function login() {
 	}
 }
 
+
+var searchedId = "";
 function idCk() {
 
 	var member_name = $("#idSearch_name").val().trim();
@@ -134,5 +142,4 @@ function idUse(){
 	$('#member_id').val(id);
 	$('#id01').hide();
 }
-
 

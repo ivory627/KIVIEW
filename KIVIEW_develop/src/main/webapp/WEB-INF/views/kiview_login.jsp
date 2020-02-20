@@ -142,10 +142,11 @@
 									<h2>아이디 찾기</h2>
 								</header>
 								<div class="w3-container">
-									<br> <input required="필수 입력사항" placeholder="이름"
-										class="find-id" id="idSearch_name"> <br> <input
-										required="필수 입력사항" placeholder="이메일" class="find-id"
-										id="idSearch_email"> <br>
+									<br>
+									<input required="필수 입력사항" placeholder="이름" class="find-id" id="idSearch_name">
+									<br>
+									<input required="필수 입력사항" placeholder="이메일" class="find-id" id="idSearch_email">
+									<br>
 									<p id="idSearchHTML" style="color: red;"></p>
 									<p id="idSearchRes" style="color: blue;"></p>
 									<button type="button" class="jsx-2144885398" id="idChkBtn" onclick="idCk()">검색</button>
@@ -196,6 +197,9 @@
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="resources/js/login.js?version=1.0"></script>
+	
+	
+	
 
 
 
