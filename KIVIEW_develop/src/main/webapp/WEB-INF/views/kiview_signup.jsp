@@ -29,7 +29,7 @@
 				<div class="jsx-669562709 join-title">
 					<div class="jsx-669562709 join-title-wrap">
 						<a class="jsx-669562709" href="index.do"><img src=""
-							alt="Kiview로고" class="jsx-669562709"></a>
+							alt="Kiview로고" class="jsx-669562709" id="kiviewLogo"></a>
 						<h2 class="jsx-669562709">
 							<span class="jsx-669562709">회원가입</span><span
 								class="jsx-669562709">본인인증</span><span
@@ -89,57 +89,49 @@
 					</div>
 					<div class="jsx-3372927190 label-box">
 						<label class="jsx-3712571264 "> <span
+							class="jsx-3712571264">도로명주소&nbsp;</span>
+							<div class="jsx-3372927190 input-flex">
+								<div class="jsx-639067573 input">
+									<input required="필수 입력사항" placeholder="도로명주소"
+										class="jsx-639067573 " name="member_addr" id="member_addr">
+								</div>
+								<button class="jsx-771227029 btn-nickname-check" type="button"
+									style="margin-left: 16px;" onclick="goPopup()">주소찾기</button>
+							</div>
+						</label>
+						<label class="jsx-3712571264 "> <span
+							class="jsx-3712571264">상세주소&nbsp;</span>
+							<div class="jsx-3372927190 input-flex">
+								<div class="jsx-639067573 input">
+									<input required="필수 입력사항" placeholder="상세주소"
+										class="jsx-639067573 " name="member_addrDetail" id="member_addrDetail">
+								</div>
+							</div>
+						</label>
+					</div>
+					<div class="jsx-3372927190 label-box">
+						<label class="jsx-3712571264 "> <span
 							class="jsx-3712571264">연락처&nbsp;</span>
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
 									<input required="" autocomplete="new-password"
 										placeholder="휴대폰 번호를 입력해주세요 (숫자만 입력)" class="jsx-639067573 "
-										name="member_phone">
+										name="member_phone" id="member_phone">
 								</div>
 							</div>
 						</label>
 						<div class="jsx-3372927190 label-box">
 							<label class="jsx-3712571264 "> <span
-								class="jsx-3712571264">이메일&nbsp;</span>
+								class="jsx-3712571264">이메일&nbsp;</span><span class="jsx-3712571264" id="signupEmailChkMsg"></span>
 								<div class="jsx-3372927190 input-flex">
 									<div class="jsx-639067573 input">
 										<input required="" placeholder="이메일을 입력해주세요"
-											class="jsx-639067573 " name="member_email">
+											class="jsx-639067573 " name="member_email" id="member_email">
 									</div>
 								</div>
 							</label>
 						</div>
 					</div>
-					<div class="jsx-3372927190 label-box">
-						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">우편번호&nbsp;</span>
-							<div class="jsx-3372927190 input-flex">
-								<div class="jsx-639067573 input">
-									<input required="필수 입력사항" placeholder="우편번호"
-										class="jsx-639067573 " value="">
-								</div>
-								<button class="jsx-771227029 btn-nickname-check" type="button"
-									style="margin-left: 16px;">주소찾기</button>
-							</div>
-						</label> <label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">도로명주소&nbsp;</span>
-							<div class="jsx-3372927190 input-flex">
-								<div class="jsx-639067573 input">
-									<input required="필수 입력사항" placeholder="도로명주소"
-										class="jsx-639067573 " name="member_addr">
-								</div>
-							</div>
-						</label> <label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">상세주소&nbsp;</span>
-							<div class="jsx-3372927190 input-flex">
-								<div class="jsx-639067573 input">
-									<input required="필수 입력사항" placeholder="상세주소를 입력하세요."
-										class="jsx-639067573 " value="">
-								</div>
-							</div>
-						</label>
-					</div>
-
 					<div class="jsx-3372927190 btn-box">
 						<div class="jsx-3372927190 btn-prev">
 							<button type="button" class="jsx-462732305" id="prev-page"
@@ -167,104 +159,8 @@
 	<script src="js/signup.min.js"></script>
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<!-- <script type="text/javascript" src="resources/js/signup.js?version=1.0"></script> -->
-	
-	<script type="text/javascript">
+	<script type="text/javascript" src="resources/js/signup.js?version=1.0"></script> 
 
-	$(function() {
-		$('#signupIdChk').hide();
-		$('#signupPwdChkMsg').hide();
-	});
-
-	//아이디 중복체크
-	function signupIdCkBtn(){
-		var member_id = $("#member_id").val();
-		
-		var idChkVal = {
-			"member_id" : member_id,
-		};
-		
-		//아이디 정규식
-		var idReg =  /^[a-z]{1}[a-z0-9]{4,19}$/;
-        if( !idReg.test( member_id ) ) {
-            $("#signupIdChk").show().html("");
-            $("#signupIdChk").show().css("color","red").html("&nbsp;&nbsp;영소문자 혹은 영소문자/숫자 조합, 5~20자리로 입력해주세요");
-            return;
-            
-        } else {
-			$.ajax({
-				type : "post",
-				url : "kiviewsignupidchk.do",
-				data : JSON.stringify(idChkVal),
-				contentType : "application/json",
-				dataType : "json",
-				success : function(msg) {
-						$("#signupIdChk").show().html("");
-						$("#signupIdChk").show().css("color","red").html("&nbsp;&nbsp;사용 불가능한 아이디입니다");
-				},
-				error : function() {
-					$("#signupIdChk").show().html("");
-					$("#signupIdChk").show().css("color","blue").html("&nbsp;&nbsp;사용 가능한 아이디입니다");
-					alert("성공");
-					$('#idChkChk').val("idChecked");
-				}
-			});
-		
-		}
-		
-	}
-
-
-
-	//회원가입 확인
-	function signupChk(){
-
-		//비밀번호 확인
-		var signupPwd = $("#signupPwd").val();
-		var signupPwdChk = $("#signupPwdChk").val();
-		
-		if(signupPwd != signupPwdChk){
-			$("#signupPwdChkMsg").show().html("");
-			$("#signupPwdChkMsg").show().css('color', 'red').html("&nbsp;&nbsp;비밀번호가 일치하지 않습니다");
-			
-			var offset = $('#member_name').offset();
-			$('html').animate({scrollTop : offset.top}, 400);
-
-			return false;
-			
-		} else{
-
-			//비밀번호 정규식
-			if (!/^.*(?=^.{10,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(signupPwd)) {
-				$("#signupPwdChkMsg").show().html("");
-				$("#signupPwdChkMsg").show().css('color', 'red').html("&nbsp;&nbsp;영문, 숫자, 특수문자를 포함 10~20자리를 사용해야 합니다");
-				
-				var offset = $('#member_name').offset();
-				$('html').animate({scrollTop : offset.top}, 400);
-
-				return false;
-			}
-			
-			if( $('#idChkChk').val() == "idUnchecked" ){
-				alert("!!!");
-				$('html').animate({scrollTop : offset.top}, 400);
-				return false;
-			}
-
-			return true;
-
-		}
-	}
-
-	//중복확인 여부
-	function idChk_chk(){
-		alert("아이디 변경");
-		$('#idChkChk').val("idUnchecked");
-		$("#signupIdChk").show().css('color', 'red').html("&nbsp;&nbsp;중복확인을 해주세요");
-	}
-
-
-	</script>
 
 
 </body>

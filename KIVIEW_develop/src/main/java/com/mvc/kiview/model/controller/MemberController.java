@@ -117,5 +117,11 @@ public class MemberController {
 		return "index";
 
 	}
+	
+	@RequestMapping("/kiviewjusopopup")
+	public String kiview_jusoPopup() {
+		logger.info("jusoPopup");
+		return "addrPopup";
+	}
 
 }
