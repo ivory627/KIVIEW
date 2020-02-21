@@ -13,6 +13,7 @@ public class Criteria {
 	private String keyword;
 	private String sort;
 	private String cat_detail;
+	private String faqcatd;
 
 	// 생성자
 	public Criteria() {
@@ -22,6 +23,7 @@ public class Criteria {
 		this.keyword = null;
 		this.sort = null;
 		this.cat_detail = null;
+		this.faqcatd = null;
 	}
 
 	public void setPage(int page) {
@@ -59,6 +61,9 @@ public class Criteria {
 	public void setCat_detail(String cat_detail) {
 		this.cat_detail = cat_detail;
 	}
+	public void setFaqcatd(String faqcatd) {
+		this.faqcatd = faqcatd;
+	}
 
 	public String getSearchType() {
 		return searchType;
@@ -74,6 +79,10 @@ public class Criteria {
 	
 	public String getCat_detail() {
 		return cat_detail;
+	}
+	
+	public String getFaqcatd() {
+		return faqcatd;
 	}
 
 	public int getPage() {

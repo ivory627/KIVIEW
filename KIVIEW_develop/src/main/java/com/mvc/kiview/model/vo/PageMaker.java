@@ -72,11 +72,11 @@ public class PageMaker {
 				.queryParam("perPageNum", this.cri.getPerPageNum());
 		
 		
-		
-		//FAQ의 분류 카테고리를 눌렀을 때 ?
-		if(this.cri.getKeyword() != null) {
-			uriComponentsBuilder.queryParam("keyword", this.cri.getKeyword());
-		}
+		  //FAQ의 분류 카테고리를 눌렀을 때 ? 
+		if(this.cri.getFaqcatd() != null) {
+		  uriComponentsBuilder.queryParam("faqcatd", this.cri.getFaqcatd()); 
+		  }
+		 
 		
 		// 검색 한 경우
 		if (this.cri.getSearchType() != null) {

@@ -44,7 +44,7 @@
 
 
 
-	<!--=================@@게시판 상단 select box + 검색 @@====================-->
+	<!--================= 게시판 상단 select box + 검색 ====================-->
 	
 	<div class="jsx-903324597 content" id = "contentdiv">
 		<div class="jsx-3810764099 board-box">
@@ -85,7 +85,7 @@
 				</div>
 				
 				
-				<!--=================@@게시판 상단 select box + 검색 @@====================-->
+				<!--================= 게시판 상단 select box + 검색 ====================-->
 				
 				<div class="jsx-4261166144 select-wrap" >
 					<div class="jsx-4261166144 select-box">
@@ -106,17 +106,16 @@
 						</div>
 					</div>
 					&nbsp;&nbsp;&nbsp;&nbsp;
+					
 					<div class="jsx-4261166144 select-box">
 						<div class="jsx-4121141969 select select--none">
 							<div class="jsx-4121141969 choice">
 							<!-- 최신순, 조회순 선택시 sort 값 보내기 -->
-							   <form action="kiviewnotice.do" 
-									class="appointment-form ftco-animate fadeInUp ftco-animated"
+							   <form action="kiviewnotice.do" class="appointment-form ftco-animate fadeInUp ftco-animated"
 									method = "post" id = "sortform">
 								<input type = "hidden" name = "page" value = "${pageMaker.cri.page}"/>	
 								<input type = "hidden" name = "page" value = "${pageMaker.cri.perPageNum}"/>	
-								  <select class="form-control-sm2" style="cursor:pointer;"
-								  	name = "sort" id = "sortsel">
+								  <select class="form-control-sm2" style="cursor:pointer;" name = "sort" id = "sortsel">
 			          					<option value="">유형</option>
 			          					<option value="new" ${param.sort eq 'new'? 'selected':''}>최신순</option>
 								        <option value="view" ${param.sort eq 'view'? 'selected':''}>조회순</option>
@@ -156,9 +155,10 @@
 							<div class="jsx-3573217014 input">
 								<input title="검색어 입력" placeholder="검색어를 입력해 주세요."
 									class="jsx-3573217014 input" id="searchBtn" name="keyword"
-									value="${pageMaker.cri.keyword}" style="width: 188px;">
+									value="${pageMaker.cri.keyword}" onkeypress="if(event.keyCode==13) {return false;}" 
+									style="width: 188px;" type = "text">
 							</div>
-							<button type="button" id = "searchbtn" class="jsx-574097175"
+							<button type="submit" id = "searchbtn" class="jsx-574097175"
 								style="margin-left: 16px;">검색</button>
 						</div>
 						</form>
@@ -182,7 +182,7 @@
 					</ul>
 					
 					
-					<!--===========================@@ 공지사항 글 목록 @@========================-->
+					<!--=========================== 공지사항 글 목록 ========================-->
 					
 					<c:choose>
 					<c:when test="${!empty noticelist}">	
@@ -227,10 +227,10 @@
 						</ul>
 					</c:otherwise>
 					</c:choose>
-					<!-- ---------@@ 글 목록 끝 @@--------- -->
+					<!-- --------- 글 목록 끝 --------- -->
 				</div>
 
-				<!--======================== @@ 페이징 @@=========================-->
+				<!--======================== 페이징 =========================-->
 				
 				<div class="jsx-1407906967 board-list-footer">
 					<ul class="jsx-3635512122 pagination pagination--kindergarten" id = "n_paging">
@@ -251,8 +251,15 @@
 						
 						<c:forEach begin = "${pageMaker.startPage}" 
 							end = "${pageMaker.endPage}" var = "idx">
-						<li class="jsx-3635512122" id = "page${idx}">
-						<a href = "${pageMaker.makeQuery(idx)}" id = "pageclick${idx}" style = "color:#000;">${idx}</a>
+						<li class="jsx-3635512122 " id = "page${idx}">
+						<c:choose>
+						<c:when test="${idx eq param.page}">
+						<a href = "${pageMaker.makeQuery(idx)}" class = "on" id = "pageclick${idx}">${idx}</a>
+						</c:when>
+						<c:otherwise>
+						<a href = "${pageMaker.makeQuery(idx)}" style = "color:#000;" id = "pageclick${idx}">${idx}</a>
+						</c:otherwise>
+						</c:choose>
 						</li>
 						</c:forEach>
 						

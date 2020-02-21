@@ -36,7 +36,7 @@ public class NoticeController {
 	public String kiview_notice(Model model, Criteria cri) {
 
 		logger.info("NOTICE LIST");
-
+		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(n_biz.notice_count(cri));
@@ -133,10 +133,11 @@ public class NoticeController {
 
 	/* FAQ 처음 로딩시 전체 list */
 	@RequestMapping("/kiviewfaq.do")
-	public String kiview_faq(Model model, Criteria cri, String keyword) {
+	public String kiview_faq(Model model, Criteria cri, String faqcatd) {
 
 		logger.info("FAQ LIST");
-		System.out.println("faq.do의 keyword:" + keyword);
+		System.out.println("faq.do의 faqcatd:" + faqcatd);
+		System.out.println("faq.do의 page:" + cri.getPage());
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(n_biz.faq_count(cri));
@@ -221,7 +222,7 @@ public class NoticeController {
 
 	@RequestMapping("/faqdelete.do")
 	@ResponseBody
-	public Map<String, Object> kiview_faq_delete(@RequestParam("faq_no") int faq_no, @RequestParam("keyword") String keyword) {
+	public Map<String, Object> kiview_faq_delete(@RequestParam("faq_no") int faq_no, @RequestParam("faqcatd") String faqcatd) {
 
 		logger.info("FAQ DELETE AJAX");
 
@@ -231,9 +232,9 @@ public class NoticeController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("faqDel", res);
 		map.put("faq_no", faq_no);
-		map.put("keyword", keyword);
+		map.put("faqcatd", faqcatd);
 
-		System.out.println("controller key:" + keyword);
+		System.out.println("controller key:" + faqcatd);
 
 		return map;
 	}

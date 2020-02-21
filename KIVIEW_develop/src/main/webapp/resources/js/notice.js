@@ -3,7 +3,7 @@ $(function(){
 		$("#menu01").css("color","rgb(255, 157, 31)");
 		$("#menu02, #menu03").css("color","#000");
 		
-		location.href = "kiviewnotice.do";
+		location.href = "kiviewnotice.do?page=1";
 	});
 	
 	$("#menu02").click(function(){
@@ -17,10 +17,19 @@ $(function(){
 		$("#menu03").css("color","rgb(255, 157, 31)");
 		$("#menu01, #menu02").css("color", "#000");
 		
-		location.href = "kiviewfaq.do";
+		location.href = "kiviewfaq.do?page=1&faqcatd=";
 	});
 	
-	$("#searchbtn").click(function(){
+	$("#sortsel").on('change', function(){
+		$("#sortform").submit();
+		
+	});
+	
+	$("#selcatd").on('change', function(){
+		$("#catdform").submit();
+	});
+	
+$("#searchbtn").click(function(){
 		
 		var searchTypeVal = $("#searchTypeSel option:selected").val();
 		var keywordVal = $("#searchBtn").val();
@@ -36,14 +45,9 @@ $(function(){
 			$("#searchform").submit();
 	});
 	
-	$("#sortsel").on('change', function(){
-		$("#sortform").submit();
-		
-	});
-	
-	$("#selcatd").on('change', function(){
-		$("#catdform").submit();
-	});
 	
 });
+
+
+
 

@@ -112,6 +112,7 @@ button {
     cursor: pointer;
 }
 .faq-tab.jsx-2342570284 li.jsx-2342570284 button.jsx-2342570284 {
+	outline:none;
     display: block;
     width: 100%;
     color: rgb(102, 102, 102);
@@ -181,6 +182,7 @@ li.jsx-357641531 button.jsx-357641531 {
 }
 
 #editbtn{
+	outline:none;
 	position:relative;
 	left:86%;
 	border-radius: 48%;
@@ -190,6 +192,7 @@ li.jsx-357641531 button.jsx-357641531 {
 	
 }
 #deletebtn{
+	outline:none;
 	position:relative;
 	left:87%;
 	border-radius: 48%;

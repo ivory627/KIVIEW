@@ -13952,6 +13952,13 @@ li.jsx-2214240288 div.col-nickname.jsx-2214240288 {
 	font-weight: 700;
 	color: #e76c07;
 }
+.pagination--kindergarten.jsx-3635512122 li a.on{
+	color:rgb(231, 108, 7);
+}
+.pagination--kindergarten.jsx-3635512122 li a.off{
+	color:black;
+}
+
 
 .btn-write.jsx-1407906967 {
 	box-sizing: border-box;

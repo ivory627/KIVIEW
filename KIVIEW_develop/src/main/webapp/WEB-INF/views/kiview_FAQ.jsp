@@ -78,17 +78,21 @@
 			<div class="jsx-2342570284 faq-box faq-box--kindergarten">
 			
 				<!-- 분류 카테고리 부분 -->
-				<form action="kiviewfaq.do" method = "get" name = "faqcatdform">
+				<form action="kiviewfaq.do" method = "post" name = "faqcatdform">
+				<input type = "hidden" name = "page" value = "1">
 				<ul class="jsx-2342570284 faq-tab" id = "tabul">
 					<li class="jsx-2342570284">
-					<button class="jsx-2342570284 ${param.keyword eq '' ? 'active':''}" type = "submit" id = "btn01" 
-					name="keyword" value="">전체</button></li>
+					<button class="jsx-2342570284 ${param.faqcatd eq '' ? 'active':''}" type = "submit" id = "btn01" 
+					name="faqcatd" value="">전체</button></li>
 					<li class="jsx-2342570284">
-					<button class="jsx-2342570284 ${param.keyword eq '리뷰' ? 'active':''}" type = "submit" id = "btn02" name="keyword" value="리뷰">리뷰</button></li>
+					<button class="jsx-2342570284 ${param.faqcatd eq '리뷰' ? 'active':''}" type = "submit" id = "btn02" 
+					name="faqcatd" value="리뷰">리뷰</button></li>
 					<li class="jsx-2342570284">
-					<button class="jsx-2342570284 ${param.keyword eq '회원' ? 'active':''}" type = "submit" id = "btn03" name="keyword" value="회원">회원</button></li>
+					<button class="jsx-2342570284 ${param.faqcatd eq '회원' ? 'active':''}" type = "submit" id = "btn03" 
+					name="faqcatd" value="회원">회원</button></li>
 					<li class="jsx-2342570284">
-					<button class="jsx-2342570284 ${param.keyword eq '서비스' ? 'active':''}" type = "submit" id = "btn04" name="keyword" value="서비스">서비스</button></li>
+					<button class="jsx-2342570284 ${param.faqcatd eq '서비스' ? 'active':''}" type = "submit" id = "btn04" 
+					name="faqcatd" value="서비스">서비스</button></li>
 				</ul>
 				</form>
 				
@@ -126,7 +130,7 @@
 									<button class="jsx-1407906967" id = "deletebtn" onclick="faqDel()">
 									<span style="color:#ffffff">삭제</span></button>
 									<input type = "hidden" id = "input01" name = "faq_no" value = "${faqlist.faq_no}">
-									<input type = "hidden" id = "input02" name = "keyword" value = "${faqlist.faq_catd}">
+									<input type = "hidden" id = "input02" name = "faqcatd" value = "${faqlist.faq_catd}">
 									</c:if>
 									</div>
 								</div>
@@ -176,8 +180,15 @@
 						
 						<c:forEach begin = "${pageMaker.startPage}" 
 							end = "${pageMaker.endPage}" var = "idx">
-						<li class="jsx-3635512122" id = "page${idx}">
-						<a href = "${pageMaker.makeQuery(idx)}" id = "pageclick${idx}" style = "color:#000;">${idx}</a>
+						<li class="jsx-3635512122 " id = "page${idx}">
+						<c:choose>
+						<c:when test="${idx eq param.page}">
+						<a href = "${pageMaker.makeQuery(idx)}" class = "on" id = "pageclick${idx}">${idx}</a>
+						</c:when>
+						<c:otherwise>
+						<a href = "${pageMaker.makeQuery(idx)}" class = "off" id = "pageclick${idx}">${idx}</a>
+						</c:otherwise>
+						</c:choose>
 						</li>
 						</c:forEach>
 						

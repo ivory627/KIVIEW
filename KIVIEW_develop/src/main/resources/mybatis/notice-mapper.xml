@@ -72,15 +72,15 @@
 	</sql>
 	
 	<sql id="catdlist">
-		<if test = "keyword != null and keyword != ''">
-			<if test="keyword == '리뷰'.toString()">
-				WHERE FAQ_CATD = #{keyword}
+		<if test = "faqcatd != null and faqcatd != ''">
+			<if test="faqcatd == '리뷰'.toString()">
+				WHERE FAQ_CATD = #{faqcatd}
 			</if>
-			<if test="keyword == '회원'.toString()">
-				WHERE FAQ_CATD = #{keyword} 
+			<if test="faqcatd == '회원'.toString()">
+				WHERE FAQ_CATD = #{faqcatd} 
 			</if>
-			<if test="keyword == '서비스'.toString()">
-				WHERE FAQ_CATD = #{keyword}
+			<if test="faqcatd == '서비스'.toString()">
+				WHERE FAQ_CATD = #{faqcatd}
 			</if>
 		</if>
 	</sql>
