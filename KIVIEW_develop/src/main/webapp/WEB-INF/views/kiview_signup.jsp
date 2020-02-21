@@ -73,15 +73,13 @@
 							class="jsx-3712571264">비밀번호&nbsp;</span><span class="jsx-3712571264" id="signupPwdChkMsg"></span>
 							<div class="jsx-3372927190 first-password">
 								<div class="jsx-639067573 input">
-									<input type="password" minlength="10" maxlength="20"
-										required="" placeholder="비밀번호를 입력해주세요 (영문,숫자,특수문자 포함 10~20자리)"
+									<input type="password" required="" placeholder="비밀번호를 입력해주세요 (영문,숫자,특수문자 포함 5~20자리)"
 										class="jsx-639067573 " name="member_pwd" id="signupPwd">
 								</div>
 							</div>
 							<div class="jsx-3372927190">
 								<div class="jsx-639067573 input">
-									<input type="password" minlength="10" maxlength="20"
-										required="" placeholder="비밀번호를 다시 한번 확인 입력해 주세요"
+									<input type="password" required="" placeholder="비밀번호를 다시 한번 확인 입력해 주세요"
 										class="jsx-639067573 " id="signupPwdChk">
 								</div>
 							</div>

@@ -63,11 +63,11 @@ function signupChk(){
 	}
 
 	//비밀번호 정규식
-	if (!/^.*(?=^.{10,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(signupPwd)) {
+	if (!/^.*(?=^.{4,19}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(signupPwd)) {
 		$("#signupEmailChkMsg").hide();
 		$("#signupPhoneChkMsg").hide();
 		$("#signupPwdChkMsg").show().html("");
-		$("#signupPwdChkMsg").show().css('color', 'red').html("&nbsp;&nbsp;영문, 숫자, 특수문자를 포함 10~20자리를 사용해야 합니다");
+		$("#signupPwdChkMsg").show().css('color', 'red').html("&nbsp;&nbsp;영문, 숫자, 특수문자를 포함 5~20자리를 사용해야 합니다");
 		
 		var member_name = $('#member_name').offset();
 		$('html').animate({scrollTop : member_name.top}, 400);

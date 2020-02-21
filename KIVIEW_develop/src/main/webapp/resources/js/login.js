@@ -1,12 +1,12 @@
 
 $(function() {
 	//시작 이벤트
-	alert("!!!!");
 	$('#loginChk').hide();
 	$('#loginIdChk').hide();
 	$('#loginPwdChk').hide();
 	$('#idUseBtn').hide();
 	$("#member_id").focus();	//??
+	$("#member_id").focus();
 	
 	//엔터 이벤트
 	$('.jsx-639067573').keydown(function(key) {
@@ -24,12 +24,11 @@ $(function() {
 
 	//클릭 이벤트
 	$('#idCkBtn').click(function() {
-		alert("@@@@");
 		$('#idSearchHTML').hide();
 		$('#idSearchRes').hide();
 		$('#idSearch_name').val("");
 		$('#idSearch_email').val("");
-		$("#idSearch_name").focus();	//??
+		$("#idSearch_name").focus();
 
 	});
 
@@ -77,7 +76,7 @@ function login() {
 				}
 			},
 			error : function() {
-				alert("통신실패");
+				alert("로그인 통신실패 - 다시 로그인 해주세요");
 			}
 		});
 	}

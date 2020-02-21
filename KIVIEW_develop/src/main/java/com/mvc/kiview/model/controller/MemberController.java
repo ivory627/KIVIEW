@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,9 +31,8 @@ public class MemberController {
 	@Autowired
 	private MemberBiz biz;
 
-	/*
-	 @Autowired BCryptPasswordEncoder passwordEncoder;
-	 */
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 	
 	//로그인
 	@RequestMapping("/kiviewlogin.do")
@@ -48,8 +48,11 @@ public class MemberController {
 		logger.info("ajaxLogin");
 		MemberVo res = biz.login(vo);
 		boolean check = false;
+		
+		String vopw = vo.getMember_pwd();	//사용자가 입력한 비밀번호
+		String respw = res.getMember_pwd();	//db에서 가져온 비밀번호 (암호화된 번호)
 
-		if (res != null) {
+		if (passwordEncoder.matches(vopw, respw) ) {
 			session.setAttribute("login", res);
 			
 			//세션 유지 시간 1시간으로 설정
@@ -123,23 +126,20 @@ public class MemberController {
 	public String kiview_signup(MemberVo vo) {
 		logger.info("signupRes");
 		
-		//vo.setMember_pwd(passwordEncoder.encode(vo.getMember_pwd()));
-		//System.out.println("암호화된 비밀번호: " + vo);
+		vo.setMember_pwd(passwordEncoder.encode(vo.getMember_pwd()));
+		System.out.println("암호화된 비밀번호: " + vo.getMember_pwd());
 		
 		int res = biz.signup(vo);
-		
-		/* 
+		 
 		if(res > 0) {
 			return "redirect:index.do";
 		}else {
 			return "redirect:kiviewsignup.do";
 		}
-		*/
-		
-		return "redirect:index.do";
 
 	}
 	
+	//
 	@RequestMapping("/kiviewjusopopup")
 	public String kiview_jusoPopup() {
 		logger.info("addrPopup");
