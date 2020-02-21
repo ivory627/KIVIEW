@@ -34,8 +34,8 @@
 				<div class="col-md-9 ftco-animate text-center">
 					<h1 class="mb-2 bread">FAQ</h1>
 					<p class="breadcrumbs">
-						<span class="mr-2"> <a href="index.do">홈 <i
-								class="ion-ios-arrow-forward"></i></a>
+						<span class="mr-2"> <a href="index.do">홈 
+						<i class="ion-ios-arrow-forward"></i></a>
 						</span> 
 						<span>키뷰안내 <i class="ion-ios-arrow-forward"></i></span> 
 						<span>&nbsp;FAQ</span>
@@ -78,7 +78,7 @@
 			<div class="jsx-2342570284 faq-box faq-box--kindergarten">
 			
 				<!-- 분류 카테고리 부분 -->
-				<form action="kiviewfaq.do" method = "post" name = "faqcatdform">
+				<form action="kiviewfaq.do" method = "get" name = "faqcatdform">
 				<input type = "hidden" name = "page" value = "1">
 				<ul class="jsx-2342570284 faq-tab" id = "tabul">
 					<li class="jsx-2342570284">
@@ -123,15 +123,18 @@
 								<div class="jsx-2567501591 editor">
 									<div class="fr-view">
 										<p id = "${faqlist.faq_no}"></p>
+										
 									<c:set var = "admin_id" value = "${login.member_id}"></c:set>	
 									<c:if test="${fn:contains(admin_id, 'admin')}">	
-									<button class="jsx-1407906967" id = "editbtn" onclick="location.href='faqupdateform.do?faq_no=${faqlist.faq_no}'">
+									<button class="jsx-1407906967" id = "editbtn" 
+									onclick="location.href='faqupdateform.do?faq_no=${faqlist.faq_no}&page=${pageMaker.cri.page}&faqcatd=${faqlist.faq_catd}'">
 									<span style="color:#ffffff">수정</span></button>
 									<button class="jsx-1407906967" id = "deletebtn" onclick="faqDel()">
 									<span style="color:#ffffff">삭제</span></button>
 									<input type = "hidden" id = "input01" name = "faq_no" value = "${faqlist.faq_no}">
 									<input type = "hidden" id = "input02" name = "faqcatd" value = "${faqlist.faq_catd}">
 									</c:if>
+									
 									</div>
 								</div>
 							</div>
@@ -166,7 +169,7 @@
 						
 						<c:if test = "${pageMaker.prev}">
 						<li class="jsx-3635512122 prev disabled" >
-						<a href = "kiviewfaq.do?${pageMaker.makeQuery(pageMaker.startPage - 1)}">
+						<a href = "${pageMaker.makeQuery(pageMaker.startPage - 1)}">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 								viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
 								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -215,7 +218,7 @@
 					<div
 						class="jsx-1407906967 btn-write btn-write--kindergarten fix-position">
 						<button class="jsx-1407906967"
-							onclick="location.href='kiviewfaqwrite.do'">글쓰기</button>
+							onclick="location.href='kiviewfaqwrite.do?page=${pageMaker.cri.page}&faqcatd=${pageMaker.cri.faqcatd}'">글쓰기</button>
 					</div>
 					</c:when>
 					<c:otherwise>

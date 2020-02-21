@@ -66,8 +66,11 @@
 					</div>
 
 					<!-- 제목/작성자/내용/분류 카테고리 넘기기  -->
-					<form action="faqUpdateRes.do" method="post" id="faqWriteForm">
+					<form action="faqUpdateRes.do" method="get" id="faqUpdateForm">
 					<input type = "hidden" id = "faq_no" name = "faq_no" value = "${faqupdate.faq_no}">
+					<input type = "hidden" id = "page" name = "page" value = "${page}">
+					<input type = "hidden" id = "faqcatd" name = "faqcatd" value = "${faqcatd}">
+					
 						<div class="jsx-4261166144 select-wrap">
 							<div class="jsx-4261166144 select-box">
 								<div class="jsx-4121141969 select">
@@ -108,11 +111,11 @@
 						<div class="jsx-738848916 btn-box">
 							<div class="jsx-738848916 btn-cancel">
 								<button type="button" class="jsx-462732305"
-									onclick="location.href='kiviewfaq.do'"
+									onclick="location.href='kiviewfaq.do?faqcatd=${faqupdate.faq_catd}&page=1'"
 									style="outline: none;">취소</button>
 							</div>
 							<div class="jsx-738848916 btn-finish">
-								<button type="submit" class="jsx-1357017423"
+								<button type="button" class="jsx-1357017423"
 									style="outline: none;" id="savebutton">작성완료</button>
 							</div>
 						</div>

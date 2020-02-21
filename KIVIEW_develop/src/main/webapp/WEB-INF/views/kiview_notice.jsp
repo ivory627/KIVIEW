@@ -194,8 +194,9 @@
 							 <div class="jsx-2214240288 col-category"
 								style="max-width: 120px; font-weight:500">${n_list.cat_detail}</div>
 							<div class="jsx-2214240288 col-title" style="max-width: 344px;">
-								<a class="jsx-2214240288" href="kiviewdetail.do?notice_no=${n_list.notice_no}"
-									style="max-width: 250px;">
+								<a class="jsx-2214240288" 
+								onclick="location.href='kiviewdetail.do?notice_no=${n_list.notice_no}&page=${pageMaker.cri.page}'"
+									style="max-width: 250px; cursor:pointer;">
 								<span class="jsx-2214240288 notice-badges"></span>
 									${n_list.notice_title}
 								</a>
@@ -237,7 +238,7 @@
 						
 						<c:if test = "${pageMaker.prev}">
 						<li class="jsx-3635512122 prev disabled" >
-						<a href = "kiviewnotice.do?${pageMaker.makeQuery(pageMaker.startPage - 1)}">
+						<a href = "${pageMaker.makeQuery(pageMaker.startPage - 1)}">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 								viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
 								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -257,7 +258,7 @@
 						<a href = "${pageMaker.makeQuery(idx)}" class = "on" id = "pageclick${idx}">${idx}</a>
 						</c:when>
 						<c:otherwise>
-						<a href = "${pageMaker.makeQuery(idx)}" style = "color:#000;" id = "pageclick${idx}">${idx}</a>
+						<a href = "${pageMaker.makeQuery(idx)}" class = "off" id = "pageclick${idx}">${idx}</a>
 						</c:otherwise>
 						</c:choose>
 						</li>
@@ -286,7 +287,7 @@
 					<div
 						class="jsx-1407906967 btn-write btn-write--kindergarten fix-position">
 						<button class="jsx-1407906967"
-							onclick="location.href='kiviewwrite.do'">글쓰기</button>
+							onclick="location.href='kiviewwrite.do?page=${pageMaker.cri.page}'">글쓰기</button>
 					</div>
 					</c:when>
 					<c:otherwise>

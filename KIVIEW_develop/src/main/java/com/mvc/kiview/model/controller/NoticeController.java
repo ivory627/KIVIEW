@@ -5,14 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,7 +33,7 @@ public class NoticeController {
 	public String kiview_notice(Model model, Criteria cri) {
 
 		logger.info("NOTICE LIST");
-		
+
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(n_biz.notice_count(cri));
@@ -49,10 +46,16 @@ public class NoticeController {
 
 	/* 공지사항 selectOne */
 	@RequestMapping("/kiviewdetail.do")
-	public String kiview_detail(Model model, int notice_no) {
+	public String kiview_detail(Model model, int notice_no, Criteria cri) {
 
 		logger.info("NOTICE DETAIL");
+
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(n_biz.notice_count(cri));
+
 		model.addAttribute("noticedetail", n_biz.n_selectOne(notice_no));
+		model.addAttribute("pageMaker", pageMaker);
 
 		return "kiview_notice_detail";
 	}
@@ -68,14 +71,14 @@ public class NoticeController {
 
 	/* 글 작성 insert redirect 부분 */
 	@RequestMapping("/writeRes.do")
-	public String kiview_insertRes(NoticeVo n_vo) {
+	public String kiview_insertRes(NoticeVo n_vo, @RequestParam("page") int page) {
 
 		logger.info("NOTICE WRITE RESULT");
 
 		int res = n_biz.notice_insert(n_vo);
 
 		if (res > 0) {
-			return "redirect:kiviewnotice.do";
+			return "redirect:kiviewnotice.do?page=" + page;
 		} else {
 			return "redirect:kiviewwrite.do";
 		}
@@ -84,43 +87,44 @@ public class NoticeController {
 
 	/* 수정하기 버튼 클릭 시 update폼으로 */
 	@RequestMapping("/noticeUpdate.do")
-	public String notice_update(Model model, int notice_no) {
+	public String notice_update(Model model, int notice_no, int page) {
 
 		logger.info("NOTICE UPDATE FORM");
 
 		model.addAttribute("noticeupdate", n_biz.n_selectOne(notice_no));
+		model.addAttribute("page", page);
 
 		return "kiview_notice_update";
 	}
 
 	/* 수정완료 클릭 시 redirect */
 	@RequestMapping("/noticeUpdateRes.do")
-	public String notice_updateRes(NoticeVo n_vo) {
+	public String notice_updateRes(NoticeVo n_vo, @RequestParam("page") int page) {
 
 		logger.info("NOTICE UPDATE RESULT");
 
 		int res = n_biz.notice_update(n_vo);
 
 		if (res > 0) {
-			return "redirect:kiviewdetail.do?notice_no=" + n_vo.getNotice_no();
+			return "redirect:kiviewdetail.do?notice_no=" + n_vo.getNotice_no() + "&page=" + page;
 		} else {
-			return "redirect:noticeUpdate.do?notice_no" + n_vo.getNotice_no();
+			return "redirect:noticeUpdate.do?notice_no" + n_vo.getNotice_no() + "&page=" + page;
 		}
 
 	}
 
 	/* 게시글 삭제 */
 	@RequestMapping("/kiviewdel.do")
-	public String kiview_delete(int notice_no) {
+	public String kiview_delete(int notice_no, int page) {
 
 		logger.info("NOTICE DELETE");
 
 		int res = n_biz.notice_delete(notice_no);
 
 		if (res > 0) {
-			return "redirect:kiviewnotice.do";
+			return "redirect:kiviewnotice.do?page=" + page;
 		} else {
-			return "redirect:kiviewdetail.do?notice_no" + notice_no;
+			return "redirect:kiviewdetail.do?notice_no" + notice_no + "&page=" + page;
 		}
 
 	}
@@ -133,11 +137,11 @@ public class NoticeController {
 
 	/* FAQ 처음 로딩시 전체 list */
 	@RequestMapping("/kiviewfaq.do")
-	public String kiview_faq(Model model, Criteria cri, String faqcatd) {
+	public String kiview_faq(Model model, Criteria cri, @RequestParam("faqcatd") String faqcatd) {
 
 		logger.info("FAQ LIST");
-		System.out.println("faq.do의 faqcatd:" + faqcatd);
-		System.out.println("faq.do의 page:" + cri.getPage());
+
+		faqcatd = cri.getFaqcatd();
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(n_biz.faq_count(cri));
@@ -188,7 +192,7 @@ public class NoticeController {
 		int res = n_biz.faq_insert(f_vo);
 
 		if (res > 0) {
-			return "redirect:kiviewfaq.do";
+			return "redirect:kiviewfaq.do?page=1&faqcatd=";
 		} else {
 			return "redirect:kiviewfaqwrite.do";
 		}
@@ -196,16 +200,19 @@ public class NoticeController {
 	}
 
 	@RequestMapping("/faqupdateform.do")
-	public String kiview_faq_update(Model model, int faq_no) {
+	public String kiview_faq_update(Model model, int faq_no, @RequestParam("page") int page,
+			@RequestParam("faqcatd") String faqcatd) {
 
 		logger.info("FAQ UPDATE FORM");
 		model.addAttribute("faqupdate", n_biz.faq_updateOne(faq_no));
+		model.addAttribute("page", page);
+		model.addAttribute("faqcatd", faqcatd);
 
 		return "kiview_faq_update";
 	}
 
 	@RequestMapping("/faqUpdateRes.do")
-	public String kiview_faq_updateRes(FAQVo f_vo) {
+	public String kiview_faq_updateRes(FAQVo f_vo, @RequestParam("page") int page) {
 
 		logger.info("FAQ UPDATE RESULT");
 
@@ -213,16 +220,17 @@ public class NoticeController {
 		res = n_biz.faq_update(f_vo);
 
 		if (res > 0) {
-			return "redirect:kiviewfaq.do?faq_no=" + f_vo.getFaq_no();
+			return "redirect:kiviewfaq.do?page=" + page + "&faqcatd=";
 		} else {
-			return "redirect:faqupdateform.do?faq_no=" + f_vo.getFaq_no();
+			return "redirect:faqupdateform.do?faq_no=" + f_vo.getFaq_no() + "&page=" + page + "&faqcatd=";
 		}
 
 	}
 
 	@RequestMapping("/faqdelete.do")
 	@ResponseBody
-	public Map<String, Object> kiview_faq_delete(@RequestParam("faq_no") int faq_no, @RequestParam("faqcatd") String faqcatd) {
+	public Map<String, Object> kiview_faq_delete(@RequestParam("faq_no") int faq_no,
+			@RequestParam("faqcatd") String faqcatd) {
 
 		logger.info("FAQ DELETE AJAX");
 
@@ -234,9 +242,20 @@ public class NoticeController {
 		map.put("faq_no", faq_no);
 		map.put("faqcatd", faqcatd);
 
-		System.out.println("controller key:" + faqcatd);
-
 		return map;
+	}
+
+	@RequestMapping("/chatbot.do")
+	public String chatbot() {
+		return "demoChatbot";
+	}
+
+	@RequestMapping("/kakao.do")
+	public String kakao(@RequestParam("code") String code) {
+
+		System.out.println("kakao code : " + code);
+
+		return "index";
 	}
 
 }

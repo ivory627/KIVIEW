@@ -18,9 +18,10 @@
 
 <!-- css -->
 <link rel="stylesheet" href="resources/css/notice_write.css">
-<%@ include file = "head.jsp" %>
+<jsp:include page = "head.jsp"/>
 
 <!-- js -->
+
 
 <!-- SmartEditor2 라이브러리  -->
 <script type="text/javascript" src="se2/js/HuskyEZCreator.js" charset="utf-8"></script>
@@ -31,7 +32,7 @@
 <body>
 
 	<!-- header 부분 -->
-	<%@ include file="header.jsp"%>
+	<jsp:include page="header.jsp"/>
 
 	<section class="hero-wrap hero-wrap-2"
 		style="background-image: url('resources/images/bg_2.jpg');">
@@ -70,9 +71,10 @@
 					</div>
 					
 					<!-- 제목/작성자/내용/분류 카테고리 넘기기  -->
-					<form action="noticeUpdateRes.do" method = "get" id = "noticeWriteForm">
+					<form action="noticeUpdateRes.do" method = "post" id = "noticeUpdateForm">
 					<input type = "hidden" name = "notice_writer" value = "${login.member_id}">
-					<input type = "hidden" name = "notice_no" value = "${noticeupdate.notice_no}">
+					<input type = "hidden" id = "noticeno" name = "notice_no" value = "${noticeupdate.notice_no}">
+					<input type = "hidden" id = "page" name = "page" value = "${page}">
 					
 					<div class="jsx-4261166144 select-wrap">
 					<div class="jsx-4261166144 select-box">
@@ -112,7 +114,8 @@
 					<div class="jsx-738848916 btn-box">
 						<div class="jsx-738848916 btn-cancel">
 							<button type="button" class="jsx-462732305" 
-							onclick = "location.href='kiviewdetail.do?notice_no=${noticeupdate.notice_no}'" style = "outline:none;">취소</button>
+							onclick = "location.href='kiviewdetail.do?notice_no=${noticeupdate.notice_no}&page=${page}'" 
+							style = "outline:none;">취소</button>
 						</div>
 						<div class="jsx-738848916 btn-finish">
 							<button type="button" class="jsx-1357017423" 
@@ -133,59 +136,11 @@
 			</div>
     </section>
 	
-	<%@ include file = "footer.jsp" %>
+	<jsp:include page = "footer.jsp"/>
 
 
 </body>
 </html>
 	
 <!-- SmartEditor2 -->
-<script type="text/javascript">
-	
-	var oEditors = [];
-	nhn.husky.EZCreator.createInIFrame({
-		oAppRef: oEditors,
-		elPlaceHolder: "smartEditor",
-		sSkinURI: "se2/SmartEditor2Skin.html",
-		fCreator: "createSEditor2",
-		htParams : {
-			// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-			bUseToolbar : true,      
-			
-			// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-			bUseVerticalResizer : false,     
-		
-			// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-			bUseModeChanger : false
-		}
-	});
-	
-	$(function() {
-		$("#savebutton").click(function() {
-			oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);
-
-			var selcatd = $("#selcatd > option:selected").val();
-			var title = $("#title").val();
-			var content = document.getElementById("smartEditor").value;;
-
-			if (selcatd == "") {
-				alert("카테고리를 선택해주세요.");
-				return;
-			}
-			if (title == null || title == "") {
-				alert("제목을 입력해주세요.");
-				$("#title").focus();
-				return;
-			}
-			if(content == "" || content == null || content == '&nbsp;' || 
-					content == '<br>' || content == '<br/>' || content == '<p>&nbsp;</p>'){
-				alert("본문을 작성해주세요.");
-				oEditors.getById["smartEditor"].exec("FOCUS"); //포커싱
-				return;
-			}
-			$("#noticeWriteForm").submit();
-			alert("수정완료");
-		});
-	})
-		
-	</script>
+<script type="text/javascript" src = "resources/js/notice-update.js"></script>

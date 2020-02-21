@@ -47,7 +47,7 @@ $("#savebutton").click(function() {
 	
 	if(result){
 		/*alert("수정 완료!");*/
-		$("#faqUpdateForm").submit();
+		$("#noticeUpdateForm").submit();
 	}else{
 		return;
 	}

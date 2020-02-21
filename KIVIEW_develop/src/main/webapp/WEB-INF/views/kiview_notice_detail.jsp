@@ -16,6 +16,7 @@
 
 <!-- js -->
 <script type="text/javascript" src = "resources/js/notice_detail.js"></script>
+<script type="text/javascript" src = "resources/js/notice.js"></script>
 
 <style type="text/css">
 
@@ -53,8 +54,7 @@ box-sizing: border-box;
 	<jsp:include page="header.jsp"/>
 
 	 <section class="hero-wrap hero-wrap-2"
-		style="background-image: url('resources/images/bg_2.jpg');">
-		<div class="overlay"></div>
+		style="background-image: url('resources/images/main/board_img01.png');">
 		<div class="container">
 			<div
 				class="row no-gutters slider-text align-items-center justify-content-center">
@@ -73,19 +73,31 @@ box-sizing: border-box;
 	</section>
 	<!-- header 끝 -->
 
-	<div class="jsx-903324597 content">
+	<div class="jsx-903324597 content" id = "contentdiv">
 		<div class="jsx-3810764099 board-box">
 			<div class="jsx-1103591975 sidebar sidebar--kindergarten">
 				<h2 class="jsx-1103591975">
-					<span class="jsx-1103591975">키뷰 안내</span>
+				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+						viewBox="0 0 24 24" fill="none" stroke="#dfdfdf" stroke-width="2"
+						stroke-linecap="round" stroke-linejoin="round"
+						style="position: relative;">
+						<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+						<polyline points="14 2 14 8 20 8"></polyline>
+						<line x1="16" y1="13" x2="8" y2="13"></line>
+						<line x1="16" y1="17" x2="8" y2="17"></line>
+						<polyline points="10 9 9 9 8 9"></polyline></svg>
+					<span class="jsx-1103591975">공지사항</span>
 				</h2>
 				<ul class="jsx-1103591975">
-					<li class="jsx-1103591975 active"><a class="jsx-1103591975"
-						href="kiviewnotice.do">공지사항</a></li>
-					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="kiviewintro.do">키뷰 소개</a></li>
-					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="kiviewfaq.do">FAQ</a></li>
+					<li class="jsx-1103591975 active">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					 id = "menu01">공지사항</a></li>
+					<li class="jsx-1103591975">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					id = "menu02">키뷰소개</a></li>
+					<li class="jsx-1103591975 ">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					id = "menu03">FAQ</a></li>
 				</ul>
 			</div>
 
@@ -143,11 +155,11 @@ box-sizing: border-box;
 						</div>
 					</div>
 					<div class="jsx-3826147658 content_tag">
-						<a class="jsx-3826147658" href="kiviewnotice.do">#${noticedetail.cat_detail}</a>
+						<a class="jsx-3826147658" href="kiviewnotice.do?page=${param.page}">#${noticedetail.cat_detail}</a>
 					</div>
 					<div class="jsx-2211599338 service">
-						<button type="button" class="jsx-2211599338 btn-view-list" 
-						style = "cursor:pointer;" id = "btn1">
+						<button class="jsx-2211599338 btn-view-list" 
+						style = "cursor:pointer;background:#fff;outline:none;" onclick = "backlist(${param.page});">
 							<span class="jsx-2211599338 hide-on-mobile">목록보기</span>
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 								viewBox="0 0 24 24" fill="none" stroke="#8f8f8f"
@@ -165,16 +177,15 @@ box-sizing: border-box;
 								<li class="jsx-2334299286">
 								<button tabindex="0"
 										class="jsx-2334299286 share-link share-link--kakao" id = "btn2">
-										<span class="jsx-2334299286 icon icon--kakao"><span
-											class="jsx-2334299286 alt-text">카카오톡 공유</span></span>
+										<span class="jsx-2334299286 icon icon--kakao">
+										<span class="jsx-2334299286 alt-text">카카오톡 공유</span></span>
 									</button>
 								</li>
 								<li class="jsx-2334299286">
 								<button tabindex="0" id = "btn3"
 										class="jsx-2334299286 share-link share-link--facebook">
 										<span class="jsx-2334299286 icon icon--facebook">
-										<span
-											class="jsx-2334299286 alt-text">페이스북 공유</span>
+										<span class="jsx-2334299286 alt-text">페이스북 공유</span>
 										</span>
 								</button>
 								</li>
@@ -182,8 +193,7 @@ box-sizing: border-box;
 								<button tabindex="0" id = "btn4"
 										class="jsx-2334299286 share-link share-link--url">
 										<span class="jsx-2334299286 icon icon--url">
-										<span
-											class="jsx-2334299286 alt-text">페이지 URL 공유</span>
+										<span class="jsx-2334299286 alt-text">페이지 URL 공유</span>
 										</span>
 								</button>
 								</li>
@@ -208,9 +218,9 @@ box-sizing: border-box;
 						<c:when test="${admin_id == writer}">
 						<div class="jsx-2211599338 recommend-box">
 							<button class="jsx-1407906967" id = "writebtn"
-							onclick="notice_edit(${noticedetail.notice_no})">수정하기</button>&nbsp;&nbsp;
+							onclick="notice_edit(${noticedetail.notice_no},${param.page})">수정하기</button>&nbsp;&nbsp;
 							<span><button class="jsx-1407906967" id = "writebtn"
-							onclick="notice_del(${noticedetail.notice_no})">삭제하기</button></span>
+							onclick="notice_del(${noticedetail.notice_no},${param.page})">삭제하기</button></span>
 						</div>
 						</c:when>
 						<c:otherwise>

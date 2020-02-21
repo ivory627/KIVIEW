@@ -108,7 +108,7 @@
 						<div class="jsx-738848916 btn-box">
 							<div class="jsx-738848916 btn-cancel">
 								<button type="button" class="jsx-462732305"
-									onclick="location.href='kiviewfaq.do'"
+									onclick="location.href='kiviewfaq.do?page=${param.page}&faqcatd=${param.faqcatd}'"
 									style="outline: none;">취소</button>
 							</div>
 							<div class="jsx-738848916 btn-finish">
@@ -138,49 +138,4 @@
 </html>
 
 <!-- SmartEditor2 -->
-<script type="text/javascript">
-	var oEditors = [];
-	nhn.husky.EZCreator.createInIFrame({
-		oAppRef : oEditors,
-		elPlaceHolder : "smartEditor",
-		sSkinURI : "se2/SmartEditor2Skin.html",
-		fCreator : "createSEditor2",
-		htParams : {
-			// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-			bUseToolbar : true,
-
-			// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-			bUseVerticalResizer : false,
-
-			// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-			bUseModeChanger : false
-		}
-	});
-
-	$(function() {
-		$("#savebutton").click(function() {
-			oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);
-
-			var selcatd = $("#selcatd > option:selected").val();
-			var title = $("#title").val();
-			var content = document.getElementById("smartEditor").value;;
-
-			if (selcatd == "") {
-				alert("카테고리를 선택해주세요.");
-				return;
-			}
-			if (title == null || title == "") {
-				alert("제목을 입력해주세요.");
-				$("#title").focus();
-				return;
-			}
-			if(content == "" || content == null || content == '&nbsp;' || 
-					content == '<br>' || content == '<br/>' || content == '<p>&nbsp;</p>'){
-				alert("본문을 작성해주세요.");
-				oEditors.getById["smartEditor"].exec("FOCUS"); //포커싱
-				return;
-			}
-			$("#faqWriteForm").submit();
-		});
-	})
-</script>
+<script type="text/javascript" src = "resources/js/faq-write.js"></script>
