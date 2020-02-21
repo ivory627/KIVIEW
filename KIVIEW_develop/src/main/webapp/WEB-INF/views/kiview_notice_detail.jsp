@@ -15,7 +15,7 @@
 <jsp:include page="head.jsp"/>
 
 <!-- js -->
-<script type="text/javascript" src = "resources/js/notice_detail.js"></script>
+<script type="text/javascript" src = "resources/js/notice-detail.js"></script>
 <script type="text/javascript" src = "resources/js/notice.js"></script>
 
 <style type="text/css">

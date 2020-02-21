@@ -141,4 +141,4 @@
 </html>
 
 <!-- SmartEditor2 -->
-<script type="text/javascript" src="resources/js/faq_update.js"></script>
+<script type="text/javascript" src="resources/js/faq-update.js"></script>
