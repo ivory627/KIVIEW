@@ -249,7 +249,11 @@ public class CafeBizImpl implements CafeBiz {
 	      
 	   }
 	   
-	   
+	   @Override
+		public List<CafeReplyVo> cafe_board_reply_allList() {
+			
+			return dao.cafe_board_reply_allList();
+		}
 	   
 	   
 	   
@@ -337,6 +341,8 @@ public class CafeBizImpl implements CafeBiz {
 		
 		return dao.cafe_delete(cafe_no);
 	}
+
+	
 	
 
 }

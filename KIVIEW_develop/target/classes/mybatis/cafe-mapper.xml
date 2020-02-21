@@ -177,7 +177,7 @@
      </select>
      
      <select id="cafe_board_list" parameterType="int" resultType="CafeBoardVo">
-        SELECT * FROM CAFE_BOARD WHERE CAFE_MENU_NO = #{cafe_menu_no}
+        SELECT * FROM CAFE_BOARD WHERE CAFE_MENU_NO = #{cafe_menu_no} ORDER BY CAFE_BOARD_NO 
      </select>
         
       <select id="cafe_menu_name" parameterType="int" resultType="String">
@@ -197,7 +197,7 @@
      </delete>
      
      <update id="cafe_board_update" parameterType="CafeBoardVo">
-        UPDATE CAFE_BOARD SET CATEGORY='11',TITLE=#{title},CONTENT=#{content} WHERE CAFE_BOARD_NO=#{cafe_board_no}
+        UPDATE CAFE_BOARD SET CATEGORY=#{category, jdbcType=VARCHAR},TITLE=#{title},CONTENT=#{content} WHERE CAFE_BOARD_NO=#{cafe_board_no}
      </update>
      
       <update id="cafe_board_count" parameterType="int">
@@ -221,7 +221,12 @@
          UPDATE CAFE_REPLY SET CONTENT = #{content} WHERE CAFE_REPLY =#{cafe_reply} 
       </update>
      
+     <select id="reply_allList" resultType="CafeReplyVo">
+     	SELECT *
+     	FROM CAFE_REPLY
+     	
      
+     </select>
      
      
      

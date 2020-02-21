@@ -119,53 +119,42 @@
   </body>
 <script type="text/javascript">
 
-$("#boardcategory1").on("change",function(){
-   var no = $("#boardcategory1 option:selected").val();
+$("#boardcategory1").on("click",function(){
+   
+  var no = $("#boardcategory1 option:selected").val();
+   
    console.log("게시메뉴 번호     :    "+no);
    
    $("#boardcategory2").empty();
-      
-   if(no==null||no==""){
-      alert("게시판을 선택하세요.");
-      
-   }else{
+  
       $.ajax({
          type:"post",
-         url:"ajaxcategory.do",
+         url:"ajaxcategory.do", 
          data:{"no":no},
-         
+          
          dataType:"json",
          success:function(key){
             alert("통신성공!");        
-           
-           $.each(key.category2,function(index,item){
-              console.log(index);
-              console.log(item);
-              console.log(item.category.length);
-              if(item.category.length==0){
+            console.log(key.category2);
+            
+            if(key.category2==0){
                alert("말머리가 존재하지 않습니다.");                            
-               $("#boardcategory2").hide();
-              }else{
+            $("#boardcategory2").hide();
+               
+            }else{
+                $.each(key.category2,function(index,item){               
+                    
+                                
+                    alert("말머리 있음!");                                
+                   var rlist = "";                        
+                        rlist += "<option value='"+item.category+"'>"+item.category+"</option>";                         
+                        console.log(rlist);        
+                        
+                        $("#boardcategory2").append(rlist); 
+                }); 
                  
-                 var newOpt=$('<option>').html();
-                  var rlist = '';
-                  
-                  rlist += '<option value='+item.category+'>'+item.category+'</option>';
-                   
-                  console.log(rlist);            
-                  
-                  $("#boardcategory2").append(rlist);      
-
-                 
-              }
-              
-               
-              
-           });
-            
-               
-               
-            
+            }
+   
          },
          error : function(request,status,error){
             alert("통신 실패");
@@ -175,9 +164,11 @@ $("#boardcategory1").on("change",function(){
             
             
          }
+         
       });
-   }
-});
+   });
+
+     
 
 
 

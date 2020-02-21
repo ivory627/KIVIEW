@@ -97,7 +97,7 @@ public interface CafeBiz {
 
 	public int reply_update(CafeReplyVo cafereplyvo);
 	
-	
+	public List<CafeReplyVo> cafe_board_reply_allList();
 	
 	
 	
@@ -120,6 +120,8 @@ public interface CafeBiz {
 	public List<CafeMemberVo> member_selectAll();
 
 	public int member_delete(int cafe_member_no);
+
+	
 
 	
 

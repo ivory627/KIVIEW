@@ -876,7 +876,7 @@ public class CafeController {
 	      public Map<String,Object> ajaxreplylist(int cafe_board_no){
 	         List<CafeReplyVo> rlist = biz.cafe_board_reply_list(cafe_board_no);
 	         
-	         System.out.println(rlist.toString());         
+	            
 	         
 	         Map<String,Object> map = new HashMap<>();
 	         map.put("rlist",rlist);
@@ -914,7 +914,7 @@ public class CafeController {
 	         
 	         for(String key : map.keySet()) { 
 	             String value = map.get(key).toString();
-	             System.out.println("[key] : "+key+"\n    [value] : "+value +"\n"); 
+	             
 	          }    
 	         
 	         return map;
@@ -929,7 +929,7 @@ public class CafeController {
 	         
 	         for(String key : map.keySet()) { 
 	             String value = map.get(key).toString();
-	             System.out.println("[key] : "+key+"\n    [value] : "+value +"\n"); 
+	            
 	          }    
 	         return map;
 	      }
@@ -963,9 +963,11 @@ public class CafeController {
 		   model.addAttribute("cafe_list", list);
 		   
 		   List<CafeBoardVo> guest = biz.cafe_boardlist(vo.getCafe_menu_no());
-		   CafeMenuVo menu = biz.menu_detail1(vo.getCafe_menu_no()); 
+		   List<CafeReplyVo> reply = biz.cafe_board_reply_allList();
+		   CafeMenuVo menu = biz.menu_detail1(vo.getCafe_menu_no());
 		   model.addAttribute("guest",guest);
 		   model.addAttribute("menu", menu);
+		   model.addAttribute("reply",reply);
 		   
 		   return "cafe_guest";
 	   }
@@ -996,6 +998,41 @@ public class CafeController {
 		   
 		   
 		   
+	   }
+	   
+	   @RequestMapping("/cafeguestupdate.do")
+	   @ResponseBody
+	   public Map cafe_guest_update(CafeBoardVo vo) {
+		   System.out.println(vo);
+		   
+		   int res = biz.cafe_board_update(vo);
+		   CafeBoardVo guest = biz.cafe_board_detail(vo.getCafe_board_no());
+		   
+		   Map map = new HashMap();
+		   map.put("guest", guest);
+		   
+		   
+		   return map;
+	   }
+	   
+	   @RequestMapping("/cafereplywrite.do")
+	   @ResponseBody
+	   public Map cafe_reply_write(CafeReplyVo vo){
+		   
+		   
+		   int res = biz.reply_insert(vo);
+		   List<CafeReplyVo> reply = biz.cafe_board_reply_list(vo.getCafe_board_no());
+		   System.out.println(reply);
+		   Map map = new HashMap();
+		   
+		   for(int i=0; i<reply.size(); i++) {
+			   map.put(i, reply.get(i));
+			   
+		   }
+		   
+		   
+		   
+		   return map;
 	   }
 	
 }

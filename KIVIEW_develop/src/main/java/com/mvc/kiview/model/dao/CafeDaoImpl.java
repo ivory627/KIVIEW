@@ -637,6 +637,19 @@ public class CafeDaoImpl implements CafeDao {
 		
 		return res;
 	}
+
+	@Override
+	public List<CafeReplyVo> cafe_board_reply_allList() {
+		List<CafeReplyVo> res = null;
+		
+		try { 
+			res = sqlSession.selectList(namespace+"reply_allList");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("cafe_board_reply_allList 오류");
+		}
+		return res;
+	}
 	
 	
 

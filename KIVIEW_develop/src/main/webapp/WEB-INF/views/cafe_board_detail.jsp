@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
- 
-
+    pageEncoding="UTF-8"%>  
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
    
@@ -32,15 +29,14 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-            <h1 class="mb-2 bread">Our Blog</h1>
+            <h1 class="mb-2 bread">카페  게시판 디테일</h1>
             <p class="breadcrumbs"><span class="mr-2"><a href="index.jsp">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog <i class="ion-ios-arrow-forward"></i></span></p>
           </div>
         </div>
       </div>
     </section>
      <!-- @@ header 끝 @@ -->
-     
-      
+
       <section class="ftco-section bg-light">
          <div class="container" style="margin-left:30px; ">   
          <div class="row" style="width:1400px; overflow:auto;"> 
@@ -59,9 +55,10 @@
                <hr>
                               
                <label>제 목</label><br>
-                  <input type="text" value="${cafe_board_detail.title }" name="title" size="70" readonly>  
-               
-               <span align=right>${cafe_board_detail.writer}  &nbsp;|&nbsp;  ${cafe_board_detail.regdate } &nbsp;|&nbsp; 조회수  ${cafe_board_detail.hit }</span> 
+                  <input type="text" value="${cafe_board_detail.title }" name="title" size="70" readonly>
+               <br>     
+               <br>
+               <span align=right>${cafe_board_detail.writer}  &nbsp;|&nbsp;  <fmf:formatDate value='${cafe_board_detail.regdate}' pattern='yyyy-MM-dd'/> &nbsp;|&nbsp; 조회수  ${cafe_board_detail.hit }</span> 
                <br><br>
                <label>내 용</label><br>  
                   <textarea cols="90" rows="10" name="content" readonly>${cafe_board_detail.content }</textarea>  
@@ -81,7 +78,7 @@
                <br>
 <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->                 
                <div id="replylist" style="width:100%;"> 
-               <h5>댓글 <a style="color:#fda638">11</a>개</h5> 
+               <h5>댓글 <a style="color:#fda638">${fn:length(rlist_boardno) }</a>개</h5> 
                
                <hr>
                
@@ -101,19 +98,23 @@
                </div>
                
                <div id="reply" style="width:80%; border:0px solid lightgray" " > 
-               
+                
                <form action="#">
-               <label style="font-weight:bold; color:black" >${cafe_board_detail.writer}</label> 
-               <br>               
-                  <input type="text" size="70" placeholder="상대방을 향한 욕설, 음담패설은 자제해주세요."  id="replycontent">
-                  <input type="hidden" name="" value="${cafe_board_detail.cafe_board_no}" id="replyboard_no">
-                  <input type="hidden" name="" value="${cafe_board_detail.writer}" id="writer">
-                  <input type="hidden" name="" value="${login.member_id }" id="loginid">
-                  <input type="hidden" name="" value="${cafe_list[0].admin}" id="adminid">
+               
+               <br> 
+               <input type="hidden" name="" value="${cafe_board_detail.cafe_board_no}" id="replyboard_no">
+               <input type="hidden" name="" value="${cafe_board_detail.writer}" id="writer">
+               <input type="hidden" name="" value="${login.member_id }" id="loginid">
+               <input type="hidden" name="" value="${cafe_list[0].admin}" id="adminid">
+               
+               <c:if test="${cafe_board_detail.writer eq login.member_id || cafe_list[0].admin eq login.member_id  }">
+                    <label style="font-weight:bold; color:black" >${cafe_board_detail.writer}</label>                
+                  <input type="text" size="70" placeholder="상대방을 향한 욕설, 음담패설은 자제해주세요."  id="replycontent">                  
                   <input type="text" size="1" value="0"  id="replycount" >자
                   <input type="button" class="btn btn-primary" value="등록" onclick="replyinsert();">                  
+               </c:if>   
                </form>         
-        
+              
              
                </div>
                
@@ -125,8 +126,8 @@
       </section>
 
       
-   <!-- @@ footer 영역 @@ -->
-   <%@ include file="footer.jsp"%>
+<!-- @@ footer 영역 @@ -->
+<%@ include file="footer.jsp"%>
 
   
 <script type="text/javascript">
@@ -162,18 +163,17 @@ function ajaxreplylist(){
           data : {"cafe_board_no" : cafe_board_no },
           success : function(data){
                          
-             console.log(data.rlist.size==0 || data.rlist.size==null);
-             if(data.rlist.size==0 && data.rlist.size==null ){                
+         
+             
+             if(data.rlist.length==0){                
                 $("#noreply").html("작성된 댓글이 없습니다.");                
                 
              }else{             
-                $.each(data.rlist, function(key,value){                               
-                   console.log(key);
-                   console.log(value);
-                   
+                $.each(data.rlist, function(key,value){    
+                  
                    var rlist1 = '';
                    rlist1 +=
-                        
+                    
                     "<div id='comment"+value.cafe_reply+"' >"+
                     
                        "<div style='font-weight:bold; color:black'>"+value.writer+"</div>"+
@@ -184,11 +184,10 @@ function ajaxreplylist(){
                          
                       "</div><hr>"+
                       
-                      "<div id='commentupdate"+value.cafe_reply+"' style='display:none'>"+
-                      
+                      "<div id='commentupdate"+value.cafe_reply+"' style='display:none'>"+                      
                          "<div style='font-weight:bold; color:black'>"+value.writer+"</div>"+
                          "<input type='text' size='80' name='content' value='"+value.content+"' id='updatecontent"+value.cafe_reply+"'/> "+
-                         "<div style='font-size:smell'>"+value.regdate+"</div>"+
+                         "<div style='font-size:smell'>"+value.regdate+"</div>"+   
                          "<input type='button' value='수정완료' class='btn btn-primary ' onclick='replyupdate2("+value.cafe_reply+");'/>"+
                          "<input type='button' value='수정취소' class='btn btn-secondary' onclick='replyupdatex("+value.cafe_reply+");'/>"+       
                                             
@@ -349,6 +348,11 @@ function replyupdatex(cafe_reply){
    $("#comment"+cafe_reply).show();
    $("#commentupdate"+cafe_reply).hide();
 }
+
+
+
+
+
 
 
 
