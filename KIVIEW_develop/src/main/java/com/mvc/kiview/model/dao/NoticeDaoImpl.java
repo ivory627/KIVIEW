@@ -158,6 +158,21 @@ public class NoticeDaoImpl implements NoticeDao {
 
 		return f_vo;
 	}
+	
+	@Override
+	public FAQVo faq_updateOne(int faq_no) {
+
+		FAQVo f_vo = null;
+		
+		try {
+			f_vo = sqlSession.selectOne(namespace + "faqUpdateOne",faq_no);
+		} catch (Exception e) {
+			System.out.println("[error] : FAQ_updateOne");
+			e.printStackTrace();
+		}
+
+		return f_vo;
+	}
 
 	@Override
 	public int faq_count(Criteria cri) {
@@ -209,7 +224,7 @@ public class NoticeDaoImpl implements NoticeDao {
 		int res = 0;
 
 		try {
-			res = sqlSession.update(namespace + "faqDelete",faq_no);
+			res = sqlSession.delete(namespace + "faqDelete", faq_no);
 		} catch (Exception e) {
 			System.out.println("[error] : faq_delete");
 			e.printStackTrace();
@@ -217,6 +232,8 @@ public class NoticeDaoImpl implements NoticeDao {
 
 		return res;
 	}
+
+	
 
 
 }

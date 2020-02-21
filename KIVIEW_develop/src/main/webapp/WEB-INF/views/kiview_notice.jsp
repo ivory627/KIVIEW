@@ -15,7 +15,7 @@
 <!-- css -->
 <jsp:include page="head.jsp"/>
 <!-- js -->
-<script type="text/javascript" src = "resources/js/test.js"></script>
+<script type="text/javascript" src = "resources/js/notice.js"></script>
 
 </head>
 
@@ -233,7 +233,7 @@
 				<!--======================== @@ 페이징 @@=========================-->
 				
 				<div class="jsx-1407906967 board-list-footer">
-					<ul class="jsx-3635512122 pagination pagination--kindergarten">
+					<ul class="jsx-3635512122 pagination pagination--kindergarten" id = "n_paging">
 						
 						<c:if test = "${pageMaker.prev}">
 						<li class="jsx-3635512122 prev disabled" >

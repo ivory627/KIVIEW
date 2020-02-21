@@ -71,6 +71,8 @@ public class PageMaker {
 		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance().queryParam("page", page)
 				.queryParam("perPageNum", this.cri.getPerPageNum());
 		
+		
+		
 		//FAQ의 분류 카테고리를 눌렀을 때 ?
 		if(this.cri.getKeyword() != null) {
 			uriComponentsBuilder.queryParam("keyword", this.cri.getKeyword());

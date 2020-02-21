@@ -179,6 +179,26 @@ li.jsx-357641531 button.jsx-357641531 {
     text-align: center;
     border-radius: 50%;
 }
+
+#editbtn{
+	position:relative;
+	left:86%;
+	border-radius: 48%;
+	background-color:#ff9d1f;
+	color:#ffffff;
+	width: 6%;
+	
+}
+#deletebtn{
+	position:relative;
+	left:87%;
+	border-radius: 48%;
+	background-color:#ff9d1f;
+	color:#ffffff;
+	width: 6%;
+}
+
+
 .tab-name.jsx-357641531 {
     font-size: 15px;
     color: rgb(102, 102, 102);

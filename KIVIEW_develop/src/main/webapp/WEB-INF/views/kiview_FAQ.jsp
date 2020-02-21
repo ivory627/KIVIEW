@@ -19,7 +19,7 @@
 
 <!-- js -->	
 <script type="text/javascript" src = "resources/js/faq.js"></script>
-<script type="text/javascript" src = "resources/js/test.js"></script>
+<script type="text/javascript" src = "resources/js/notice.js"></script>
 
 
 </head>
@@ -118,11 +118,16 @@
 							<div class="jsx-357641531 content" id = "comment">
 								<div class="jsx-2567501591 editor">
 									<div class="fr-view">
-										<p id = "${faqlist.faq_no}">${faqlist.faq_content}</p>
-									</div>
-									<div class="jsx-1407906967 btn-write btn-write--kindergarten fix-position">
-									<button class="jsx-1407906967"><span>수정</span></button>
-									<button class="jsx-1407906967"><span>삭제</span></button>
+										<p id = "${faqlist.faq_no}"></p>
+									<c:set var = "admin_id" value = "${login.member_id}"></c:set>	
+									<c:if test="${fn:contains(admin_id, 'admin')}">	
+									<button class="jsx-1407906967" id = "editbtn" onclick="location.href='faqupdateform.do?faq_no=${faqlist.faq_no}'">
+									<span style="color:#ffffff">수정</span></button>
+									<button class="jsx-1407906967" id = "deletebtn" onclick="faqDel()">
+									<span style="color:#ffffff">삭제</span></button>
+									<input type = "hidden" id = "input01" name = "faq_no" value = "${faqlist.faq_no}">
+									<input type = "hidden" id = "input02" name = "keyword" value = "${faqlist.faq_catd}">
+									</c:if>
 									</div>
 								</div>
 							</div>

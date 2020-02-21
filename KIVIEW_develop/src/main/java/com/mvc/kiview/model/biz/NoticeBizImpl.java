@@ -82,4 +82,9 @@ public class NoticeBizImpl implements NoticeBiz {
 		return n_dao.faq_count(cri);
 	}
 
+	@Override
+	public FAQVo faq_updateOne(int faq_no) {
+		return n_dao.faq_updateOne(faq_no);
+	}
+
 }

@@ -33,5 +33,34 @@ $("button[name='faq_no']").click(function(){
 			});
 		}
 	});
-
 })
+
+function faqDel(){
+	
+	var result = confirm("정말 삭제 하시겠습니까?");
+	var faq_no = $("#input01").val();
+	var keyword = $("#input02").val();
+	
+	if(result){
+		alert("삭제 되었습니다.");
+		$.ajax({
+			url:"faqdelete.do",
+			type:"get",
+			data:{"faq_no":faq_no, "keyword":keyword},
+			dataType:"json",
+			success:function(result){
+				if(result.faqDel > 0){
+					location.href = "kiviewfaq.do?keyword="+result.keyword;
+				}else{
+					location.href = "kiviewfaq.do?keyword="+result.keyword;
+				}
+			}, error:function(){
+				alert("통신 실패");
+			}
+			
+		});
+	}else{
+		alert("취소");
+		location.href = "kiviewfaq.do?keyword="+faq_catd;
+	}
+}

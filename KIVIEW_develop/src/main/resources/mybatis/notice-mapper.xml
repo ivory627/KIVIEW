@@ -117,6 +117,10 @@
 		SELECT FAQ_CONTENT FROM FAQ
 		WHERE FAQ_NO = #{faq_no}
 	</select>
+	<select id="faqUpdateOne" parameterType="int" resultType="FAQVo">
+		SELECT * FROM FAQ
+		WHERE FAQ_NO = #{faq_no}
+	</select>
 	<insert id="noticeInsert" parameterType="NoticeVo">
 		INSERT INTO NOTICE VALUES
 		(NOTICE_SEQ.NEXTVAL, #{cat_detail}, #{notice_title}, #{notice_content}, #{notice_writer},

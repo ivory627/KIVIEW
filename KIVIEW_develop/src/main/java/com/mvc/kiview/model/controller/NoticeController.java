@@ -5,11 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -130,10 +133,10 @@ public class NoticeController {
 
 	/* FAQ 처음 로딩시 전체 list */
 	@RequestMapping("/kiviewfaq.do")
-	public String kiview_faq(Model model, Criteria cri) {
+	public String kiview_faq(Model model, Criteria cri, String keyword) {
 
 		logger.info("FAQ LIST");
-
+		System.out.println("faq.do의 keyword:" + keyword);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(n_biz.faq_count(cri));
@@ -165,7 +168,6 @@ public class NoticeController {
 
 		return map;
 	}
-	
 
 	/* FAQ 글쓰기 폼 */
 	@RequestMapping("/kiviewfaqwrite.do")
@@ -191,11 +193,49 @@ public class NoticeController {
 		}
 
 	}
-	
-	
-	
-	
-	
-	
+
+	@RequestMapping("/faqupdateform.do")
+	public String kiview_faq_update(Model model, int faq_no) {
+
+		logger.info("FAQ UPDATE FORM");
+		model.addAttribute("faqupdate", n_biz.faq_updateOne(faq_no));
+
+		return "kiview_faq_update";
+	}
+
+	@RequestMapping("/faqUpdateRes.do")
+	public String kiview_faq_updateRes(FAQVo f_vo) {
+
+		logger.info("FAQ UPDATE RESULT");
+
+		int res = 0;
+		res = n_biz.faq_update(f_vo);
+
+		if (res > 0) {
+			return "redirect:kiviewfaq.do?faq_no=" + f_vo.getFaq_no();
+		} else {
+			return "redirect:faqupdateform.do?faq_no=" + f_vo.getFaq_no();
+		}
+
+	}
+
+	@RequestMapping("/faqdelete.do")
+	@ResponseBody
+	public Map<String, Object> kiview_faq_delete(@RequestParam("faq_no") int faq_no, @RequestParam("keyword") String keyword) {
+
+		logger.info("FAQ DELETE AJAX");
+
+		int res = 0;
+		res = n_biz.faq_delete(faq_no);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("faqDel", res);
+		map.put("faq_no", faq_no);
+		map.put("keyword", keyword);
+
+		System.out.println("controller key:" + keyword);
+
+		return map;
+	}
 
 }

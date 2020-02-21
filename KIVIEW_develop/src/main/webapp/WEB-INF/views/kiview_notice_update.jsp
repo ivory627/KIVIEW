@@ -16,8 +16,11 @@
 <meta charset="UTF-8">
 <title>KVIEIW - 수정하기</title>
 
+<!-- css -->
 <link rel="stylesheet" href="resources/css/notice_write.css">
 <%@ include file = "head.jsp" %>
+
+<!-- js -->
 
 <!-- SmartEditor2 라이브러리  -->
 <script type="text/javascript" src="se2/js/HuskyEZCreator.js" charset="utf-8"></script>
@@ -181,6 +184,7 @@
 				return;
 			}
 			$("#noticeWriteForm").submit();
+			alert("수정완료");
 		});
 	})
 		

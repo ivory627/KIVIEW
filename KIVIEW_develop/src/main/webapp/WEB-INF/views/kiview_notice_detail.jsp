@@ -13,13 +13,10 @@
 <title>KIVIEW &mdash; About</title>
 
 <jsp:include page="head.jsp"/>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#btn1").click(function(){
-			location.href = "kiviewnotice.do";
-		});
-	});
-</script>
+
+<!-- js -->
+<script type="text/javascript" src = "resources/js/notice_detail.js"></script>
+
 <style type="text/css">
 
 #writebtn{
@@ -211,9 +208,9 @@ box-sizing: border-box;
 						<c:when test="${admin_id == writer}">
 						<div class="jsx-2211599338 recommend-box">
 							<button class="jsx-1407906967" id = "writebtn"
-							onclick="location.href='noticeUpdate.do?notice_no=${noticedetail.notice_no}'">수정하기</button>&nbsp;&nbsp;
+							onclick="notice_edit(${noticedetail.notice_no})">수정하기</button>&nbsp;&nbsp;
 							<span><button class="jsx-1407906967" id = "writebtn"
-							onclick="location.href='kiviewdel.do?notice_no=${noticedetail.notice_no}'">삭제하기</button></span>
+							onclick="notice_del(${noticedetail.notice_no})">삭제하기</button></span>
 						</div>
 						</c:when>
 						<c:otherwise>
