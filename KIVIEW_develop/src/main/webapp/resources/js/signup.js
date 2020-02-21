@@ -6,7 +6,7 @@ $(function() {
 
 //아이디 중복체크
 function signupIdCkBtn(){
-	var member_id = $("#member_id").val();
+	var member_id = $("#member_id").val().trim();
 	
 	var idChkVal = {
 		"member_id" : member_id,
@@ -47,8 +47,8 @@ function signupIdCkBtn(){
 function signupChk(){
 
 	//비밀번호 확인
-	var signupPwd = $("#signupPwd").val();
-	var signupPwdChk = $("#signupPwdChk").val();
+	var signupPwd = $("#signupPwd").val().trim();
+	var signupPwdChk = $("#signupPwdChk").val().trim();
 	
 	if(signupPwd != signupPwdChk){
 		$("#signupEmailChkMsg").hide();
@@ -67,7 +67,7 @@ function signupChk(){
 		$("#signupEmailChkMsg").hide();
 		$("#signupPhoneChkMsg").hide();
 		$("#signupPwdChkMsg").show().html("");
-		$("#signupPwdChkMsg").show().css('color', 'red').html("&nbsp;&nbsp;영문, 숫자, 특수문자를 포함 5~20자리를 사용해야 합니다");
+		$("#signupPwdChkMsg").show().css('color', 'red').html("&nbsp;&nbsp;영문(소/대문자 구분), 숫자, 특수문자를 포함 5~20자리");
 		
 		var member_name = $('#member_name').offset();
 		$('html').animate({scrollTop : member_name.top}, 400);
@@ -84,7 +84,7 @@ function signupChk(){
 	}
 	
 	//이메일 정규식
-	var member_email = $("#member_email").val(); 
+	var member_email = $("#member_email").val().trim(); 
 	var idReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	if( !idReg.test( member_email ) ) {
     	$("#signupPwdChkMsg").hide();
@@ -98,7 +98,7 @@ function signupChk(){
     }
     
     //전화번호 정규식
-	var member_phone = $("#member_phone").val(); 
+	var member_phone = $("#member_phone").val().trim(); 
 	var idReg = /^[0-9]*$/;
     if( !idReg.test( member_phone ) ) {
     	$("#signupEmailChkMsg").hide();
@@ -112,14 +112,12 @@ function signupChk(){
     }
     
     //도로명주소+상세주소
-    var member_addrRes = $('#member_addr').val() + " " + $('#member_addrDetail').val();
+    var member_addrRes = $('#member_addr').val().trim() + " " + $('#member_addrDetail').val().trim();
     $('#member_addr').val(member_addrRes);
 	
 	alert("성공적으로 KIVIEW의 회원이 되셨습니다");
 
 	return true;
-
-	
 }
 
 //중복확인 여부
@@ -130,7 +128,7 @@ function idChk_chk(){
 
 
 //주소 api
-function goPopup(){
+function addrPopup(){
 	
 	//팝업 크기/위치
 	var winHeight = document.body.clientHeight;   // 현재창의 높이
@@ -148,7 +146,8 @@ function goPopup(){
 	//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
 	
 }
-/** API 서비스 제공항목 확대 (2017.02) **/
+
+//검색된 도로명주소 해당 페이지에 출력
 function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn
         , detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
 	// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.

@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +29,8 @@ public class MemberController {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
+	
+	//@@ 로그인 @@ /////////////////////////////////////////////////////////////////////////
 	//로그인
 	@RequestMapping("/kiviewlogin.do")
 	public String kiview_login() {
@@ -42,7 +43,7 @@ public class MemberController {
 	@ResponseBody
 	public Map<String, Boolean> ajaxLogin(HttpSession session, @RequestBody MemberVo vo) {
 		logger.info("ajaxLogin");
-		MemberVo res = biz.login(vo);
+		MemberVo res = biz.selectOne(vo);
 		boolean check = false;
 		
 		String vopw = vo.getMember_pwd();	//사용자가 입력한 비밀번호
@@ -85,6 +86,7 @@ public class MemberController {
 		return "index";
 	}
 
+	//@@ 회원가입 @@ /////////////////////////////////////////////////////////////////////////
 	//회원가입 종류 선택
 	@RequestMapping("/kiviewsignupoption.do")
 	public String kiview_signupOption() {
@@ -128,19 +130,59 @@ public class MemberController {
 		int res = biz.signup(vo);
 		 
 		if(res > 0) {
-			return "redirect:index.do";
+			return "redirect:kiviewlogin.do";
 		}else {
 			return "redirect:kiviewsignup.do";
 		}
 
 	}
 	
-	//
+	//도로명 api
 	@RequestMapping("/kiviewjusopopup")
 	public String kiview_jusoPopup() {
 		logger.info("addrPopup");
 		return "addrPopup";
 	}
+	
+	
+	//@@ 마이페이지 @@ /////////////////////////////////////////////////////////////////////////
+	//마이페이지 - 회원정보
+	@RequestMapping("/kiviewmypage.do")
+	public String mypage() {
+		logger.info("mypage");
+		return "kiview_mypage"; 
+	}
+	
+	//마이페이지 - 회원활동
+	@RequestMapping("/kiviewmyactivity.do")
+	public String myactivity() {
+		logger.info("myactivity");
+		return "kiview_myactivity";
+	}
+	
+	//회원정보 수정
+	@RequestMapping("/kiviewupdate.do")
+	public String memberUpdate (HttpSession session, MemberVo vo) {
+		logger.info("memberUpdate");
+		int res = biz.updateMember(vo);
+		System.out.println(res);	//1이면 성공
+		
+		
+		//session.setAttribute("login",res2);
+		return "redirect:kiviewmypage.do";
+	}
+
+
+	//회원 탈퇴
+	@RequestMapping(value="/kiviewdelete.do", method=RequestMethod.POST)
+	public String deleteMember(HttpSession session) {
+		logger.info("deleteMember");
+		MemberVo vo = (MemberVo) session.getAttribute("login");
+		int res = biz.deleteMember(vo);
+		session.invalidate();
+		return "redirect:index.do";
+	}
+	   
 
 	
 	

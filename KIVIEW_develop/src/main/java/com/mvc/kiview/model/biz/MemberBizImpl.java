@@ -13,8 +13,8 @@ public class MemberBizImpl implements MemberBiz {
 	private MemberDao dao;
 	
 	@Override
-	public MemberVo login(MemberVo vo) {
-		return dao.login(vo);
+	public MemberVo selectOne(MemberVo vo) {
+		return dao.selectOne(vo);
 	}
 
 	@Override
@@ -30,6 +30,16 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public MemberVo signupIdChk(MemberVo vo) {
 		return dao.signupIdChk(vo);
+	}
+
+	@Override
+	public int updateMember(MemberVo vo) {
+		return dao.updateMember(vo);
+	}
+
+	@Override
+	public int deleteMember(MemberVo vo) {
+		return dao.deleteMember(vo);
 	}
 
 }

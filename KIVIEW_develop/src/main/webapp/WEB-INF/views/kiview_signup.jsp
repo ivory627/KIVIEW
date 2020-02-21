@@ -94,7 +94,7 @@
 										class="jsx-639067573 " name="member_addr" id="member_addr">
 								</div>
 								<button class="jsx-771227029 btn-nickname-check" type="button"
-									style="margin-left: 16px;" onclick="goPopup()">주소찾기</button>
+									style="margin-left: 16px;" onclick="addrPopup()">주소찾기</button>
 							</div>
 						</label>
 						<label class="jsx-3712571264 "> <span

@@ -292,7 +292,7 @@ $(function(){
 			<!-- <ul class="navbar-nav ml-auto" >   --> 
 				
 				
-				<li class="nav-item"><a href=" kiviewmypage.do"
+				<li class="nav-item"><a href="kiviewmypage.do"
 					class="nav-link">내 정보</a></li>
 				<li class="nav-item"><a href="kiviewmyactivity.do"
 					class="nav-link">내 활동</a></li>
