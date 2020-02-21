@@ -36,6 +36,7 @@ import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeCategoryVo;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
+import com.mvc.kiview.model.vo.CafeReplyVo;
 import com.mvc.kiview.model.vo.CafeVo;
 
 @Controller // 카페관련
@@ -745,7 +746,7 @@ public class CafeController {
 		return map;
 	}
 
-	// -------------------------- 카페 게시판 --------------------//
+	// -------------------------- 테이블 게시판 --------------------//
 	@RequestMapping("/cafeboardlist.do")
 	public String cafe_board_list(Model model, int cafe_no, int cafe_menu_no) {
 		List list = sidebar(cafe_no);
@@ -770,23 +771,6 @@ public class CafeController {
 		return "cafe_board_write";
 	}
 
-	@RequestMapping(value = "/ajaxcategory.do", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> ajaxcategory(int no) {
-
-		
-
-		List<CafeCategoryVo> reslist = biz.menu_detail2(no);
-		// System.out.println(reslist);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("category2", reslist);
-
-		/*
-		 * for(String key : map.keySet()) { String value = map.get(key).toString();
-		 * System.out.println("[key] : "+key+"[value] : "+value); }
-		 */
-		return map;
-	}
 	
 	
 	@RequestMapping("/cafeboardinsert")
@@ -866,8 +850,152 @@ public class CafeController {
 	         }
 	      
 	   }
+	   
+	   
+	   @RequestMapping(value = "/ajaxcategory.do", method = RequestMethod.POST)
+	      @ResponseBody
+	      public Map<String, Object> ajaxcategory(int no) {         
+
+	         List<CafeCategoryVo> reslist = biz.menu_detail2(no);
+	         // System.out.println(reslist);
+	         Map<String, Object> map = new HashMap<String,Object>();
+	         map.put("category2", reslist);
+
+	         
+	          for(String key : map.keySet()) { 
+	             String value = map.get(key).toString();
+	             System.out.println("[key] : "+key+"\n[value] : "+value); 
+	          }    
+	          
+	         return map;
+	      }
+	      
+	      
+	      @RequestMapping(value="/ajaxreplylist.do",method = RequestMethod.POST)
+	      @ResponseBody
+	      public Map<String,Object> ajaxreplylist(int cafe_board_no){
+	         List<CafeReplyVo> rlist = biz.cafe_board_reply_list(cafe_board_no);
+	         
+	         System.out.println(rlist.toString());         
+	         
+	         Map<String,Object> map = new HashMap<>();
+	         map.put("rlist",rlist);
+	         
+	         for(String key : map.keySet()) { 
+	             String value = map.get(key).toString();
+	             System.out.println("[key] : "+key+"\n    [value] : "+value); 
+	          }    
+	         
+	         
+	         return map;
+	      }
+	      
+	      @RequestMapping(value="/ajaxreplyinsert.do",method = RequestMethod.POST)
+	      @ResponseBody
+	      public Map<String,Object> ajaxreplyinsert(@RequestBody  CafeReplyVo cafereplyvo){
+	         int res =biz.reply_insert(cafereplyvo);
+	         
+	         Map<String,Object> map = new HashMap<>();
+	         map.put("res", res);         
+	         
+	         for(String key : map.keySet()) { 
+	             String value = map.get(key).toString();
+	             System.out.println("[key] : "+key+"\n    [value] : "+value); 
+	          }    
+	         
+	         return map;
+	      }
+	      @RequestMapping(value="/ajaxreplydelete.do",method = RequestMethod.POST)
+	      @ResponseBody
+	      public Map<String,Object> ajaxreplydelete(int cafe_reply){
+	         int res = biz.reply_delete(cafe_reply);         
+	         Map<String,Object> map = new HashMap<>();
+	         map.put("res", res);      
+	         
+	         for(String key : map.keySet()) { 
+	             String value = map.get(key).toString();
+	             System.out.println("[key] : "+key+"\n    [value] : "+value +"\n"); 
+	          }    
+	         
+	         return map;
+	      }
+	      
+	      @RequestMapping(value="/ajaxreplyupdate.do",method = RequestMethod.POST)
+	      @ResponseBody
+	      public Map<String,Object> ajaxreplyupdate(@RequestBody  CafeReplyVo cafereplyvo){
+	         int res = biz.reply_update(cafereplyvo);         
+	         Map<String,Object> map = new HashMap<>();
+	         map.put("res", res);      
+	         
+	         for(String key : map.keySet()) { 
+	             String value = map.get(key).toString();
+	             System.out.println("[key] : "+key+"\n    [value] : "+value +"\n"); 
+	          }    
+	         return map;
+	      }
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
 	
 	
-	
+	// -------------------------- 방명록 게시판 --------------------//
+	   @RequestMapping("/cafeguestlist.do")
+	   public String cafe_guest_list (Model model, CafeMenuVo vo) {
+		   List list = sidebar(vo.getCafe_no());
+		   model.addAttribute("cafe_list", list);
+		   
+		   List<CafeBoardVo> guest = biz.cafe_boardlist(vo.getCafe_menu_no());
+		   CafeMenuVo menu = biz.menu_detail1(vo.getCafe_menu_no()); 
+		   model.addAttribute("guest",guest);
+		   model.addAttribute("menu", menu);
+		   
+		   return "cafe_guest";
+	   }
+	   
+	   @RequestMapping("/cafeguestwrite.do")
+	   public String cafe_guest_write(Model model, int cafe_no, CafeBoardVo vo) {
+		   System.out.println(cafe_no); 
+		   System.out.println(vo);
+		   
+		   List list = sidebar(cafe_no);
+		   model.addAttribute("cafe_list", list);
+		   
+		   List<CafeBoardVo> guest = biz.cafe_boardlist(vo.getCafe_menu_no());
+		   model.addAttribute("guest", guest);
+		   
+		   CafeMenuVo menu = biz.menu_detail1(vo.getCafe_menu_no());
+		   model.addAttribute("menu",menu);
+		   
+		   
+		   int res = biz.cafe_board_insert(vo);
+		  
+		   if(res>0) {
+			  
+			   return "redirect:cafeguestlist.do?cafe_no="+cafe_no+"&cafe_menu_no="+vo.getCafe_menu_no();
+		   } else {
+			   return "redirect:cafeguestlist.do?cafe_no="+cafe_no+"&cafe_menu_no="+vo.getCafe_menu_no();
+		   }
+		   
+		   
+		   
+	   }
 	
 }

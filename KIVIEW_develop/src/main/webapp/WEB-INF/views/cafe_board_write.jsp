@@ -16,48 +16,8 @@
     <title>KIVIEW &mdash; Blog</title>
     
     <%@ include file = "head.jsp" %>
-<script type="text/javascript">
+    
 
-$("#boardcategory1").on("change",function(){
-   var no = $("#boardcategory1 option:selected").val();
-   console.log(no);
-   
-      
-   if(no==null||no==""){
-      alert("게시판을 선택하세요.");
-      
-   }else{
-      $.ajax({
-         type:"post",
-         url:"ajaxcategory.do",
-         data:{"no":no},
-         
-         dataType:"json",
-         success:function(data){
-            alert("통신성공!");            
-            var category = date.categorty2;
-            $("#boardcategory2").each(function(category){
-               
-               alert(category);
-            });
-         },
-         error : function(request,status,error){
-            alert("통신 실패");
-            alert(request);
-            alert(status);
-            alert(error);
-            
-            
-         }
-      });
-   }
-});
-
-
-
-
-
-</script> 
 
   </head>
   <body id = "body">
@@ -85,8 +45,7 @@ $("#boardcategory1").on("change",function(){
          <div class="row" style="width:1400px; overflow:auto;"> 
             <!-- 카페 메뉴 -->
             <div class="col-lg-3 sidebar ftco-animate" style="padding:25px; margin-right:30px;  background-color:white; border:1px solid lightgray;" >
-                
-               
+                               
                <%@include file="cafe_sidebar.jsp" %>
 
             </div>
@@ -101,22 +60,21 @@ $("#boardcategory1").on("change",function(){
                <input type="hidden" name="cafe_no" value="${cafe_list[0].cafe_no }">
                <input type="hidden" name="writer" value="${login.member_id}">
                <input type="hidden" name="category" value="카테고리인서트테스트">
-               <label>게시판 종류 / 말머리 [구현 예정.]</label>
-<!--             
+               <label>말머리 선택.</label><br>
+             
                <select name="menu_name" id="boardcategory1">
-                  <option value="">게시판 선택</option>
-               <c:forEach var="menu" items="${cafe_list[1] }">   
-                  <option value="${menu.cafe_menu_no }">${menu.name }</option>
+               <c:forEach var="menu" items="${cafe_list[1] }">
+                        
+                  <c:if test="${menu.cafe_menu_no eq cafe_menu_no}">                  
+                     <option value="${menu.cafe_menu_no }">${menu.name }</option>
+                  </c:if>   
                </c:forEach>   
-               </select>
- -->                  
-        
-<!--    
+               </select> 
+
                <select name="categoryname" id="boardcategory2">
-                  <option value="">말머리 선택</option>
-                  <option value=""></option>
-                              </select>
- -->                
+                  <option selected="selected">말머리 선택</option>                  
+               </select>
+                
                
                <br>               
                <label>제 목</label><br>
@@ -159,4 +117,71 @@ $("#boardcategory1").on("change",function(){
 
     
   </body>
+<script type="text/javascript">
+
+$("#boardcategory1").on("change",function(){
+   var no = $("#boardcategory1 option:selected").val();
+   console.log("게시메뉴 번호     :    "+no);
+   
+   $("#boardcategory2").empty();
+      
+   if(no==null||no==""){
+      alert("게시판을 선택하세요.");
+      
+   }else{
+      $.ajax({
+         type:"post",
+         url:"ajaxcategory.do",
+         data:{"no":no},
+         
+         dataType:"json",
+         success:function(key){
+            alert("통신성공!");        
+           
+           $.each(key.category2,function(index,item){
+              console.log(index);
+              console.log(item);
+              console.log(item.category.length);
+              if(item.category.length==0){
+               alert("말머리가 존재하지 않습니다.");                            
+               $("#boardcategory2").hide();
+              }else{
+                 
+                 var newOpt=$('<option>').html();
+                  var rlist = '';
+                  
+                  rlist += '<option value='+item.category+'>'+item.category+'</option>';
+                   
+                  console.log(rlist);            
+                  
+                  $("#boardcategory2").append(rlist);      
+
+                 
+              }
+              
+               
+              
+           });
+            
+               
+               
+            
+         },
+         error : function(request,status,error){
+            alert("통신 실패");
+            alert(request);
+            alert(status);
+            alert(error);
+            
+            
+         }
+      });
+   }
+});
+
+
+
+
+
+</script>   
 </html>

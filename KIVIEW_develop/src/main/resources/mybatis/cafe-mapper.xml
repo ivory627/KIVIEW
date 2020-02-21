@@ -185,8 +185,8 @@
       </select>
       
        <insert id="cafe_board_insert" parameterType="CafeBoardVo" >
-        INSERT INTO CAFE_BOARD VALUES(CAFE_BOARD_SEQ.NEXTVAL,#{cafe_menu_no},#{category},#{title},#{content},#{writer},SYSDATE,0)
-     </insert>
+        INSERT INTO CAFE_BOARD VALUES(CAFE_BOARD_SEQ.NEXTVAL,#{cafe_menu_no},#{category, jdbcType=VARCHAR},#{title},#{content},#{writer},SYSDATE,0)
+     </insert> 
      
      <select id="cafe_board_detail" parameterType="int" resultType="CafeBoardVo">
         SELECT * FROM CAFE_BOARD WHERE CAFE_BOARD_NO = #{cafe_board_no}
@@ -199,6 +199,33 @@
      <update id="cafe_board_update" parameterType="CafeBoardVo">
         UPDATE CAFE_BOARD SET CATEGORY='11',TITLE=#{title},CONTENT=#{content} WHERE CAFE_BOARD_NO=#{cafe_board_no}
      </update>
+     
+      <update id="cafe_board_count" parameterType="int">
+        UPDATE CAFE_BOARD SET HIT=HIT+1 WHERE CAFE_BOARD_NO=#{cafe_board_no}
+     </update>
+     
+     <select id="cafe_reply_list" parameterType="int" resultType="CafeReplyVo">
+        SELECT *
+        FROM CAFE_REPLY WHERE CAFE_BOARD_NO=#{cafe_board_no}
+        ORDER BY CAFE_REPLY 
+     </select>
+     
+      <insert id="reply_insert" parameterType="CafeReplyVo">
+         INSERT INTO CAFE_REPLY 
+         VALUES(CAFE_REPLY_SEQ.NEXTVAL,#{cafe_board_no},#{writer},#{content},SYSDATE)
+      </insert>
+      <delete id="reply_delete" parameterType="int">
+         DELETE FROM CAFE_REPLY WHERE CAFE_REPLY = #{cafe_reply} 
+      </delete>
+      <update id="reply_update" parameterType="CafeReplyVo">      
+         UPDATE CAFE_REPLY SET CONTENT = #{content} WHERE CAFE_REPLY =#{cafe_reply} 
+      </update>
+     
+     
+     
+     
+     
+     
      
       
       

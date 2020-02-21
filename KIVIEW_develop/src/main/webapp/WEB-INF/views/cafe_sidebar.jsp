@@ -132,7 +132,7 @@ textarea{
 	            							<p class="mb-0" align=center><a onclick="sign_ready()" class="btn btn-secondary" 
 	            							style="width:100%; border-radius:0px;" >가입 승인 대기 </a></p>
 	            						</c:if>
-               				</c:if>
+               					</c:if>
 		
             				</c:if>
             			</c:forEach> 	
@@ -175,7 +175,7 @@ textarea{
                            <li><i class="fas fa-clipboard-list"></i><a href="cafeboardlist.do?cafe_no=${cafe_list[0].cafe_no }&cafe_menu_no=${menu.cafe_menu_no }"> ${menu.name}</a></li>                        
                      </c:when>
                      <c:otherwise>
-                           <li><i class="fas fa-clipboard-check"></i><a href="cafeboardlist.do?cafe_no=${cafe_list[0].cafe_no }&cafe_menu_no=${menu.cafe_menu_no }"> ${menu.name}</a></li>        
+                           <li><i class="fas fa-clipboard-check"></i><a href="cafeguestlist.do?cafe_no=${cafe_list[0].cafe_no }&cafe_menu_no=${menu.cafe_menu_no }"> ${menu.name}</a></li>        
                      </c:otherwise>
                     </c:choose>   
                   </c:forEach>

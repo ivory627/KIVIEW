@@ -12,6 +12,7 @@ import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeCategoryVo;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
+import com.mvc.kiview.model.vo.CafeReplyVo;
 import com.mvc.kiview.model.vo.CafeVo;
 
 @Repository
@@ -384,7 +385,70 @@ public class CafeDaoImpl implements CafeDao {
 	   }
 	   
 	   
-	   
+	   @Override
+	   public int cafe_board_hit(int cafe_board_no) {
+	      int res = 0;
+	      
+	      try {
+	         res = sqlSession.update(namespace+"cafe_board_count",cafe_board_no);
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         System.out.println("cafe_board_hit 오류");
+	      }
+	      return res;
+	   }
+
+	   @Override
+	   public List<CafeReplyVo> cafe_reply_list(int cafe_board_no) {
+	      List<CafeReplyVo> res = null;
+	      
+	      try {
+	         res = sqlSession.selectList(namespace+"cafe_reply_list",cafe_board_no);
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         System.out.println("cafe_reply_list 오류");
+	      }
+	      return res;
+	   }
+
+	   @Override
+	   public int reply_insert(CafeReplyVo cafereplyvo) {
+	      int res = 0;
+	      
+	      try {
+	         res = sqlSession.insert(namespace+"reply_insert",cafereplyvo);
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         System.out.println("cafe_reply_insert 오류");
+	      }
+	      return res;
+	   }
+
+	   @Override
+	   public int reply_delete(int cafe_reply) {
+	      int res = 0;
+	      
+	      try {
+	         res = sqlSession.delete(namespace+"reply_delete",cafe_reply);
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         System.out.println("cafe_reply_delete 오류");
+	      }
+	      return res;
+	   }
+
+	   @Override
+	   public int reply_update(CafeReplyVo cafereplyvo) {
+	      int res = 0;
+	      
+	      try {
+	         res= sqlSession.update(namespace+"reply_update",cafereplyvo);
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         System.out.println("cafe_reply_update 오류");
+	      }
+	      return res;
+	   }
 	   
 	   
 	   

@@ -11,6 +11,7 @@ import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeCategoryVo;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
+import com.mvc.kiview.model.vo.CafeReplyVo;
 import com.mvc.kiview.model.vo.CafeVo;
 
 @Service
@@ -195,6 +196,69 @@ public class CafeBizImpl implements CafeBiz {
 	      
 	      return dao.cafe_board_update(cafeboardvo);
 	   }
+	   
+	   @Override
+	   public int cafe_board_hit(int cafe_board_no) {
+	      
+	      return dao.cafe_board_hit(cafe_board_no);
+	   }
+
+	   @Override
+	   public List<CafeReplyVo> cafe_board_reply_list(int cafe_board_no) {
+	      
+	      return dao.cafe_reply_list(cafe_board_no);
+	   }
+
+	   @Override
+	   public int reply_insert(CafeReplyVo cafereplyvo) {
+	      
+	      int res = dao.reply_insert(cafereplyvo);
+	      
+	      if(res>0) {
+	         res = 1;
+	      }else {
+	         res = 0;
+	      }
+	      
+	      
+	      return res;
+	   }
+
+	   @Override
+	   public int reply_delete(int cafe_reply) {
+	      int res = dao.reply_delete(cafe_reply);
+	      
+	      if(res>0) {
+	         res=1;
+	      }else {
+	         res=0;
+	      }
+	      return res;
+	   }
+	   
+	   @Override
+	   public int reply_update(CafeReplyVo cafereplyvo) {
+	      int res = dao.reply_update(cafereplyvo);
+	      
+	      if(res>0) {
+	         res=1;
+	      }else {
+	         res=0;
+	      }
+	      return res;
+	      
+	   }
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
 	   
 	   //
 	

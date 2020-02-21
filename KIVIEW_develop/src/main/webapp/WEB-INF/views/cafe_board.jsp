@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
    
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib prefix="fmf" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +16,7 @@
     
     <%@ include file = "head.jsp" %>
 <style type="text/css">
-	
+   
 
 </style>
 <script type="text/javascript">
@@ -84,23 +84,24 @@
                   
                   <c:otherwise>
                   <c:forEach var="boardlist" items="${Blist }">
-	                  <tr>
-		                  <td>${boardlist.cafe_board_no }</td>
-		                  <td>${boardlist.writer }</td>
-		                  <td> 
-                  			<a href="boarddetail.do?cafe_no=${cafe_list[0].cafe_no }&cafe_board_no=${boardlist.cafe_board_no }&cafe_menu_no=${cafe_menu_no}" style="font-size:small; text-align:left">
-			                  <c:if test="${fn:length(boardlist.category) != 0 && boardlist.category ne 'null' }">
-			                 	 [ ${boardlist.category } ] 
-			                  </c:if> 
-          							${boardlist.title }
-				                  
-				                  [1] 댓글 추가하자!
+                     <tr>
+                        <td>${boardlist.cafe_board_no }</td>
+                        <td>${boardlist.writer }</td>
+                        <td>
+                        
+                           <a href="boarddetail.do?cafe_no=${cafe_list[0].cafe_no }&cafe_board_no=${boardlist.cafe_board_no }&cafe_menu_no=${cafe_menu_no}" style="font-size:small; text-align:left">
+                           <c:if test="${fn:length(boardlist.category) != 0 && boardlist.category ne 'null' }">
+                              [ ${boardlist.category } ] 
+                           </c:if> 
+                               ${boardlist.title }
+                              
+                              [1] 댓글 추가하자!
                   
-		                  	</a>
-		                  </td>
-		                  <td>${boardlist.regdate }</td>
-		                  <td>${boardlist.hit }</td> 
-                 	 </tr>
+                           </a>
+                        </td>
+                        <td>${boardlist.regdate }</td>
+                        <td>${boardlist.hit }</td> 
+                     </tr>
                   </c:forEach>
                   </c:otherwise>
                   </c:choose>
@@ -109,16 +110,36 @@
                   
                </table> 
                
-               <div align=right>
-	               <input type="button"  value="글작성" class="btn btn-secondary"
-	               onclick="location.href='boardwrite.do?cafe_no=${cafe_list[0].cafe_no}&cafe_menu_no=${cafe_menu_no }'">  
-               </div>
+               <c:set var="count" value="0"/>
+               <c:forEach var="member" items="${cafe_list[2] }">
+               	<c:if test="${member.member_no == login.member_no }">
+               		<c:set var="count" value="${count+1 }"/>
+               	</c:if>
+               </c:forEach>
                
+               
+               
+               
+                <c:if test="${count>0 || cafe_list[0].admin eq login.member_id  }">
+               <div align=right>
+                  <input type="button"  value="글작성" class="btn btn-secondary"
+                  onclick="location.href='boardwrite.do?cafe_no=${cafe_list[0].cafe_no}&cafe_menu_no=${cafe_menu_no }'">  
+               </div>
+               </c:if>
                <div align=center>
-               <form>
-               <select style="height:30px"><option>제 목</option><option>작성자</option></select>
-               <input style="height:30px" type="text" name="keyword">
-               <input style="height:30px;border-top-width: 0px;" type="submit" value="검색"> 
+               <form action="">
+                     
+                  <select style="height:30px">
+                     <option selected="selected">검색조건</option>
+                     <option value="">작성자</option>
+                     <option value="">제목</option>
+                     <option value="">내용</option>
+                     <option value="">제목+내용</option>
+                     
+                  </select>
+                  
+                  <input style="height:30px" type="text" name="keyword">
+                  <input style="height:30px;border-top-width: 0px;" type="submit" value="검색"> 
                </form>
                </div>
                <br>
