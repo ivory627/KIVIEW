@@ -50,9 +50,9 @@ function faqDel(){
 			dataType:"json",
 			success:function(result){
 				if(result.faqDel > 0){
-					location.href = "kiviewfaq.do?faqcatd="+result.keyword;
+					location.href = "kiviewfaq.do?faqcatd="+result.faqcatd;
 				}else{
-					location.href = "kiviewfaq.do?faqcatd="+result.keyword;
+					location.href = "kiviewfaq.do?faqcatd="+result.faqcatd;
 				}
 			}, error:function(){
 				alert("통신 실패");
@@ -61,6 +61,6 @@ function faqDel(){
 		});
 	}else{
 		alert("취소");
-		location.href = "kiviewfaq.do?keyword="+faq_catd;
+		location.href = "kiviewfaq.do?faqcatd="+faq_catd;
 	}
 }
