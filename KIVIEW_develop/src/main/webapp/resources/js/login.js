@@ -5,7 +5,6 @@ $(function() {
 	$('#loginIdChk').hide();
 	$('#loginPwdChk').hide();
 	$('#idUseBtn').hide();
-	$("#member_id").focus();	//??
 	$("#member_id").focus();
 	
 	//엔터 이벤트
