@@ -55,14 +55,31 @@
     - insert, smartEditor2(API)
   - kiview_faq_update.jsp // delete는 ajax로 구현
     - update, smartEditor2(API)
+    
    
+* * *
+
+#### 2. JavaScript file 설명 - (notice.js, notice-write.js, notice-update.js, notice-detail.js, faq.js, faq-write.js, faq-update.js)
+  - notice.js 
+    - kiview_notice.jsp와 연결 된 javaScript, jQuery, ajax functions 
+  - notice-write.js
+    - kiview_notice_write.jsp와 연결 된 functions
+  - notice-update.js 
+    - kiview_notice_update.jsp와 연결 된 functions
+  - notice-detail.js
+    - kiview_notice_detail.jsp와 연결 된 functions 
+  - faq와 관련 된 js는 notice js와 설명 동일
+  
+  
+* * *
+
     
     
-#### 2. Chatbot (고민중)
+#### 3. Chatbot (고민중)
   - Power Virtual Agents (MS)
   - DialogFlow (Google)
-  - Danbi 
-  - Clova 
+  - Danbi (LG)
+  - Clova (Naver)
 
   
   
