@@ -109,22 +109,27 @@ label {
 					<h2>
 						<b>개인정보수정</b>
 					</h2>
-					<p style="font-size: 13px;">회원정보는 개인정보처리방침에 따라 안전하게 보호되며, 동의없이
-						공개 또는 제 3자에게 제공되지 않습니다.</p>
+					<p style="font-size: 13px;">회원정보는 개인정보처리방침에 따라 안전하게 보호되며, 동의없이 공개 또는 제 3자에게 제공되지 않습니다.</p>
 
-					<form method="post" action="kiviewupdate.do" onsubmit="mypagePwdChk()">
-						<input type="hidden" name="member_id" value="${login.member_id}"><br>
-						<label>비밀번호</label><span class="mypageUpdateMsg" id="mypagePwd" style="color: red;"></span>
-						<input type="password" name="member_pwd" placeholder="비밀번호" style="width: 80%"> <br> <br>
-						<label>비밀번호 확인</label><br>
-						<input type="password" placeholder="비밀번호 확인" style="width: 80%"> <br> <br>
-						<label>주소</label><br>
+					<form method="post" action="kiviewupdate.do" onsubmit="return mypagePwdChk()">
+						<input type="hidden" name="member_id" value="${login.member_id}">
+						<br>
+						<label>비밀번호</label><span class="mypageUpdateMsg" id="mypagePwd" style="color: red;"></span><br>
+						<input type="password" name="member_pwd" placeholder="비밀번호" style="width: 80%">
+						<br><br>
+						<label>비밀번호 확인</label><span class="mypageUpdateMsg" id="mypagePwdChk" style="color: red;"></span><br>
+						<input type="password" placeholder="비밀번호 확인" style="width: 80%">
+						<br><br>
+						<label>주소</label><span class="mypageUpdateMsg" id="mypageAddr" style="color: red;"></span><br>
 						<input type="text" value="${login.member_addr}" name="member_addr" style="width: 65%" id="member_addr">
-						<input type="button" class="btn btn-primary" value="주소 검색" onclick="addrPopup()"> <br> <br>
-						<label>연락처</label><br>
-						<input type="text" name="member_phone" value="${login.member_phone}" style="width: 80%"> <br> <br>
-						<label>이메일</label><br>
-						<input type="text" value="${login.member_email}" readonly="readonly" style="width: 80%"> <br> <br> <br>
+						<input type="button" class="btn btn-primary" value="주소 검색" onclick="addrPopup()">
+						<br><br>
+						<label>연락처</label><span class="mypageUpdateMsg" id="mypagePhone" style="color: red;"></span><br>
+						<input type="text" name="member_phone" value="${login.member_phone}" style="width: 80%">
+						<br><br>
+						<label>이메일</label><span class="mypageUpdateMsg" id="mypageEmail" style="color: red;"></span><br>
+						<input type="text" value="${login.member_email}" style="width: 80%">
+						<br><br><br>
 						<input type="submit" class="btn btn-secondary" style="position: relative; left: 35%; width: 30%" value="수정">
 					</form>
 

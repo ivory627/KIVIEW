@@ -21,8 +21,36 @@ function memberDel(){
 
 //회원정보 수정 확인
 function mypagePwdChk(){
-	alert("회원정보가 수정되었습니다.");
-	return false;
+	
+	var mypagePwd = $('#mypagePwd').val(); 
+	var mypagePwdChk = $('#mypagePwdChk').val(); 
+	var mypageAddr = $('#mypageAddr').val(); 
+	var mypagePhone = $('#mypagePhone').val(); 
+	var mypageEmail = $('#mypageEmail').val();
+	$('#mypagePwd').show().html('');
+	$('#mypagePwdChk').show().html('');
+	$('#mypageAddr').show().html('');
+	$('#mypagePhone').show().html('');
+	$('#mypageEmail').show().html('');
+	if( mypagePwd == null || mypagePwd =="" || mypagePwdChk == null || mypagePwd =="" ){
+		alert("!");
+		$('#mypagePwd').show().html('');
+		$('#mypagePwd').show().html('&nbsp;&nbsp;&nbsp;&nbsp;비밀번호를 입력해주세요');
+		return false;
+	} else if( mypageAddr == null || mypageAddr =="" ){
+		$('#mypageAddr').show().html('');
+		$('#mypageAddr').show().html('&nbsp;&nbsp;&nbsp;&nbsp;주소를 입력해주세요');
+	} else if( mypagePhone == null || mypagePhone =="" ){
+		$('#mypagePhone').show().html('');
+		$('#mypagePhone').show().html('&nbsp;&nbsp;&nbsp;&nbsp;전화번호를 입력해주세요');
+	} else if( mypageAddr == null || mypageAddr =="" ){
+		$('#mypageEmail').show().html('');
+		$('#mypageEmail').show().html('&nbsp;&nbsp;&nbsp;&nbsp;이메일를 입력해주세요');
+	}
+	
+	//alert("회원정보가 수정되었습니다.");
+	
+	return false; //수정
 }
 
 
