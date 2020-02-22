@@ -1022,7 +1022,6 @@ public class CafeController {
 		   
 		   int res = biz.reply_insert(vo);
 		   List<CafeReplyVo> reply = biz.cafe_board_reply_list(vo.getCafe_board_no());
-		   System.out.println(reply);
 		   Map map = new HashMap();
 		   
 		   for(int i=0; i<reply.size(); i++) {
@@ -1033,6 +1032,22 @@ public class CafeController {
 		   
 		   
 		   return map;
+	   }
+	   
+	   @RequestMapping("/cafereplydelete.do")
+	   @ResponseBody
+	   public Map cafe_reply_delete(CafeReplyVo vo) {
+		   int res = biz.reply_delete(vo.getCafe_reply());
+		   List<CafeReplyVo> reply = biz.cafe_board_reply_list(vo.getCafe_board_no());
+		   System.out.println(reply);
+		   Map map = new HashMap();
+		   
+		   for(int i=0; i<reply.size(); i++) {
+			   map.put(i, reply.get(i));
+		   }
+		   
+		   return map;
+		   
 	   }
 	
 }

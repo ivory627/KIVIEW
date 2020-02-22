@@ -67,7 +67,7 @@ function show(cafe_board_no){
 			$("#board"+cafe_board_no).append(
 					
 					"<label style='margin-left:10px;'>"+data.guest.writer+
-					"&nbsp;&nbsp;|&nbsp;&nbsp;"+data.guest.regdate+"</label><br>"+  
+					"&nbsp;&nbsp;|&nbsp;&nbsp;"+changeDate(data.guest.regdate)+"</label><br>"+  
                    
 		            "<p class='content' style='margin-left:10px;'>"+data.guest.content+"</p>"+
    					"<div style='margin-right:60px; margin-top:10px; position:relative; left:80%'>"+
@@ -76,24 +76,16 @@ function show(cafe_board_no){
 			               "<br><br>"+   
 			              
 		               	"</div>"+	               
-		               
-		                   
+               
 		               "<br>"
-			
-			
+		
 			)
-			
-			
-			
-			
-			
+		
 		}, 
 		
 		error:function(request){
 			alert(request);
-		}
-		 
-		 
+		}		 
 	 })
 	 
  }
@@ -101,9 +93,7 @@ function show(cafe_board_no){
  function reply_write(cafe_board_no){
 	 var form = $("#reply_data"+cafe_board_no);
 	 var formdata = form.serialize();
-	 
-	
-	 
+ 
 	 $.ajax({
 		 type:"post",
 		 url:"cafereplywrite.do",
@@ -111,33 +101,57 @@ function show(cafe_board_no){
 		 dataType:"json",
 		 success:function(data){
 			 
-			 $("#replylist"+data[0].cafe_board_no).show();  
-			 $("#replylist"+data[0].cafe_board_no).empty();  
-			 $("#replylist"+data[0].cafe_board_no).find("textarea").val("");
-			 
-			$.each(data, function(idx, value){
-				$("#reply"+data[0].cafe_board_no).empty();
-				 $("#reply"+data[0].cafe_board_no).append(
-						 "댓글 <a style='color:#fda638;'>"+value.length+"</a>개"	   
-						 
-				 );
-				 
-				 
-				 $("#replylist"+data[0].cafe_board_no).append(
-						 "<div style=' background-color:#F2F2F2'>"+
-						 "<div style='font-weight:bold; color:black'>"+value.writer+"</div>" +
-		                  "<div style='color:black'>"+value.content+"</div>"+
-		                  "<div style='font-size:small'>"+value.regdate+"</div>"+
-		               "<hr>"
-						 +"</div>"
-						 
-						 
-				 );
-			 })		  
+			 $("#replylist"+cafe_board_no).show();  
+			 $("#replylist"+cafe_board_no).empty();  
+			 $("#reply_text"+cafe_board_no).val("");
 			 
 			 
 			 
-			
+			 $.each(data, function(idx, value){ 
+					$("#reply"+cafe_board_no).empty();
+					
+					
+					var count = parseInt(idx)+1;
+					if(value.cafe_board_no==null){
+						count=0;  
+					}
+					
+					 $("#reply"+cafe_board_no).append(
+							 "댓글 <a style='color:#fda638;'>"+count+"</a>개"	   
+							 
+					 );
+					 
+					 
+					 var button = ""
+					 
+					 if(value.writer=='${login.member_id}'){
+							
+
+						var button=	"<span style='position:relative; color:#fda638; left:88%; cursor:pointer'onclick='reply_delete("+value.cafe_board_no+","+value.cafe_reply+")'>x</span>"
+
+					 
+					 }
+					 
+					 			 
+					 $("#replylist"+cafe_board_no).append(
+							 "<div style=' background-color:#F2F2F2'>"+
+							 "<div style='font-weight:bold; color:black'>"+value.writer+
+							button
+							
+							 
+		                  
+			                
+							 
+			                  +"</div>" +
+							 
+			                  "<div style='color:black'>"+value.content+"</div>"+
+			                  "<div style='font-size:small'>"+changeDate(value.regdate)+"</div>"+
+			               "<hr>"
+							 +"</div>"
+							 						 
+					 );
+				 })	  
+		
 			 
 		 },
 		 error:function(error){
@@ -146,6 +160,110 @@ function show(cafe_board_no){
 		 
 	 })
  }
+ 
+ function reply_delete(cafe_board_no, cafe_reply){
+	 if(confirm("해당 댓글을 삭제하시겠습니까?")){
+		 $.ajax({
+			 type:"post",
+			 url:"cafereplydelete.do",
+			 data:{"cafe_board_no":cafe_board_no, "cafe_reply":cafe_reply},
+			 dataType:"json",
+			 success:function(data){
+				 $("#replylist"+cafe_board_no).show();  
+				 $("#replylist"+cafe_board_no).empty();  
+				 $("#reply_text"+cafe_board_no).val("");
+				 console.log(data);
+				 
+				 console.log(data[0]); 
+				 
+				 $.each(data, function(idx, value){ 
+						$("#reply"+cafe_board_no).empty();
+						
+						var count = parseInt(idx)+1;  
+						if(data[0]===null||data[0]===undefined){   
+							alert("빔")
+							count=0; 
+						} 
+						
+						 $("#reply"+cafe_board_no).append(
+								 "댓글 <a style='color:#fda638;'>"+count+"</a>개"	   
+								 
+						 );
+						 
+						 
+						 var button = ""
+						 
+						 if(value.writer=='${login.member_id}'){
+								
+
+							var button=	"<span style='position:relative; color:#fda638; left:88%; cursor:pointer'onclick='reply_delete("+value.cafe_board_no+","+value.cafe_reply+")'>x</span>"
+
+						 
+						 }
+						 
+						 			 
+						 $("#replylist"+cafe_board_no).append(
+								 "<div style=' background-color:#F2F2F2'>"+
+								 "<div style='font-weight:bold; color:black'>"+value.writer+
+								button
+								
+								 
+			                  
+				                
+								 
+				                  +"</div>" +
+								 
+				                  "<div style='color:black'>"+value.content+"</div>"+
+				                  "<div style='font-size:small'>"+changeDate(value.regdate)+"</div>"+
+				               "<hr>"
+								 +"</div>"
+								 						 
+						 );
+					 })	
+			 },
+			 error:function(error){
+				 alert("명령 실행중 오류")
+			 }
+		 
+		 })
+		 
+		 
+		 
+		 
+	 }
+	
+	 
+	 
+ }
+ 
+ function changeDate(date){
+	    date = new Date(parseInt(date));
+	    year = date.getFullYear();
+	    month = date.getMonth();
+	    day = date.getDate();
+	    hour = date.getHours();
+	    minute = date.getMinutes();
+	    second = date.getSeconds();
+	    
+	    if(month<10){
+	    	 
+	    	month = "0"+month;
+	    }
+	     
+	    if(day<10){
+	    	day = "0"+day; 
+	    }
+	    
+	    if(hour<10){
+	    	hour = "0"+hour;
+	    }
+	    
+	    	    
+	    strDate = year+"-"+month+"-"+day+" "+hour+":"+minute
+	    
+	    
+	    return strDate;
+	}
  
 </script>
   </head>
@@ -224,7 +342,7 @@ function show(cafe_board_no){
                   	
                   	<!-- 본문영역 -->
                   	<div id="board${guest.cafe_board_no }">   
-		               <label style="margin-left:10px;">${guest.writer }&nbsp;&nbsp;|&nbsp;&nbsp;<fmf:formatDate value='${guest.regdate}' pattern='yyyy-MM-dd'/></label><br>  
+		               <label style="margin-left:10px;">${guest.writer }&nbsp;&nbsp;|&nbsp;&nbsp;<fmf:formatDate value='${guest.regdate}' pattern='yyyy-MM-dd hh:mm'/></label><br>  
 		                    
 		               <p class="content" style="margin-left:10px;">${guest.content }</p>
       					<div style="margin-right:60px; margin-top:10px; position:relative; left:80%">
@@ -245,7 +363,7 @@ function show(cafe_board_no){
                			<form id="update_data${guest.cafe_board_no }" action="cafeguestupdate.do">
                				<input type="hidden" name="cafe_board_no" value="${guest.cafe_board_no }"> 
                				<input type="hidden" name="title" value="방명록">  
-			               <label style="margin-left:10px;">${guest.writer }&nbsp;&nbsp;|&nbsp;&nbsp;<fmf:formatDate value='${guest.regdate}' pattern='yyyy-MM-dd'/></label><br>  
+			               <label style="margin-left:10px;">${guest.writer }&nbsp;&nbsp;|&nbsp;&nbsp;<fmf:formatDate value='${guest.regdate}' pattern='yyyy-MM-dd hh:mm'/></label><br>  
 			                    
 			       			<textarea style="resize:none" cols="80" rows="7" name="content" minlength="4" maxlength="500">${guest.content }</textarea> 
 	      					<div style="margin-right:60px; margin-top:10px; position:relative; left:80%">
@@ -263,27 +381,36 @@ function show(cafe_board_no){
                		
                		 
                		
-               		
+               		<c:set var="count" value="0"/>
+               		<c:forEach var="reply" items="${reply }">
+	               		<c:if test="${guest.cafe_board_no==reply.cafe_board_no }">
+		               				<c:set var="count" value="${count+1 }"/>
+		               	</c:if> 
+               		</c:forEach>
                		
                		
                		<!-- 댓글영역 -->
-               		<c:set var="count" value="0"/>
+               		
                		<h5 id="reply${guest.cafe_board_no}" onclick="show(${guest.cafe_board_no})" class="underline">댓글 <a style="color:#fda638;" >${count }</a>개</h5>   
-               		<div id="replylist${guest.cafe_board_no}">
+               		<div style="display:none" id="replylist${guest.cafe_board_no}">
 	               		<c:forEach var="reply" items="${reply }">
-	               			<c:if test="${guest.cafe_board_no==reply.cafe_board_no }">
-	               				<c:set var="count" value="${count+1 }"/>
-	               			</c:if> 
+	               			
 	               		
 	               			
 	               			<c:if test="${guest.cafe_board_no==reply.cafe_board_no }">
-			               		<div style=" background-color:#F2F2F2">
+			               		<div style=" background-color:#F2F2F2"> 
 			               			
 					                 
 					               
-					                  <div style="font-weight:bold; color:black">${reply.writer }</div> 
+					                  <div style=" font-weight:bold; color:black">${reply.writer  }
+					                  
+					                  <c:if test="${reply.writer==login.member_id }">
+					                  <span style="position:relative; color:#fda638; left:88%; cursor:pointer" onclick="reply_delete(${reply.cafe_board_no},${reply.cafe_reply})">x</span>
+					                  </c:if>
+					                  
+					                  </div>
 					                  <div style="color:black">${reply.content }</div> 
-					                  <div style="font-size:small">${reply.regdate }</div>
+					                  <div style="font-size:small"><fmf:formatDate value='${reply.regdate}' pattern='yyyy-MM-dd hh:mm'/></label></div>
 					               <hr>          
 				               
 			               		</div>
@@ -299,7 +426,7 @@ function show(cafe_board_no){
 		               		<input type="hidden" name="writer" value="${login.member_id}">
 			               <label style="font-weight:bold; color:black">${login.member_id }</label> 
 			               <br>
-			                  <textarea style="resize:none; padding:10px;" name="content" cols="80" rows="3" minlength="4" maxlength="100" ></textarea>
+			                  <textarea id="reply_text${guest.cafe_board_no }" style="resize:none; padding:10px;" name="content" cols="80" rows="3" minlength="4" maxlength="100" ></textarea>
 			                    
 			                  <input style="display:inline; position:relative; left:112%"  type="button" class="btn btn-primary"  
 			                  value="등록" onclick="reply_write(${guest.cafe_board_no})">          

@@ -97,8 +97,8 @@
                <!-- 페이징 관련 코드 여기에 넣어야 함. -->
                </div>
                
-               <div id="reply" style="width:80%; border:0px solid lightgray" " > 
-                
+               <div id="reply" style="width:80%; border:0px solid lightgray"> 
+               <div> 
                <form action="#">
                
                <br> 
@@ -106,9 +106,9 @@
                <input type="hidden" name="" value="${cafe_board_detail.writer}" id="writer">
                <input type="hidden" name="" value="${login.member_id }" id="loginid">
                <input type="hidden" name="" value="${cafe_list[0].admin}" id="adminid">
-               
-               <c:if test="${cafe_board_detail.writer eq login.member_id || cafe_list[0].admin eq login.member_id  }">
-                    <label style="font-weight:bold; color:black" >${cafe_board_detail.writer}</label>                
+                        
+               <c:if test="${cafe_board_detail.writer ne login.member_id || cafe_list[0].admin ne login.member_id  }">
+                    <label style="font-weight:bold; color:black" >${login.member_id }</label>                
                   <input type="text" size="70" placeholder="상대방을 향한 욕설, 음담패설은 자제해주세요."  id="replycontent">                  
                   <input type="text" size="1" value="0"  id="replycount" >자
                   <input type="button" class="btn btn-primary" value="등록" onclick="replyinsert();">                  
@@ -137,8 +137,7 @@ $(document).on("keyup","#replycontent",function(){
    var content = $("#replycontent").val();   
    var length1 = content.length ;   
    $("#replycount").val(length1);   
-});
-
+   });
 
 function contentcount(num){
    $(document).on("keyup","#replycontent2",function(){
@@ -154,6 +153,7 @@ contentcount();
 
 function ajaxreplylist(){
    var cafe_board_no = $("#replyboard_no").val();
+   
    console.log(cafe_board_no);
    
    jQuery.ajax({
@@ -162,9 +162,7 @@ function ajaxreplylist(){
           dataType:"json",
           data : {"cafe_board_no" : cafe_board_no },
           success : function(data){
-                         
-         
-             
+                
              if(data.rlist.length==0){                
                 $("#noreply").html("작성된 댓글이 없습니다.");                
                 
@@ -176,46 +174,44 @@ function ajaxreplylist(){
                     
                     "<div id='comment"+value.cafe_reply+"' >"+
                     
-                       "<div style='font-weight:bold; color:black'>"+value.writer+"</div>"+
-                       "<div style='color:black'>"+value.content+"</div>"+
-                       "<div style='font-size:smell'>"+value.regdate+"</div>"+                       
-                       "<input type='button' value='삭 제' class='btn btn-secondary btnhide' onclick='replydelete("+value.cafe_reply+");' />"+
-                         "<input type='button' value='수 정' class='btn btn-primary btnhide' onclick='replyupdate1("+value.cafe_reply+");'/>"+
+                       "<div style='font-weight:bold; color:black' id='replywriter"+value.cafe_reply+"' >"+value.writer+"</div>"+
+                       "<div style='color:black' >"+value.content+"</div>"+
+                       "<div style='font-size:smell'>"+changeDate(value.regdate)+";</div>"+                       
+                       "<input type='button' value='삭 제' class='btn btn-secondary btnhide"+value.cafe_reply+"' onclick='replydelete("+value.cafe_reply+");' />"+
+                         "<input type='button' value='수 정' class='btn btn-primary btnhide"+value.cafe_reply+"' onclick='replyupdate1("+value.cafe_reply+");'/>"+
+                         
                          
                       "</div><hr>"+
                       
                       "<div id='commentupdate"+value.cafe_reply+"' style='display:none'>"+                      
                          "<div style='font-weight:bold; color:black'>"+value.writer+"</div>"+
                          "<input type='text' size='80' name='content' value='"+value.content+"' id='updatecontent"+value.cafe_reply+"'/> "+
-                         "<div style='font-size:smell'>"+value.regdate+"</div>"+   
-                         "<input type='button' value='수정완료' class='btn btn-primary ' onclick='replyupdate2("+value.cafe_reply+");'/>"+
+                         "<div style='font-size:smell'>"+changeDate(value.regdate)+";</div>"+   
+                         "<input type='button' value='수정완료' class='btn btn-primary' onclick='replyupdate2("+value.cafe_reply+");'/>"+
                          "<input type='button' value='수정취소' class='btn btn-secondary' onclick='replyupdatex("+value.cafe_reply+");'/>"+       
                                             
                       "</div>";                 
                    
                    console.log(rlist1);
-                   
                    $("#replylistthis").append(rlist1);
                    
-                   $(".btnhide").each(function(){
-                        var writer = $("#writer").val();
-                        var loginid = $("#loginid").val();
-                        var adminid = $("#adminid").val();
-                          console.log(writer);
-                          console.log(loginid);
-                          console.log(adminid);
-                          
-
-                          if( writer != loginid || loginid != adminid ){
-                                $(this).hide();
-                                $("#reply").hide();
-                                 
-                        }
-                     })
                    
-                });             
-             }
-          },
+                   var loginid = $("#loginid").val();
+                   var adminid = $("#adminid").val();
+                   var replywriter = value.writer;                     
+                    
+                  if(loginid != replywriter && loginid != adminid ){
+                     $(".btnhide"+value.cafe_reply).hide(); 
+                  }else{
+                     $(".btnhide"+value.cafe_reply).show(); 
+                  }
+                })
+
+             }    
+                   
+                             
+             },
+          
           error : function(request,status,error){
                alert("실패");               
            }       
@@ -237,7 +233,7 @@ function replyinsert(){
    alert("글등록 이벤트");
    var  content = $("#replycontent").val();
    var cafe_board_no= $("#replyboard_no").val();    
-   var writer = $("#writer").val();   
+   var writer = $("#loginid").val();   
    jQuery.ajax({
        url : "ajaxreplyinsert.do",
        type : "post",
@@ -350,8 +346,34 @@ function replyupdatex(cafe_reply){
 }
 
 
-
-
+function changeDate(date){
+    date = new Date(parseInt(date));
+    year = date.getFullYear();
+    month = date.getMonth();
+    day = date.getDate();
+    hour = date.getHours();
+    minute = date.getMinutes();
+    second = date.getSeconds();
+    
+    if(month<10){
+    	alert(month)
+    	month = "0"+month;
+    }
+     
+    if(day<10){
+    	day = "0"+day; 
+    }
+    
+    if(hour<10){
+    	hour = "0"+hour;
+    }
+    
+    	    
+    strDate = year+"-"+month+"-"+day+" "+hour+":"+minute
+    
+    
+    return strDate;
+}
 
 
 
