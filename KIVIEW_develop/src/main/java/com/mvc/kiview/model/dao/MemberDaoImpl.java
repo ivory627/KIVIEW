@@ -18,10 +18,10 @@ public class MemberDaoImpl implements MemberDao{
 		System.out.println(vo.getMember_id()+"/"+vo.getMember_pwd());
 		
 		try {
-			res=sqlSession.selectOne(namespace+"login",vo);
+			res=sqlSession.selectOne(namespace+"selectOne",vo);
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("[error] : login");
+			System.out.println("[error] : selectOne");
 		}		
 		return res;
 	}

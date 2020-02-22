@@ -33,6 +33,7 @@ $(function() {
 
 });
 
+//로그인
 function login() {
 	var member_id = $("#member_id").val().trim();
 	var member_pwd = $('#member_pwd').val().trim();
@@ -45,14 +46,14 @@ function login() {
 	if (member_id == null || member_id == "") {
 		$('#loginChk').hide();
 		$('#loginPwdChk').hide();
-		$("#loginIdChk").show().html("&nbsp;&nbsp;아이디를 입력해주세요.");
+		$("#loginIdChk").show().html("&nbsp;&nbsp;아이디를 입력해주세요");
 		$('input').eq(0).val("");
 		$('input').eq(1).val("");
 
 	} else if (member_pwd == null || member_pwd == "") {
 		$('#loginChk').hide();
 		$('#loginIdChk').hide();
-		$("#loginPwdChk").show().html("&nbsp;&nbsp;비밀번호를 입력해주세요.");
+		$("#loginPwdChk").show().html("&nbsp;&nbsp;비밀번호를 입력해주세요");
 		$('input').eq(1).val("");
 
 	} else {
@@ -69,19 +70,22 @@ function login() {
 				} else {
 					$('#loginIdChk').hide();
 					$('#loginPwdChk').hide();
-					$("#loginChk").show().html("아이디 혹은 비밀번호가 잘못 되었습니다.");
-					$('input').eq(0).val("");
+					$("#loginChk").show().html("비밀번호가 일치하지 않습니다");
 					$('input').eq(1).val("");
 				}
 			},
 			error : function() {
-				alert("로그인 통신실패 - 다시 로그인 해주세요");
+				$('#loginIdChk').hide();
+				$('#loginPwdChk').hide();
+				$("#loginChk").show().html("아이디가 존재하지 않습니다");
+				$('input').eq(0).val("");
+				$('input').eq(1).val("");
 			}
 		});
 	}
 }
 
-
+//아이디 찾기
 var searchedId = "";
 function idCk() {
 
@@ -96,7 +100,7 @@ function idCk() {
 	if (member_name == null || member_name == "" || member_email == null || member_email == "") {
 		$('#idSearch_name').val("");
 		$('#idSearch_email').val("");
-		$("#idSearchHTML").show().html("이름과 이메일을 입력해주세요.");
+		$("#idSearchHTML").show().html("이름과 이메일을 입력해주세요");
 
 	} else {
 		$.ajax({
@@ -116,14 +120,14 @@ function idCk() {
 					$('#idUseBtn').show();
 				} else {
 					$('#idSearchHTML').hide();
-					$("#idSearchHTML").show().html("이름 혹은 이메일이 잘못 되었습니다.");
+					$("#idSearchHTML").show().html("이름과 이메일이 일치하지 않습니다");
 					$('#idSearch_name').val("");
 					$('#idSearch_email').val("");
 				}
 			},
 			error : function() {
 				$('#idSearchHTML').hide();
-				$('#idSearchHTML').show().html("존재하지 않는 회원입니다.");
+				$('#idSearchHTML').show().html("존재하지 않는 회원입니다");
 				$('#idSearch_name').val("");
 				$('#idSearch_email').val("");
 			}
@@ -135,6 +139,7 @@ function idCk() {
 
 }
 
+//아이디 찾기에 성공한 아이디 로그인에 사용하기
 function idUse(){
 	var id = searchedId;
 	$('#member_id').val(id);

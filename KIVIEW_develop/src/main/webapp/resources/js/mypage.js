@@ -1,4 +1,8 @@
 
+$(function() {
+	$("#mypagePwd").show().html("&nbsp;&nbsp;&nbsp;&nbsp;기존 비밀번호 혹은 변경할 비밀번호를 입력해주세요");
+});
+
 //회원 탈퇴 확인
 function memberDel(){
    
@@ -17,7 +21,7 @@ function memberDel(){
 
 //회원정보 수정 확인
 function mypagePwdChk(){
-	alert("!!!");
+	alert("회원정보가 수정되었습니다.");
 	return false;
 }
 

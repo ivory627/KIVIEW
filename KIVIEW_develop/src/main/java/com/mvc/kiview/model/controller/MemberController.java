@@ -31,7 +31,7 @@ public class MemberController {
 	
 	
 	//@@ 로그인 @@ /////////////////////////////////////////////////////////////////////////
-	//로그인
+	//로그인 페이지
 	@RequestMapping("/kiviewlogin.do")
 	public String kiview_login() {
 		logger.info("login");
@@ -44,19 +44,20 @@ public class MemberController {
 	public Map<String, Boolean> ajaxLogin(HttpSession session, @RequestBody MemberVo vo) {
 		logger.info("ajaxLogin");
 		MemberVo res = biz.selectOne(vo);
-		boolean check = false;
 		
+		boolean check = false;
 		String vopw = vo.getMember_pwd();	//사용자가 입력한 비밀번호
 		String respw = res.getMember_pwd();	//db에서 가져온 비밀번호 (암호화된 번호)
-
+		
 		if (passwordEncoder.matches(vopw, respw) ) {
 			session.setAttribute("login", res);
-			
+
 			//세션 유지 시간 1시간으로 설정
 			session.setMaxInactiveInterval(60*60) ;
 
 			check = true;
 		}
+			
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
 		map.put("check", check);
 
@@ -164,11 +165,20 @@ public class MemberController {
 	@RequestMapping("/kiviewupdate.do")
 	public String memberUpdate (HttpSession session, MemberVo vo) {
 		logger.info("memberUpdate");
+		vo.setMember_pwd(passwordEncoder.encode(vo.getMember_pwd()));	//수정된 객체 비밀번호 암호화
 		int res = biz.updateMember(vo);
-		System.out.println(res);	//1이면 성공
 		
+		//세션에 수정된 로그인정보 담기
+		MemberVo res2 = biz.selectOne(vo);
 		
-		//session.setAttribute("login",res2);
+		System.out.println("수정된 멤버객체: "+res2);	//삭제
+		 
+		//session.invalidate();
+		session.setAttribute("login", res2);
+
+		//세션 유지 시간 1시간으로 설정
+		session.setMaxInactiveInterval(60*60) ;
+		
 		return "redirect:kiviewmypage.do";
 	}
 

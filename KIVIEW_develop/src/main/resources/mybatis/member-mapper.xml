@@ -5,7 +5,7 @@
 <mapper namespace="member">
 
 	<!-- 로그인 -->
-	<select id="login" parameterType="memberVo" resultType="memberVo">
+	<select id="selectOne" parameterType="memberVo" resultType="memberVo">
 		SELECT * FROM MEMBER
 		WHERE MEMBER_ID = #{member_id}
 	</select>

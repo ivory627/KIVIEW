@@ -27,6 +27,11 @@ label {
 	color: black;
 	font-weight: bold;
 }
+
+.mypageUpdateMsg{
+	color:red;
+	font-size:15px;
+}
 </style>
 
 <%@ include file="head.jsp"%>
@@ -109,7 +114,7 @@ label {
 
 					<form method="post" action="kiviewupdate.do" onsubmit="mypagePwdChk()">
 						<input type="hidden" name="member_id" value="${login.member_id}"><br>
-						<label>비밀번호</label><br>
+						<label>비밀번호</label><span class="mypageUpdateMsg" id="mypagePwd" style="color: red;"></span>
 						<input type="password" name="member_pwd" placeholder="비밀번호" style="width: 80%"> <br> <br>
 						<label>비밀번호 확인</label><br>
 						<input type="password" placeholder="비밀번호 확인" style="width: 80%"> <br> <br>
@@ -136,7 +141,7 @@ label {
 
 
 	<!-- @@ script 영역 @@ -->
-	<script type="text/javascript" src="resources/js/mypage.js"></script>
+	<script type="text/javascript" src="resources/js/mypage.js?version=1.0"></script>
 
 
 </body>
