@@ -253,7 +253,6 @@ public class NoticeController {
 
 		logger.info("FAQ LIST");
 
-		faqcatd = cri.getFaqcatd();
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(n_biz.faq_count(cri));
@@ -360,14 +359,6 @@ public class NoticeController {
 	@RequestMapping("/chatbot.do")
 	public String chatbot() {
 		return "demoChatbot";
-	}
-
-	@RequestMapping("/kakao.do")
-	public String kakao(@RequestParam("code") String code) {
-
-		System.out.println("kakao code : " + code);
-
-		return "index";
 	}
 
 }

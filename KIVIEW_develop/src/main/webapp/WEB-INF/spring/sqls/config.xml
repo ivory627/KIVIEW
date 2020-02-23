@@ -26,7 +26,6 @@
 		<typeAlias type="com.mvc.kiview.model.vo.FavoriteVo" alias="FavoriteVo"/>
 		
 		<!-- 소개 -->
-		<typeAlias type="com.mvc.kiview.model.vo.IntroVo" alias="IntroVo"/>
 		
 		<!-- FAQVo -->
 		<typeAlias type="com.mvc.kiview.model.vo.FAQVo" alias="FAQVo"/>
