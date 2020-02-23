@@ -1003,7 +1003,7 @@ public class CafeController {
 	   @RequestMapping("/cafeguestupdate.do")
 	   @ResponseBody
 	   public Map cafe_guest_update(CafeBoardVo vo) {
-		   System.out.println(vo);
+		   
 		   
 		   int res = biz.cafe_board_update(vo);
 		   CafeBoardVo guest = biz.cafe_board_detail(vo.getCafe_board_no());
@@ -1011,6 +1011,18 @@ public class CafeController {
 		   Map map = new HashMap();
 		   map.put("guest", guest);
 		   
+		   
+		   return map;
+	   }
+	   
+	   @RequestMapping("/cafeguestdelete.do")
+	   @ResponseBody
+	   public Map cafe_guest_delete(int cafe_board_no) {
+		   int res = biz.cafe_board_delete(cafe_board_no);
+		   CafeBoardVo guest = biz.cafe_board_detail(cafe_board_no);
+		   
+		   Map map = new HashMap();
+		   map.put("guest", guest);
 		   
 		   return map;
 	   }

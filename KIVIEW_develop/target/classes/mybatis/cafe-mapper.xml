@@ -177,7 +177,7 @@
      </select>
      
      <select id="cafe_board_list" parameterType="int" resultType="CafeBoardVo">
-        SELECT * FROM CAFE_BOARD WHERE CAFE_MENU_NO = #{cafe_menu_no} ORDER BY CAFE_BOARD_NO 
+        SELECT * FROM CAFE_BOARD WHERE CAFE_MENU_NO = #{cafe_menu_no} ORDER BY CAFE_BOARD_NO desc
      </select>
         
       <select id="cafe_menu_name" parameterType="int" resultType="String">
@@ -206,8 +206,8 @@
      
      <select id="cafe_reply_list" parameterType="int" resultType="CafeReplyVo">
         SELECT *
-        FROM CAFE_REPLY WHERE CAFE_BOARD_NO=#{cafe_board_no}
-        ORDER BY CAFE_REPLY 
+        FROM CAFE_REPLY WHERE CAFE_BOARD_NO=#{cafe_board_no} 
+        ORDER BY CAFE_REPLY
      </select>
      
       <insert id="reply_insert" parameterType="CafeReplyVo">
@@ -224,6 +224,7 @@
      <select id="reply_allList" resultType="CafeReplyVo">
      	SELECT *
      	FROM CAFE_REPLY
+     	ORDER BY CAFE_REPLY
      	
      
      </select>

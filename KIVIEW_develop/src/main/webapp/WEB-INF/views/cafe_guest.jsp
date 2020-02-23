@@ -44,7 +44,7 @@ function show(cafe_board_no){
  
  function cancle(cafe_board_no){
 	 $("#board"+cafe_board_no).show();
-	 $("#update"+cafe_board_no).cancle();
+	 $("#update"+cafe_board_no).hide();
  } 
 
  function guest_update(cafe_board_no){
@@ -64,24 +64,30 @@ function show(cafe_board_no){
 			$("#board"+cafe_board_no).show();
 			$("#board"+cafe_board_no).empty();
 		
-			$("#board"+cafe_board_no).append(
-					
-					"<label style='margin-left:10px;'>"+data.guest.writer+
-					"&nbsp;&nbsp;|&nbsp;&nbsp;"+changeDate(data.guest.regdate)+"</label><br>"+  
-                   
-		            "<p class='content' style='margin-left:10px;'>"+data.guest.content+"</p>"+
-   					"<div style='margin-right:60px; margin-top:10px; position:relative; left:80%'>"+
-			               "<input type='button' value='수정' class='btn btn-secondary' onclick='update("+data.guest.cafe_board_no+")'>"+
-			               "<input type='button' value='삭제' class='btn btn-primary' onclick='guest_delete("+data.guest.cafe_board_no+")'>"+ 
-			               "<br><br>"+   
-			              
-		               	"</div>"+	               
-               
-		               "<br>"
-		
-			)
-		
-		}, 
+			var button = ''
+				
+				if(data.guest.writer=='${login.member_id}' || '${cafe_list[0].admin}' == '${login.member_id}'){
+					button = "<input type='button' value='수정' class='btn btn-secondary' onclick='update("+data.guest.cafe_board_no+")'>"+
+		               "<input type='button' value='삭제' class='btn btn-primary' onclick='guest_delete("+data.guest.cafe_board_no+")'>"
+				}
+			
+				$("#board"+cafe_board_no).append(
+						
+						"<label style='margin-left:10px;'>"+data.guest.writer+
+						"&nbsp;&nbsp;|&nbsp;&nbsp;"+changeDate(data.guest.regdate)+"</label><br>"+  
+	                   
+			            "<p class='content' style='margin-left:10px;'>"+data.guest.content+"</p>"+
+	   					"<div style='margin-right:60px; margin-top:10px; position:relative; left:80%'>"+
+				               button+
+				               "<br><br>"+   
+				              
+			               	"</div>"+	               
+	               
+			               "<br>"
+			
+				)
+			
+			}, 
 		
 		error:function(request){
 			alert(request);
@@ -89,6 +95,59 @@ function show(cafe_board_no){
 	 })
 	 
  }
+ 
+ function guest_delete(cafe_board_no){
+	 
+	 if(confirm("해당 글을 삭제하시겠습니까?")){
+		 $.ajax({
+				type:"post",
+				url:"cafeguestdelete.do",
+				data:{"cafe_board_no":cafe_board_no},
+				dataType:"json",
+				success:function(data){
+					
+					
+					$("#guest"+cafe_board_no).remove(); 
+					
+					
+					
+					var button = ''
+						
+						if(data.guest.writer=='${login.member_id}' || '${cafe_list[0].admin}' == '${login.member_id}'){
+						button = "<input type='button' value='수정' class='btn btn-secondary' onclick='update("+data.guest.cafe_board_no+")'>"+
+			               "<input type='button' value='삭제' class='btn btn-primary' onclick='guest_delete("+data.guest.cafe_board_no+")'>"
+					}
+				
+					$("#board"+cafe_board_no).append(
+							
+							"<label style='margin-left:10px;'>"+data.guest.writer+
+							"&nbsp;&nbsp;|&nbsp;&nbsp;"+changeDate(data.guest.regdate)+"</label><br>"+  
+		                   
+				            "<p class='content' style='margin-left:10px;'>"+data.guest.content+"</p>"+
+		   					"<div style='margin-right:60px; margin-top:10px; position:relative; left:80%'>"+
+					                +button+
+					               "<br><br>"+   
+					              
+				               	"</div>"+	               
+		               
+				               "<br>"
+				
+					)
+				
+				}, 
+				
+				error:function(request){
+					alert(request);
+				}		 
+			 })
+	 }
+	 
+	 
+ }
+ 
+ 
+ 
+ 
  
  function reply_write(cafe_board_no){
 	 var form = $("#reply_data"+cafe_board_no);
@@ -122,9 +181,9 @@ function show(cafe_board_no){
 					 );
 					 
 					 
-					 var button = ""
+					 var button = ''
 					 
-					 if(value.writer=='${login.member_id}'){
+					if(value.writer=='${login.member_id}' || '${cafe_list[0].admin}' == '${login.member_id}'){
 							
 
 						var button=	"<span style='position:relative; color:#fda638; left:88%; cursor:pointer'onclick='reply_delete("+value.cafe_board_no+","+value.cafe_reply+")'>x</span>"
@@ -172,16 +231,14 @@ function show(cafe_board_no){
 				 $("#replylist"+cafe_board_no).show();  
 				 $("#replylist"+cafe_board_no).empty();  
 				 $("#reply_text"+cafe_board_no).val("");
-				 console.log(data);
 				 
-				 console.log(data[0]); 
 				 
 				 $.each(data, function(idx, value){ 
 						$("#reply"+cafe_board_no).empty();
 						
 						var count = parseInt(idx)+1;  
 						if(data[0]===null||data[0]===undefined){   
-							alert("빔")
+							
 							count=0; 
 						} 
 						
@@ -191,26 +248,19 @@ function show(cafe_board_no){
 						 );
 						 
 						 
-						 var button = ""
+						 var button = ''
 						 
-						 if(value.writer=='${login.member_id}'){
-								
+						if(value.writer=='${login.member_id}' || '${cafe_list[0].admin}' == '${login.member_id}'){
 
 							var button=	"<span style='position:relative; color:#fda638; left:88%; cursor:pointer'onclick='reply_delete("+value.cafe_board_no+","+value.cafe_reply+")'>x</span>"
-
-						 
+					 
 						 }
-						 
-						 			 
+					 			 
 						 $("#replylist"+cafe_board_no).append(
 								 "<div style=' background-color:#F2F2F2'>"+
 								 "<div style='font-weight:bold; color:black'>"+value.writer+
 								button
-								
-								 
-			                  
-				                
-								 
+					 
 				                  +"</div>" +
 								 
 				                  "<div style='color:black'>"+value.content+"</div>"+
@@ -338,7 +388,7 @@ function show(cafe_board_no){
                	<c:otherwise>
                		<c:forEach var="guest" items="${guest }">
                	
-                <div class="col-lg-8 ftco-animate" style="padding:20px; margin-top:20px; width:100%;  background-color:white; border:1px solid lightgray;"> 
+                <div id="guest${guest.cafe_board_no }" class="col-lg-8 ftco-animate" style="padding:20px; margin-top:20px; width:100%;  background-color:white; border:1px solid lightgray;"> 
                   	
                   	<!-- 본문영역 -->
                   	<div id="board${guest.cafe_board_no }">   
@@ -346,10 +396,12 @@ function show(cafe_board_no){
 		                    
 		               <p class="content" style="margin-left:10px;">${guest.content }</p>
       					<div style="margin-right:60px; margin-top:10px; position:relative; left:80%">
-			               <input type="button" value="수정" class="btn btn-secondary" onclick="update(${guest.cafe_board_no});">
-			               <input type="button" value="삭제" class="btn btn-primary" onclick='guest_delete(${guest.cafe_board_no})'>  
-			               <br><br>   
-			              
+	      					<c:if test='${cafe_list[0].admin eq login.member_id || guest.writer eq login.member_id}'>
+				               <input type="button" value="수정" class="btn btn-secondary" onclick="update(${guest.cafe_board_no});">
+				               <input type="button" value="삭제" class="btn btn-primary" onclick='guest_delete(${guest.cafe_board_no})'>  
+				               
+				            </c:if> 
+			             <br><br>  
 		               	</div> 		               
 		              
 		                   
@@ -404,7 +456,7 @@ function show(cafe_board_no){
 					               
 					                  <div style=" font-weight:bold; color:black">${reply.writer  }
 					                  
-					                  <c:if test="${reply.writer==login.member_id }">
+					                  <c:if test='${cafe_list[0].admin eq login.member_id || guest.writer eq login.member_id}'>
 					                  <span style="position:relative; color:#fda638; left:88%; cursor:pointer" onclick="reply_delete(${reply.cafe_board_no},${reply.cafe_reply})">x</span>
 					                  </c:if>
 					                  
@@ -426,7 +478,7 @@ function show(cafe_board_no){
 		               		<input type="hidden" name="writer" value="${login.member_id}">
 			               <label style="font-weight:bold; color:black">${login.member_id }</label> 
 			               <br>
-			                  <textarea id="reply_text${guest.cafe_board_no }" style="resize:none; padding:10px;" name="content" cols="80" rows="3" minlength="4" maxlength="100" ></textarea>
+			                  <textarea id="reply_text${guest.cafe_board_no }" style="resize:none; padding:10px;" name="content" cols="80" rows="3" minlength="4" maxlength="100" required></textarea>
 			                    
 			                  <input style="display:inline; position:relative; left:112%"  type="button" class="btn btn-primary"  
 			                  value="등록" onclick="reply_write(${guest.cafe_board_no})">          
