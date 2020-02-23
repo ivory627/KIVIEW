@@ -78,7 +78,7 @@
 			<div class="jsx-2342570284 faq-box faq-box--kindergarten">
 			
 				<!-- 분류 카테고리 부분 -->
-				<form action="kiviewfaq.do" method = "get" name = "faqcatdform">
+				<form action="kiviewfaq.do" method = "post" name = "faqcatdform">
 				<input type = "hidden" name = "page" value = "1">
 				<ul class="jsx-2342570284 faq-tab" id = "tabul">
 					<li class="jsx-2342570284">

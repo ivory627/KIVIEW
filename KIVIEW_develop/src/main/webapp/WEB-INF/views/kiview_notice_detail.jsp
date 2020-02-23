@@ -245,9 +245,5 @@ box-sizing: border-box;
 	<jsp:include page="footer.jsp"/>
 
 
-
-
-	
-
 </body>
 </html>

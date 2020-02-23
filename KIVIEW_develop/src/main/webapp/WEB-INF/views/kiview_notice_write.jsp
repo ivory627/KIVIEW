@@ -65,7 +65,7 @@
 					</div>
 
 					<!-- 제목/작성자/내용/분류 카테고리 넘기기  -->
-					<form action="writeRes.do" method="get" id="noticeWriteForm">
+					<form action="writeRes.do" method="post" id="noticeWriteForm">
 						<input type="hidden" name="notice_writer" value="${login.member_id}">
 						<input type="hidden" id = "page" name="page" value="1">
 

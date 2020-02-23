@@ -66,7 +66,7 @@
 					</div>
 
 					<!-- 제목/작성자/내용/분류 카테고리 넘기기  -->
-					<form action="faqUpdateRes.do" method="get" id="faqUpdateForm">
+					<form action="faqUpdateRes.do" method="post" id="faqUpdateForm">
 					<input type = "hidden" id = "faq_no" name = "faq_no" value = "${faqupdate.faq_no}">
 					<input type = "hidden" id = "page" name = "page" value = "${page}">
 					<input type = "hidden" id = "faqcatd" name = "faqcatd" value = "${faqcatd}">
