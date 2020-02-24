@@ -2,6 +2,13 @@
 $(function() {
 	$('#signupIdChk').hide();
 	$('#signupPwdChkMsg').hide();
+	
+	//회원가입시 엔터키 막기
+	$('.jsx-3372927190').keydown(function(key) {
+		if (key.keyCode == 13) {
+			return false;
+		}
+	});
 });
 
 //아이디 중복체크
@@ -12,13 +19,18 @@ function signupIdCkBtn(){
 		"member_id" : member_id,
 	};
 	
+	var stringVal = member_id, exp = /admin/; 
+	
 	//아이디 정규식
 	var idReg =  /^[a-z]{1}[a-z0-9]{4,19}$/;
     if( !idReg.test( member_id ) ) {
         $("#signupIdChk").show().html("");
         $("#signupIdChk").show().css("color","red").html("&nbsp;&nbsp;영소문자로 시작하는 영소문자/숫자 조합, 5~20자리로 입력해주세요");
-        return;
-        
+        return false;
+    } else if( exp.test(stringVal) ){
+    	$("#signupIdChk").show().html("");
+        $("#signupIdChk").show().css("color","red").html("&nbsp;&nbsp;이용할 수 없는 아이디입니다");
+    	return false;
     } else {
 		$.ajax({
 			type : "post",
@@ -46,11 +58,10 @@ function signupIdCkBtn(){
 //회원가입 확인
 function signupChk(){
 
-	//비밀번호 확인
-	var signupPwd = $("#signupPwd").val().trim();
-	var signupPwdChk = $("#signupPwdChk").val().trim();
+	var member_pwd = $("#member_pwd").val().trim();
+	var member_pwdChk = $("#member_pwdChk").val().trim();
 	
-	if(signupPwd != signupPwdChk){
+	if(member_pwd != member_pwdChk){	//비밀번호 확인
 		$("#signupEmailChkMsg").hide();
 		$("#signupPhoneChkMsg").hide();
 		$("#signupPwdChkMsg").show().html("");
@@ -62,8 +73,8 @@ function signupChk(){
 		return false;
 	}
 
-	//비밀번호 정규식
-	if (!/^.*(?=^.{4,19}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(signupPwd)) {
+	
+	if (!/^.*(?=^.{4,19}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(signupPwd)) { //비밀번호 정규식
 		$("#signupEmailChkMsg").hide();
 		$("#signupPhoneChkMsg").hide();
 		$("#signupPwdChkMsg").show().html("");
@@ -120,10 +131,11 @@ function signupChk(){
 	return true;
 }
 
-//중복확인 여부
+//아이디 중복확인 여부
 function idChk_chk(){
 	$('#idChkChk').val("idUnchecked");
 	$("#signupIdChk").show().css('color', 'red').html("&nbsp;&nbsp;중복확인을 해주세요");
+	
 }
 
 

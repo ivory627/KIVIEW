@@ -92,7 +92,7 @@
 					</a></li>
 				</ul>
 				<div class="jsx-596849754 login-link">
-					이미 계정이 있으신가요?<a class="jsx-596849754" href="kiviewlogin.do">로그인</a>
+					이미 계정이 있으신가요?<a class="jsx-596849754" href="login.do">로그인</a>
 				</div>
 			</div>
 			<address class="jsx-253692965">Copyright © Kiview Corp. All

@@ -43,8 +43,8 @@
 				</p>
 				<form class="jsx-3372927190" action="kiviewsignupres.do" name="signupForm" id="signupForm" onsubmit="return signupChk()">
 					<div class="jsx-3372927190 label-box">
-						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">이름&nbsp;</span>
+						<label class="jsx-3712571264 ">
+							<span class="jsx-3712571264">이름&nbsp;</span><span class="jsx-3712571264" id="signupName"></span>
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
 									<input required="" autocomplete="new-password"
@@ -55,8 +55,8 @@
 						</label>
 					</div>
 					<div class="jsx-3372927190 label-box">
-						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">아이디&nbsp;</span><span class="jsx-3712571264" id="signupIdChk"></span>
+						<label class="jsx-3712571264 ">
+							<span class="jsx-3712571264">아이디&nbsp;</span><span class="jsx-3712571264" id="signupIdChk"></span>
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
 									<input required="" autocomplete="new-password"
@@ -69,25 +69,25 @@
 							</div></label>
 					</div>
 					<div class="jsx-3372927190 label-box">
-						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">비밀번호&nbsp;</span><span class="jsx-3712571264" id="signupPwdChkMsg"></span>
+						<label class="jsx-3712571264 ">
+							<span class="jsx-3712571264">비밀번호&nbsp;</span><span class="jsx-3712571264" id="signupPwdChkMsg"></span>
 							<div class="jsx-3372927190 first-password">
 								<div class="jsx-639067573 input">
 									<input type="password" required="" placeholder="비밀번호를 입력해주세요 (영문,숫자,특수문자 포함 5~20자리)"
-										class="jsx-639067573 " name="member_pwd" id="signupPwd">
+										class="jsx-639067573 " name="member_pwd" id="member_pwd">
 								</div>
 							</div>
 							<div class="jsx-3372927190">
 								<div class="jsx-639067573 input">
 									<input type="password" required="" placeholder="비밀번호를 다시 한번 확인 입력해 주세요"
-										class="jsx-639067573 " id="signupPwdChk">
+										class="jsx-639067573 " id="member_pwdChk">
 								</div>
 							</div>
 						</label>
 					</div>
 					<div class="jsx-3372927190 label-box">
-						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">도로명주소&nbsp;</span>
+						<label class="jsx-3712571264 ">
+							<span class="jsx-3712571264">도로명주소&nbsp;</span><span class="jsx-3712571264" id="signupAddrChkMsg"></span>
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
 									<input required="필수 입력사항" placeholder="도로명주소"
@@ -97,8 +97,8 @@
 									style="margin-left: 16px;" onclick="addrPopup()">주소찾기</button>
 							</div>
 						</label>
-						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">상세주소&nbsp;</span>
+						<label class="jsx-3712571264 ">
+							<span class="jsx-3712571264">상세주소&nbsp;</span>
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
 									<input required="필수 입력사항" placeholder="상세주소"
@@ -108,8 +108,8 @@
 						</label>
 					</div>
 					<div class="jsx-3372927190 label-box">
-						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">연락처&nbsp;</span><span class="jsx-3712571264" id="signupPhoneChkMsg"></span>
+						<label class="jsx-3712571264 ">
+							<span class="jsx-3712571264">연락처&nbsp;</span><span class="jsx-3712571264" id="signupPhoneChkMsg"></span>
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
 									<input required="" autocomplete="new-password"
@@ -119,8 +119,9 @@
 							</div>
 						</label>
 						<div class="jsx-3372927190 label-box">
-							<label class="jsx-3712571264 "> <span
-								class="jsx-3712571264">이메일&nbsp;</span><span class="jsx-3712571264" id="signupEmailChkMsg"></span>
+							<label class="jsx-3712571264 ">
+								<span class="jsx-3712571264">이메일&nbsp;</span>
+								<span class="jsx-3712571264" id="signupEmailChkMsg"></span>
 								<div class="jsx-3372927190 input-flex">
 									<div class="jsx-639067573 input">
 										<input required="" placeholder="이메일을 입력해주세요"
