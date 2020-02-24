@@ -99,7 +99,7 @@ $(function(){
 	<a href="#body"><img src="resources/images/main/up-arrow.png" /></a>
 </div>
 <div style="position: fixed; bottom: 130px; right: 35px; z-index: 1;">
-	<a href="#body"><img src="resources/images/main/chatbot.png" /></a>
+	<a href="chatbot.do"><img src="resources/images/main/chatbot.png" /></a>
 </div>
 
 
