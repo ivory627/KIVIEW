@@ -34,13 +34,13 @@ label {
 }
 </style>
 
-<%@ include file="head.jsp"%>
+<%@ include file="../head.jsp"%>
 
 </head>
 <body id="body">
 
 	<!-- @@ header 부분 @@ -->
-	<%@ include file="header.jsp"%>
+	<%@ include file="../header.jsp"%>
 
 	<!-- header 밑 이미지 -->
 	<section class="hero-wrap hero-wrap-2"
@@ -143,7 +143,7 @@ label {
 	</section> 
 
 	<!-- @@ footer 영역 @@ -->
-	<%@ include file="footer.jsp"%>
+	<%@ include file="../footer.jsp"%>
 
 
 	<!-- @@ script 영역 @@ -->
