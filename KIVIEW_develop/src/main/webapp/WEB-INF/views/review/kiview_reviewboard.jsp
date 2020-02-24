@@ -168,6 +168,29 @@ function inputInfo(title, content, no){
 	$("#review_no").val(no);
 	$("#myModal2").show();
 }
+
+
+///////////////////////////지민like//////////////////////////////
+var likeSubmit = function(review_no,memeber_no){
+      $.ajax({
+         url:'/kiview/likeSubmit.do',
+         dataType:'json',
+         type:'POST',
+         data:{'review_no':review_no},
+         success:function(data){
+            var resultFlag = data.resultFlag;
+            var resultMsg = data.resultMsg;
+            if(resultFlag > 0){
+                if(resultMsg == "insert"){
+                  alert("좋아요 누름");
+               }else if(resultMsg == "delete"){
+                  alert("좋아요 지움");
+               }
+            }
+         }
+      });
+   }
+///////////////////////////지민like 끝//////////////////////////////
 </script>
 </head>
 
