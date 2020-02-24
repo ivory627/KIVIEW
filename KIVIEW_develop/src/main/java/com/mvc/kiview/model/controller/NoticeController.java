@@ -30,7 +30,7 @@ public class NoticeController {
 	private NoticeBiz n_biz;
 
 	/* 키뷰안내, 공지사항 */
-	@RequestMapping("/notice/kiviewnotice.do")
+	@RequestMapping("/kiviewnotice.do")
 	public String kiview_notice(Model model, Criteria cri) {
 
 		logger.info("NOTICE LIST");
