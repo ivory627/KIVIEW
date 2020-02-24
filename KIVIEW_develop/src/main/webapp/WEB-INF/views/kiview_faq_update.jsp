@@ -11,13 +11,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>KIVIEW &mdash; 글쓰기</title>
+<title>KIVIEW &mdash; 수정하기</title>
 
 <!-- css -->
 <link rel="stylesheet" href="resources/css/notice_write.css">
 <jsp:include page="head.jsp" />
 
 <!-- js -->
+
 
 <!-- SmartEditor2 라이브러리  -->
 <script type="text/javascript" src="se2/js/HuskyEZCreator.js" charset="utf-8"></script>
@@ -32,15 +33,15 @@
 	<section class="hero-wrap hero-wrap-2"
 		style="background-image: url('resources/images/main/board_img01.png');">
 		<div class="container">
-			<div
-				class="row no-gutters slider-text align-items-center justify-content-center">
+			<div class="row no-gutters slider-text align-items-center justify-content-center">
 				<div class="col-md-9 ftco-animate text-center">
-					<h1 class="mb-2 bread">공지사항 글쓰기</h1>
+					<h1 class="mb-2 bread">FAQ 수정하기</h1>
 					<p class="breadcrumbs">
-						<span class="mr-2"> <a href="index.jsp">홈 <i
-								class="ion-ios-arrow-forward" style="color: #fff;"></i></a>
-						</span> <span>키뷰안내 <i class="ion-ios-arrow-forward"
-							style="color: #fff;"></i></span> <span>&nbsp;공지사항</span>
+						<span class="mr-2"> <a href="index.do">홈 
+						<i class="ion-ios-arrow-forward" style="color: #fff;"></i></a>
+						</span> 
+						<span>키뷰안내 <i class="ion-ios-arrow-forward" style="color: #fff;"></i></span> 
+						<span>&nbsp;FAQ</span>
 					</p>
 				</div>
 			</div>
@@ -56,7 +57,7 @@
 				<div class="jsx-738848916 card-box">
 					<div class="jsx-2265392070 board-title">
 						<h3 class="jsx-2265392070">
-							KIVIEW 공지사항<span class="jsx-2265392070">글쓰기</span>
+							KIVIEW FAQ<span class="jsx-2265392070">수정하기</span>
 						</h3>
 						<ol class="jsx-1271347565 ">
 							<li class="jsx-1271347565">홈</li>
@@ -65,19 +66,21 @@
 					</div>
 
 					<!-- 제목/작성자/내용/분류 카테고리 넘기기  -->
-					<form action="writeRes.do" method="post" id="noticeWriteForm">
-						<input type="hidden" name="notice_writer" value="${login.member_id}">
-						<input type="hidden" id = "page" name="page" value="1">
-
+					<form action="faqUpdateRes.do" method="post" id="faqUpdateForm">
+					<input type = "hidden" id = "faq_no" name = "faq_no" value = "${faqupdate.faq_no}">
+					<input type = "hidden" id = "page" name = "page" value = "${page}">
+					<input type = "hidden" id = "faqcatd" name = "faqcatd" value = "${faqcatd}">
+					
 						<div class="jsx-4261166144 select-wrap">
 							<div class="jsx-4261166144 select-box">
 								<div class="jsx-4121141969 select">
 									<div class="jsx-4121141969 choice">
 										<select class="form-control-sm2" id="selcatd"
-											name="cat_detail" style="cursor: pointer;">
-											<option value="">분류 전체</option>
-											<option value="공지사항">공지사항</option>
-											<option value="키뷰소식">키뷰소식</option>
+											name="faq_catd" style="cursor: pointer;">
+											<option value="">카테고리 선택</option>
+											<option value="리뷰">리뷰</option>
+											<option value="회원">회원</option>
+											<option value="서비스">서비스</option>
 										</select>
 									</div>
 								</div>
@@ -86,9 +89,9 @@
 						<br>
 						<div class="jsx-741803006 input-box">
 							<div class="jsx-639067573 input">
-								<input type="text" id="title" name="notice_title"
+								<input type="text" id="title" name="faq_title"
 									placeholder="제목을 입력해 주세요." class="jsx-639067573"
-									style="background-color: #fff; color: black;">
+									style="background-color: #fff; color: black;" value="${faqupdate.faq_title}">
 							</div>
 						</div>
 						<br>
@@ -98,8 +101,8 @@
 							<div class="fr-box fr-basic fr-top" role="application">
 								<div class="fr-wrapper show-placeholder" dir="auto"
 									style="overflow: scroll;">
-									<textarea name="notice_content" id="smartEditor"
-										style="width: 100%; height: 412px;"></textarea>
+									<textarea name="faq_content" id="smartEditor"
+										style="width: 100%; height: 412px;">${faqupdate.faq_content}</textarea>
 								</div>
 							</div>
 						</div>
@@ -108,7 +111,7 @@
 						<div class="jsx-738848916 btn-box">
 							<div class="jsx-738848916 btn-cancel">
 								<button type="button" class="jsx-462732305"
-									onclick="location.href='kiviewnotice.do?page=${param.page}'"
+									onclick="location.href='kiviewfaq.do?faqcatd=${faqupdate.faq_catd}&page=1'"
 									style="outline: none;">취소</button>
 							</div>
 							<div class="jsx-738848916 btn-finish">
@@ -138,4 +141,4 @@
 </html>
 
 <!-- SmartEditor2 -->
-<script type="text/javascript" src = "resources/js/notice-write.js"></script>
+<script type="text/javascript" src="resources/js/faq-update.js"></script>

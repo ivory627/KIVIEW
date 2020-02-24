@@ -8,16 +8,12 @@
 	response.setContentType("text/html; charset=UTF-8");
 %>
 
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <script type="text/javascript">
 $(function(){
 	
-	if(${login==null}){
-		$("#login").show();
-		$("#my").hide();
-	} else { 
-		$("#login").hide();
-		$("#my").show();
-	}
 	
 	$("#notice").hover(function(){
 		$("#notice").children().css("color","#9BDAF2"); 
@@ -96,7 +92,6 @@ $(function(){
 		$("#my_sub").hide();
 	})
 	
-
 })
 </script>
 
@@ -104,7 +99,7 @@ $(function(){
 	<a href="#body"><img src="resources/images/main/up-arrow.png" /></a>
 </div>
 <div style="position: fixed; bottom: 130px; right: 35px; z-index: 1;">
-	<a href="#body"><img src="resources/images/main/chatbot.png" /></a>
+	<a href="chatbot.do"><img src="resources/images/main/chatbot.png" /></a>
 </div>
 
 
@@ -162,7 +157,7 @@ $(function(){
 
 
 				<li class="nav-item"><a href="index.do" class="nav-link pl-0">홈</a></li>
-				<li id="notice" class="nav-item"><a href="kiviewnotice.do"
+				<li id="notice" class="nav-item"><a href="kiviewnotice.do?page=1"
 					class="nav-link">키뷰안내</a></li>
 				<li id="kinder" class="nav-item"><a href="kindersearch.do"
 					class="nav-link">유치원</a></li>
@@ -174,11 +169,11 @@ $(function(){
 					class="nav-link">마이페이지</a></li>
 
 				<!-- 스크립트 조건에 소메뉴를 사라지게 해놔서 c태그로 변경 
-                로그인 되어 있을 때 로그아웃, 안되어있을 때 로그인 뜨도록
-            -->
+                	로그인 되어 있을 때 로그아웃, 안되어있을 때 로그인 뜨도록
+           		 -->
 				<c:choose>
 					<c:when test="${empty login}">
-						<li class="nav-item"><a href="kiviewlogin.do"
+						<li class="nav-item"><a href="login.do"
 							class="nav-link">로그인</a></li>
 					</c:when>
 					<c:otherwise>
@@ -212,10 +207,9 @@ $(function(){
 			<ul class="navbar-nav" style="margin-left: 570px">
 				<!-- <ul class="navbar-nav ml-auto" >   -->
 
-				<li class="nav-item"><a href="kiviewnotice.do" class="nav-link">공지사항</a></li>
-				<li class="nav-item"><a href="kiviewintro.do" class="nav-link">키뷰
-						소개</a></li>
-				<li class="nav-item"><a href="kiviewfaq.do" class="nav-link">FAQ</a></li>
+				<li class="nav-item"><a href="kiviewnotice.do?page=1" class="nav-link">공지사항</a></li>
+				<li class="nav-item"><a href="kiviewintro.do" class="nav-link">키뷰소개</a></li>
+				<li class="nav-item"><a href="kiviewfaq.do?page=1&faqcatd=" class="nav-link">FAQ</a></li>
 			</ul>
 		</div>
 	</div>
@@ -326,4 +320,3 @@ $(function(){
 
 
 <!-- END nav -->
-

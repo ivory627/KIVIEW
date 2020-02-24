@@ -27,6 +27,7 @@
 		SELECT * FROM REVIEW
 		ORDER BY review_no DESC
 	</select>
+
    
    <insert id="reviewUpdate" parameterType="reviewVo" >
       update review

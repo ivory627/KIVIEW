@@ -15,7 +15,7 @@
 <!-- css -->
 <jsp:include page="head.jsp"/>
 <!-- js -->
-<script type="text/javascript" src = "resources/js/test.js"></script>
+<script type="text/javascript" src = "resources/js/notice.js"></script>
 
 </head>
 
@@ -44,7 +44,7 @@
 
 
 
-	<!--=================@@게시판 상단 select box + 검색 @@====================-->
+	<!--================= 게시판 상단 select box + 검색 ====================-->
 	
 	<div class="jsx-903324597 content" id = "contentdiv">
 		<div class="jsx-3810764099 board-box">
@@ -85,29 +85,40 @@
 				</div>
 				
 				
-				<!--=================@@게시판 상단 select box + 검색 @@====================-->
+				<!--================= 게시판 상단 select box + 검색 ====================-->
 				
 				<div class="jsx-4261166144 select-wrap" >
 					<div class="jsx-4261166144 select-box">
 						<div class="jsx-4121141969 select">
 							<div class="jsx-4121141969 choice">
-							<form action="#" class="appointment-form ftco-animate fadeInUp ftco-animated">
-							  <select class="form-control-sm2" style="cursor:pointer;">
-		          				<option selected>분류 전체</option>
-							        <option>공지사항</option>
+							<form action="kiviewnotice.do" class="appointment-form ftco-animate fadeInUp ftco-animated"
+								method = "post" id = "catdform">
+							  	<input type = "hidden" name = "page" value = "${pageMaker.cri.page}"/>	
+								<input type = "hidden" name = "perPageNum" value = "${pageMaker.cri.perPageNum}"/>
+							 
+							  <select class="form-control-sm2" style="cursor:pointer;" name = "cat_detail" id = "selcatd">
+		          				<option value = "">분류 전체</option>
+							    <option value = "공지사항" ${param.cat_detail eq '공지사항'? 'selected':''}>공지사항</option>
+							    <option value = "키뷰소식" ${param.cat_detail eq '키뷰소식'? 'selected':''}>키뷰소식</option>
 							  </select>
 						    </form>
 							</div>
 						</div>
 					</div>
 					&nbsp;&nbsp;&nbsp;&nbsp;
+					
 					<div class="jsx-4261166144 select-box">
 						<div class="jsx-4121141969 select select--none">
 							<div class="jsx-4121141969 choice">
-								<form action="#" class="appointment-form ftco-animate fadeInUp ftco-animated">
-								  <select class="form-control-sm2" style="cursor:pointer;">
-			          				<option selected>최신순</option>
-								        <option>조회순</option>
+							<!-- 최신순, 조회순 선택시 sort 값 보내기 -->
+							   <form action="kiviewnotice.do" class="appointment-form ftco-animate fadeInUp ftco-animated"
+									method = "post" id = "sortform">
+								<input type = "hidden" name = "page" value = "${pageMaker.cri.page}"/>	
+								<input type = "hidden" name = "page" value = "${pageMaker.cri.perPageNum}"/>	
+								  <select class="form-control-sm2" style="cursor:pointer;" name = "sort" id = "sortsel">
+			          					<option value="">유형</option>
+			          					<option value="new" ${param.sort eq 'new'? 'selected':''}>최신순</option>
+								        <option value="view" ${param.sort eq 'view'? 'selected':''}>조회순</option>
 								  </select>
 						  	 	</form>
 							</div>
@@ -115,28 +126,48 @@
 					</div>
 
 					<div class="jsx-4261166144 search">
+						<!-- 검색 조건 보내기 -->
+						<form action = "kiviewnotice.do" method = "post" id = "searchform">
+						<input type = "hidden" name = "page" value = "${pageMaker.cri.page}">
+						<input type = "hidden" name = "perPageNum" value = "${pageMaker.cri.perPageNum}">
 						<div class="jsx-1738213615 search-box">
+							<div class="jsx-4261166144 select-box">
+								<div class="jsx-4121141969 select select--none">
+									<div class="jsx-4121141969 choice">
+										  <select class="form-control-sm2" style="cursor:pointer;"
+										  	name = "searchType" id = "searchTypeSel">
+					          				<option value = "sel" selected>선택</option>
+										    <option value="all" 
+										    ${param.searchType eq 'all' ? 'selected':''}>전체</option>
+										    <option value="t"
+										    ${param.searchType eq 't' ? 'selected':''}>제목</option>
+										    <option value="con"
+										    ${param.searchType eq 'con' ? 'selected':''}>내용</option>
+										    <option value="tc"
+										    ${param.searchType eq 'tc' ? 'selected':''}>제목+내용</option>
+										    <option value="cw"
+										    ${param.searchType eq 'cw' ? 'selected':''}>내용+작성자</option>
+										  </select>
+									</div>
+								</div>
+							</div>
+							&nbsp;&nbsp;
 							<div class="jsx-3573217014 input">
 								<input title="검색어 입력" placeholder="검색어를 입력해 주세요."
-									class="jsx-3573217014 input" value="" style="width: 188px;">
+									class="jsx-3573217014 input" id="searchBtn" name="keyword"
+									value="${pageMaker.cri.keyword}" onkeypress="if(event.keyCode==13) {return false;}" 
+									style="width: 188px;" type = "text">
 							</div>
-							<button type="button" class="jsx-574097175"
+							<button type="submit" id = "searchbtn" class="jsx-574097175"
 								style="margin-left: 16px;">검색</button>
 						</div>
+						</form>
 					</div>
 				</div>
 				
-				
-				
 				<div class="jsx-723712822 sort-number">
-				
 				<!-- 올라온 글이 몇 개인지 카운팅 -->
-				<c:set var="count" value="0"></c:set>
-				<c:forEach var = "n_list" items = "${noticelist}" varStatus = "status">
-				<c:set var="count" value="${noticelist.size()}"></c:set>
-				</c:forEach>
-				
-					<span class="jsx-723712822 total-number">총 ${pageMaker.totalCount}개</span>
+				<span class="jsx-723712822 total-number">총 ${pageMaker.totalCount}개</span>
 				</div>
 				
 				<div class="jsx-1702879176 board-list-box">
@@ -151,56 +182,36 @@
 					</ul>
 					
 					
-					<!--===========================@@ 공지사항 글 목록 @@========================-->
+					<!--=========================== 공지사항 글 목록 ========================-->
 					
 					<c:choose>
 					<c:when test="${!empty noticelist}">	
 					<ul class="jsx-1702879176 list-body">
 					<c:forEach items="${noticelist}" var = "n_list">			
-						<li tabindex="0" class="jsx-1066086808 notice">
-						<div class="jsx-1066086808 col-notice hide-on-mobile"
+						<li tabindex="0" class="jsx-2214240288">
+						<div class="jsx-2214240288 col-notice hide-on-mobile"
 								style="max-width: 60px;">${n_list.notice_no}</div>
-							 <div class="jsx-1066086808 col-category"
-								style="max-width: 120px;">${n_list.cat_detail}</div>
-							<div class="jsx-1066086808 col-title" style="max-width: 344px;">
-								<a class="jsx-1066086808" href="kiviewdetail.do?notice_no=${n_list.notice_no}"
-									style="max-width: 250px;">
-								<span class="jsx-1066086808 notice-badges"></span>
+							 <div class="jsx-2214240288 col-category"
+								style="max-width: 120px; font-weight:500">${n_list.cat_detail}</div>
+							<div class="jsx-2214240288 col-title" style="max-width: 344px;">
+								<a class="jsx-2214240288" 
+								onclick="location.href='kiviewdetail.do?notice_no=${n_list.notice_no}&page=${pageMaker.cri.page}'"
+									style="max-width: 250px; cursor:pointer;">
+								<span class="jsx-2214240288 notice-badges"></span>
 									${n_list.notice_title}
 								</a>
 							</div>
-							<div class="jsx-1066086808 nickname" style="max-width: 100px;">
+							<div class="jsx-2214240288 col-nickname" style="max-width: 100px;">
 							${n_list.notice_writer}</div>
-							<div class="jsx-1066086808 col-created" style="max-width: 100px;">
+							<div class="jsx-2214240288 col-created" style="max-width: 100px;">
 							${n_list.notice_date}</div>
-							<div class="jsx-1066086808 read_count hide-on-mobile"
-								style="max-width: 60px;">${n_list.notice_hit}</div>
-							<div class="jsx-1066086808 read_count hide-on-desktop"
-								style="max-width: 60px;">${n_list.notice_hit}</div>
-							<div class="jsx-1066086808 like_count hide-on-desktop"
-								style="max-width: 60px;"></div>
-						</li>
-						
-								
-						<%-- <li tabindex="0" class="jsx-2214240288">
-						<div class="jsx-2214240288 col-notice" style="max-width: 60px;">${n_list.notice_no}</div>
-							<div class="jsx-2214240288 col-category"
-								style="max-width: 120px;">유치원</div>
-							<div class="jsx-2214240288 col-title" style="max-width: 344px;">
-								<a class="jsx-2214240288"
-									href="kiviewdetail.do"
-									style="max-width: 328px;">${n_list.notice_title}</a>
-							</div>
-							<div class="jsx-2214240288 col-nickname"
-								style="max-width: 100px;">헤이i</div>
-							<div class="jsx-2214240288 col-created" style="max-width: 100px;">20.02.05</div>
 							<div class="jsx-2214240288 read_count hide-on-mobile"
-								style="max-width: 60px;">16</div>
+								style="max-width: 60px;">${n_list.notice_hit}</div>
 							<div class="jsx-2214240288 read_count hide-on-desktop"
-								style="max-width: 60px;"></div>
+								style="max-width: 60px;">${n_list.notice_hit}</div>
 							<div class="jsx-2214240288 like_count hide-on-desktop"
 								style="max-width: 60px;"></div>
-						</li> --%>
+						</li>
 					</c:forEach>	
 					</ul>
 					</c:when>
@@ -217,17 +228,17 @@
 						</ul>
 					</c:otherwise>
 					</c:choose>
-					<!-- ---------@@ 글 목록 끝 @@--------- -->
+					<!-- --------- 글 목록 끝 --------- -->
 				</div>
 
-				<!--======================== @@ 페이징 @@=========================-->
+				<!--======================== 페이징 =========================-->
 				
 				<div class="jsx-1407906967 board-list-footer">
-					<ul class="jsx-3635512122 pagination pagination--kindergarten">
+					<ul class="jsx-3635512122 pagination pagination--kindergarten" id = "n_paging">
 						
 						<c:if test = "${pageMaker.prev}">
 						<li class="jsx-3635512122 prev disabled" >
-						<a href = "kiviewnotice.do?${pageMaker.makeQuery(pageMaker.startPage - 1)}">
+						<a href = "${pageMaker.makeQuery(pageMaker.startPage - 1)}">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 								viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
 								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -241,8 +252,15 @@
 						
 						<c:forEach begin = "${pageMaker.startPage}" 
 							end = "${pageMaker.endPage}" var = "idx">
-						<li class="jsx-3635512122">
-						<a href = "${pageMaker.makeQuery(idx)}" style = "color:#000;">${idx}</a>
+						<li class="jsx-3635512122 " id = "page${idx}">
+						<c:choose>
+						<c:when test="${idx eq param.page}">
+						<a href = "${pageMaker.makeQuery(idx)}" class = "on" id = "pageclick${idx}">${idx}</a>
+						</c:when>
+						<c:otherwise>
+						<a href = "${pageMaker.makeQuery(idx)}" class = "off" id = "pageclick${idx}">${idx}</a>
+						</c:otherwise>
+						</c:choose>
 						</li>
 						</c:forEach>
 						
@@ -269,7 +287,7 @@
 					<div
 						class="jsx-1407906967 btn-write btn-write--kindergarten fix-position">
 						<button class="jsx-1407906967"
-							onclick="location.href='kiviewwrite.do'">글쓰기</button>
+							onclick="location.href='kiviewwrite.do?page=${pageMaker.cri.page}'">글쓰기</button>
 					</div>
 					</c:when>
 					<c:otherwise>

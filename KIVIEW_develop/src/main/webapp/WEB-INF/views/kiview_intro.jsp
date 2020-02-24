@@ -14,9 +14,8 @@
 
 <!-- css -->
 <jsp:include page="head.jsp"/>
-<link rel="stylesheet" href="resources/css/login.css">
 <!-- js -->
-<script type="text/javascript" src = "resources/js/test.js"></script>
+<script type="text/javascript" src = "resources/js/notice.js"></script>
 
 <style type="text/css">
 .modal-content {
@@ -126,13 +125,15 @@
         		 aria-labelledby="myFullsizeModalLabel" style = "display:none;">
 			  <div class="modal-dialog modal-fullsize" role="document">
 			    <div class="modal-content modal-fullsize">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			        <span aria-hidden="true">&times;</span></button>
-			      </div>
+			      <!-- <div class="modal-header"> -->
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style = "outline:none;">
+			        <span aria-hidden="true" id = "modal-btnclo">&times;</span></button>
+			      <!-- </div> -->
 			      <!-- modal body -->
 			      <div class="modal-body">
-			       <img src ="resources/images/main/login_img04.png">
+			       <img src ="resources/images/main/login_img04.png" id = "introimg01">
+			       <img src = "resources/images/main/kiview_login.png" id = "introimg02" onclick = "location.href='index.do'" 
+			       style = "position:absolute; left:32%;">
 			      </div>
 			      <!-- modal body 끝 -->
 			    </div>
