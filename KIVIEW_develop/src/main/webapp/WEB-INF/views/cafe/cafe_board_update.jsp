@@ -3,9 +3,9 @@
 
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
-	
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-
+   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmf" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,8 +18,8 @@
   </head>
   <body id = "body">
  <%@include file="cafe_modal.jsp" %> 
-	  <!-- @@ header 부분 @@ -->
-	  <%@ include file = "header.jsp" %>
+     <!-- @@ header 부분 @@ -->
+     <%@ include file = "header.jsp" %>
     
      <!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
     <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">
@@ -35,61 +35,100 @@
     </section>
      <!-- @@ header 끝 @@ -->
      
-		
-		<section class="ftco-section bg-light">
-			<div class="container" style="margin-left:30px; ">   
-			<div class="row" style="width:1400px; overflow:auto;"> 
-				<!-- 카페 메뉴 -->
-				<div class="col-lg-3 sidebar ftco-animate" style="padding:25px; margin-right:30px;  background-color:white; border:1px solid lightgray;" >
-					 
-					
-					<%@include file="cafe_sidebar.jsp" %>
+      
+      <section class="ftco-section bg-light">
+         <div class="container" style="margin-left:30px; ">   
+         <div class="row" style="width:1400px; overflow:auto;"> 
+            <!-- 카페 메뉴 -->
+            <div class="col-lg-3 sidebar ftco-animate" style="padding:25px; margin-right:30px;  background-color:white; border:1px solid lightgray;" >
+                
+               
+               <%@include file="cafe_sidebar.jsp" %>
 
-				</div>
+            </div>
 
-				
-				
-				<div id="home" class="col-lg-8 ftco-animate" style="padding:25px; margin-left:0px; background-color:white; border:1px solid lightgray; "> 
-					<h2 class="mb-3"><b># 글작성</b></h2>
-					<hr>
-					 
-					<form action="#">
-					<label>제 목</label><br>
-						<input type="text" value="서울유치원 학부모 모임에 오신 걸 환영합니다!" name="title" size="70">
-						<br><br>
-					<label>내 용</label><br>
-						<textarea cols="90" rows="10" name="content" >서울유치원 학부모 모임에 오신 걸 환영합니다! 많은 활동 부탁드려요ㅎㅎ</textarea>  
-						
-					<br>
-					<br>
-					<div align="center">
-					<input type="submit" value="수 정" class="btn btn-secondary" style="width:20%">
-					<input type="button" value="취 소" class="btn btn-primary" style="width:20%" onclick="location.href='cafe_board.jsp'"> 
-					</div>
-					</form>
-					
-					<br>
-					<br>
-				</div>
-				
+            
+            
+            <div id="home" class="col-lg-8 ftco-animate" style="padding:25px; margin-left:0px; background-color:white; border:1px solid lightgray; "> 
+               <h2 class="mb-3"><b># 글 수정</b></h2>
+               <hr>
+                
+               <form action="cafeboardupdate.do">
+               <input type="hidden" name="cafe_no" value="${cafe_list[0].cafe_no }">
+               <input type="hidden" name="cafe_board_no" value="${cafeboardvo.cafe_board_no}">
+               <input type="hidden" name="cafe_menu_no" value="${cafe_menu_no }">
+               <label>게시판 말머리</label>
+               
+               <select id="category">                     
+               </select>    
+               
+                  ${cafeboardvo.category } &nbsp;&nbsp;&nbsp; || ${cafeboardvo.hit }
+                  <br>
+               <label>제 목</label><br>
+                  <input type="text" value="${cafeboardvo.title }" name="title" size="70">
+                  <br><br>
+               <label>내 용</label><br>
+                  <textarea cols="90" rows="10" name="content" >${cafeboardvo.content }</textarea>  
+                  
+               <br>
+               <br>
+               <div align="center">
+               <input type="submit" value="수 정" class="btn btn-secondary" style="width:20%">
+               <input type="button" value="취 소" class="btn btn-primary" style="width:20%" onclick="location.href='boarddetail.do?cafe_no=${cafe_no}&cafe_menu_no=${cafe_menu_no }&cafe_board_no=${cafeboardvo.cafe_board_no }'"> 
+               </div>
+               </form>
+               
+               <br>
+               <br>
+            </div>
+         </div>
+      </div>
+      </section>
 
-				
+      
+   <!-- @@ footer 영역 @@ -->
+   <%@ include file="footer.jsp"%>
+   
+<script type="text/javascript">
+$(window).load(function(){
+   var no = "${cafe_menu_no}";
+   alert(no);
+   jQuery.ajax({
+        type:"post",
+        url:"ajaxcategory.do",
+        data:{"no": no},        
+        dataType:"json",
+        success:function(key){
+           alert("통신성공!");
+           console.log("size"+key.category2);
+           
+           if(key.category2.length==0 || key.category2.length==null){
+              alert("ddddddd");
+              $("#category").hide();
+           }else{
+              $.each(key.category2,function(index,item){
+                   var rlist = '';                     
+                     rlist += "<option value="+item.category+">"+item.category+"</option>";
+                     
+                     console.log("foreach문 안"+rlist);          
+                     
+                     $("#category").append(rlist);      
+              });
+           }
+        },    
+         error : function(request,status,error){
+           alert("통신 실패");
+           alert(request);
+           alert(status);
+           alert(error);
+           
+           
+        }
+     });
 
-			</div>
+});
 
-
-			
-			
-
-
-		</div>
-		</section>
-
-		
-	<!-- @@ footer 영역 @@ -->
-	<%@ include file="footer.jsp"%>
-	
-	
+</script>   
 
   
     

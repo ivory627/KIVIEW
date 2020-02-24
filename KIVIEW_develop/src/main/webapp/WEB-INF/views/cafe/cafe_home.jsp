@@ -272,7 +272,7 @@ function test(){
                   <c:forEach var="Alist" items="${Alist }">
                      
 
-
+ 
 
 
                         <div class="col-md-6 col-lg-4 ftco-animate">

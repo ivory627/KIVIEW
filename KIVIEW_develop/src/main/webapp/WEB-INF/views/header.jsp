@@ -13,87 +13,85 @@
 
 <script type="text/javascript">
 $(function(){
-
-	
-	
-	$("#notice").hover(function(){
-		$("#notice").children().css("color","#9BDAF2"); 
-		$("#notice_sub").show(); 
-	},function(){
-		$("#notice").children().css("color","black");  
-		$("#notice_sub").hide();
-	})
-	
-	$("#notice_sub").hover(function(){
-		$("#notice").children().css("color","#9BDAF2"); 
-		$("#notice_sub").show();
-		
-	},function(){
-		$("#notice").children().css("color","black");  
-		$("#notice_sub").hide();
-		
-	})  
-	
-	
-	$("#kinder").hover(function(){
-		$("#kinder").children().css("color","#9BDAF2"); 
-		$("#kinder_sub").show();
-	},function(){
-		$("#kinder").children().css("color","black");  
-		$("#kinder_sub").hide();
-	})
-	
-	$("#kinder_sub").hover(function(){
-		$("#kinder").children().css("color","#9BDAF2"); 
-		$("#kinder_sub").show();
-		
-	},function(){
-		$("#kinder").children().css("color","black");  
-		$("#kinder_sub").hide();
-		
-	})
-	
-	//이건 하려다가 실패했음
-	$("#kinder_sub").find("li").each(function(){
-		$(this).hover(function(){
-			$(this).css("color","#9BDAF2");  
-		})  
-			
-	}) 
-	
-	$("#cafe").hover(function(){
-		$("#cafe").children().css("color","#9BDAF2");  
-		$("#cafe_sub").show(); 
-	},function(){
-		$("#cafe").children().css("color","black");  
-		$("#cafe_sub").hide();
-	})
-	
-	$("#cafe_sub").hover(function(){
-		$("#cafe").children().css("color","#9BDAF2");
-		$("#cafe_sub").show();
-	},function(){
-		$("#cafe").children().css("color","black");
-		$("#cafe_sub").hide();
-	})
-	
-	$("#my").hover(function(){
-		$("#my").children().css("color","#9BDAF2");  
-		$("#my_sub").show(); 
-	},function(){
-		$("#my").children().css("color","black");  
-		$("#my_sub").hide();
-	})
-	
-	$("#my_sub").hover(function(){
-		$("#my").children().css("color","#9BDAF2");
-		$("#my_sub").show();
-	},function(){
-		$("#my").children().css("color","black");
-		$("#my_sub").hide();
-	})
-	
-
+   
+   
+   $("#notice").hover(function(){
+      $("#notice").children().css("color","#9BDAF2"); 
+      $("#notice_sub").show(); 
+   },function(){
+      $("#notice").children().css("color","black");  
+      $("#notice_sub").hide();
+   })
+   
+   $("#notice_sub").hover(function(){
+      $("#notice").children().css("color","#9BDAF2"); 
+      $("#notice_sub").show();
+      
+   },function(){
+      $("#notice").children().css("color","black");  
+      $("#notice_sub").hide();
+      
+   })  
+   
+   
+   $("#kinder").hover(function(){
+      $("#kinder").children().css("color","#9BDAF2"); 
+      $("#kinder_sub").show();
+   },function(){
+      $("#kinder").children().css("color","black");  
+      $("#kinder_sub").hide();
+   })
+   
+   $("#kinder_sub").hover(function(){
+      $("#kinder").children().css("color","#9BDAF2"); 
+      $("#kinder_sub").show();
+      
+   },function(){
+      $("#kinder").children().css("color","black");  
+      $("#kinder_sub").hide();
+      
+   })
+   
+   //이건 하려다가 실패했음
+   $("#kinder_sub").find("li").each(function(){
+      $(this).hover(function(){
+         $(this).css("color","#9BDAF2");  
+      })  
+         
+   }) 
+   
+   $("#cafe").hover(function(){
+      $("#cafe").children().css("color","#9BDAF2");  
+      $("#cafe_sub").show(); 
+   },function(){
+      $("#cafe").children().css("color","black");  
+      $("#cafe_sub").hide();
+   })
+   
+   $("#cafe_sub").hover(function(){
+      $("#cafe").children().css("color","#9BDAF2");
+      $("#cafe_sub").show();
+   },function(){
+      $("#cafe").children().css("color","black");
+      $("#cafe_sub").hide();
+   })
+   
+   $("#my").hover(function(){
+      $("#my").children().css("color","#9BDAF2");  
+      $("#my_sub").show(); 
+   },function(){
+      $("#my").children().css("color","black");  
+      $("#my_sub").hide();
+   })
+   
+   $("#my_sub").hover(function(){
+      $("#my").children().css("color","#9BDAF2");
+      $("#my_sub").show();
+   },function(){
+      $("#my").children().css("color","black");
+      $("#my_sub").hide();
+   })
+   
 })
 </script>
 
@@ -101,11 +99,7 @@ $(function(){
    <a href="#body"><img src="resources/images/main/up-arrow.png" /></a>
 </div>
 <div style="position: fixed; bottom: 130px; right: 35px; z-index: 1;">
-
-	<a href="chatbot.do"><img src="resources/images/main/chatbot.png" /></a>
-
    <a href="#body"><img src="resources/images/main/chatbot.png" /></a>
-
 </div>
 
 
@@ -146,84 +140,57 @@ $(function(){
 
 <!-- 키뷰 메인메뉴 -->
 <nav
+   class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light"
+   id="ftco-navbar">
 
-	class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light"
-	id="ftco-navbar">
+   <div class="container d-flex align-items-center">
+      <a class="navbar-brand" href="index.do">Kiview</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+         data-target="#ftco-nav" aria-controls="ftco-nav"
+         aria-expanded="false" aria-label="Toggle navigation">
+         <span class="oi oi-menu"></span> Menu
+      </button>
+      <!-- <p class="button-custom order-lg-last mb-0"><a href="appointment.html" class="btn btn-secondary py-2 px-3">Make An Appointment</a></p> -->
+      <div class="collapse navbar-collapse" id="ftco-nav">
 
-	<div class="container d-flex align-items-center">
-		<a class="navbar-brand" href="index.do">Kiview</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#ftco-nav" aria-controls="ftco-nav"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="oi oi-menu"></span> Menu
-		</button>
-		<!-- <p class="button-custom order-lg-last mb-0"><a href="appointment.html" class="btn btn-secondary py-2 px-3">Make An Appointment</a></p> -->
-		<div class="collapse navbar-collapse" id="ftco-nav">
-
-			<ul class="navbar-nav ml-auto">
+         <ul class="navbar-nav ml-auto">
 
 
-				<li class="nav-item"><a href="index.do" class="nav-link pl-0">홈</a></li>
-				<li id="notice" class="nav-item"><a href="kiviewnotice.do?page=1"
-					class="nav-link">키뷰안내</a></li>
-				<li id="kinder" class="nav-item"><a href="kindersearch.do"
-					class="nav-link">유치원</a></li>
-				<li id="cafe" class="nav-item"><a
-					href="cafehome.do?member_no=${login.member_no }&member_id=${login.member_id}"
-					class="nav-link">키뷰 카페</a></li>
+            <li class="nav-item"><a href="index.do" class="nav-link pl-0">홈</a></li>
+            <li id="notice" class="nav-item"><a href="kiviewnotice.do?page=1"
+               class="nav-link">키뷰안내</a></li>
+            <li id="kinder" class="nav-item"><a href="kindersearch.do"
+               class="nav-link">유치원</a></li>
+            <li id="cafe" class="nav-item"><a
+               href="cafehome.do?member_no=${login.member_no }&member_id=${login.member_id}"
+               class="nav-link">키뷰 카페</a></li>
 
-				<li id="my" class="nav-item"><a href="kiviewmypage.do"
-					class="nav-link">마이페이지</a></li>
+            <li id="my" class="nav-item"><a href="kiviewmypage.do"
+               class="nav-link">마이페이지</a></li>
 
-				<!-- 스크립트 조건에 소메뉴를 사라지게 해놔서 c태그로 변경 
-                	로그인 되어 있을 때 로그아웃, 안되어있을 때 로그인 뜨도록
-           		 -->
-				<c:choose>
-					<c:when test="${empty login}">
-						<li class="nav-item"><a href="login.do"
-							class="nav-link">로그인</a></li>
-					</c:when>
-					<c:otherwise>
-						<li class="nav-item"><a href="kiviewlogout.do"
-							class="nav-link">로그아웃</a></li>
-					</c:otherwise>
-				</c:choose>
-			</ul>
-		</div>
-	</div>
-
-  
+            <!-- 스크립트 조건에 소메뉴를 사라지게 해놔서 c태그로 변경 
+                로그인 되어 있을 때 로그아웃, 안되어있을 때 로그인 뜨도록
+            -->
+            <c:choose>
+               <c:when test="${empty login}">
+                  <li class="nav-item"><a href="login.do"
+                     class="nav-link">로그인</a></li>
+               </c:when>
+               <c:otherwise>
+                  <li class="nav-item"><a href="kiviewlogout.do"
+                     class="nav-link">로그아웃</a></li>
+               </c:otherwise>
+            </c:choose>
+         </ul>
+      </div>
+   </div>
 </nav>
 
 <!-- 키뷰 안내 소메뉴 -->
 <nav
-
-	class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light"
-	id="notice_sub"
-	style="display: none; height: 50px; padding: 20px; border: 1px solid lightgray">
-	<!-- id="ftco-navbar" -->
-
-	<div class="container d-flex align-items-center">
-		<a class="navbar-brand" href="kiviewnotice.do">키뷰 안내</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#ftco-nav" aria-controls="ftco-nav"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="oi oi-menu"></span> Menu
-		</button>
-		<!-- <p class="button-custom order-lg-last mb-0"><a href="appointment.html" class="btn btn-secondary py-2 px-3">Make An Appointment</a></p> -->
-
-		<div class="collapse navbar-collapse" id="ftco-nav">
-
-			<ul class="navbar-nav" style="margin-left: 570px">
-				<!-- <ul class="navbar-nav ml-auto" >   -->
-
-				<li class="nav-item"><a href="kiviewnotice.do?page=1" class="nav-link">공지사항</a></li>
-				<li class="nav-item"><a href="kiviewintro.do" class="nav-link">키뷰소개</a></li>
-				<li class="nav-item"><a href="kiviewfaq.do?page=1&faqcatd=" class="nav-link">FAQ</a></li>
-			</ul>
-		</div>
-	</div>
-
+   class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light"
+   id="notice_sub"
+   style="display: none; height: 50px; padding: 20px; border: 1px solid lightgray">
    <!-- id="ftco-navbar" -->
 
    <div class="container d-flex align-items-center">
@@ -240,14 +207,13 @@ $(function(){
          <ul class="navbar-nav" style="margin-left: 570px">
             <!-- <ul class="navbar-nav ml-auto" >   -->
 
-            <li class="nav-item"><a href="kiviewnotice.do" class="nav-link">공지사항</a></li>
+            <li class="nav-item"><a href="kiviewnotice.do?page=1" class="nav-link">공지사항</a></li>
             <li class="nav-item"><a href="kiviewintro.do" class="nav-link">키뷰
                   소개</a></li>
-            <li class="nav-item"><a href="kiviewfaq.do" class="nav-link">FAQ</a></li>
+            <li class="nav-item"><a href="kiviewfaq.do?page=1&faqcatd=" class="nav-link">FAQ</a></li>
          </ul>
       </div>
    </div>
-
 </nav>
 
 <!-- 유치원 소메뉴 -->
@@ -306,7 +272,7 @@ $(function(){
             <li class="nav-item"><a
                href="cafehome.do?member_no=${login.member_no }&member_id=${login.member_id}"
                class="nav-link">카페 홈</a></li>
-            <li class="nav-item"><a href="kiview_search.jsp"
+            <li class="nav-item"><a href="cafemy.do?member_no=${login.member_no }"
                class="nav-link">카페 관리</a></li>
          </ul>
       </div>
