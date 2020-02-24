@@ -11,9 +11,12 @@ public interface KinderBiz {
 	public List<KinderVo> TypeSearch(HashMap<String, String> map);
 	public List<KinderVo> NameSearch(String name);
 	public KinderVo Kinderdetail(int kinder_no);
+	public KinderVo Kinderdetail(String keyword);
 	public List<ProvinceVo> ProvinceList();
 	public List<ProvinceVo> CityList(String province);
 	public List<ProvinceVo> TownList(String city);
 	public List<KinderVo> KinderList(String keyword);
+	public List<KinderVo> KinderListAll();
+	public List<KinderVo> mapSearch(HashMap<String, String> map);
 
 }

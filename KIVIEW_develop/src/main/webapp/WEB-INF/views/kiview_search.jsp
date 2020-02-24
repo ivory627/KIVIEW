@@ -30,12 +30,18 @@
    border-right:0px;
        outline: none;  
 	}
+::-webkit-scrollbar {display: block};
+::-webkit-scrollbar {background-color:#fff;width:16px}
+::-webkit-scrollbar-track {background-color:#fff}
+::-webkit-scrollbar-thumb {background-color:#babac0;border-radius:16px;border:4px solid #fff}
+
 	
     </style>
     <script type="text/javascript">
     $(function(){
     	
     	$('#searchres').hide();
+    	$('#searchresmap').hide();
 
     	   $("#sido").change(function() {
                 var province = $('#sido option:selected').val();
@@ -161,7 +167,7 @@
               	     $("#tbody").append(
               	  		$("<tr>").append(
               	  			$("<td>").append(code.addr2),
-              	  			$("<td>").append(code.name),
+              	  			$("<td>").append($("<a href='searchdetail.do?kinder_no="+code.kinder_no+"'>").append(code.name)),
               	  			$("<td>").append(code.type),
               	  			$("<td>").append("★★★")	
               	  		)
@@ -250,7 +256,15 @@
   							<%@ include file = "map.jsp" %>
 						</div>
           			</div>
-          			<div style="width:100%;margin:0 auto;margin-top:80px;line-height:5;" class="col-md-5 heading-section ftco-animate fadeInUp ftco-animated">
+          			<div id="selectedmap" style="width:100%;margin:0 auto;margin-top:80px;line-height:5;text-align:center;display:none;" class="col-md-5 heading-section ftco-animate fadeInUp ftco-animated">
+          				
+          				<h4><b>시/군/구</b>를 선택해주세요</h4>
+          				<div id="sigungudiv" style="height:500px;overflow:auto;margin-top:20px;">
+
+          				</div>
+						
+          			</div>
+          			<div id="rightdiv" style="width:100%;margin:0 auto;margin-top:80px;line-height:5;" class="col-md-5 heading-section ftco-animate fadeInUp ftco-animated">
           				<div style="padding: 20px;width: max-content;">
           				<h4><b>지역</b></h4>
           				<form id="localForm" action="localsearch.do" method="post" class="appointment-form ftco-animate fadeInUp ftco-animated">
@@ -280,7 +294,7 @@
           				<div style="padding: 20px">
          				<h4><b>유치원</b></h4>
                   		<form id="nameForm" action="namesearch.do" method="post">
-                  		<input type="text" id="kindername" name="name" class="form-control-lg" placeholder="이름">
+                  		<input type="text" id="kindername" name="name" class="form-control-lg" placeholder="유치원 이름을 입력해주세요">
                 		<button type="button" id="nameBtn" class="btn-lg btn btn-secondary" onclick="nameChk();"><i class="icon ion-ios-search"></i></button>
                   		</form>
           				</div>
@@ -366,6 +380,20 @@
 						   </c:if>  
 						 </tbody>
 					</table>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="searchresmap" class="ftco-section bg-light" style="padding: 0.0em 0;">
+			<div class="container">
+				<div class="row" id="box">
+          			<div style="width:100%;margin:0 auto;" class="col-md-8 text-center heading-section ftco-animate fadeInUp ftco-animated">
+           			 <h2 class="mb-4"><span>검색 결과</span></h2>
+          			</div>
+          			<div style="width:100%;margin:0 auto;" class="ftco-animate fadeInUp ftco-animated">
+          			<div id="map" style="width:100%;margin:0 auto;height:20%;height:500px;" class="col-md-15 text-center heading-section ftco-animate fadeInUp ftco-animated">
+           			 </div>
+          			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=194487849edd2decd3a36dbefacead0d"></script>
 					</div>
 				</div>
 			</div>

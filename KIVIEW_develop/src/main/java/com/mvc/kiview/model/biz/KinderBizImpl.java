@@ -64,4 +64,21 @@ public class KinderBizImpl implements KinderBiz {
 		return dao.KinderList(keyword);
 	}
 
+	@Override
+	public List<KinderVo> KinderListAll() {
+
+		return dao.KinderListAll();
+	}
+
+	@Override
+	public KinderVo Kinderdetail(String keyword) {
+
+		return dao.Kinderdetail(keyword);
+	}
+
+	@Override
+	public List<KinderVo> mapSearch(HashMap<String, String> map) {
+		return dao.mapSearch(map);
+	}
+
 }

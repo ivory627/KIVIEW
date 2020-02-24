@@ -113,6 +113,42 @@ public class KinderDaoImpl implements KinderDao{
 		
 		return list;
 	}
+
+	@Override
+	public List<KinderVo> KinderListAll() {
+		List<KinderVo> list = new ArrayList<KinderVo>();
+		try {
+			list = sqlSession.selectList(namespace+"kinderListAll");
+		}catch(Exception e) {
+			System.out.println("error:kinder list all");
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public KinderVo Kinderdetail(String keyword) {
+		KinderVo vo = null;
+		try {
+			vo = sqlSession.selectOne(namespace+"kinderDetail2", keyword);
+		}catch(Exception e){
+			System.out.println("error:kinder detail2");
+			e.printStackTrace();
+		}
+		return vo;
+	}
+
+	@Override
+	public List<KinderVo> mapSearch(HashMap<String, String> map) {
+		List<KinderVo> list = new ArrayList<KinderVo>();
+		try {
+			list = sqlSession.selectList(namespace+"kinderListMap",map);
+		}catch(Exception e) {
+			System.out.println("error:kinder list map");
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 	
 }

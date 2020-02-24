@@ -17,4 +17,7 @@ public interface KinderDao {
 	public List<ProvinceVo> CityList(String province);
 	public List<ProvinceVo> TownList(String city);
 	public List<KinderVo> KinderList(String keyword);
+	public List<KinderVo> KinderListAll();
+	public KinderVo Kinderdetail(String keyword);
+	public List<KinderVo> mapSearch(HashMap<String, String> map);
 }

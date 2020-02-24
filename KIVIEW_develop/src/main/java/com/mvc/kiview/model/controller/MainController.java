@@ -1,15 +1,13 @@
 package com.mvc.kiview.model.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.mvc.kiview.model.biz.KinderBiz;
 import com.mvc.kiview.model.vo.KinderVo;
@@ -22,21 +20,26 @@ public class MainController {
 
 	@RequestMapping("/index.do")
 	public String index() {
-
+		
 		return "index";
 	}
 	
-	@RequestMapping(value = "/autosearch.do")
+	@RequestMapping("/autosearch.do")
 	@ResponseBody
-	public List<KinderVo> autoSearch(Locale locale, Model model, String keyword) {    
+	public List<KinderVo> autoSearch(String keyword) {    
 	    
 		List<KinderVo> list = biz.KinderList(keyword);
-		//Map<String,Object> map = new HashMap<String, Object>();
-		//map.put("name", list);
-		//System.out.println(map);
-
 
 	    return list;
+	}
+	
+	@RequestMapping("/mainsearch.do")
+	public ModelAndView mainSearch(String keyword) {
+		
+		ModelAndView mav = new ModelAndView("kiview_Search_detail");
+		mav.addObject("kindervo",biz.Kinderdetail(keyword));
+		
+		return mav;
 	}
 	
 

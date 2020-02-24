@@ -33,14 +33,14 @@
 	</select>
 	<select id="cityList" parameterType="String" resultMap="ProvinceMap">
 		SELECT DISTINCT CITY FROM PROVINCE
-		WHERE PROVINCE = #{province}
+		WHERE PROVINCE LIKE '%${province}%'
 		ORDER BY CITY
 	</select>
 	<select id="townList" parameterType="String" resultMap="ProvinceMap">
 		SELECT DISTINCT TOWN FROM PROVINCE WHERE 1=1
 		<choose>
-			<when test='!city.equals("세종특별자치시")'>
-				AND CITY = #{city}
+			<when test='!city.equals("세종특별자치시") and !city.equals("세종")'>
+				AND CITY LIKE '%${city}%'
 			</when>
 			<otherwise>
 				AND PROVINCE = '세종특별자치시'
@@ -94,8 +94,17 @@
 	<select id="kinderDetail" parameterType="int" resultType="KinderVo">
 		SELECT * FROM KINDER WHERE KINDER_NO = #{kinder_no}
 	</select>
+	<select id="kinderDetail2" parameterType="String" resultType="KinderVo">
+		SELECT * FROM KINDER WHERE NAME LIKE '%${name}%' AND ROWNUM = 1
+	</select>
 	<select id="kinderListKeyword" parameterType="String" resultMap="KinderMap">
-		<![CDATA[ SELECT NAME FROM KINDER WHERE NAME LIKE '%${name}%' AND ROWNUM <= 15 ]]>
+		<![CDATA[ SELECT DISTINCT NAME FROM KINDER WHERE NAME LIKE '%${name}%' AND ROWNUM <= 15 ]]>
+	</select>
+	<select id="kinderListAll" resultMap="KinderMap">
+		SELECT * FROM KINDER
+	</select>
+	<select id="kinderListMap" parameterType="HashMap" resultMap="KinderMap">
+		SELECT * FROM KINDER WHERE ADDR2 LIKE '%${province}%${city}%'
 	</select>
 
 </mapper>

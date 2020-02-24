@@ -11,30 +11,189 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=194487849edd2decd3a36dbefacead0d"></script>
 <script type="text/javascript">
 
 function clickMap(className){
 	$('.'+className).on('click',function(){
 		var myprovince = $('text.'+className).text().trim();
 		console.log(myprovince);
+		if(myprovince=="충북"){
+			myprovince = "충청북도";
+		}else if(myprovince=="충남"){
+			myprovince = "충청남도";
+		}else if(myprovince=="경북"){
+			myprovince = "경상북도";
+		}else if(myprovince=="경남"){
+			myprovince = "경상남도";
+		}else if(myprovince=="전북"){
+			myprovince = "전라북도";
+		}else if(myprovince=="전남"){
+			myprovince = "전라남도";
+		}
 		//alert(myprovince);
 		$('path.'+className).css('fill','rgb(255,207,126)');
 	    $('rect.'+className).css('fill','rgb(255,157,31)');
 	    $('text.'+className).css('fill','white');
 	    $('.'+className).off();
 	    $('svg').css('pointer-events','none');
+	    $('#rightdiv').hide();
+	    $('#selectedmap').show();
+	    
+        if(myprovince=="세종"){
+        	$.ajax({
+                type: "POST",
+                url: "ajaxdong.do",
+                data: myprovince,
+                contentType:"application/json;charset=UTF-8",
+                dataType: "json",
+                success: function(res) {
+                	console.log(res);
+                	$('#sigungudiv').empty();
+                	$.each(res,function(idx, code){
+               		  		var sigunguBtn=$('<button class="btn btn-primary px-4 py-3 mr-3">').html(code.town);
+               		  		$('#sigungudiv').append(sigunguBtn);
+                 	  	});
+               },
+               error: function(e) {
+                  alert("통신실패");
+               }
+            });
+        }else{
+           $.ajax({
+               type: "POST",
+               url: "ajaxsigungu.do",
+               data: myprovince,
+               contentType:"application/json;charset=UTF-8",
+               dataType: "json",
+               success: function(res) {
+            	   console.log(res);
+            	   $('#sigungudiv').empty();
+            	   $.each(res,function(idx, code){
+            	    	 var sigunguBtn=$('<button class="btn btn-primary px-4 py-3 mr-3" onclick="viewMap(\'' + myprovince + '\',\'' + code.city + '\');">').html(code.city);
+         		  			$('#sigungudiv').append(sigunguBtn);
+             	  });
+            	   
+              },
+              error: function(e) {
+                 alert("통신실패");
+              }
+           });
+        	
+        }
+	    
+	    
 	});	
 }
 
+function viewMap(province,city){
+	
+	//alert(province);
+	//alert(city);
+	var mapSearchVal={
+			"province":province,
+			"city":city
+	}
+	$.ajax({
+        type: "POST",
+        url: "ajaxmap.do",
+        data: JSON.stringify(mapSearchVal),
+        contentType:"application/json;charset=UTF-8",
+        dataType: "json",
+        success: function(res) {
+           
+     	  $('#searchresmap').show();
+     	  $('#map').empty();
+     	  
+     	  var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+				    mapOption = { 
+				        center: new kakao.maps.LatLng(res[0].longitude, res[0].latitude), // 지도의 중심좌표
+				        level:10 // 지도의 확대 레벨
+				    };
+				
+				var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+				 
+				// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+				var positions = [];
+				 $.each(res,function(idx, code){
+					 positions.push({
+						 content: '<div><a href="searchdetail.do?kinder_no='+code.kinder_no+'">'+code.name+'</a></div>', 
+					     latlng: new kakao.maps.LatLng(code.longitude, code.latitude)
+					 })
+			 	  });
+				
+				//console.log(positions);
+				
+				for (var i = 0; i < positions.length; i ++) {
+				    // 마커를 생성합니다
+				    var marker = new kakao.maps.Marker({
+				        map: map, // 마커를 표시할 지도
+				        position: positions[i].latlng // 마커의 위치
+				    });
+				
+				    // 마커에 표시할 인포윈도우를 생성합니다 
+				    var infowindow = new kakao.maps.InfoWindow({
+				        content: positions[i].content // 인포윈도우에 표시할 내용
+				    });
+				
+				    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+				    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+				    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+				    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+				    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+				    kakao.maps.event.addListener(marker, 'click', function() {
+
+				        // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
+				        // 마커의 이미지를 클릭 이미지로 변경합니다
+				        if (!selectedMarker || selectedMarker !== marker) {
+
+				            // 클릭된 마커 객체가 null이 아니면
+				            // 클릭된 마커의 이미지를 기본 이미지로 변경하고
+				            !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
+
+				            // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
+				            marker.setImage(clickImage);
+				        }
+
+				        // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
+				        selectedMarker = marker;
+				    });
+				}
+				
+				// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+				function makeOverListener(map, marker, infowindow) {
+				    return function() {
+				        infowindow.open(map, marker);
+				    };
+				}
+				
+				// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+				function makeOutListener(infowindow) {
+				    return function() {
+				        infowindow.close();
+				    };
+				}
+
+     	        
+       },
+       error: function(e) {
+          alert("통신실패");
+       }
+    });
+	
+}
+
 function reset(className){
-		$('button').on('click',function(){
+		$('#reset').on('click',function(){
 		$('path.'+className).css('fill','white');
 	    $('rect.'+className).css('fill','white');
 	    $('text.'+className).css('fill','black');
 		$('svg').css('pointer-events','auto');
 		hoverMap(className);
 		clickMap(className);
+	    $('#selectedmap').hide();
+		$('#rightdiv').show();
+		$('#searchresmap').hide();
 	});
 }
 function hoverMap(className){
@@ -56,46 +215,12 @@ $(function(){
 		var className = $(this).attr("class");
 		//console.log(className);
 		
-	
 		hoverMap(className);
 		clickMap(className);
 		reset(className);
-	  	   /* $('.'+className).hover(function(){
-				$('path.'+className).css('fill','rgb(255,207,126)');
-				$('rect.'+className).css('fill','rgb(255,157,31)');
-				$('text.'+className).css('fill','white');
-	    	},
-		    function(){
-		    	 $('path.'+className).css('fill','white');
-			     $('rect.'+className).css('fill','white');
-			     $('text.'+className).css('fill','black');
-		    });
-		     
-	  		 clickMap(className); 
-		  	
-	  	  
-		      $('button').on('click',function(){
-		    	$('path.'+className).css('fill','white');
-			    $('rect.'+className).css('fill','white');
-			    $('text.'+className).css('fill','black');
-		    	$('svg').css('pointer-events','auto');
-		    	
-		    	$('.'+className).hover(function(){
-				       $('path.'+className).css('fill','rgb(255,207,126)');
-				       $('rect.'+className).css('fill','rgb(255,157,31)');
-				       $('text.'+className).css('fill','white');				
-				    },
-				    function(){
-				    	 $('path.'+className).css('fill','white');
-					     $('rect.'+className).css('fill','white');
-					     $('text.'+className).css('fill','black');
-				    });
-		    	
-		    	clickMap(className);
-			});  */ 
-		    
 
 	});
+	
     
  })
 </script>
@@ -332,7 +457,7 @@ $(function(){
 			<tspan dy="5.71875"
 				style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">제주</tspan></text>
 				</svg>
-			<button class="btn btn-secondary2" style="position: relative;left:170px;" onclick="reset();">다시선택</button>
+			<button id="reset" class="btn btn-secondary2" style="position: relative;left:170px;" onclick="reset();">다시선택</button>
 	</div>
 </body>
 </html>

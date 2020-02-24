@@ -110,5 +110,12 @@ public class KinderController {
 		
 		return list;
 	}
+	
+	@RequestMapping("/ajaxmap.do")
+	@ResponseBody
+	public List<KinderVo> mapSearch(@RequestBody HashMap<String,String> map){
+		List<KinderVo> list = biz.mapSearch(map);
+		return list;
+	}
 
 }
