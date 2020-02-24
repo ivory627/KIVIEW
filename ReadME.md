@@ -27,7 +27,7 @@
   2. Github / Github Desktop
 
 🎈 DBMS 
-  1. Oracle 11g / SQL Developer(IDE)
+  1. MyBatis
   
 🎈 OS
   1. Chrome
