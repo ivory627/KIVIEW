@@ -20,21 +20,18 @@ public class ReviewBizImpl implements ReviewBiz{
 	}
 
 	@Override
-	public int reviewInsert() {
-		// TODO Auto-generated method stub
-		return dao.reviewInsert();
+	public int reviewInsert(ReviewVo vo) {
+		return dao.reviewInsert(vo);
 	}
 
 	@Override
-	public int reviewUpdate() {
-		// TODO Auto-generated method stub
-		return dao.reviewUpdate();
+	public int reviewUpdate(ReviewVo vo) {
+		return dao.reviewUpdate(vo);
 	}
 
 	@Override
-	public int reviewDelete() {
-		// TODO Auto-generated method stub
-		return dao.reviewDelete();
+	public int reviewDelete(int review_no) {
+		return dao.reviewDelete(review_no);
 	}
 
 	@Override
