@@ -323,7 +323,7 @@ function show(cafe_board_no){
   </head>
   
   <body id = "body">
- <%@include file="cafe/cafe_modal.jsp" %> 
+ <%@include file="cafe_modal.jsp" %> 
      <!-- @@ header 부분 @@ -->
      <%@ include file = "../header.jsp" %>
     
@@ -349,7 +349,7 @@ function show(cafe_board_no){
             <div class="col-lg-3 sidebar ftco-animate" style="padding:25px; margin-right:30px;  background-color:white; border:1px solid lightgray;" >
                 
                
-               <%@include file="cafe/cafe_sidebar.jsp" %>
+               <%@include file="cafe_sidebar.jsp" %>
 
             </div>
 
@@ -485,7 +485,7 @@ function show(cafe_board_no){
 			                  <textarea id="reply_text${guest.cafe_board_no }" style="resize:none; padding:10px;" name="content" cols="80" rows="3" minlength="4" maxlength="100" required></textarea>
 			                    
 			                  <input style="display:inline; position:relative; left:112%"  type="button" class="btn btn-primary"  
-			                  value="등록" onclick="reply_write(${guest.cafe_board_no})">          
+			                  value="등록" onclick="reply_write(${guest.cafe_board_no})">        
 			                   
 		               </form>
 	               </div>
