@@ -51,7 +51,7 @@ function clickMap(className){
                 	console.log(res);
                 	$('#sigungudiv').empty();
                 	$.each(res,function(idx, code){
-               		  		var sigunguBtn=$('<button class="btn btn-primary px-4 py-3 mr-3">').html(code.town);
+               		  		var sigunguBtn=$('<button class="btn btn-primary px-4 py-3 mr-3" onclick="viewMap(\'' + myprovince + '\',\'' + code.town + '\');">').html(code.town);
                		  		$('#sigungudiv').append(sigunguBtn);
                  	  	});
                },
@@ -86,13 +86,13 @@ function clickMap(className){
 	});	
 }
 
-function viewMap(province,city){
+function viewMap(province,citytown){
 	
 	//alert(province);
 	//alert(city);
 	var mapSearchVal={
 			"province":province,
-			"city":city
+			"citytown":citytown
 	}
 	$.ajax({
         type: "POST",
@@ -117,7 +117,7 @@ function viewMap(province,city){
 				var positions = [];
 				 $.each(res,function(idx, code){
 					 positions.push({
-						 content: '<div><a href="searchdetail.do?kinder_no='+code.kinder_no+'">'+code.name+'</a></div>', 
+						 content:'<div><a href="searchdetail.do?kinder_no='+code.kinder_no+'">'+code.name+'</a></div>', 
 					     latlng: new kakao.maps.LatLng(code.longitude, code.latitude)
 					 })
 			 	  });
@@ -157,7 +157,7 @@ function viewMap(province,city){
 
 				        // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
 				        selectedMarker = marker;
-				    });
+				    }); 
 				}
 				
 				// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 

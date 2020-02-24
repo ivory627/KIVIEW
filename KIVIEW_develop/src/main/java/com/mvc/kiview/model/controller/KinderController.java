@@ -114,7 +114,9 @@ public class KinderController {
 	@RequestMapping("/ajaxmap.do")
 	@ResponseBody
 	public List<KinderVo> mapSearch(@RequestBody HashMap<String,String> map){
+		//System.out.println(map);
 		List<KinderVo> list = biz.mapSearch(map);
+		//System.out.println(list.size());
 		return list;
 	}
 
