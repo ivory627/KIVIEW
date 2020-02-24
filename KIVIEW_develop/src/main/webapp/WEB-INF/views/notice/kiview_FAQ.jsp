@@ -14,7 +14,7 @@
 <title>KIVIEW &mdash; FAQ</title>
 
 <!-- css  -->
-<jsp:include page="head.jsp"/>
+<jsp:include page="../head.jsp"/>
 <link rel="stylesheet" href="resources/css/FAQ.css">
 
 <!-- js -->	
@@ -26,7 +26,7 @@
 <body>
 
 	<!-- header 영역 -->
-	<jsp:include page="header.jsp"/>
+	<jsp:include page="../header.jsp"/>
 	<section class="hero-wrap hero-wrap-2"
 		style="background-image: url('resources/images/main/board_img01.png');">
 		<div class="container">
@@ -239,7 +239,7 @@
 		</div>
 	</section>
 
-	<jsp:include page="footer.jsp"/>
+	<jsp:include page="../footer.jsp"/>
 
 
 </body>
