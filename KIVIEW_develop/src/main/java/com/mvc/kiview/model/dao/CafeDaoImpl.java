@@ -12,6 +12,7 @@ import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeCategoryVo;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
+import com.mvc.kiview.model.vo.CafePageVo;
 import com.mvc.kiview.model.vo.CafeReplyVo;
 import com.mvc.kiview.model.vo.CafeVo;
 
@@ -397,6 +398,22 @@ public class CafeDaoImpl implements CafeDao {
 	      }
 	      return res;
 	   }
+	   
+	   @Override
+	   public List<CafeBoardVo> cafe_searchlist(CafePageVo cafepagevo) {
+	      List<CafeBoardVo> res = null;
+	      try {
+	         res = sqlSession.selectList(namespace+"board_searchlist",cafepagevo);
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         System.out.println("검색 결과 불러오기 오류");
+	      }
+	            
+	      return res;
+	   }
+	   
+	   
+	   
 
 	   @Override
 	   public List<CafeReplyVo> cafe_reply_list(int cafe_board_no) {
@@ -449,6 +466,9 @@ public class CafeDaoImpl implements CafeDao {
 	      }
 	      return res;
 	   }
+	   
+	   
+	   
 	   
 	   
 	   

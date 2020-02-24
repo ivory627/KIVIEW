@@ -42,5 +42,11 @@
       <property name="maxUploadSize" value="100000000" ></property>    
       <property name="defaultEncoding" value="UTF-8"></property>
    </bean> 
+   
+     <!-- **승혜: 네이버 로그인 -->
+   <bean id="naverLoginBO"
+      class="com.mvc.kiview.model.vo.NaverLoginBO" />
+   <!-- **승혜: 카카오 로그인 -->
+   <bean id="kakaoApi" class="com.mvc.kiview.model.vo.KakaoApi" />
 		
 </beans>

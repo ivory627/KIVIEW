@@ -78,39 +78,37 @@
                <br>
 <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->                 
                <div id="replylist" style="width:100%;"> 
-               <h5>댓글 <a style="color:#fda638">${fn:length(rlist_boardno) }</a>개</h5> 
-               
-               <hr>
-               
-               <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-              
-               
-                  <div style="font-weight:bold; color:black" id="noreply"></div>                
-               
-              
-               <hr>
-               <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->     
-               <div id="replylistthis"></div>
                   
                <hr>
+               </div>
+               <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->             
+               
+               <div style="font-weight:bold; color:black" id="noreply">
+               </div>                
+               
+                            
+               <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->     
+              <div id="replylistthis">
+              </div>                
+               
               
                <!-- 페이징 관련 코드 여기에 넣어야 함. -->
-               </div>
+               
                
                <div id="reply" style="width:80%; border:0px solid lightgray"> 
                <div> 
                <form action="#">
-               
                <br> 
                <input type="hidden" name="" value="${cafe_board_detail.cafe_board_no}" id="replyboard_no">
                <input type="hidden" name="" value="${cafe_board_detail.writer}" id="writer">
                <input type="hidden" name="" value="${login.member_id }" id="loginid">
                <input type="hidden" name="" value="${cafe_list[0].admin}" id="adminid">
                         
-               <c:if test="${cafe_board_detail.writer ne login.member_id || cafe_list[0].admin ne login.member_id  }">
+              
                     <label style="font-weight:bold; color:black" >${login.member_id }</label>                
                   <input type="text" size="70" placeholder="상대방을 향한 욕설, 음담패설은 자제해주세요."  id="replycontent">                  
                   <input type="text" size="1" value="0"  id="replycount" >자
+               <c:if test="${cafe_board_detail.writer eq login.member_id || cafe_list[0].admin eq login.member_id  }">
                   <input type="button" class="btn btn-primary" value="등록" onclick="replyinsert();">                  
                </c:if>   
                </form>         
@@ -162,6 +160,9 @@ function ajaxreplylist(){
           dataType:"json",
           data : {"cafe_board_no" : cafe_board_no },
           success : function(data){
+                 $("#replylist").empty();
+             var rlistcount = "<h5>댓글<a style='color:fda638'>"+data.rlist.length+"</a>개</h5>";       
+                 $("#replylist").append(rlistcount);
                 
              if(data.rlist.length==0){                
                 $("#noreply").html("작성된 댓글이 없습니다.");                
@@ -356,7 +357,7 @@ function changeDate(date){
     second = date.getSeconds();
     
     if(month<10){
-    	alert(month)
+    	 
     	month = "0"+month;
     }
      
@@ -366,6 +367,10 @@ function changeDate(date){
     
     if(hour<10){
     	hour = "0"+hour;
+    }
+    
+    if(minute<10){
+    	minute = "0"+minute;
     }
     
     	    

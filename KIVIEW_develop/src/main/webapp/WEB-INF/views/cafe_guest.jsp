@@ -308,6 +308,10 @@ function show(cafe_board_no){
 	    	hour = "0"+hour;
 	    }
 	    
+	    if(minute<10){
+	    	minute = "0"+minute;
+	    }
+	    
 	    	    
 	    strDate = year+"-"+month+"-"+day+" "+hour+":"+minute
 	    

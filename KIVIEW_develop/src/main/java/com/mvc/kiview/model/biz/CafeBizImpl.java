@@ -11,6 +11,7 @@ import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeCategoryVo;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
+import com.mvc.kiview.model.vo.CafePageVo;
 import com.mvc.kiview.model.vo.CafeReplyVo;
 import com.mvc.kiview.model.vo.CafeVo;
 
@@ -255,7 +256,11 @@ public class CafeBizImpl implements CafeBiz {
 			return dao.cafe_board_reply_allList();
 		}
 	   
-	   
+	   @Override
+	   public List<CafeBoardVo> cafe_searchlist(CafePageVo cafepagevo) {
+	         
+	      return dao.cafe_searchlist(cafepagevo);
+	   }
 	   
 	   
 	   
@@ -341,6 +346,8 @@ public class CafeBizImpl implements CafeBiz {
 		
 		return dao.cafe_delete(cafe_no);
 	}
+
+	
 
 	
 	

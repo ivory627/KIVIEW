@@ -6,6 +6,7 @@ import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeCategoryVo;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
+import com.mvc.kiview.model.vo.CafePageVo;
 import com.mvc.kiview.model.vo.CafeReplyVo;
 import com.mvc.kiview.model.vo.CafeVo;
 
@@ -73,6 +74,9 @@ public interface CafeDao {
 	
 	public int cafe_board_hit(int cafe_board_no);
 
+	public List<CafeBoardVo> cafe_searchlist(CafePageVo cafepagevo);
+	
+	
 	public List<CafeReplyVo> cafe_reply_list(int cafe_board_no);
 
 	public int reply_insert(CafeReplyVo cafereplyvo);

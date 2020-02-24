@@ -36,6 +36,7 @@ import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeCategoryVo;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
+import com.mvc.kiview.model.vo.CafePageVo;
 import com.mvc.kiview.model.vo.CafeReplyVo;
 import com.mvc.kiview.model.vo.CafeVo;
 
@@ -936,7 +937,24 @@ public class CafeController {
 	   
 	   
 	   
-	   
+	      @RequestMapping(value="/ajaxboardsearchlist.do",method = RequestMethod.POST)
+	      @ResponseBody
+	      public Map<String,Object> ajaxboardsearchlist(@RequestBody CafePageVo cafepagevo){          
+	         //CafePageVo 추가....... 안에 검색어 / 검색어 옵션 도 포함.         
+	         List<CafeBoardVo> slist = biz.cafe_searchlist(cafepagevo);
+	         
+	         Map<String,Object> map = new HashMap<>();
+	         map.put("slist",slist);
+	         
+	         
+	         
+	         for(String key : map.keySet()) { 
+	             String value = map.get(key).toString();
+	             System.out.println("[key] : "+key+"\n    [value] : "+value +"\n"); 
+	          }    
+	         
+	         return map;
+	      }
 	   
 	   
 	   

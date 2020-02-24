@@ -230,7 +230,40 @@
      </select>
      
      
-     
+     <select id="board_searchlist" parameterType="CafePageVo" resultType="CafeBoardVo">
+         SELECT CB.CAFE_BOARD_NO, CB.CAFE_MENU_NO, CB.CATEGORY, CB.TITLE, CB.CONTENT, CB.WRITER, CB.REGDATE, CB.HIT,
+               (SELECT COUNT(*) FROM CAFE_REPLY WHERE CAFE_BOARD_NO = CB.CAFE_BOARD_NO) REPLYCOUNT
+         FROM CAFE_BOARD CB
+         WHERE CB.CAFE_MENU_NO = #{cafe_menu_no}
+         <choose>
+            <when test="searchoption == 'title' ">
+               <if test="keyword != null and keyword !=''">
+                  AND CB.TITLE LIKE '%' || #{keyword} || '%'
+               </if>                  
+            </when>
+         <when test="searchoption == 'content' ">
+            <if test="keyword != null and keyword !=''">
+               AND CB.CONTENT LIKE '%' || #{keyword} || '%'
+            </if>
+         </when>
+         <when test="searchoption == 'writer' ">
+            <if test="keyword != null and keyword !=''"> 
+               AND CB.WRITER LIKE #{keyword}
+            </if>
+         </when>
+         <when test="searchoption == 'title+content' ">
+            <if test="keyword != null and keyword !=''">
+               AND CB.CONTENT LIKE '%' || #{keyword} || '%' 
+               OR CB.TITLE LIKE '%' || #{keyword} || '%'
+            </if>
+         </when>
+         <otherwise>
+         
+         </otherwise>                     
+         </choose> 
+         ORDER BY CB.CAFE_BOARD_NO DESC
+      
+      </select>
      
      
       
