@@ -148,7 +148,7 @@ h1{
 							유치원 리뷰가 궁금하다면?<span> 바로 여기!</span>
 						</h1>
 						<p>
-							<a href="#" class="btn btn-secondary px-4 py-3 mt-3">Read
+							<a href="chatbot.do" class="btn btn-secondary px-4 py-3 mt-3">Read
 								More</a>
 						</p>
 					</div>

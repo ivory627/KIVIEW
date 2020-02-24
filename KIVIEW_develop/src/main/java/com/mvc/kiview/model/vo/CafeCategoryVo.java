@@ -6,6 +6,17 @@ public class CafeCategoryVo {
 	private String category;
 	
 	
+	
+	public CafeCategoryVo() {
+		super();
+		
+	}
+	public CafeCategoryVo(int cafe_category_no, int cafe_menu_no, String category) {
+		super();
+		this.cafe_category_no = cafe_category_no;
+		this.cafe_menu_no = cafe_menu_no;
+		this.category = category;
+	}
 	public int getCafe_category_no() {
 		return cafe_category_no;
 	}
@@ -24,12 +35,7 @@ public class CafeCategoryVo {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public CafeCategoryVo(int cafe_category_no, int cafe_menu_no, String category) {
-		super();
-		this.cafe_category_no = cafe_category_no;
-		this.cafe_menu_no = cafe_menu_no;
-		this.category = category;
-	}
+	
 	@Override
 	public String toString() {
 		return "CafeCategoryVo [cafe_category_no=" + cafe_category_no + ", cafe_menu_no=" + cafe_menu_no + ", category="

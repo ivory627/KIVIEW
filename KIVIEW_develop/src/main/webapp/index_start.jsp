@@ -8,13 +8,14 @@
 
 <script type="text/javascript">
 
-window.onload = function(){
+window.onload = function(){ 
+	
 	location.href="index.do";
-}
-
+} 
+ 
 </script>
 </head>
 <body>
-
+ 
 </body>
 </html>

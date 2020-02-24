@@ -157,7 +157,7 @@ $(function(){
 
 
             <li class="nav-item"><a href="index.do" class="nav-link pl-0">홈</a></li>
-            <li id="notice" class="nav-item"><a href="kiviewnotice.do"
+            <li id="notice" class="nav-item"><a href="kiviewnotice.do?page=1"
                class="nav-link">키뷰안내</a></li>
             <li id="kinder" class="nav-item"><a href="kindersearch.do"
                class="nav-link">유치원</a></li>
@@ -173,7 +173,7 @@ $(function(){
             -->
             <c:choose>
                <c:when test="${empty login}">
-                  <li class="nav-item"><a href="kiviewlogin.do"
+                  <li class="nav-item"><a href="login.do"
                      class="nav-link">로그인</a></li>
                </c:when>
                <c:otherwise>
@@ -207,10 +207,10 @@ $(function(){
          <ul class="navbar-nav" style="margin-left: 570px">
             <!-- <ul class="navbar-nav ml-auto" >   -->
 
-            <li class="nav-item"><a href="kiviewnotice.do" class="nav-link">공지사항</a></li>
+            <li class="nav-item"><a href="kiviewnotice.do?page=1" class="nav-link">공지사항</a></li>
             <li class="nav-item"><a href="kiviewintro.do" class="nav-link">키뷰
                   소개</a></li>
-            <li class="nav-item"><a href="kiviewfaq.do" class="nav-link">FAQ</a></li>
+            <li class="nav-item"><a href="kiviewfaq.do?page=1&faqcatd=" class="nav-link">FAQ</a></li>
          </ul>
       </div>
    </div>
@@ -272,7 +272,7 @@ $(function(){
             <li class="nav-item"><a
                href="cafehome.do?member_no=${login.member_no }&member_id=${login.member_id}"
                class="nav-link">카페 홈</a></li>
-            <li class="nav-item"><a href="kiview_search.jsp"
+            <li class="nav-item"><a href="cafemy.do?member_no=${login.member_no }"
                class="nav-link">카페 관리</a></li>
          </ul>
       </div>

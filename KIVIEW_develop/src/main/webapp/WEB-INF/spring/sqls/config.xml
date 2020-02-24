@@ -7,8 +7,9 @@
 	<typeAliases>
 		
 		<!-- 유치원 관련 -->
-		<typeAlias type="com.mvc.kiview.model.vo.KinderVo" alias="KinderVo"/>
 		<typeAlias type="com.mvc.kiview.model.vo.ProvinceVo" alias="ProvinceVo"/>
+		<typeAlias type="com.mvc.kiview.model.vo.KinderVo" alias="KinderVo"/>
+		
 		
 		<!-- 카페 관련 -->
 		<typeAlias type="com.mvc.kiview.model.vo.CafeVo" alias="CafeVo"/>
@@ -17,6 +18,7 @@
 		<typeAlias type="com.mvc.kiview.model.vo.CafeMenuVo" alias="CafeMenuVo"/>
 		<typeAlias type="com.mvc.kiview.model.vo.CafeReplyVo" alias="CafeReplyVo"/>
 		<typeAlias type="com.mvc.kiview.model.vo.CafeMemberVo" alias="CafeMemberVo"/>
+		<typeAlias type="com.mvc.kiview.model.vo.CafePageVo" alias="CafePageVo"/>
 		
 		<!-- 공지사항 -->
 		<typeAlias type="com.mvc.kiview.model.vo.NoticeVo" alias="NoticeVo"/>
@@ -25,8 +27,7 @@
 		<!-- 즐겨찾기 -->
 		<typeAlias type="com.mvc.kiview.model.vo.FavoriteVo" alias="FavoriteVo"/>
 		
-		<!-- 소개 -->
-		<typeAlias type="com.mvc.kiview.model.vo.IntroVo" alias="IntroVo"/>
+
 		
 		<!-- FAQVo -->
 		<typeAlias type="com.mvc.kiview.model.vo.FAQVo" alias="FAQVo"/>

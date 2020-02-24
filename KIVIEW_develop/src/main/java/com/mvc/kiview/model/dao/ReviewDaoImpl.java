@@ -19,11 +19,12 @@ public class ReviewDaoImpl implements ReviewDao{
 	public List<ReviewVo> reviewList() {
 		
 		List<ReviewVo> list = new ArrayList<ReviewVo>();
+		System.out.println("list" + list);
 		
 		try {
 			list = sqlSession.selectList(namespace + "reviewList");
 		} catch(Exception e) {
-			System.out.println("error : 리뷰 리스트");
+			System.out.println("error : review list");
 			e.printStackTrace();
 		}
 		
@@ -31,21 +32,49 @@ public class ReviewDaoImpl implements ReviewDao{
 	}
 
 	@Override
-	public int reviewInsert() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int reviewInsert(ReviewVo vo) {
+		
+		int res = 0;
+		
+		try {
+			res = sqlSession.insert(namespace + "reviewInsert", vo);
+		} catch(Exception e) {
+			System.out.println("error : review insert DaoImpl");
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 
 	@Override
-	public int reviewUpdate() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int reviewUpdate(ReviewVo vo) {
+		
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(namespace + "reviewUpdate", vo);
+		} catch(Exception e) {
+			System.out.println("error : review update DaoImpl");
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 
 	@Override
-	public int reviewDelete() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int reviewDelete(int review_no) {
+		
+		int res = 0;
+		
+		try {
+			res = sqlSession.delete(namespace + "reviewDelete", review_no);
+			System.out.println(review_no);
+		} catch(Exception e) {
+			System.out.println("error : review delete DaoImpl");
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 
 	@Override
