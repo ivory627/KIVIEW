@@ -95,15 +95,15 @@ label {
 					<form method="post" action="kiviewdelete.do" id="deleteform">
 						<label>이 름</label><br>
 						<input type="text" value="${login.member_name}" readonly="readonly"
-							style="width: 80%" readonly> <br> <br>
+							style="width: 80%" readonly id="member_name"> <br> <br>
 						<label>아이디</label><br>
 						<input type="text" value="${login.member_id}" readonly="readonly"
-							style="width: 80%" readonly> <br> <br>
+							style="width: 80%" readonly id="member_id"> <br> <br>
 						<input type="button" onclick="memberDel();" class="btn btn-secondary"
 							style="position: relative; left: 35%; width: 30%" value="회원 탈퇴">
 					</form>
 				</div>
-
+ 
 				<div class="col-lg-8 ftco-animate"
 					style="padding: 40px; background-color: white; border: 1px solid lightgray; margin-top: 30px; margin-left: 318px">
 					<h2>
@@ -111,7 +111,7 @@ label {
 					</h2>
 					<p style="font-size: 13px;">회원정보는 개인정보처리방침에 따라 안전하게 보호되며, 동의없이 공개 또는 제 3자에게 제공되지 않습니다.</p>
   
-					<form method="post" action="kiviewupdate.do" onsubmit="return mypageUpdate()">
+					<form method="post" action="kiviewupdate.do" id="mypageUpdateForm">
 						<input type="hidden" name="member_id" value="${login.member_id}">
 						<br>
 						<label>비밀번호</label><span class="mypageUpdateMsg" id="mypagePwdMsg" style="color: red;"></span><br>
@@ -121,7 +121,7 @@ label {
 						<input type="password" placeholder="비밀번호 확인" style="width: 80%" id="mypagePwdChk">
 						<br><br>
 						<label>주소</label><span class="mypageUpdateMsg" id="mypageAddrMsg" style="color: red;"></span><br>
-						<input type="text" value="${login.member_addr}" name="member_addr" style="width: 65%" id="member_addr">
+						<input type="text" value="${login.member_addr}" name="member_addr" style="width: 65%" id="mypageAddr">
 						<input type="button" class="btn btn-primary" value="주소 검색" onclick="addrPopup()">
 						<br><br>
 				 		<label>연락처</label><span class="mypageUpdateMsg" id="mypagePhoneMsg" style="color: red;"></span><br>
@@ -130,7 +130,8 @@ label {
 						<label>이메일</label><span class="mypageUpdateMsg" id="mypageEmailMsg" style="color: red;"></span><br>
 						<input type="text" name="member_email" value="${login.member_email}" style="width: 80%" id="mypageEmail">
 						<br><br><br>
-						<input type="submit" class="btn btn-secondary" style="position: relative; left: 35%; width: 30%" value="수정">
+						<input type="button" class="btn btn-secondary" style="position: relative; left: 35%; width: 30%" value="수정" onclick="mypageUpdate()">
+						
 					</form>
 
 				</div>

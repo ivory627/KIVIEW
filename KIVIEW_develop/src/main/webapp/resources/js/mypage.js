@@ -21,12 +21,12 @@ function memberDel(){
 //회원정보 수정 확인
 function mypageUpdate(){
 	
-	alert("제발...부탁이야...");
-	
 	var mypagePwd = $('#mypagePwd').val().trim(); 
 	var mypagePwdChk = $('#mypagePwdChk').val().trim(); 
 	var mypageAddr = $('#mypageAddr').val(); 
+	console.log(mypageAddr);
 	var mypagePhone = $('#mypagePhone').val().trim(); 
+	console.log(mypagePhone);
 	var mypageEmail = $('#mypageEmail').val().trim();
 
 	$('#mypagePwdMsg').show().html('');
@@ -36,59 +36,66 @@ function mypageUpdate(){
 	$('#mypageEmailMsg').show().html('');
 	
 	if( mypagePwd == null || mypagePwd =="" || mypagePwdChk == null || mypagePwdChk =="" ){
-		alert("비밀번호를 입력해주세요");//삭제
 		$('#mypagePwdMsg').show().html('&nbsp;&nbsp;&nbsp;&nbsp;비밀번호를 입력해주세요');
+		
+		var member_id = $('#member_id').offset();
+		$('html').animate({scrollTop : member_id.top}, 400);
+		
 		return false;
 	} else if( mypageAddr == null || mypageAddr =="" ){
-		alert("주소를 입력해주세요");//삭제
-		$('#mypageAddrMsg').show().html('&nbsp;&nbsp;&nbsp;&nbsp;주소를 입력해주세요');wn
-		return false;
-	} else if( mypagePhone == null || mypagePhone =="" ){
-		alert("전화번호를 입력해주세요");//삭제
-		$('#mypagePhoneMsg').show().html('&nbsp;&nbsp;&nbsp;&nbsp;전화번호를 입력해주세요');
-		return false;
-	} else if( mypageEmail== null || mypageEmail =="" ){
-		alert("이메일를 입력해주세요");//삭제
-		$('#mypageEmailMsg').show().html('&nbsp;&nbsp;&nbsp;&nbsp;이메일를 입력해주세요');
-		return false;
-	} else if( mypagePwd != mypagePwdChk ){
-		alert("비밀번호가 일치하지 않습니다");//삭제
-		$('#mypagePwdChkMsg').show().html('&nbsp;&nbsp;&nbsp;&nbsp;비밀번호가 일치하지 않습니다');
+		$('#mypageAddrMsg').show().html('&nbsp;&nbsp;&nbsp;&nbsp;주소를 입력해주세요');
 		
 		var mypagePwdMsg = $('#mypagePwdMsg').offset();
 		$('html').animate({scrollTop : mypagePwdMsg.top}, 400);
+		
+		return false;
+	} else if( mypagePhone == null || mypagePhone =="" ){
+		$('#mypagePhoneMsg').show().html('&nbsp;&nbsp;&nbsp;&nbsp;전화번호를 입력해주세요');
+
+		var mypageAddrMsg = $('#mypageAddrMsg').offset();
+		$('html').animate({scrollTop : mypageAddrMsg.top}, 400);
+		
+		return false;
+	} else if( mypageEmail== null || mypageEmail =="" ){
+		$('#mypageEmailMsg').show().html('&nbsp;&nbsp;&nbsp;&nbsp;이메일를 입력해주세요');
+
+		var mypagePhoneMsg = $('#mypagePhoneMsg').offset();
+		$('html').animate({scrollTop : mypagePhoneMsg.top}, 400);
+		
+		return false;
+	} else if( mypagePwd != mypagePwdChk ){
+		$('#mypagePwdChkMsg').show().html('&nbsp;&nbsp;&nbsp;&nbsp;비밀번호가 일치하지 않습니다');
+		
+		var member_id = $('#member_id').offset();
+		$('html').animate({scrollTop : member_id.top}, 400);
 		
 		return false;
 	} else if (!/^.*(?=^.{4,19}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(mypagePwd)) {
-		alert("비밀번호 정규식");//삭제
-		$("#mypagePwdMsg").show().html("&nbsp;&nbsp;영문(소/대문자 구분), 숫자, 특수문자를 포함 5~20자리");
+		$("#mypagePwdMsg").show().html("&nbsp;&nbsp;영문(소/대문자 구분), 숫자, 특수문자를 포함 5~20자리로 입력해주세요");
 		
-		var mypagePwdMsg = $('#mypagePwdMsg').offset();
-		$('html').animate({scrollTop : mypagePwdMsg.top}, 400);
+		var member_id = $('#member_id').offset();
+		$('html').animate({scrollTop : member_id.top}, 400);
 		
 		return false;
-	} else if( !(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i).test( mypageEmail ) ) {
-		alert("이메일 정규식");//삭제
-    	$("#mypageEmailMsg").show().css('color', 'red').html("&nbsp;&nbsp;올바른 이메일형식으로 입력해주세요&nbsp;&nbsp;ex)test01@email.com");
-    	
-    	var mypageEmailMsg = $('#mypageEmailMsg').offset();
-		$('html').animate({scrollTop : mypageEmailMsg.top}, 200);
-        
-		return false;
-    } else if( !/^[0-9]*$/.test( mypagePhone ) ) {
-    	alert("전화번호 정규식");//삭제
+	} else if( !/^[0-9]*$/.test( mypagePhone ) ) {
     	$("#mypagePhoneMsg").show().css('color', 'red').html("&nbsp;&nbsp;숫자만 입력해주세요&nbsp;&nbsp;ex)01011112222");
     	
+    	var mypageAddrMsg = $('#mypageAddrMsg').offset();
+		$('html').animate({scrollTop : mypageAddrMsg.top}, 200);
+        
+		return false;
+    } else if( !(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i).test( mypageEmail ) ) {
+    	$("#mypageEmailMsg").show().css('color', 'red').html("&nbsp;&nbsp;올바른 이메일형식으로 입력해주세요&nbsp;&nbsp;ex)test01@email.com");
+    	 
     	var mypagePhoneMsg = $('#mypagePhoneMsg').offset();
 		$('html').animate({scrollTop : mypagePhoneMsg.top}, 200);
         
 		return false;
     } else {
 		alert("회원정보가 수정되었습니다.");
-		return false; //수정
-	}
+		$('#mypageUpdateForm').submit();
+    }
 	
-	alert("문제 있음");
 	return false;
 }
 
