@@ -10,6 +10,12 @@ public class ProvinceVo {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public ProvinceVo(String province, String city) {
+		super();
+		this.province = province;
+		this.city = city;
+	}
+
 	public ProvinceVo(String province, String city, String town) {
 		super();
 		this.province = province;
