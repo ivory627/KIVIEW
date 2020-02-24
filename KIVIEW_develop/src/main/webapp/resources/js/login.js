@@ -1,39 +1,39 @@
+
 $(function() {
+	//시작 이벤트
 	$('#loginChk').hide();
 	$('#loginIdChk').hide();
 	$('#loginPwdChk').hide();
-
+	$('#idUseBtn').hide();
+	$("#member_id").focus();
+	
+	//엔터 이벤트
 	$('.jsx-639067573').keydown(function(key) {
 		// 키의 코드가 13번일 경우 (엔터의 키코드는 13)
 		if (key.keyCode == 13) {
 			login();
 		}
 	});
-	
+
 	$('.find-id').keydown(function(key) {
 		if (key.keyCode == 13) {
 			idCk();
 		}
 	});
-	
-	$('#idCkBtn').click(function(){
+
+	//클릭 이벤트
+	$('#idCkBtn').click(function() {
 		$('#idSearchHTML').hide();
+		$('#idSearchRes').hide();
 		$('#idSearch_name').val("");
 		$('#idSearch_email').val("");
-		
+		$("#idSearch_name").focus();
+
 	});
 
 });
 
-$(function() {
-	$('#idCkBtn').click(function(){
-	      $('#idSearchHTML1').hide();
-	      $('#idSearchHTML2').hide();
-	      $('#idSearchRes').hide();
-	      
-	   });
-	});
-
+//로그인
 function login() {
 	var member_id = $("#member_id").val().trim();
 	var member_pwd = $('#member_pwd').val().trim();
@@ -46,14 +46,14 @@ function login() {
 	if (member_id == null || member_id == "") {
 		$('#loginChk').hide();
 		$('#loginPwdChk').hide();
-		$("#loginIdChk").show().html("ID를 입력해주세요.");
+		$("#loginIdChk").show().html("&nbsp;&nbsp;아이디를 입력해주세요");
 		$('input').eq(0).val("");
 		$('input').eq(1).val("");
 
 	} else if (member_pwd == null || member_pwd == "") {
 		$('#loginChk').hide();
 		$('#loginIdChk').hide();
-		$("#loginPwdChk").show().html("PW를 입력해주세요.");
+		$("#loginPwdChk").show().html("&nbsp;&nbsp;비밀번호를 입력해주세요");
 		$('input').eq(1).val("");
 
 	} else {
@@ -70,21 +70,25 @@ function login() {
 				} else {
 					$('#loginIdChk').hide();
 					$('#loginPwdChk').hide();
-					$("#loginChk").show().html("ID 혹은 PW가 잘못 되었습니다.");
-					$('input').eq(0).val("");
+					$("#loginChk").show().html("비밀번호가 일치하지 않습니다");
 					$('input').eq(1).val("");
 				}
 			},
 			error : function() {
-				alert("통신실패");
+				$('#loginIdChk').hide();
+				$('#loginPwdChk').hide();
+				$("#loginChk").show().html("아이디가 존재하지 않습니다");
+				$('input').eq(0).val("");
+				$('input').eq(1).val("");
 			}
 		});
 	}
 }
 
-		
-function idCk(){
-	
+//아이디 찾기
+var searchedId = "";
+function idCk() {
+
 	var member_name = $("#idSearch_name").val().trim();
 	var member_email = $('#idSearch_email').val().trim();
 
@@ -96,7 +100,7 @@ function idCk(){
 	if (member_name == null || member_name == "" || member_email == null || member_email == "") {
 		$('#idSearch_name').val("");
 		$('#idSearch_email').val("");
-		$("#idSearchHTML").show().html("이름과 이메일을 입력해주세요.");
+		$("#idSearchHTML").show().html("이름과 이메일을 입력해주세요");
 
 	} else {
 		$.ajax({
@@ -110,36 +114,35 @@ function idCk(){
 				if (msg != null) {
 					$('#idSearchHTML').hide();
 					$('#idSearchRes').show().html("ID: " + msg.idSearch.member_id);
+					searchedId = msg.idSearch.member_id;
+					
+					$('#idChkBtn').hide();
+					$('#idUseBtn').show();
 				} else {
 					$('#idSearchHTML').hide();
-					$("#idSearchHTML").show().html("이름 혹은 이메일이 잘못 되었습니다.");
+					$("#idSearchHTML").show().html("이름과 이메일이 일치하지 않습니다");
 					$('#idSearch_name').val("");
 					$('#idSearch_email').val("");
 				}
 			},
 			error : function() {
 				$('#idSearchHTML').hide();
-				$('#idSearchHTML').show().html("존재하지 않는 회원입니다.");
+				$('#idSearchHTML').show().html("존재하지 않는 회원입니다");
 				$('#idSearch_name').val("");
 				$('#idSearch_email').val("");
 			}
 		});
-		
+
 		$("#idSearchRes").hide();
-	
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
 
-
-
-
-
+//아이디 찾기에 성공한 아이디 로그인에 사용하기
+function idUse(){
+	var id = searchedId;
+	$('#member_id').val(id);
+	$('#id01').hide();
+}
 

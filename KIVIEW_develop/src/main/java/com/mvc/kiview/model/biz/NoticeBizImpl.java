@@ -22,10 +22,10 @@ public class NoticeBizImpl implements NoticeBiz {
 	}
 
 	@Override
-	public int notice_count() {
-		return n_dao.notice_count();
+	public int notice_count(Criteria cri) {
+		return n_dao.notice_count(cri);
 	}
-	
+
 	@Override
 	public NoticeVo n_selectOne(int notice_no) {
 
@@ -53,33 +53,38 @@ public class NoticeBizImpl implements NoticeBiz {
 	}
 
 	@Override
-	public List<FAQVo> faqList() {
-		return null;
+	public List<FAQVo> faqList(Criteria cri) {
+		return n_dao.faqList(cri);
 	}
 
 	@Override
 	public FAQVo f_selectOne(int faq_no) {
-		return null;
+		return n_dao.f_selectOne(faq_no);
 	}
 
 	@Override
 	public int faq_insert(FAQVo f_vo) {
-		return 0;
+		return n_dao.faq_insert(f_vo);
 	}
 
 	@Override
 	public int faq_update(FAQVo f_vo) {
-		return 0;
+		return n_dao.faq_update(f_vo);
 	}
 
 	@Override
 	public int faq_delete(int faq_no) {
-		return 0;
+		return n_dao.faq_delete(faq_no);
 	}
 
+	@Override
+	public int faq_count(Criteria cri) {
+		return n_dao.faq_count(cri);
+	}
 
-	
-
-	
+	@Override
+	public FAQVo faq_updateOne(int faq_no) {
+		return n_dao.faq_updateOne(faq_no);
+	}
 
 }

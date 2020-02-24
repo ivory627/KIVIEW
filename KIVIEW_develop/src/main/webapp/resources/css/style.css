@@ -189,6 +189,23 @@ abbr[title], abbr[data-original-title] {
 	text-decoration-skip-ink: none;
 }
 
+#modal-btnclo{
+	position:relative;
+	left:48%; 
+	top:10px;
+	font-size:2rem;
+	cursor: pointer;
+}
+#introimg01{
+	position:relative; 
+	left:30%;
+}
+#introimg02{
+	position:relative; 
+	left:32%;
+	cursor: pointer;
+}
+
 address {
 	margin-bottom: 1rem;
 	font-style: normal;
@@ -10717,6 +10734,7 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 .hero-wrap.hero-wrap-2 .slider-text .bread {
 	font-weight: 900;
 	color: #fff;
+	font-size: 3rem;
 }
 
 .hero-wrap.hero-wrap-2 .slider-text .breadcrumbs {
@@ -13767,6 +13785,24 @@ li.jsx-2214240288 div.jsx-2214240288 {
 	max-width: 60px;
 }
 
+li.jsx-2214240288 div.col-category.jsx-2214240288 {
+	list-style: none;
+	box-sizing: border-box;
+	outline: none;
+	font-family: 'Noto Sans KR', sans-serif;
+	text-rendering: optimizeSpeed;
+	-webkit-font-smoothing: antialiased;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+	width: 100%;
+	font-size: 14px;
+	color: #FF3366;
+	max-width: 60px;
+}
+
+
 li.jsx-2214240288 div.col-title.jsx-2214240288 {
 	list-style: none;
 	box-sizing: border-box;
@@ -13916,6 +13952,13 @@ li.jsx-2214240288 div.col-nickname.jsx-2214240288 {
 	font-weight: 700;
 	color: #e76c07;
 }
+.pagination--kindergarten.jsx-3635512122 li a.on{
+	color:rgb(231, 108, 7);
+}
+.pagination--kindergarten.jsx-3635512122 li a.off{
+	color:black;
+}
+
 
 .btn-write.jsx-1407906967 {
 	box-sizing: border-box;

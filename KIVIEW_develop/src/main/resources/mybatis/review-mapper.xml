@@ -19,12 +19,12 @@
    
    <insert id="reviewInsert" parameterType="reviewVo" >
       insert into review
-      values(review_seq.nextval, #{name}, #{avg_score1}, #{avg_score2}, #{avg_score3}, #{review_title}, #{review_content}, #{review_writer}, sysdate)
+      values(review_seq.nextval, 1, #{name}, 1, #{avg_score1}, #{avg_score2}, #{avg_score3}, #{review_title}, #{review_content}, #{review_writer}, SYSDATE)
    </insert>
+   <!-- 1 : kinder_no / 1 : 유치원 주소 -->
    
    <select id="reviewList" resultMap="reviewboard" >
-      SELECT name, avg_score1, avg_score2, avg_score3, review_title, review_content, review_writer, sysdate
-      FROM review
+      SELECT * FROM REVIEW
       ORDER BY review_no DESC
    </select>
    

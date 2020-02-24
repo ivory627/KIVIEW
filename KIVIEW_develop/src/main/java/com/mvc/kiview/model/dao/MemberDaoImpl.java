@@ -13,15 +13,15 @@ public class MemberDaoImpl implements MemberDao{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public MemberVo login(MemberVo vo) {
+	public MemberVo selectOne(MemberVo vo) {
 		MemberVo res = null;
 		System.out.println(vo.getMember_id()+"/"+vo.getMember_pwd());
 		
 		try {
-			res=sqlSession.selectOne(namespace+"login",vo);
+			res=sqlSession.selectOne(namespace+"selectOne",vo);
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("[error] : login");
+			System.out.println("[error] : selectOne");
 		}		
 		return res;
 	}
@@ -29,11 +29,64 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public MemberVo idSearch(MemberVo vo) {
 		MemberVo res = null;
+		
 		try {
 			res=sqlSession.selectOne(namespace+"idSearch",vo);
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("[error] : idSearch");
+		}		
+		return res;
+	}
+
+	@Override
+	public int signup(MemberVo vo) {
+		int res = 0;
+		
+		try {
+			res=sqlSession.insert(namespace+"signup",vo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("[error] : signup");
+		}		
+		return res;
+	}
+
+	@Override
+	public MemberVo signupIdChk(MemberVo vo) {
+		MemberVo res = null;	
+		
+		try {
+			res=sqlSession.selectOne(namespace+"signupIdChk",vo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("[error] : signup");
+		}		
+		return res;
+	}
+
+	@Override
+	public int updateMember(MemberVo vo) {
+		int res = 0;	
+
+		try {
+			res = sqlSession.update(namespace + "updateMember",vo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("[error] : update");
+		}		
+		return res;
+	}
+
+	@Override
+	public int deleteMember(MemberVo vo) {
+		int res = 0;	
+
+		try {
+			res = sqlSession.update(namespace + "deleteMember",vo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("[error] : delete");
 		}		
 		return res;
 	}
