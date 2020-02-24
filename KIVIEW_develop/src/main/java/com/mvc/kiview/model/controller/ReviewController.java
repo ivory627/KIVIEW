@@ -1,13 +1,19 @@
 package com.mvc.kiview.model.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mvc.kiview.model.biz.ReviewBiz;
+import com.mvc.kiview.model.vo.KinderVo;
 import com.mvc.kiview.model.vo.ReviewVo;
 
 @Controller //리뷰관련
@@ -28,7 +34,10 @@ public class ReviewController {
 	@RequestMapping("/reviewboard.do")
 	public String list(Model model) {
 		logger.info("ReviewController : REVIEW LIST");
+		
+		
 		model.addAttribute("list", biz.reviewList());
+		System.out.println(biz.reviewList());
 		return "review/kiview_reviewboard";
 	}
 	
@@ -73,5 +82,43 @@ public class ReviewController {
 			return "redirect:reviewboard.do";
 		}
 	}
+	
+	@RequestMapping("/reviewselect.do")
+	@ResponseBody //json으로 바꿔서 해 주는 역할
+	public Map review_select(int review_no) {
+		ReviewVo review = biz.reviewSelect(review_no);
+		System.out.println(review);
+		Map map = new HashMap();
+		map.put("review", review);
+		
+		return map;
+		
+	}
+	
+	@RequestMapping("/searchkinder.do")
+	@ResponseBody
+	public Map kinderSearch(String keyword) {
+		
+		List<KinderVo> kinder = biz.kinderSearch(keyword);
+		
+		Map map = new HashMap();
+		map.put("kinder", kinder);
+		
+		
+		
+		return map;
+	}
+	
+	@RequestMapping("/searchkinder2.do")
+	@ResponseBody
+	public Map kinderSearch2(String kinder_name) {
+		KinderVo kinder = biz.kinderSearch2(kinder_name);
+		System.out.println(kinder);
+		Map map = new HashMap();
+		map.put("kinder",kinder);
+		
+		return map;
+	}
+	
 
 }

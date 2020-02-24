@@ -3,6 +3,7 @@
 <% request.setCharacterEncoding("UTF-8");%>
 <% response.setContentType("text/html; charset=UTF-8");%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmf" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.List" %>
 
 <!DOCTYPE html>
@@ -151,24 +152,66 @@ form select {
 		$(".close").on("click", function() {
 			$("#myModal2").hide();
 		})
+		
+		
+		
+		
+		
+		$("#kinder_search").on("keyup", function(){
+			if($(this).val().length>1){
+				var search = []
+				$.ajax({
+					type:"post",
+					url:"searchkinder.do",
+					data:{"keyword":$("#kinder_search").val()},
+					dataType:"json",
+					success:function(data){
+						$.each(data.kinder, function(key, value){
+							search.push(value.name);
+						})
+						
+						
+						
+					},
+					error:function(){
+						
+					}
+					
+				})
+				
+				
+				$("#kinder_search").autocomplete({
+					source: search
+				})
+			}
+		})
 
 	})
+	
+function kinder_search2(){
+		$.ajax({
+			type:"post",
+			url:"searchkinder2.do",
+			data:{"kinder_name":$("#kinder_search").val()},
+			dataType:"json",
+			success:function(data){
+				console.log(data.kinder.addr1);
+				$("#myModal").find($("input[name=kinder_no]")).val(data.kinder.kinder_no);
+				$("#myModal").find($("input[name=kinder_addr]")).val(data.kinder.addr1);
+				
+			},
+			error:function(){
+				alert("명령 실행 중 오류");
+			}
+			
+			
+			
+		})
+		
+	}	
 
-$(document).ready(function() {
-    $('#review_content').on('keyup', function() {
-        if($(this).val().length > 4000) {
-            $(this).val($(this).val().substring(0, 4000));
-        }
-    });
-});
-// 수정 버튼 누를 때 데이터 들고가기
-function inputInfo(title, content, no){
-	$("#review_edit_title").val(title);
-	$("#review_edit_content").val(content);
-	$("#review_no").val(no);
-	$("#myModal2").show();
-}
 
+	
 
 ///////////////////////////지민like//////////////////////////////
 var likeSubmit = function(review_no,memeber_no){
@@ -191,6 +234,52 @@ var likeSubmit = function(review_no,memeber_no){
       });
    }
 ///////////////////////////지민like 끝//////////////////////////////
+function update_form(review_no){
+	$.ajax({
+		type:"post",
+		url:"reviewselect.do",
+		data:{"review_no":review_no},
+		dataType:"json",
+		success:function(data){
+			$("#myModal2").find($("input[name=review_no]")).val(data.review.review_no);
+			$("#myModal2").find($("input[name=kinder_no]")).val(data.review.kinder_no);
+			$("#myModal2").find($("input[name=kinder_name]")).val(data.review.kinder_name);
+			$("#myModal2").find($("input[name=kinder_addr]")).val(data.review.kinder_addr);
+			$("#myModal2").find($("input[name=avg_score1]:input[value="+data.review.avg_score1+"]")).prop("checked", true);
+			$("#myModal2").find($("input[name=avg_score2]:input[value="+data.review.avg_score2+"]")).prop("checked", true);
+			$("#myModal2").find($("input[name=avg_score3]:input[value="+data.review.avg_score3+"]")).prop("checked", true);
+			$("#myModal2").find($("input[name=review_title]")).val(data.review.review_title);
+			$("#myModal2").find($("textarea[name=review_content]")).val(data.review.review_content);
+			
+			$("#review_year_update option").each(function(i){
+				if($(this).val()==data.review.review_year){
+					$(this).attr("selected", "selected")
+				}
+				
+			})
+			
+			$("#myModal2").find($("input[name=review_date]")).val(data.review.review_date);
+			
+			
+			
+		},
+		error:function(){
+			alert("실패")
+		}
+	
+	
+	})
+	
+	
+	
+	$("#myModal2").show(); 
+	
+}
+
+
+
+
+
 </script>
 </head>
 
@@ -304,7 +393,7 @@ var likeSubmit = function(review_no,memeber_no){
 								<label>“ ${review.review_title} ”</label>
 							</h3>
 							<p class="subheading">
-								<span> ${review.review_writer} </span> | <span>2017년 등원</span> | <span>${review.review_date} </span>
+								<span> ${review.review_writer} </span> | <span>2017년 등원</span> | <span><fmf:formatDate value="${review.review_date}" pattern='yyyy-MM-dd HH:mm'/> </span>
 							</p>
 							<p>내용 ${review.review_content} </p>
 						</div>
@@ -312,8 +401,7 @@ var likeSubmit = function(review_no,memeber_no){
 
 					<div class="reviewBtn" style="padding: 30px; width: 100%;">
 					<c:if test="${review.review_writer eq login.member_id}">
-						<input id="myBtn2" class="btn btn-secondary" type="button" value="수정"  onclick='inputInfo("${review.review_no}", "${review.review_title}", "${review_edit_content}");'>
-						<%-- <button id="myBtn2" class="btn btn-secondary"  type="button" onClick="inputInfo(${review.review_title});">수정</button> --%>
+						<input class="btn btn-secondary" type="button" value="수정" onclick="update_form(${review.review_no})">
 						<input class="btn btn-primary" type="button" value="삭제" onclick="location.href='reviewDelete.do?review_no=${review.review_no}'">
 					</c:if>
 						<input class="btn btn-primary" type="button" value="좋아요">
@@ -360,8 +448,14 @@ var likeSubmit = function(review_no,memeber_no){
 					<div>
 						<label>유치원 명 </label><br> 
 						<input type="hidden" name="review_writer" value="${login.member_id}">
-						<input type="text" placeholder="유치원을 검색해 주세요. 유치원 목록 필요." name="name"
-							style="width: 101%"><br> <br> 
+						<input type="hidden" name="kinder_no" >
+						
+						<input id="kinder_search" type="text" placeholder="유치원을 검색해 주세요." name="kinder_name"
+							style="width: 50%">
+						<input type="button" onclick="kinder_search2()" value="선택"> 
+						<input style="width:100%" type="text" name="kinder_addr" placeholder="유치원 주소" readonly>
+							
+							<br> <br> 
 							<label> 등원시기 </label><br> 
 							<select style="width: 101%; height: 35px;" name="review_year">
 							<option selected="selected">선택</option>
@@ -472,7 +566,7 @@ var likeSubmit = function(review_no,memeber_no){
 					<div style="position: relative; left: 38%;">
 						<input class="btn btn-secondary" style="width: 15%" type="submit" value="작성">
 						&nbsp;&nbsp;&nbsp;
-						<input id="modal-close" class="btn btn-primary" style="width: 15%" type="button" value="취소" onclick="location.href='reviewList.do'">
+						<input id="modal-close" class="btn btn-primary" style="width: 15%" type="button" value="취소" onclick="location.href='reviewboard.do'">
 					</div>
 				</form>
 			</div>
@@ -497,7 +591,7 @@ var likeSubmit = function(review_no,memeber_no){
 	<div id="myModal2" class="modal">
 
 		<!-- Modal content -->
-		<div class="modal-content" id="myModal2test" style="padding: 40px;">
+		<div class="modal-content" style="padding: 40px;">
 			<span style="width: 5%;" class="close">&times;</span>
 
 			<div>
@@ -508,15 +602,18 @@ var likeSubmit = function(review_no,memeber_no){
 					않음을 약속드립니다.</h6>
 				<br>
 
-				<form action="reviewUpdate.do" method="get">
-					<input type="hidden" id="review_no" name="review_no" value="${review.review_no}">
+				<form id="reviewUpdate" action="reviewUpdate.do" method="get">
+					<input type="hidden" name="review_no" >
+					<input type="hidden" name="kinder_no">
 					<div>
 						<label>유치원 명 </label><br> 
-						<input type="hidden" name="review_writer" value="${login.member_id}">
-						<input type="text" placeholder="${review.name}" name="name" value="${review.name}"
-							style="width: 101%"><br> <br> 
+						<input type="hidden" name="review_writer" >
+						<input type="text" placeholder="유치원명을 입력하세요." name="kinder_name" 
+							style="width: 101%">
+							<input type="text" name="kinder_addr">
+								<br> <br> 
 							<label> 등원시기 </label><br> 
-							<select style="width: 101%; height: 35px;" name="review_year">
+							<select id="review_year_update" style="width: 101%; height: 35px;" name="review_year" disabled>
 							<option selected="selected">선택</option>
 							<option>2020년</option>
 							<option>2019년</option>
@@ -538,11 +635,13 @@ var likeSubmit = function(review_no,memeber_no){
 						<br> <br> 
 						<label>제목 </label><br> 
 						<input
-							type="text" name="review_edit_title" id="review_edit_title"
-							style="width: 101%"><br> <br> 
+							type="text" name="review_title"
+							style="width: 101%" placeholder="제목을 입력하세요." minlength="4" maxlength="30" required><br> <br> 
+							
+							
 							<label>내용 </label>
 							<span style="position: relative; left: 85%">0/200자</span><br>
-						<textarea style="width: 100%; height: auto; resize: none;" id="review_edit_content" name="review_edit_content"> ${review.review_content} </textarea>
+						<textarea style="width: 100%; height: auto; resize: none;" name="review_content" minlength="4" maxlength="1000" required></textarea>
 						<br> <br>
 					</div>
 					<br>
@@ -555,15 +654,15 @@ var likeSubmit = function(review_no,memeber_no){
 							<label>원장/교사</label><br>
 							<div class="input">
 
-								<input type="radio" name="avg_score1" value="1" id="p1">
+								<input type="radio" name="avg_score1" value="1" id="p1" disabled>
 								<label for="p1">1</label> 
-								<input type="radio" name="avg_score1" value="2" id="p2"> 
+								<input type="radio" name="avg_score1" value="2" id="p2" disabled> 
 									<label for="p2">2</label> 
-								<input type="radio" name="avg_score1" value="3" id="p3"> 
+								<input type="radio" name="avg_score1" value="3" id="p3" disabled> 
 								<label for="p3">3</label> 
-								<input type="radio" name="avg_score1" value="4" id="p4"> 
+								<input type="radio" name="avg_score1" value="4" id="p4" disabled> 
 								<label for="p4">4</label> 
-								<input type="radio" name="avg_score1" value="5" id="p5"> 
+								<input type="radio" name="avg_score1" value="5" id="p5" disabled> 
 								<label for="p5">5</label>
 
 							</div>
@@ -577,15 +676,15 @@ var likeSubmit = function(review_no,memeber_no){
 							<label>교과/수업</label><br>
 							<div class="input2">
 
-								<input type="radio" name="avg_score2" value="1" id="p12">
+								<input type="radio" name="avg_score2" value="1" id="p12" disabled>
 								<label for="p12">1</label> 
-								<input type="radio" name="avg_score2" value="2" id="p22"> 
+								<input type="radio" name="avg_score2" value="2" id="p22" disabled> 
 								<label for="p22">2</label>
-								<input type="radio" name="avg_score2" value="3" id="p32">
+								<input type="radio" name="avg_score2" value="3" id="p32" disabled>
 								<label for="p32">3</label> 
-								<input type="radio" name="avg_score2" value="4" id="p42"> 
+								<input type="radio" name="avg_score2" value="4" id="p42" disabled> 
 								<label for="p42">4</label>
-								<input type="radio" name="avg_score2" value="5" id="p52">
+								<input type="radio" name="avg_score2" value="5" id="p52" disabled>
 								<label for="p52">5</label>
 
 
@@ -600,15 +699,15 @@ var likeSubmit = function(review_no,memeber_no){
 							<label>시설/청결</label><br>
 							<div class="input3">
 
-								<input type="radio" name="avg_score3" value="1" id="p13">
+								<input type="radio" name="avg_score3" value="1" id="p13" disabled>
 								<label for="p13">1</label> 
-								<input type="radio" name="avg_score3" value="2" id="p23"> 
+								<input type="radio" name="avg_score3" value="2" id="p23" disabled> 
 								<label for="p23">2</label>
-								<input type="radio" name="avg_score3" value="3" id="p33">
+								<input type="radio" name="avg_score3" value="3" id="p33" disabled>
 								<label for="p33">3</label> 
-								<input type="radio" name="avg_score3" value="4" id="p43"> 
+								<input type="radio" name="avg_score3" value="4" id="p43" disabled> 
 								<label for="p43">4</label>
-								<input type="radio" name="avg_score3" value="5" id="p53">
+								<input type="radio" name="avg_score3" value="5" id="p53" disabled>
 								<label for="p53">5</label>
 
 
@@ -624,7 +723,7 @@ var likeSubmit = function(review_no,memeber_no){
 					<div style="position: relative; left: 38%;">
 						<input class="btn btn-secondary" style="width: 15%" type="submit" value="수정">
 						&nbsp;&nbsp;&nbsp;
-						<input id="modal-close" class="btn btn-primary" style="width: 15%" type="button" value="취소">
+						<input id="modal2-close" class="btn btn-primary" style="width: 15%" type="button" value="취소">
 					</div>
 				</form>
 			</div>

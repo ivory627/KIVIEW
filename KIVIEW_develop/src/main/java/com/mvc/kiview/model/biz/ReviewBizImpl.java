@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.kiview.model.dao.ReviewDao;
+import com.mvc.kiview.model.vo.KinderVo;
 import com.mvc.kiview.model.vo.ReviewVo;
 
 @Service
@@ -38,6 +39,24 @@ public class ReviewBizImpl implements ReviewBiz{
 	public int reviewSearch() {
 		// TODO Auto-generated method stub
 		return dao.reviewSearch();
+	}
+
+	@Override
+	public ReviewVo reviewSelect(int review_no) {
+		// TODO Auto-generated method stub
+		return dao.reviewSelect(review_no);
+	}
+
+	@Override
+	public List<KinderVo> kinderSearch(String keyword) {
+		
+		return dao.kinderSearch(keyword);
+	}
+
+	@Override
+	public KinderVo kinderSearch2(String kinder_name) {
+		// TODO Auto-generated method stub
+		return dao.kinderSearch2(kinder_name);
 	}
 
 }

@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mvc.kiview.model.vo.KinderVo;
 import com.mvc.kiview.model.vo.ReviewVo;
 
 @Repository
@@ -81,6 +82,47 @@ public class ReviewDaoImpl implements ReviewDao{
 	public int reviewSearch() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public ReviewVo reviewSelect(int review_no) {
+		ReviewVo res = null;
+		
+		try {
+			res = sqlSession.selectOne(namespace+"reviewselect", review_no);
+		} catch (Exception e) {
+			System.out.println("error : review select DaoImpl");
+			e.printStackTrace();
+		}
+		
+		
+		return res;
+	}
+
+	@Override
+	public List<KinderVo> kinderSearch(String keyword) {
+		List<KinderVo> res = null;
+		
+		try {
+			res = sqlSession.selectList(namespace+"kinderSearch", keyword);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("error : kinder search DaoImpl");
+		}
+		return res;
+	}
+
+	@Override
+	public KinderVo kinderSearch2(String kinder_name) {
+		KinderVo res = null;
+		
+		try {
+			res = sqlSession.selectOne(namespace+"kinderSearch2", kinder_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("error : kinder search DaoImpl");
+		}
+		return res;
 	}
 
 }

@@ -240,7 +240,7 @@ $(function(){
 
             <li class="nav-item"><a href="kindersearch.do" class="nav-link">유치원
                   검색</a></li>
-            <li class="nav-item"><a href="reviewlist.do" class="nav-link">유치원
+            <li class="nav-item"><a href="reviewboard.do" class="nav-link">유치원
                   리뷰</a></li>
          </ul>
       </div>
