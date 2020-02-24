@@ -4,28 +4,40 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="review">
-  	<resultMap id="reviewboard" type="ReviewVo">
-
-		<result column="review_no" property="review_no"/>
-		<result column="name" property="name"/>
-		<result column="avg_score1" property="avg_score1"/>
-		<result column="avg_score2" property="avg_score2"/>
-		<result column="avg_score3" property="avg_score3"/>
-		<result column="review_title" property="review_title"/>
-		<result column="review_content" property="review_content"/>
-		<result column="review_date" property="review_date"/>
-
-	</resultMap>
-
-	<insert id="reviewList" parameterType="reviewVo" >
-		insert into review
-		values(review_seq.nextval, #{name}, #{avg_score1}, #{avg_score2}, #{avg_score3}, #{review_title}, #{review_content}, #{review_writer}, sysdate)
-	</insert>
-	
+     
+   <resultMap type="reviewVo" id="reviewboard">
+      <result property="review_no" column="review_no" />
+      <result property="name" column="name" />
+      <result property="avg_score1" column="avg_score1" />
+      <result property="avg_score2" column="avg_score2" />
+      <result property="avg_score3" column="avg_score3" />
+      <result property="review_title" column="review_title" />
+      <result property="review_content" column="review_content" />
+      <result property="review_writer" column="review_writer" />
+      <result property="review_date" column="review_date" />
+   </resultMap>
+   
+   <insert id="reviewInsert" parameterType="reviewVo" >
+      insert into review
+      values(review_seq.nextval, 1, #{name}, 1, #{avg_score1}, #{avg_score2}, #{avg_score3}, #{review_title}, #{review_content}, #{review_writer}, SYSDATE)
+   </insert>
+   <!-- 1 : kinder_no / 1 : 유치원 주소 -->
+   
 	<select id="reviewList" resultMap="reviewboard" >
-		SELECT name, avg_score1, avg_score2, avg_score3, review_title, review_content, review_writer, sysdate
-		FROM review
+		SELECT * FROM REVIEW
 		ORDER BY review_no DESC
 	</select>
-
+   
+   <insert id="reviewUpdate" parameterType="reviewVo" >
+      update review
+      set review_title=#{review_title}, review_content=#{review_content}
+      where review_no=#{review_no}
+   </insert>
+   
+   <delete id="reviewDelete" parameterType="int">
+      delete from review
+      where review_no=#{review_no}
+   </delete>
+     
   </mapper>
+  
