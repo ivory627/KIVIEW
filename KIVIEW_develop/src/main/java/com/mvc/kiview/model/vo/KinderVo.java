@@ -8,8 +8,8 @@ public class KinderVo {
 	private String type;
 	private String addr1;
 	private String addr2;
-	private int latitude;
-	private int longitude;
+	private double latitude;
+	private double longitude;
 	private String phone;
 	private String director;
 	private Date opendate;
@@ -26,7 +26,7 @@ public class KinderVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public KinderVo(int kinder_no, String name, String type, String addr1, String addr2, int latitude, int longitude,
+	public KinderVo(int kinder_no, String name, String type, String addr1, String addr2, double latitude, double longitude,
 			String phone, String director, Date opendate, String homepage, int class_num, int children_num,
 			int staff_num, String drive_yn, String meal_yn, String cctv_yn) {
 		super();
@@ -89,19 +89,19 @@ public class KinderVo {
 		this.addr2 = addr2;
 	}
 
-	public int getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(int latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
-	public int getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(int longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
