@@ -11,6 +11,8 @@ import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeCategoryVo;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
+import com.mvc.kiview.model.vo.CafePageVo;
+import com.mvc.kiview.model.vo.CafeReplyVo;
 import com.mvc.kiview.model.vo.CafeVo;
 
 @Service
@@ -19,7 +21,7 @@ public class CafeBizImpl implements CafeBiz {
 	@Autowired
 	private CafeDao dao;
 
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ수정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   
+
 	@Override
 	public List<CafeVo> cafe_Ulist(int member_no) {
 
@@ -37,7 +39,6 @@ public class CafeBizImpl implements CafeBiz {
 		return dao.cafe_regyn(regyn);
 	}
 
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@Transactional
 	@Override
 	public int cafe_insert(CafeVo vo1, CafeMemberVo vo2) {
@@ -136,11 +137,219 @@ public class CafeBizImpl implements CafeBiz {
 		
 		return dao.cafe_member_list(cafe_no);
 	}
-
+	
+	
 	@Override
 	public int menu_delete(int cafe_menu_no) {
 		
+			
 		return dao.menu_delete(cafe_menu_no);
+			
 	}
+	
+
+	@Override
+	public int category_delete_all(int cafe_menu_no) {
+		
+		return dao.category_delete_all(cafe_menu_no);
+	}
+	
+	//------------------------------- 게시판 -----------------------------//
+	   @Override
+	   public List<CafeBoardVo> cafe_board(int cafe_no) {
+	      
+	      return dao.cafe_board(cafe_no);
+	   }
+
+	   @Override
+	   public List<CafeBoardVo> cafe_boardlist(int cafe_menu_no) {
+	      
+	      return dao.cafe_boardlist(cafe_menu_no);
+	   }
+
+	   @Override
+	   public String cafe_menu_name(int cafe_menu_no) {
+	      
+	      return dao.cafe_menu_name(cafe_menu_no);
+	   }
+    
+	   
+	   @Override
+	   public int cafe_board_insert(CafeBoardVo cafeboardvo) {
+	      
+	      return dao.cafe_board_insert(cafeboardvo);
+	   }
+
+	   @Override
+	   public CafeBoardVo cafe_board_detail(int cafe_board_no) {
+	      
+	      return dao.cafe_board_detail(cafe_board_no);
+	   }
+
+	   @Override
+	   public int cafe_board_delete(int cafe_board_no) {
+	      
+	      return dao.cafe_board_delete(cafe_board_no);
+	   }
+
+	   @Override
+	   public int cafe_board_update(CafeBoardVo cafeboardvo) {
+	      
+	      return dao.cafe_board_update(cafeboardvo);
+	   }
+	   
+	   @Override
+	   public int cafe_board_hit(int cafe_board_no) {
+	      
+	      return dao.cafe_board_hit(cafe_board_no);
+	   }
+
+	   @Override
+	   public List<CafeReplyVo> cafe_board_reply_list(int cafe_board_no) {
+	      
+	      return dao.cafe_reply_list(cafe_board_no);
+	   }
+
+	   @Override
+	   public int reply_insert(CafeReplyVo cafereplyvo) {
+	      
+	      int res = dao.reply_insert(cafereplyvo);
+	      
+	      if(res>0) {
+	         res = 1;
+	      }else {
+	         res = 0;
+	      }
+	      
+	      
+	      return res;
+	   }
+
+	   @Override
+	   public int reply_delete(int cafe_reply) {
+	      int res = dao.reply_delete(cafe_reply);
+	      
+	      if(res>0) {
+	         res=1;
+	      }else {
+	         res=0;
+	      }
+	      return res;
+	   }
+	   
+	   @Override
+	   public int reply_update(CafeReplyVo cafereplyvo) {
+	      int res = dao.reply_update(cafereplyvo);
+	      
+	      if(res>0) {
+	         res=1;
+	      }else {
+	         res=0;
+	      }
+	      return res;
+	      
+	   }
+	   
+	   @Override
+		public List<CafeReplyVo> cafe_board_reply_allList() {
+			
+			return dao.cafe_board_reply_allList();
+		}
+	   
+	   @Override
+	   public List<CafeBoardVo> cafe_searchlist(CafePageVo cafepagevo) {
+	         
+	      return dao.cafe_searchlist(cafepagevo);
+	   }
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   //
+	
+	   @Override
+	public int menu_update(CafeMenuVo menu) {
+		
+		return dao.menu_update(menu);
+	}
+
+	@Override
+	public int category_update(CafeCategoryVo category) {
+		
+		return dao.category_update(category);
+	}
+
+	@Override
+	public int category_delete(int category_no) {
+		
+		return dao.category_delete(category_no);
+	}
+
+	@Override
+	public int category_update_insert(CafeCategoryVo category) {
+		
+		return dao.category_update_insert(category);
+	}
+
+	@Override
+	public int cafe_update(CafeVo cafe) {
+		
+		return dao.cafe_update(cafe);
+	}
+
+	@Override
+	public CafeVo cafe_chk(String title) {
+		
+		return dao.cafe_chk(title);
+	}
+
+	
+	//--회원관리--//
+	@Override
+	public int member_block(int cafe_member_no) {
+		
+		return dao.member_block(cafe_member_no);
+	}
+	
+	@Override
+	public int member_unblock(int cafe_member_no) {
+		
+		return dao.member_unblock(cafe_member_no);
+	}
+
+	@Override
+	public int member_sign(int cafe_member_no) {
+		
+		return dao.member_sign(cafe_member_no);
+	}
+
+	
+
+	@Override
+	public List<CafeMemberVo> member_selectAll() {
+		
+		return dao.member_selectAll();
+	}
+
+	@Override
+	public int member_delete(int cafe_member_no) {
+		
+		return dao.member_delete(cafe_member_no);
+	}
+
+	@Override
+	public int cafe_delete(int cafe_no) {
+		
+		return dao.cafe_delete(cafe_no);
+	}
+
+	
+
+	
+	
 
 }

@@ -6,6 +6,7 @@ public class CafeMemberVo {
 	private int cafe_member_no;
 	private int member_no;
 	private int cafe_no;
+	private String name;
 	private String answer;
 	private String signyn;
 	private String blockyn;
@@ -13,16 +14,30 @@ public class CafeMemberVo {
 	
 	
 	
-	public CafeMemberVo() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public CafeMemberVo(int member_no, String answer, String signyn) {
+	public CafeMemberVo(int member_no, String name,String answer, String signyn) {
 		super();
 		this.member_no = member_no;
+		this.name = name;
 		this.answer = answer;
 		this.signyn = signyn;
 		
+		
+	}
+	public CafeMemberVo(int cafe_member_no, int member_no, int cafe_no, String name, String answer, String signyn,
+			String blockyn, Date signdate) {
+		super();
+		this.cafe_member_no = cafe_member_no;
+		this.member_no = member_no;
+		this.cafe_no = cafe_no;
+		this.name = name;
+		this.answer = answer;
+		this.signyn = signyn;
+		this.blockyn = blockyn;
+		this.signdate = signdate;
+	}
+	public CafeMemberVo() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	public int getCafe_member_no() {
 		return cafe_member_no;
@@ -41,6 +56,12 @@ public class CafeMemberVo {
 	}
 	public void setCafe_no(int cafe_no) {
 		this.cafe_no = cafe_no;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getAnswer() {
 		return answer;
@@ -69,8 +90,11 @@ public class CafeMemberVo {
 	@Override
 	public String toString() {
 		return "CafeMemberVo [cafe_member_no=" + cafe_member_no + ", member_no=" + member_no + ", cafe_no=" + cafe_no
-				+ ", answer=" + answer + ", signyn=" + signyn + ", blockyn=" + blockyn + ", signdate=" + signdate + "]";
+				+ ", name=" + name + ", answer=" + answer + ", signyn=" + signyn + ", blockyn=" + blockyn
+				+ ", signdate=" + signdate + "]";
 	}
+	
+	
 	
 	
 

@@ -6,6 +6,21 @@ public class CafeMenuVo {
 	private String name;
 	private String authority;
 	private String concept;
+	
+	
+	
+	public CafeMenuVo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public CafeMenuVo(int cafe_menu_no, int cafe_no, String name, String authority, String concept) {
+		super();
+		this.cafe_menu_no = cafe_menu_no;
+		this.cafe_no = cafe_no;
+		this.name = name;
+		this.authority = authority;
+		this.concept = concept;
+	}
 	public int getCafe_menu_no() {
 		return cafe_menu_no;
 	}

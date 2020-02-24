@@ -109,7 +109,7 @@ function test(){
               <div class="col-md-6 col-lg-4 ftco-animate"
                      style="position: relative; left: 40%">
                      <br>
-                     <br> 검색 된 카페가 없습니다. <br>
+                     <br> 검색 된 카페가 없습니다. [버튼] 추가 하자 카페 전체 목록 뿌려주자. <br>
                      <br>
                   </div>         
             
