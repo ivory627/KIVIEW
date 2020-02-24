@@ -12,7 +12,7 @@
 <head>
 <title>KIVIEW &mdash; About</title>
 
-<jsp:include page="head.jsp"/>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#btn1").click(function(){
@@ -20,6 +20,13 @@
 		});
 	});
 </script>
+<jsp:include page="../head.jsp"/>
+
+<!-- js -->
+<script type="text/javascript" src = "resources/js/notice-detail.js"></script>
+<script type="text/javascript" src = "resources/js/notice.js"></script>
+
+
 <style type="text/css">
 
 #writebtn{
@@ -52,8 +59,10 @@ box-sizing: border-box;
 
 <body id="body">
 
-	<!-- @@ header 부분 @@ -->
-	<jsp:include page="header.jsp"/>
+
+	<!-- header 부분 -->
+	<jsp:include page="../header.jsp"/>
+
 
 	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
 	<section class="hero-wrap hero-wrap-2"
@@ -243,7 +252,7 @@ box-sizing: border-box;
 
 
 	<!-- @@ footer 영역 @@ -->
-	<jsp:include page="footer.jsp"/>
+	<jsp:include page="../footer.jsp"/>
 
 
 

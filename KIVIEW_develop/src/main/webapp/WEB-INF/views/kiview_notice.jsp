@@ -13,7 +13,7 @@
 <title>KIVIEW &mdash; About</title>
 
 <!-- css -->
-<jsp:include page="head.jsp"/>
+<jsp:include page="../head.jsp"/>
 <!-- js -->
 <script type="text/javascript" src = "resources/js/test.js"></script>
 
@@ -22,7 +22,7 @@
 <body id="body">
 
 	<!-- header 부분 -->
-	<jsp:include page="header.jsp"/>
+	<jsp:include page="../header.jsp"/>
 	<section class="hero-wrap hero-wrap-2"
 		style="background-image: url('resources/images/main/board_img01.png');">
 		<div class="container">
@@ -286,7 +286,7 @@
 	<br>
 
 	<!-- footer 영역 -->
-	<jsp:include page="footer.jsp"/>
+	<jsp:include page="../footer.jsp"/>
 
 </body>
 </html>

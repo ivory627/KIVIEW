@@ -17,7 +17,12 @@
 <title>KVIEIW - 수정하기</title>
 
 <link rel="stylesheet" href="resources/css/notice_write.css">
-<%@ include file = "head.jsp" %>
+
+<jsp:include page = "../head.jsp"/>
+
+<!-- js -->
+
+
 
 <!-- SmartEditor2 라이브러리  -->
 <script type="text/javascript" src="se2/js/HuskyEZCreator.js" charset="utf-8"></script>
@@ -28,7 +33,9 @@
 <body>
 
 	<!-- header 부분 -->
-	<%@ include file="header.jsp"%>
+
+	<jsp:include page="../header.jsp"/>
+
 
 	<section class="hero-wrap hero-wrap-2"
 		style="background-image: url('resources/images/bg_2.jpg');">
@@ -129,7 +136,9 @@
 			</div>
     </section>
 	
-	<%@ include file = "footer.jsp" %>
+
+	<jsp:include page = "../footer.jsp"/>
+
 
 
 </body>

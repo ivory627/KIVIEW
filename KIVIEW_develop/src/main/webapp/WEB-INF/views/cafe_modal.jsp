@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@include file="head.jsp" %>
+<%@include file="../head.jsp" %>
 <style type="text/css">
  /* The Modal (background) */
         .modal {

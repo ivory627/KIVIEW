@@ -9,7 +9,7 @@
 <head>
 <title>KIVIEW &mdash; BlogDetail</title>
 
-<%@ include file="head.jsp"%>
+<%@ include file="../head.jsp"%>
 <style type="text/css">
 label{
    color:black;
@@ -42,7 +42,7 @@ function check(){
 <body id = "body">
 
    <!-- @@ header 부분 @@ -->
-   <%@ include file="header.jsp"%>
+   <%@ include file="../header.jsp"%>
 
    <!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
    <section class="hero-wrap hero-wrap-2"
@@ -153,7 +153,7 @@ function check(){
 
 
    <!-- @@ footer 영역 @@ -->
-   <%@ include file="footer.jsp"%>
+   <%@ include file="../footer.jsp"%>
 
 
    

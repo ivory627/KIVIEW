@@ -13,7 +13,7 @@
 
 <title>KIVIEW &mdash; Cafe Home</title>
 
-<%@ include file="head.jsp"%>
+<%@ include file="../head.jsp"%>
 
 <style type="text/css">
 a {
@@ -41,7 +41,7 @@ a {
 
 
 	<!-- @@ header 부분 @@ -->
-	<%@ include file="header.jsp"%>
+	<%@ include file="../header.jsp"%>
 
 	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
 	<section class="hero-wrap hero-wrap-2"
@@ -202,7 +202,7 @@ a {
 
 
 	<!-- @@ footer 영역 @@ -->
-	<%@ include file="footer.jsp"%>
+	<%@ include file="../footer.jsp"%>
 
 
 
