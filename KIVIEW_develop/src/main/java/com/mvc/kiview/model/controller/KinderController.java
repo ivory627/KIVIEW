@@ -30,7 +30,7 @@ public class KinderController {
 		logger.info("KINDER SEARCH");
 		model.addAttribute("sido",biz.ProvinceList());
 		
-		return "kiview_search";
+		return "kinder/kiview_search";
 	}
 	
 	@RequestMapping("/searchdetail.do")
@@ -38,7 +38,7 @@ public class KinderController {
 		logger.info("KINDER SEARCH DETAIL");
 		//System.out.println(kinder_no);
 		model.addAttribute("kindervo",biz.Kinderdetail(kinder_no));
-		return "kiview_Search_detail";
+		return "kinder/kiview_Search_detail";
 	}
 	
 	@RequestMapping("/ajaxsigungu.do")

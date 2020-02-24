@@ -42,7 +42,7 @@ public class NoticeController {
 		model.addAttribute("noticelist", n_biz.noticeList(cri));
 		model.addAttribute("pageMaker", pageMaker);
 
-		return "kiview_notice";
+		return "notice/kiview_notice";
 	}
 
 	/* 공지사항 selectOne */
@@ -59,7 +59,7 @@ public class NoticeController {
 		model.addAttribute("noticedetail", n_biz.n_selectOne(notice_no));
 		model.addAttribute("pageMaker", pageMaker);
 
-		return "kiview_notice_detail";
+		return "notice/kiview_notice_detail";
 	}
 
 	/* admin 계정으로 로그인 - 글쓰기 버튼 클릭시 write 폼으로 */
@@ -68,7 +68,7 @@ public class NoticeController {
 
 		logger.info("NOTICE WRITE");
 
-		return "kiview_notice_write";
+		return "notice/kiview_notice_write";
 	}
 
 	/* 글 작성 insert redirect 부분 */
@@ -96,7 +96,7 @@ public class NoticeController {
 		model.addAttribute("noticeupdate", n_biz.n_selectOne(notice_no));
 		model.addAttribute("page", page);
 
-		return "kiview_notice_update";
+		return "notice/kiview_notice_update";
 	}
 
 	/* 수정완료 클릭 시 redirect */
@@ -150,7 +150,7 @@ public class NoticeController {
 		model.addAttribute("faqlist", n_biz.faqList(cri));
 		model.addAttribute("pageMaker", pageMaker);
 
-		return "kiview_FAQ";
+		return "notice/kiview_FAQ";
 	}
 
 	/* FAQ 질문 Detail AJAX 처리 메소드 */
@@ -181,7 +181,7 @@ public class NoticeController {
 
 		logger.info("FAQ INSERT FORM");
 
-		return "kiview_faq_write";
+		return "notice/kiview_faq_write";
 	}
 
 	/* FAQ 글작성 insert redirect */
@@ -209,7 +209,7 @@ public class NoticeController {
 		model.addAttribute("page", page);
 		model.addAttribute("faqcatd", faqcatd);
 
-		return "kiview_faq_update";
+		return "notice/kiview_faq_update";
 	}
 
 	@RequestMapping("/faqUpdateRes.do")
@@ -248,7 +248,7 @@ public class NoticeController {
 
 	@RequestMapping("/chatbot.do")
 	public String chatbot() {
-		return "demoChatbot";
+		return "notice/demoChatbot";
 	}
 
 }
