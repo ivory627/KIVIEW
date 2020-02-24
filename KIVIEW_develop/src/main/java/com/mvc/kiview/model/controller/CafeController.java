@@ -65,7 +65,7 @@ public class CafeController {
 		// 내가 운영 중이 카페 목록
 		model.addAttribute("Alist", Alist);
 
-		return "cafe_home";
+		return "cafe/cafe_home";
 	}
 
 	@RequestMapping("cafemy.do")
@@ -79,7 +79,7 @@ public class CafeController {
 		model.addAttribute("member",member);
 		
 
-		return "cafe_my";
+		return "cafe/cafe_my";
 
 	}
 	
@@ -130,7 +130,7 @@ public class CafeController {
 
 		model.addAttribute("Slist", slist);
 		model.addAttribute("keyword", keyword);
-		return "cafe_search";
+		return "cafe/cafe_search";
 	}
 
 	///////////////////////////// 카페 안 /////////////////////////////////
@@ -164,7 +164,7 @@ public class CafeController {
 
 		CafeMemberVo res = biz.cafe_regyn(regyn);
 
-		return "cafe_detail";
+		return "cafe/cafe_detail";
 	}
 
 	
@@ -183,7 +183,7 @@ public class CafeController {
 
 		List<CafeMenuVo> menu = biz.menu_list(cafe_no);
 		model.addAttribute("menu", menu);
-		return "cafe_config";
+		return "cafe/cafe_config";
 	}
 	
 	
@@ -564,7 +564,7 @@ public class CafeController {
 
 		
 
-		return "cafe_join";
+		return "cafe/cafe_join";
 	}
 
 	@RequestMapping("/cafejoin.do")
@@ -589,7 +589,7 @@ public class CafeController {
 
 	@RequestMapping("/cafeopen.do")
 	public String cafe_open() {
-		return "cafe_open";
+		return "cafe/cafe_open";
 	}
 
 	@RequestMapping("/cafeinsert.do")
@@ -601,7 +601,7 @@ public class CafeController {
 
 		if (result.hasErrors()) { // 에러가 발생하였는지
 
-			return "cafe_open";
+			return "cafe/cafe_open";
 		}
 
 		int count1 = 1;
@@ -758,7 +758,7 @@ public class CafeController {
 		model.addAttribute("Blist", Blist);
 		model.addAttribute("cafe_menu_name", cafemenuname);
 		model.addAttribute("cafe_menu_no", cafe_menu_no);  
-		return "cafe_board";
+		return "cafe/cafe_board";
 	}
 
 	@RequestMapping("/boardwrite.do")
@@ -769,7 +769,7 @@ public class CafeController {
 	     
 	    model.addAttribute("cafe_menu_no",cafe_menu_no);
 		
-		return "cafe_board_write";
+		return "cafe/cafe_board_write";
 	}
 
 	
@@ -807,7 +807,7 @@ public class CafeController {
 	      model.addAttribute("cafe_board_detail",cafeboardvo);      
 	      model.addAttribute("cafe_menu_no",cafe_menu_no);
 	      
-	      return "cafe_board_detail";
+	      return "cafe/cafe_board_detail";
 	   }
 	   @RequestMapping("/cafeboarddelete.do")
 	   public String cafe_board_delete(Model model,int cafe_board_no , int cafe_menu_no,int cafe_no) {
@@ -832,7 +832,7 @@ public class CafeController {
 	      model.addAttribute("cafe_no",cafe_no);
 	      model.addAttribute("cafe_menu_no",cafe_menu_no);
 	      model.addAttribute("cafe_board_no",cafe_board_no);
-	      return "cafe_board_update";
+	      return "cafe/cafe_board_update";
 	   }
 	   
 	   
@@ -987,7 +987,7 @@ public class CafeController {
 		   model.addAttribute("menu", menu);
 		   model.addAttribute("reply",reply);
 		   
-		   return "cafe_guest";
+		   return "cafe/cafe_guest";
 	   }
 	   
 	   @RequestMapping("/cafeguestwrite.do")

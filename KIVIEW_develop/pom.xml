@@ -217,6 +217,19 @@
          <version>${org.springframework-version}</version> <!-- 버전을 바꿔줘야함 -->
       </dependency>
       
+        <!-- **승혜 : google login -->
+    <dependency>
+      <groupId>org.springframework.social</groupId>
+      <artifactId>spring-social-google</artifactId>
+      <version>1.0.0.RELEASE</version>
+    </dependency>
+   <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.3</version>
+    </dependency>
+      
 
    </dependencies>
    

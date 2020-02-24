@@ -96,14 +96,14 @@ public class MemberController {
    @RequestMapping("/kiviewsignupoption.do")
    public String kiview_signupOption() {
       logger.info("signupOption");
-      return "kiview_signup-option";
+      return "member/kiview_signup-option";
    }
    
    //kiview 회원가입 페이지
    @RequestMapping("/kiviewsignup.do")
    public String kiview_signup() {
       logger.info("signup");
-      return "kiview_signup";
+      return "member/kiview_signup";
    }
    
    //회원가입 중복확인
@@ -146,7 +146,7 @@ public class MemberController {
    @RequestMapping("/kiviewjusopopup")
    public String kiview_jusoPopup() {
       logger.info("addrPopup");
-      return "addrPopup";
+      return "member/addrPopup";
    }
    
    
@@ -155,14 +155,14 @@ public class MemberController {
    @RequestMapping("/kiviewmypage.do")
    public String mypage() {
       logger.info("mypage");
-      return "kiview_mypage"; 
+      return "member/kiview_mypage"; 
    }
    
    //마이페이지 - 회원활동
    @RequestMapping("/kiviewmyactivity.do")
    public String myactivity() {
       logger.info("myactivity");
-      return "kiview_myactivity";
+      return "member/kiview_myactivity";
    }
    
    //회원정보 수정
@@ -237,7 +237,7 @@ public class MemberController {
       System.out.println("model :" + model);
 
       /* 생성한 인증 URL을 Model에 담아서 전달 */
-      return "kiview_login";
+      return "member/kiview_login";
    }
 
    // 네이버 로그인 성공시 callback호출 메소드 **보충 필요

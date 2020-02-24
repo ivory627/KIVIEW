@@ -29,7 +29,7 @@ public class ReviewController {
 	public String list(Model model) {
 		logger.info("ReviewController : REVIEW LIST");
 		model.addAttribute("list", biz.reviewList());
-		return "kiview_reviewboard";
+		return "review/kiview_reviewboard";
 	}
 	
 	@RequestMapping("/reviewInsert.do")
