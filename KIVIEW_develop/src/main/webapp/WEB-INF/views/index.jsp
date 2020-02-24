@@ -56,6 +56,56 @@ h1{
 
 </style>
 
+<script>
+      $(function() {    //화면 다 뜨면 시작
+        $("#searchInput").autocomplete({
+            source : function( request, response ) {
+                 $.ajax({
+                        type: "get",
+                        url: "autosearch.do",
+                        dataType: "json",
+                        data: { keyword : request.term },
+                        success: function(data) {
+                            response(
+                                $.map(data, function(item) {
+                                	//console.log(item.name);
+                                    return {
+                                        label: item.name,
+                                        value: item.name
+                                    }
+                                })
+                            );
+                        }
+                   });
+                },    // source 는 자동 완성 대상
+            select : function(event, ui) {    //아이템 선택시
+                console.log(ui);//사용자가 오토컴플릿이 만들어준 목록에서 선택을 하면 반환되는 객체
+                console.log(ui.item.label); 
+                console.log(ui.item.value);
+                
+            },
+            focus : function(event, ui) {    //포커스 가면
+                return false;//한글 에러 잡기용도로 사용됨
+            },
+            minLength: 1,// 최소 글자수
+            autoFocus: true, //첫번째 항목 자동 포커스 기본값 false
+            classes: {
+                "ui-autocomplete": "highlight"
+            },
+            delay: 500,    //검색창에 글자 써지고 나서 autocomplete 창 뜰 때 까지 딜레이 시간(ms)
+//            disabled: true, //자동완성 기능 끄기
+            position: { my : "right top", at: "right bottom" },    //잘 모르겠음
+            close : function(event){    //자동완성창 닫아질때 호출
+                console.log(event);
+            }
+        });
+      
+      //모달위로띄우기
+        $("#myFullsizeModal").on("shown.bs.modal", function() { $("#searchInput").autocomplete("option", "appendTo", "#myFullsizeModal") })
+        
+    });
+
+</script>
 
 </head>
 
@@ -98,7 +148,7 @@ h1{
 							유치원 리뷰가 궁금하다면?<span> 바로 여기!</span>
 						</h1>
 						<p>
-							<a href="#" class="btn btn-secondary px-4 py-3 mt-3">Read
+							<a href="chatbot.do" class="btn btn-secondary px-4 py-3 mt-3">Read
 								More</a>
 						</p>
 					</div>
@@ -115,7 +165,8 @@ h1{
 		</p>
 		<div class="jsx-2460799870 search-box">
 		<div class="jsx-2460799870 search-bar">
-			<input type="text" class="search-bar" data-toggle="modal" data-target="#myFullsizeModal"/> 
+			<input
+			 type="text" class="search-bar" data-toggle="modal" data-target="#myFullsizeModal"/> 
 			<span><img src="resources/images/main/search02.png"></span>
 		</div>
 	</div>
@@ -135,12 +186,14 @@ h1{
 			<p class="jsx-2460799870">
 				어떤 <span class="jsx-2460799870">유치원</span>을 찾으세요?
 			</p>
+				<form action="mainsearch.do" method="post" id="searchform">
 			<div class="jsx-2460799870 search-box">
 			<div class="jsx-2460799870 search-bar">
-				<input type="text" class="search-bar" />
-				<span><img src="resources/images/main/search02.png"></span>
+				<input type="text" id="searchInput" name="keyword" class="search-bar" />
+				<span><a href="javascript:searchform.submit();"><img src="resources/images/main/search02.png"></a></span>
 			</div>
-		</div>
+			</div>
+				</form>
 		</div>
 	      </div>
 	    </div>

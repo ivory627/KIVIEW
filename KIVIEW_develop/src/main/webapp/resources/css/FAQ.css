@@ -100,7 +100,11 @@ a, a:hover, a:active, a:visited, a:focus {
     flex-basis: 25%;
 }
 .faq-box--kindergarten.jsx-2342570284 .faq-tab.jsx-2342570284 li.jsx-2342570284 button.active.jsx-2342570284 {
-    color: rgb(255, 157, 31);
+    color: #ff9d1f;
+}
+.faq-tab.jsx-2342570284 li.jsx-2342570284 button.active.jsx-2342570284{
+	background-color: #ffffff;
+    font-weight: 700;
 }
 button {
     background: none;
@@ -108,6 +112,7 @@ button {
     cursor: pointer;
 }
 .faq-tab.jsx-2342570284 li.jsx-2342570284 button.jsx-2342570284 {
+	outline:none;
     display: block;
     width: 100%;
     color: rgb(102, 102, 102);
@@ -168,12 +173,35 @@ li.jsx-357641531 button.jsx-357641531 {
 .question-icon.jsx-357641531 {
     width: 24px;
     height: 24px;
-    background-color: rgb(236, 236, 236);
+    background-color: rgb(255, 157, 31);
     font-size: 14px;
-    color: rgb(102, 102, 102);
+    color: #fff;
+    font-weight: 200;
     text-align: center;
     border-radius: 50%;
 }
+
+#editbtn{
+	outline:none;
+	position:relative;
+	left:86%;
+	border-radius: 48%;
+	background-color:#ff9d1f;
+	color:#ffffff;
+	width: 6%;
+	
+}
+#deletebtn{
+	outline:none;
+	position:relative;
+	left:87%;
+	border-radius: 48%;
+	background-color:#ff9d1f;
+	color:#ffffff;
+	width: 6%;
+}
+
+
 .tab-name.jsx-357641531 {
     font-size: 15px;
     color: rgb(102, 102, 102);
@@ -192,6 +220,16 @@ p {
     border-right: 7px solid transparent;
     border-left: 7px solid transparent;
 }
+
+li.open.jsx-357641531 .arrow.jsx-357641531 {
+    border-top: none;
+    border-bottom: 8px solid rgb(143, 143, 143);
+}
+
+li.question-item--kindergarten.open.jsx-357641531 p.jsx-357641531{
+	color:rgb(231, 108, 7);
+}
+
 .pagination.jsx-2419612476 {
     display: flex;
     -webkit-box-pack: center;

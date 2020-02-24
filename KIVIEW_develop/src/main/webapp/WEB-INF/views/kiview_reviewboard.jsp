@@ -133,11 +133,11 @@ form select {
 
 		})
 
-		$("#myBtn2").on("click", function() {
+		/* $("#myBtn2").on("click", function() {
 			//modal.style.display = "block";
 			$("#myModal2").show();
 
-		})
+		}) */
 
 		$("#modal-close").on("click", function() {
 			$("#myModal").hide();
@@ -153,6 +153,21 @@ form select {
 		})
 
 	})
+
+$(document).ready(function() {
+    $('#review_content').on('keyup', function() {
+        if($(this).val().length > 4000) {
+            $(this).val($(this).val().substring(0, 4000));
+        }
+    });
+});
+// 수정 버튼 누를 때 데이터 들고가기
+function inputInfo(title, content, no){
+	$("#review_edit_title").val(title);
+	$("#review_edit_content").val(content);
+	$("#review_no").val(no);
+	$("#myModal2").show();
+}
 </script>
 </head>
 
@@ -243,8 +258,7 @@ form select {
 				<div class="row">
 					<div class="col-md-12 course d-lg-flex ftco-animate"
 						style="padding: 30px;">
-						<!-- 해인 : 여기에서부터 묶어서 list 반복되도록 만들기 -->
-					
+						<input type="hidden" name="review_no" value="${review.review_no}">
 						<div class="review"
 							style="width: 25%; margin-right: 30px; border-right: 1px solid lightgray">
 							<h3>
@@ -252,11 +266,11 @@ form select {
 								<!-- 해인 : 총점 계산하기: 평점 세 개의 평균 내기(double) -->
 							</h3>
 							<br> <label style="font-size: 20px;">원장/교사</label><span
-								style="font-size: 20px; position: relative; left: 20%">★★★★★</span>
-							<br> <label style="font-size: 20px;">과정/수업</label><span
-								style="font-size: 20px; position: relative; left: 20%">★★★★★</span>
+								style="font-size: 20px; position: relative; left: 20%"> ${review.avg_score1} </span>
+							<br> <label style="font-size: 20px;">교과/수업</label><span
+								style="font-size: 20px; position: relative; left: 20%"> ${review.avg_score2} </span>
 							<br> <label style="font-size: 20px;">시설/청결</label><span
-								style="font-size: 20px; position: relative; left: 20%">★★★★★</span>
+								style="font-size: 20px; position: relative; left: 20%"> ${review.avg_score3} </span>
 							<br>	<!-- 해인 : 별 부분 이미지 넣고 평점마다 연결될 수 있도록 구현하기 -->
 
 						</div>
@@ -264,68 +278,30 @@ form select {
 
 						<div style="width: 70%">
 							<h3>
-								<label>제목 “ ${review.review_title} ”</label>
+								<label>“ ${review.review_title} ”</label>
 							</h3>
 							<p class="subheading">
-								<span> ID ${review.review_writer} </span> | <span>등원시기 2017년 등원</span> | <span>${review.review_date} </span>
+								<span> ${review.review_writer} </span> | <span>2017년 등원</span> | <span>${review.review_date} </span>
 							</p>
 							<p>내용 ${review.review_content} </p>
 						</div>
 					</div>
 
 					<div class="reviewBtn" style="padding: 30px; width: 100%;">
-						<input id="myBtn2" class="btn btn-secondary" type="button"
-							value="수정"> <input class="btn btn-primary" type="button"
-							value="삭제"> <input class="btn btn-primary" type="button"
-							value="좋아요">
+					<c:if test="${review.review_writer eq login.member_id}">
+						<input id="myBtn2" class="btn btn-secondary" type="button" value="수정"  onclick='inputInfo("${review.review_no}", "${review.review_title}", "${review_edit_content}");'>
+						<%-- <button id="myBtn2" class="btn btn-secondary"  type="button" onClick="inputInfo(${review.review_title});">수정</button> --%>
+						<input class="btn btn-primary" type="button" value="삭제" onclick="location.href='reviewDelete.do?review_no=${review.review_no}'">
+					</c:if>
+						<input class="btn btn-primary" type="button" value="좋아요">
 						<hr>
 					</div>
+					
 
 				</div>
 				</c:forEach>
 				<!-- 여기까지 반복 -->
 
-				<!-- 여기서부터 반복 -->
-				<div class="row">
-
-					<div class="col-md-12 course d-lg-flex ftco-animate"
-						style="padding: 30px;">
-						<div class="review"
-							style="width: 25%; margin-right: 30px; border-right: 1px solid lightgray">
-							<h3>
-								<label>총점</label>&nbsp;&nbsp;&nbsp;<span> 3.6 /5.0</span> <br>
-							</h3>
-							<br> <label style="font-size: 20px;">원장/교사</label><span
-								style="font-size: 20px; position: relative; left: 20%">★★★★★</span>
-							<br> <label style="font-size: 20px;">과정/수업</label><span
-								style="font-size: 20px; position: relative; left: 20%">★★★★★</span>
-							<br> <label style="font-size: 20px;">시설/청결</label><span
-								style="font-size: 20px; position: relative; left: 20%">★★★★★</span>
-							<br>
-
-						</div>
-
-						<div style="width: 70%">
-							<h3>
-								<label>" 선생님들이 모두 친절하십니다! "</label>
-							</h3>
-							<p class="subheading">
-								<span>U****</span> | <span>2017년 등원</span> | <span>2019-06-12</span>
-							</p>
-							<p>아직 오래다니지 않아서 자세히는 모르지만 겨울철 난방이 잘되고 있고 아이들에게 필요한 시설들이 잘
-								갖춰져있어 아이들이 편안함을 느끼기 좋은환경이며 아동대비 선생님비율이 높아서 아이에게 더 많은 관심과 애정을 주시며
-								잘 돌봐주시는것같음 아파트 정문에 위치하고 있어서 접근성이 좋다</p>
-						</div>
-					</div>
-
-					<div class="reviewBtn" style="padding: 30px; width: 100%;">
-						<input class="btn btn-secondary" type="button" value="수정">
-						<input class="btn btn-primary" type="button" value="삭제"> 
-						<input class="btn btn-primary" type="button" value="좋아요">
-						<hr>
-					</div>
-				</div>
-				<!-- 여기까지 반복 -->
 			</div>
 		</div>
 	</section>
@@ -357,25 +333,41 @@ form select {
 					않음을 약속드립니다.</h6>
 				<br>
 
-				<form action="">
+				<form action="reviewInsert.do">
 					<div>
 						<label>유치원 명 </label><br> 
+						<input type="hidden" name="review_writer" value="${login.member_id}">
 						<input type="text" placeholder="유치원을 검색해 주세요. 유치원 목록 필요." name="name"
 							style="width: 101%"><br> <br> 
 							<label> 등원시기 </label><br> 
-							<select style="width: 101%; height: 35px;">
+							<select style="width: 101%; height: 35px;" name="review_year">
 							<option selected="selected">선택</option>
-							<option>2020</option>
+							<option>2020년</option>
+							<option>2019년</option>
+							<option>2018년</option>
+							<option>2017년</option>
+							<option>2016년</option>
+							<option>2015년</option>
+							<option>2014년</option>
+							<option>2013년</option>
+							<option>2012년</option>
+							<option>2011년</option>
+							<option>2010년</option>
+							<option>2009년</option>
+							<option>2008년</option>
+							<option>2007년</option>
+							<option>2006년</option>
+							<option>2006년 이전</option>
 						</select> 
 						<br> <br> 
 						<label>제목 </label><br> 
 						<input
-							type="text" placeholder="제목을 입력하세요" name="name"
+							type="text" placeholder="제목을 입력하세요" name="review_title"
 							style="width: 101%"><br> <br> 
 							<label>내용 </label>
 							<span style="position: relative; left: 85%">0/200자</span><br>
 						<textarea style="width: 100%; height: auto; resize: none;"
-							placeholder="내용 주의사항 적어서 쓰십쇼! 최소 글자수 제한 필요" name="name"></textarea>
+							placeholder="내용 주의사항 적어서 쓰십쇼! 최소 글자수 제한 필요" name="review_content"></textarea>
 						<br> <br>
 					</div>
 					<br>
@@ -385,18 +377,18 @@ form select {
 							<h4>
 								<b>평점</b>
 							</h4>
-							<label>선생님평점</label><br>
+							<label>원장/교사</label><br>
 							<div class="input">
 
-								<input type="radio" name="star-input" value="1" id="p1">
+								<input type="radio" name="avg_score1" value="1" id="p1">
 								<label for="p1">1</label> 
-								<input type="radio" name="star-input" value="2" id="p2"> 
+								<input type="radio" name="avg_score1" value="2" id="p2"> 
 									<label for="p2">2</label> 
-								<input type="radio" name="star-input" value="3" id="p3"> 
+								<input type="radio" name="avg_score1" value="3" id="p3"> 
 								<label for="p3">3</label> 
-								<input type="radio" name="star-input" value="4" id="p4"> 
+								<input type="radio" name="avg_score1" value="4" id="p4"> 
 								<label for="p4">4</label> 
-								<input type="radio" name="star-input" value="5" id="p5"> 
+								<input type="radio" name="avg_score1" value="5" id="p5"> 
 								<label for="p5">5</label>
 
 							</div>
@@ -407,18 +399,18 @@ form select {
 						</div>
 						<br> <br>
 						<div class="star-input2">
-							<label>아무거나평점</label><br>
+							<label>교과/수업</label><br>
 							<div class="input2">
 
-								<input type="radio" name="star-input2" value="1" id="p12">
+								<input type="radio" name="avg_score2" value="1" id="p12">
 								<label for="p12">1</label> 
-								<input type="radio" name="star-input2" value="2" id="p22"> 
+								<input type="radio" name="avg_score2" value="2" id="p22"> 
 								<label for="p22">2</label>
-								<input type="radio" name="star-input2" value="3" id="p32">
+								<input type="radio" name="avg_score2" value="3" id="p32">
 								<label for="p32">3</label> 
-								<input type="radio" name="star-input2" value="4" id="p42"> 
+								<input type="radio" name="avg_score2" value="4" id="p42"> 
 								<label for="p42">4</label>
-								<input type="radio" name="star-input2" value="5" id="p52">
+								<input type="radio" name="avg_score2" value="5" id="p52">
 								<label for="p52">5</label>
 
 
@@ -430,18 +422,18 @@ form select {
 						</div>
 						<br> <br>
 						<div class="star-input3">
-							<label>시설평점</label><br>
+							<label>시설/청결</label><br>
 							<div class="input3">
 
-								<input type="radio" name="star-input3" value="1" id="p13">
+								<input type="radio" name="avg_score3" value="1" id="p13">
 								<label for="p13">1</label> 
-								<input type="radio" name="star-input3" value="2" id="p23"> 
+								<input type="radio" name="avg_score3" value="2" id="p23"> 
 								<label for="p23">2</label>
-								<input type="radio" name="star-input3" value="3" id="p33">
+								<input type="radio" name="avg_score3" value="3" id="p33">
 								<label for="p33">3</label> 
-								<input type="radio" name="star-input3" value="4" id="p43"> 
+								<input type="radio" name="avg_score3" value="4" id="p43"> 
 								<label for="p43">4</label>
-								<input type="radio" name="star-input3" value="5" id="p53">
+								<input type="radio" name="avg_score3" value="5" id="p53">
 								<label for="p53">5</label>
 
 
@@ -455,10 +447,9 @@ form select {
 
 					</div>
 					<div style="position: relative; left: 38%;">
-						<input class="btn btn-secondary" style="width: 15%" type="submit"
-							value="작성">&nbsp;&nbsp;&nbsp; <input id="modal-close"
-							class="btn btn-primary" style="width: 15%" type="button"
-							value="취소">
+						<input class="btn btn-secondary" style="width: 15%" type="submit" value="작성">
+						&nbsp;&nbsp;&nbsp;
+						<input id="modal-close" class="btn btn-primary" style="width: 15%" type="button" value="취소" onclick="location.href='reviewList.do'">
 					</div>
 				</form>
 			</div>
@@ -483,7 +474,7 @@ form select {
 	<div id="myModal2" class="modal">
 
 		<!-- Modal content -->
-		<div class="modal-content" style="padding: 40px;">
+		<div class="modal-content" id="myModal2test" style="padding: 40px;">
 			<span style="width: 5%;" class="close">&times;</span>
 
 			<div>
@@ -494,24 +485,41 @@ form select {
 					않음을 약속드립니다.</h6>
 				<br>
 
-				<form action="">
+				<form action="reviewUpdate.do" method="get">
+					<input type="hidden" id="review_no" name="review_no" value="${review.review_no}">
 					<div>
-						<label>유치원 명 </label><br> <input type="text"
-							placeholder="유치원을 검색해 주세요. 유치원 목록 필요." name="name"
-							style="width: 101%"><br> <br> <label>
-							등원시기 </label><br> <select style="width: 101%; height: 35px;">
+						<label>유치원 명 </label><br> 
+						<input type="hidden" name="review_writer" value="${login.member_id}">
+						<input type="text" placeholder="${review.name}" name="name" value="${review.name}"
+							style="width: 101%"><br> <br> 
+							<label> 등원시기 </label><br> 
+							<select style="width: 101%; height: 35px;" name="review_year">
 							<option selected="selected">선택</option>
-							<option>2020</option>
-							<option>2019</option>
-							<option>2018</option>
-							<option>2017</option>
-							<option>2016</option>
-						</select> <br> <br> <label>제목 </label><br> <input
-							type="text" placeholder="제목을 입력하세요" name="name"
-							style="width: 101%"><br> <br> <label>내용
-						</label><span style="position: relative; left: 85%">0/200자</span><br>
-						<textarea style="width: 100%; height: auto; resize: none;"
-							placeholder="내용 주의사항 적어서 쓰십쇼! 최소 글자수 제한 필요" name="name"></textarea>
+							<option>2020년</option>
+							<option>2019년</option>
+							<option>2018년</option>
+							<option>2017년</option>
+							<option>2016년</option>
+							<option>2015년</option>
+							<option>2014년</option>
+							<option>2013년</option>
+							<option>2012년</option>
+							<option>2011년</option>
+							<option>2010년</option>
+							<option>2009년</option>
+							<option>2008년</option>
+							<option>2007년</option>
+							<option>2006년</option>
+							<option>2006년 이전</option>
+						</select> 
+						<br> <br> 
+						<label>제목 </label><br> 
+						<input
+							type="text" name="review_edit_title" id="review_edit_title"
+							style="width: 101%"><br> <br> 
+							<label>내용 </label>
+							<span style="position: relative; left: 85%">0/200자</span><br>
+						<textarea style="width: 100%; height: auto; resize: none;" id="review_edit_content" name="review_edit_content"> ${review.review_content} </textarea>
 						<br> <br>
 					</div>
 					<br>
@@ -521,18 +529,18 @@ form select {
 							<h4>
 								<b>평점</b>
 							</h4>
-							<label>선생님평점</label><br>
+							<label>원장/교사</label><br>
 							<div class="input">
 
-								<input type="radio" name="star-input" value="1" id="p1">
+								<input type="radio" name="avg_score1" value="1" id="p1">
 								<label for="p1">1</label> 
-								<input type="radio" name="star-input" value="2" id="p2"> 
-								<label for="p2">2</label> 
-								<input type="radio" name="star-input" value="3" id="p3"> 
+								<input type="radio" name="avg_score1" value="2" id="p2"> 
+									<label for="p2">2</label> 
+								<input type="radio" name="avg_score1" value="3" id="p3"> 
 								<label for="p3">3</label> 
-								<input type="radio" name="star-input" value="4" id="p4"> 
+								<input type="radio" name="avg_score1" value="4" id="p4"> 
 								<label for="p4">4</label> 
-								<input type="radio" name="star-input" value="5" id="p5"> 
+								<input type="radio" name="avg_score1" value="5" id="p5"> 
 								<label for="p5">5</label>
 
 							</div>
@@ -543,16 +551,18 @@ form select {
 						</div>
 						<br> <br>
 						<div class="star-input2">
-							<label>아무거나평점</label><br>
+							<label>교과/수업</label><br>
 							<div class="input2">
 
-								<input type="radio" name="star-input2" value="1" id="p12">
-								<label for="p12">1</label> <input type="radio"
-									name="star-input2" value="2" id="p22"> <label for="p22">2</label>
-								<input type="radio" name="star-input2" value="3" id="p32">
-								<label for="p32">3</label> <input type="radio"
-									name="star-input2" value="4" id="p42"> <label for="p42">4</label>
-								<input type="radio" name="star-input2" value="5" id="p52">
+								<input type="radio" name="avg_score2" value="1" id="p12">
+								<label for="p12">1</label> 
+								<input type="radio" name="avg_score2" value="2" id="p22"> 
+								<label for="p22">2</label>
+								<input type="radio" name="avg_score2" value="3" id="p32">
+								<label for="p32">3</label> 
+								<input type="radio" name="avg_score2" value="4" id="p42"> 
+								<label for="p42">4</label>
+								<input type="radio" name="avg_score2" value="5" id="p52">
 								<label for="p52">5</label>
 
 
@@ -564,16 +574,18 @@ form select {
 						</div>
 						<br> <br>
 						<div class="star-input3">
-							<label>시설평점</label><br>
+							<label>시설/청결</label><br>
 							<div class="input3">
 
-								<input type="radio" name="star-input3" value="1" id="p13">
-								<label for="p13">1</label> <input type="radio"
-									name="star-input3" value="2" id="p23"> <label for="p23">2</label>
-								<input type="radio" name="star-input3" value="3" id="p33">
-								<label for="p33">3</label> <input type="radio"
-									name="star-input3" value="4" id="p43"> <label for="p43">4</label>
-								<input type="radio" name="star-input3" value="5" id="p53">
+								<input type="radio" name="avg_score3" value="1" id="p13">
+								<label for="p13">1</label> 
+								<input type="radio" name="avg_score3" value="2" id="p23"> 
+								<label for="p23">2</label>
+								<input type="radio" name="avg_score3" value="3" id="p33">
+								<label for="p33">3</label> 
+								<input type="radio" name="avg_score3" value="4" id="p43"> 
+								<label for="p43">4</label>
+								<input type="radio" name="avg_score3" value="5" id="p53">
 								<label for="p53">5</label>
 
 
@@ -583,17 +595,13 @@ form select {
 								<b>0</b>점
 							</output>
 						</div>
-
-
-
 						<br> <br> <br>
 
 					</div>
 					<div style="position: relative; left: 38%;">
-						<input class="btn btn-secondary" style="width: 15%" type="submit"
-							value="수정">&nbsp;&nbsp;&nbsp; <input id="modal-close"
-							class="btn btn-primary" style="width: 15%" type="button"
-							value="취소">
+						<input class="btn btn-secondary" style="width: 15%" type="submit" value="수정">
+						&nbsp;&nbsp;&nbsp;
+						<input id="modal-close" class="btn btn-primary" style="width: 15%" type="button" value="취소">
 					</div>
 				</form>
 			</div>

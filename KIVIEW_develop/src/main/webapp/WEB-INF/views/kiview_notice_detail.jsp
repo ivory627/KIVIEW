@@ -13,13 +13,11 @@
 <title>KIVIEW &mdash; About</title>
 
 <jsp:include page="head.jsp"/>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#btn1").click(function(){
-			location.href = "kiviewnotice.do";
-		});
-	});
-</script>
+
+<!-- js -->
+<script type="text/javascript" src = "resources/js/notice-detail.js"></script>
+<script type="text/javascript" src = "resources/js/notice.js"></script>
+
 <style type="text/css">
 
 #writebtn{
@@ -52,13 +50,11 @@ box-sizing: border-box;
 
 <body id="body">
 
-	<!-- @@ header 부분 @@ -->
+	<!-- header 부분 -->
 	<jsp:include page="header.jsp"/>
 
-	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
-	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('resources/images/bg_2.jpg');">
-		<div class="overlay"></div>
+	 <section class="hero-wrap hero-wrap-2"
+		style="background-image: url('resources/images/main/board_img01.png');">
 		<div class="container">
 			<div
 				class="row no-gutters slider-text align-items-center justify-content-center">
@@ -75,21 +71,33 @@ box-sizing: border-box;
 			</div>
 		</div>
 	</section>
-	<!-- @@ header 끝 @@ -->
+	<!-- header 끝 -->
 
-	<div class="jsx-903324597 content">
+	<div class="jsx-903324597 content" id = "contentdiv">
 		<div class="jsx-3810764099 board-box">
 			<div class="jsx-1103591975 sidebar sidebar--kindergarten">
 				<h2 class="jsx-1103591975">
-					<span class="jsx-1103591975">키뷰 안내</span>
+				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+						viewBox="0 0 24 24" fill="none" stroke="#dfdfdf" stroke-width="2"
+						stroke-linecap="round" stroke-linejoin="round"
+						style="position: relative;">
+						<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+						<polyline points="14 2 14 8 20 8"></polyline>
+						<line x1="16" y1="13" x2="8" y2="13"></line>
+						<line x1="16" y1="17" x2="8" y2="17"></line>
+						<polyline points="10 9 9 9 8 9"></polyline></svg>
+					<span class="jsx-1103591975">공지사항</span>
 				</h2>
 				<ul class="jsx-1103591975">
-					<li class="jsx-1103591975 active"><a class="jsx-1103591975"
-						href="kiviewnotice.do">공지사항</a></li>
-					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="kiviewintro.do">키뷰 소개</a></li>
-					<li class="jsx-1103591975 "><a class="jsx-1103591975"
-						href="kiviewfaq.do">FAQ</a></li>
+					<li class="jsx-1103591975 active">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					 id = "menu01">공지사항</a></li>
+					<li class="jsx-1103591975">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					id = "menu02">키뷰소개</a></li>
+					<li class="jsx-1103591975 ">
+					<a class="jsx-1103591975" style = "cursor:pointer;"
+					id = "menu03">FAQ</a></li>
 				</ul>
 			</div>
 
@@ -108,7 +116,7 @@ box-sizing: border-box;
 					
 					<div class="jsx-1115820773 board-header board-header--kindergarten">
 						<h4 class="jsx-1115820773">
-							<span class="jsx-1115820773 classfi-text">공지사항</span>${noticedetail.notice_title}
+							<span class="jsx-1115820773 classfi-text">${noticedetail.cat_detail}</span>${noticedetail.notice_title}
 						</h4>
 						<div class="jsx-1115820773 header-info">
 							<div class="jsx-1115820773 avatar-box">
@@ -131,16 +139,9 @@ box-sizing: border-box;
 								</svg>
 										<span class="jsx-1115820773">${noticedetail.notice_hit}</span>
 								</span>
-										<span class="jsx-1115820773 division-line"></span>
-										<span class="jsx-1115820773 info-good">
-										<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-										viewBox="0 0 24 24" fill="none" stroke="#c1c1c1" stroke-width="2" stroke-linecap="round"
-										stroke-linejoin="round" style="position: relative; margin-right: 2px; vertical-align: -2px;">
-										<path
-											d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg><span
-									class="jsx-1115820773 hide-on-mobile">추천</span> 
-									<span class="jsx-1115820773">0</span></span>
 									<span class="jsx-1115820773 division-line"></span>
+									<span class="jsx-1115820773 hide-on-mobile" style = "color:rgb(102, 102, 102)">등록</span>
+									&nbsp;
 									<span class="jsx-1115820773 date">${noticedetail.notice_date}</span>
 							</div>
 						</div>
@@ -154,11 +155,11 @@ box-sizing: border-box;
 						</div>
 					</div>
 					<div class="jsx-3826147658 content_tag">
-						<a class="jsx-3826147658" href="kiviewnotice.do">#공지사항</a>
+						<a class="jsx-3826147658" href="kiviewnotice.do?page=${param.page}">#${noticedetail.cat_detail}</a>
 					</div>
 					<div class="jsx-2211599338 service">
-						<button type="button" class="jsx-2211599338 btn-view-list" 
-						style = "cursor:pointer;" id = "btn1">
+						<button class="jsx-2211599338 btn-view-list" 
+						style = "cursor:pointer;background:#fff;outline:none;" onclick = "backlist(${param.page});">
 							<span class="jsx-2211599338 hide-on-mobile">목록보기</span>
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 								viewBox="0 0 24 24" fill="none" stroke="#8f8f8f"
@@ -176,16 +177,15 @@ box-sizing: border-box;
 								<li class="jsx-2334299286">
 								<button tabindex="0"
 										class="jsx-2334299286 share-link share-link--kakao" id = "btn2">
-										<span class="jsx-2334299286 icon icon--kakao"><span
-											class="jsx-2334299286 alt-text">카카오톡 공유</span></span>
+										<span class="jsx-2334299286 icon icon--kakao">
+										<span class="jsx-2334299286 alt-text">카카오톡 공유</span></span>
 									</button>
 								</li>
 								<li class="jsx-2334299286">
 								<button tabindex="0" id = "btn3"
 										class="jsx-2334299286 share-link share-link--facebook">
 										<span class="jsx-2334299286 icon icon--facebook">
-										<span
-											class="jsx-2334299286 alt-text">페이스북 공유</span>
+										<span class="jsx-2334299286 alt-text">페이스북 공유</span>
 										</span>
 								</button>
 								</li>
@@ -193,8 +193,7 @@ box-sizing: border-box;
 								<button tabindex="0" id = "btn4"
 										class="jsx-2334299286 share-link share-link--url">
 										<span class="jsx-2334299286 icon icon--url">
-										<span
-											class="jsx-2334299286 alt-text">페이지 URL 공유</span>
+										<span class="jsx-2334299286 alt-text">페이지 URL 공유</span>
 										</span>
 								</button>
 								</li>
@@ -219,9 +218,9 @@ box-sizing: border-box;
 						<c:when test="${admin_id == writer}">
 						<div class="jsx-2211599338 recommend-box">
 							<button class="jsx-1407906967" id = "writebtn"
-							onclick="location.href='noticeUpdate.do?notice_no=${noticedetail.notice_no}'">수정하기</button>&nbsp;&nbsp;
+							onclick="notice_edit(${noticedetail.notice_no},${param.page})">수정하기</button>&nbsp;&nbsp;
 							<span><button class="jsx-1407906967" id = "writebtn"
-							onclick="location.href='kiviewdel.do?notice_no=${noticedetail.notice_no}'">삭제하기</button></span>
+							onclick="notice_del(${noticedetail.notice_no},${param.page})">삭제하기</button></span>
 						</div>
 						</c:when>
 						<c:otherwise>
@@ -245,10 +244,6 @@ box-sizing: border-box;
 	<!-- @@ footer 영역 @@ -->
 	<jsp:include page="footer.jsp"/>
 
-
-
-
-	
 
 </body>
 </html>

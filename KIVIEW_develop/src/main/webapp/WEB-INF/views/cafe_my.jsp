@@ -4,7 +4,7 @@
 
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
 <!DOCTYPE html>
@@ -29,7 +29,10 @@ a {
 </style>
 
 <script type="text/javascript">
-	
+	function test() {
+		var keyword = $('#cafesearch').val().trim();
+		location.href = "cafesearch.do?keyword=" + keyword;
+	}
 </script>
 
 </head>
@@ -68,15 +71,15 @@ a {
 				<!-- 카페 홈 소개 -->
 				<div class="col-lg-8 ftco-animate">
 					<a href="cafehome.do">
-					<h2 class="mb-3" style="font-weight: bold; color: #FFDC00;">
-						<span><img src="resources/images/main/chat.png" /></span>&nbsp;&nbsp;
-						<span style="color: #9BDAF2;">Kiview</span> Cafe
-					</h2>
+						<h2 class="mb-3" style="font-weight: bold; color: #FFDC00;">
+							<span><img src="resources/images/main/chat.png" /></span>&nbsp;&nbsp;
+							<span style="color: #9BDAF2;">Kiview</span> Cafe
+						</h2>
 					</a>
 					<hr>
 					<p>admin 님이 가입한 카페 가입 목록입니다.</p>
-						
-						<!-- 여기서부터 반복 -->
+
+					<!-- 여기서부터 반복 -->
 					<c:choose>
 						<c:when test="${empty list }">
 							<div class="row">
@@ -86,47 +89,49 @@ a {
 						</c:when>
 						<c:otherwise>
 							<c:forEach items="${list }" var="vo">
-							
-							<div class="row">
+
+								<div class="row">
 
 
-								<div class="col-md-12 course d-lg-flex ftco-animate"
-									style="padding: 30px; margin: 0px; padding-bottom: 0px;">
-									<div style="width: 25%; margin-right: 30px;">
-										<a href="cafedetail.do?cafe_no=${vo.cafe_no }">
-										<span><img style="width: 80%; height: 100%"
-											src='http://localhost:8787/img/${vo.thumb }' /></span></a>
+									<div class="col-md-12 course d-lg-flex ftco-animate"
+										style="padding: 30px; margin: 0px; padding-bottom: 0px;">
+										<div style="width: 25%; margin-right: 30px;">
+											<a href="cafedetail.do?cafe_no=${vo.cafe_no }"> <span><img
+													style="width: 80%; height: 100%"
+													src='http://localhost:8787/img/${vo.thumb }' /></span></a>
 
 
+
+										</div>
+
+										<div style="width: 70%">
+											<h3 style="margin: 0px">
+												<a href="cafedetail.do?cafe_no=${vo.cafe_no }"
+													style="cursor: pointer">" ${vo.title } "</a>
+											</h3>
+											<p>
+												<span>${vo.admin }</span> | <span>게시글 수</span> | <span>회원
+													수</span>
+
+											</p>
+											<p class="intro">${vo.intro }</p>
+
+
+										</div>
 
 									</div>
 
-									<div style="width: 70%">
-										<h3 style="margin: 0px">
-											<a href="cafedetail.do?cafe_no=${vo.cafe_no }" style="cursor:pointer">" ${vo.title } "</a>
-										</h3>
-										<p>
-											<span>${vo.admin }</span> | <span>게시글 수</span> | <span>회원 수</span>
-
-										</p>
-										<p class="intro">${vo.intro }</p>
-
-
+									<div style="padding: 0px; width: 100%;">
+										<br> <input style="position: relative; left: 90%;"
+											class="btn btn-secondary" type="button" value="탈퇴">
+										<hr>
 									</div>
 
+
 								</div>
-
-								<div style="padding: 0px; width: 100%;">
-									<br> <input style="position: relative; left: 90%;"
-										class="btn btn-secondary" type="button" value="탈퇴">
-									<hr>
-								</div>
-
-
-							</div>
 							</c:forEach>
 						</c:otherwise>
-						
+
 					</c:choose>
 					<!-- 여기까지 반복 -->
 
@@ -143,8 +148,9 @@ a {
 						<form action="#" class="search-form" style="padding: 0px">
 							<div class="form-group">
 								<span class="icon icon-search" style="cursor: pointer"
-									onclick="location.href='cafesearch.do'"></span> <input
-									type="text" class="form-control" placeholder="카페명을 입력해주세요.">
+									onclick="test();"></span> <input type="text"
+									class="form-control" placeholder="카페명을 입력해주세요." id="cafesearch"
+									onkeypress="if( event.keyCode == 13 ){test();}">
 							</div>
 						</form>
 					</div>

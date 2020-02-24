@@ -68,17 +68,17 @@
 				<div class="col-lg-8 ftco-animate"
 					style="padding: 25px; margin-left: 0px; background-color: white; border: 1px solid lightgray ; "> 
 					<h2 class="mb-3">
-						<b># ${vo.title }</b>
+						<b># ${cafe_list[0].title }</b>
 					</h2>
 					<hr>
 
 					<p > 
-						<img src="http://localhost:8787/img/${vo.background }" 
+						<img src="http://localhost:8787/img/${cafe_list[0].background }" 
 						style="heigth:50%; width:50%; position:relative; left:25%"
 						class="img-fluid">
 					</p>
 
-					<p style="text-align:center">${vo.intro }</p>  
+					<p style="text-align:center">${cafe_list[0].intro }</p>  
 
 					<br> <br>
 				</div>
