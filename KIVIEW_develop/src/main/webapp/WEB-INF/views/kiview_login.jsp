@@ -60,24 +60,24 @@
 						<ul class="jsx-1458736361">
 							<!-- 네이버 계정 로그인 -->
 							<li class="jsx-1458736361"><a
-								href="https://nid.naver.com/oauth2.0/authorize?response_type=code&amp;client_id=iFnTW27dv2wNRhfYPsFE&amp;redirect_uri=https%3A%2F%2Fwww.starteacher.co.kr%2Fsignup%3Fchannel%3Dnaver%26step%3D6%26type%3Duser&amp;svctype=0"
+								href="${naver_url }"
 								tabindex="0" class="jsx-1458736361"><span
 									class="jsx-1458736361 alt-text">네이버 계정 로그인</span></a></li>
 							<!-- /네이버 계정 로그인 -->
 
 							<!-- 카카오톡 계정 로그인 -->
 							<li class="jsx-1458736361"><a
-								href="https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=cacac2d9fe13a5f296d0459b1506b1bb&amp;redirect_uri=https%3A%2F%2Fwww.starteacher.co.kr%2Fsignup%3Fchannel%3Dkakao%26step%3D6&amp;state=user"
+								href="${kakao_url }"
 								tabindex="0" class="jsx-1458736361"><span
 									class="jsx-1458736361 alt-text">카카오톡 계정 로그인</span></a></li>
 							<!-- /카카오톡 계정 로그인 -->
 
-							<!-- 페이스북 계정 로그인 -->
+							<!-- 구글 계정 로그인 -->
 							<li class="jsx-1458736361"><a
-								href="https://www.facebook.com/v3.3/dialog/oauth?response_type=code&amp;client_id=2315035918715891&amp;redirect_uri=https%3A%2F%2Fwww.starteacher.co.kr%2Fsignup%3Fchannel%3Dfacebook%26step%3D6%26type%3Duser"
+								href="${google_url }"
 								tabindex="0" class="jsx-1458736361"><span
 									class="jsx-1458736361 alt-text">페이스북 계정 로그인</span></a></li>
-							<!-- /페이스북 계정 로그인 -->
+							<!-- /구글 계정 로그인 -->
 
 						</ul>
 					</div>

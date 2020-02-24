@@ -33,7 +33,29 @@
 	<!-- transaction -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
-	
 	</bean>
+
+	<!-- **승혜 : google login bean -->
+	<bean id="googleConnectionFactory"
+		class="org.springframework.social.google.connect.GoogleConnectionFactory">
+		<constructor-arg
+			value="644232368968-lv79oheut1g7j0d26geqtvel3valll70.apps.googleusercontent.com" />
+		<constructor-arg value="OIWrELK_4w3_Xkx_desWJUbC" />
+	</bean>
+
+	<!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
+	<bean id="googleOAuth2Parameters"
+		class="org.springframework.social.oauth2.OAuth2Parameters">
+		<property name="scope"
+			value="https://www.googleapis.com/auth/plus.login" />
+		<property name="redirectUri"
+			value="http://localhost:8787/kiview/callback2.do" />
+	</bean>
+
+	<!-- **승혜: 네이버 로그인 -->
+	<bean id="naverLoginBO"
+		class="com.mvc.kiview.model.vo.NaverLoginBO" />
+	<!-- **승혜: 카카오 로그인 -->
+	<bean id="kakaoApi" class="com.mvc.kiview.model.vo.KakaoApi" />
 		
 </beans>

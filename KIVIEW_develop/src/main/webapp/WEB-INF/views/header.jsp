@@ -171,7 +171,7 @@ $(function(){
 				-->	
 				<c:choose>
 				<c:when test="${empty login}">
-					<li class="nav-item"><a href="kiviewlogin.do"
+					<li class="nav-item"><a href="login.do"
 					class="nav-link">로그인</a></li>
 				</c:when>
 				<c:otherwise>
