@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,6 +120,23 @@ public class ReviewController {
 		
 		return map;
 	}
+	
+	@RequestMapping("/reviewsearch.do")
+	public String reviewSearch(@Param("value=type") String type, @Param("value=keyword") String keyword, Model model){
+		Map map = new HashMap();
+		map.put("type", type);
+		map.put("keyword",keyword);
+		
+		
+		List<ReviewVo> list = biz.reviewSearch(map); 
+		model.addAttribute("list",list);
+		model.addAttribute("keyword", keyword);
+		
+		
+		
+		return "review/kiview_reviewboard";
+	}
+	
 	
 
 }

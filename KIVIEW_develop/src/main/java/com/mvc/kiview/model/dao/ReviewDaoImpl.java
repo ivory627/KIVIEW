@@ -2,6 +2,7 @@ package com.mvc.kiview.model.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,11 +79,6 @@ public class ReviewDaoImpl implements ReviewDao{
 		return res;
 	}
 
-	@Override
-	public int reviewSearch() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public ReviewVo reviewSelect(int review_no) {
@@ -121,6 +117,19 @@ public class ReviewDaoImpl implements ReviewDao{
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("error : kinder search DaoImpl");
+		}
+		return res;
+	}
+
+	@Override
+	public List<ReviewVo> reviewSearch(Map map) {
+		List<ReviewVo> res = null;
+		
+		try {
+			res = sqlSession.selectList(namespace+"reviewSearch", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("error : reviewSearch DaoImpl");
 		}
 		return res;
 	}

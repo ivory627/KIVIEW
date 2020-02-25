@@ -47,6 +47,14 @@
    WHERE NAME = #{kinder_name}
    </select>
    
+   <select id="reviewSearch" parameterType="Map" resultType="reviewVo">
+   SELECT *
+   FROM REVIEW
+   WHERE ${type} LIKE '%' || #{keyword} || '%'
+   ORDER BY REVIEW_NO DESC
+   
+   </select>
+   
      
   </mapper>
   

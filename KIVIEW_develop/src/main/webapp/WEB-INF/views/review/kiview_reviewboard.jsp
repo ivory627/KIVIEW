@@ -4,6 +4,8 @@
 <% response.setContentType("text/html; charset=UTF-8");%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmf" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.List" %>
 
 <!DOCTYPE html>
@@ -20,7 +22,7 @@
 
 <%@include file="../head.jsp"%>
 
-<link rel="stylesheet" type="text/css" href="css/star.css">
+<link rel="stylesheet" type="text/css" href="resources/css/star.css">
 
 
 <style type="text/css">
@@ -157,7 +159,9 @@ form select {
 		
 		
 		
+		
 		$("#kinder_search").on("keyup", function(){
+			$("#myModal").find($("input[name=kinder_addr]")).val("");
 			if($(this).val().length>1){
 				var search = []
 				$.ajax({
@@ -194,10 +198,21 @@ function kinder_search2(){
 			url:"searchkinder2.do",
 			data:{"kinder_name":$("#kinder_search").val()},
 			dataType:"json",
-			success:function(data){
-				console.log(data.kinder.addr1);
-				$("#myModal").find($("input[name=kinder_no]")).val(data.kinder.kinder_no);
-				$("#myModal").find($("input[name=kinder_addr]")).val(data.kinder.addr1);
+			success:function(map){
+				console.log(map);
+				//Map으로 받은 정보 중 kinder(KinderVo) 안에 있는 addr1을 가지고 온다
+				var addr = map.kinder.addr1
+				if(!map || addr==null || map==null) {
+					alert("해당 유치원이 없습니다.");
+					
+				} else {
+					
+					console.log(map.kinder);
+					$("#myModal").find($("input[name=kinder_no]")).val(map.kinder.kinder_no);
+					$("#myModal").find($("input[name=kinder_addr]")).val(map.kinder.addr1);
+				}
+				
+				
 				
 			},
 			error:function(){
@@ -276,6 +291,33 @@ function update_form(review_no){
 	
 }
 
+function insertchk(){
+	
+	
+
+		
+	if($("#review_year option:selected").val()=="선택"){
+			
+		alert("등원시기를 선택해주세요.")
+		return false;
+	}
+		
+	
+	
+	if($("#myModal").find("input[name=kinder_addr]").val()==''){
+		alert("유치원을 검색해주세요.")
+		
+		return false;
+		
+	}
+	
+	
+	
+	
+	
+	
+	return true;
+}
 
 
 
@@ -328,32 +370,38 @@ function update_form(review_no){
 				</h1>
 				<br>
 				<!-- 검색 기능 -->
-				<form action="">
-					<select>
-						<option>시/도</option>
+				<form action="reviewsearch.do" >
+					
+					<select name="type">
+						<option value="kinder_name">유치원명</option>
+						<option value="review_writer">작성자</option>
+						
 
-					</select> &nbsp;&nbsp; <select>
-						<option>시/군/구</option>
-
-					</select> &nbsp;&nbsp; <select>
-						<option>유치원명</option>
-
-					</select> &nbsp;&nbsp; <input type="text" placeholder="검색어를 입력하세요."
-						style="height: 40px; width: 40%"> <input
-						class="btn btn-secondary" style="width: 10%; border-radius: 0px"
-						type="button" value="검색"> <br>
+					</select> &nbsp;&nbsp; 
+					<input type="text" name="keyword" placeholder="검색어를 입력하세요." style="height: 40px; width: 40%"> 
+					<input class="btn btn-secondary" style="width: 10%; border-radius: 0px"
+						type="submit" value="검색"> <br>
 				</form>
 
 				<br>
-				<h6 class="mb-4">총 311개의 리뷰가 작성되었습니다. 페이지 로딩 시 리뷰들을 최신 리뷰순으로?</h6>
+				
+				
 			</div>
 
 			<div class="ftco-animate" style="margin: 40px; margin-bottom: 0px;">
-				<h2>
-					<label><span style="color: #fda638">유치원</span>에 대한 <span style="color: #fda638">321</span>건의 리뷰가 검색되었습니다.</label>
+				<c:choose>
+					<c:when test="${keyword != null && keyword!=''}">
+						<h2>
+					<label><span style="color: #fda638">${keyword }</span>에 대한 <span style="color: #fda638">${fn:length(list)} </span>건의 리뷰가 검색되었습니다.</label>
 					<!-- 해인 : 유치원명 name으로, 갯수 부분 review_no개로 받기 -->
 					<!-- 삭제 글 갯수를 마이너스 해 줘야 하기 때문에 delete 만들 때 n/y로 삭제 유무 확인할 수 있도록 체크해야 될 듯 -->
-				</h2>
+						</h2>
+					</c:when>
+					<c:otherwise>
+					
+					</c:otherwise>
+				</c:choose>
+				
 			</div>
 			
 			<!-- 리뷰리스트 영역 -->
@@ -373,29 +421,50 @@ function update_form(review_no){
 						<input type="hidden" name="review_no" value="${review.review_no}">
 						<div class="review"
 							style="width: 25%; margin-right: 30px; border-right: 1px solid lightgray">
+							<label style="font-size:20px"> ${review.kinder_name} </label>
+							<p style="font-size: 14px;"> ${review.kinder_addr}</p>
+							<br> <label style="font-size: 18px;">원장/교사</label><span
+								style="font-size: 18px; position: relative; left: 10%"> 
+								<c:forEach begin="1" end="${review.avg_score1}">
+									★
+								</c:forEach>
+								</span>
+							<br> <label style="font-size: 18px;">교과/수업</label>
+							<span
+								style="font-size: 18px; position: relative; left: 10%">
+								<c:forEach begin="1" end="${review.avg_score2}">
+									★
+								</c:forEach>
+							</span>
+							<br> <label style="font-size: 18px;">시설/청결</label><span
+								style="font-size: 18px; position: relative; left: 10%">
+								<c:forEach begin="1" end="${review.avg_score3}">
+									★
+								</c:forEach>
+							</span>
+							<br>	<!-- 해인 : 별 부분 이미지 넣고 평점마다 연결될 수 있도록 구현하기 -->
 							<h3>
-								<label>총점</label>&nbsp;&nbsp;&nbsp;<span> 3.6 /5.0</span> <br>
+								<c:set var="score" value="${(review.avg_score1+review.avg_score2+review.avg_score3)/3 }"/>
+								<label>총점</label>&nbsp;&nbsp;&nbsp;<span><fmt:formatNumber value="${score }" pattern=".00"/></span> / 5.00 <br>
 								<!-- 해인 : 총점 계산하기: 평점 세 개의 평균 내기(double) -->
 							</h3>
-							<br> <label style="font-size: 20px;">원장/교사</label><span
-								style="font-size: 20px; position: relative; left: 20%"> ${review.avg_score1} </span>
-							<br> <label style="font-size: 20px;">교과/수업</label><span
-								style="font-size: 20px; position: relative; left: 20%"> ${review.avg_score2} </span>
-							<br> <label style="font-size: 20px;">시설/청결</label><span
-								style="font-size: 20px; position: relative; left: 20%"> ${review.avg_score3} </span>
-							<br>	<!-- 해인 : 별 부분 이미지 넣고 평점마다 연결될 수 있도록 구현하기 -->
-
 						</div>
 					
 
 						<div style="width: 70%">
+						
 							<h3>
 								<label>“ ${review.review_title} ”</label>
 							</h3>
 							<p class="subheading">
-								<span> ${review.review_writer} </span> | <span>2017년 등원</span> | <span><fmf:formatDate value="${review.review_date}" pattern='yyyy-MM-dd HH:mm'/> </span>
+								<span id="writer"> ${review.review_writer} </span>　|　<span>${review.review_year}</span>　|　<span><fmf:formatDate value="${review.review_date}" pattern='yyyy-MM-dd HH:mm'/> </span>
 							</p>
+							<c:if test="${login.member_id==null }">
+								<p>로그인 좀하세요</p>
+							</c:if>
+							<c:if test="${login.member_id!=null }">
 							<p>내용 ${review.review_content} </p>
+							</c:if>
 						</div>
 					</div>
 
@@ -444,20 +513,20 @@ function update_form(review_no){
 					않음을 약속드립니다.</h6>
 				<br>
 
-				<form action="reviewInsert.do">
+				<form action="reviewInsert.do" onsubmit="return insertchk()">
 					<div>
 						<label>유치원 명 </label><br> 
 						<input type="hidden" name="review_writer" value="${login.member_id}">
 						<input type="hidden" name="kinder_no" >
 						
 						<input id="kinder_search" type="text" placeholder="유치원을 검색해 주세요." name="kinder_name"
-							style="width: 50%">
+							style="width: 50%" minlength="4" maxlength="20" required>
 						<input type="button" onclick="kinder_search2()" value="선택"> 
 						<input style="width:100%" type="text" name="kinder_addr" placeholder="유치원 주소" readonly>
 							
 							<br> <br> 
 							<label> 등원시기 </label><br> 
-							<select style="width: 101%; height: 35px;" name="review_year">
+							<select id="review_year" style="width: 101%; height: 35px;" name="review_year" >
 							<option selected="selected">선택</option>
 							<option>2020년</option>
 							<option>2019년</option>
@@ -480,11 +549,11 @@ function update_form(review_no){
 						<label>제목 </label><br> 
 						<input
 							type="text" placeholder="제목을 입력하세요" name="review_title"
-							style="width: 101%"><br> <br> 
+							style="width: 101%" minlength="4" maxlength="30" required><br> <br> 
 							<label>내용 </label>
-							<span style="position: relative; left: 85%">0/200자</span><br>
+							<span style="position: relative; left: 85%">0/500자</span><br>
 						<textarea style="width: 100%; height: auto; resize: none;"
-							placeholder="내용 주의사항 적어서 쓰십쇼! 최소 글자수 제한 필요" name="review_content"></textarea>
+							placeholder="내용 주의사항 적어서 쓰십쇼! 최소 글자수 제한 필요" name="review_content" minlength="4" maxlength="500" required></textarea>
 						<br> <br>
 					</div>
 					<br>
@@ -497,68 +566,62 @@ function update_form(review_no){
 							<label>원장/교사</label><br>
 							<div class="input">
 
-								<input type="radio" name="avg_score1" value="1" id="p1">
+								<input type="radio" name="avg_score1" value="1" id="p1" required>
 								<label for="p1">1</label> 
-								<input type="radio" name="avg_score1" value="2" id="p2"> 
+								<input type="radio" name="avg_score1" value="2" id="p2" required> 
 									<label for="p2">2</label> 
-								<input type="radio" name="avg_score1" value="3" id="p3"> 
+								<input type="radio" name="avg_score1" value="3" id="p3" required> 
 								<label for="p3">3</label> 
-								<input type="radio" name="avg_score1" value="4" id="p4"> 
+								<input type="radio" name="avg_score1" value="4" id="p4" required> 
 								<label for="p4">4</label> 
-								<input type="radio" name="avg_score1" value="5" id="p5"> 
+								<input type="radio" name="avg_score1" value="5" id="p5" required> 
 								<label for="p5">5</label>
 
 							</div>
 
-							<output for="star-input">
-								<b>0</b>점
-							</output>
+							
 						</div>
 						<br> <br>
 						<div class="star-input2">
 							<label>교과/수업</label><br>
 							<div class="input2">
 
-								<input type="radio" name="avg_score2" value="1" id="p12">
+								<input type="radio" name="avg_score2" value="1" id="p12" required>
 								<label for="p12">1</label> 
-								<input type="radio" name="avg_score2" value="2" id="p22"> 
+								<input type="radio" name="avg_score2" value="2" id="p22" required> 
 								<label for="p22">2</label>
-								<input type="radio" name="avg_score2" value="3" id="p32">
+								<input type="radio" name="avg_score2" value="3" id="p32" required>
 								<label for="p32">3</label> 
-								<input type="radio" name="avg_score2" value="4" id="p42"> 
+								<input type="radio" name="avg_score2" value="4" id="p42" required> 
 								<label for="p42">4</label>
-								<input type="radio" name="avg_score2" value="5" id="p52">
+								<input type="radio" name="avg_score2" value="5" id="p52" required>
 								<label for="p52">5</label>
 
 
 							</div>
 
-							<output for="star-input2">
-								<b>0</b>점
-							</output>
+							
 						</div>
 						<br> <br>
 						<div class="star-input3">
 							<label>시설/청결</label><br>
 							<div class="input3">
 
-								<input type="radio" name="avg_score3" value="1" id="p13">
+								<input type="radio" name="avg_score3" value="1" id="p13" required>
 								<label for="p13">1</label> 
-								<input type="radio" name="avg_score3" value="2" id="p23"> 
+								<input type="radio" name="avg_score3" value="2" id="p23" required> 
 								<label for="p23">2</label>
-								<input type="radio" name="avg_score3" value="3" id="p33">
+								<input type="radio" name="avg_score3" value="3" id="p33" required>
 								<label for="p33">3</label> 
-								<input type="radio" name="avg_score3" value="4" id="p43"> 
+								<input type="radio" name="avg_score3" value="4" id="p43" required> 
 								<label for="p43">4</label>
-								<input type="radio" name="avg_score3" value="5" id="p53">
+								<input type="radio" name="avg_score3" value="5" id="p53" required>
 								<label for="p53">5</label>
 
 
 							</div>
 
-							<output for="star-input3">
-								<b>0</b>점
-							</output>
+							
 						</div>
 						<br> <br> <br>
 
