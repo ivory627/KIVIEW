@@ -347,6 +347,12 @@ public class CafeBizImpl implements CafeBiz {
 		return dao.cafe_delete(cafe_no);
 	}
 
+	@Override
+	public List<CafeBoardVo> cafe_board_list_total(int cafe_no) {
+		
+		return dao.cafe_board_list_total(cafe_no);
+	}
+
 	
 
 	

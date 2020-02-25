@@ -57,18 +57,27 @@
                <input type="hidden" name="cafe_no" value="${cafe_list[0].cafe_no }">
                <input type="hidden" name="cafe_board_no" value="${cafeboardvo.cafe_board_no}">
                <input type="hidden" name="cafe_menu_no" value="${cafe_menu_no }">
-               <label>게시판 말머리</label>
                
-               <select id="category">                     
-               </select>    
-               
-                  ${cafeboardvo.category } &nbsp;&nbsp;&nbsp; || ${cafeboardvo.hit }
+               <label>게시판 말머리</label>               
+               <select id="category" name="category">                     
+               </select>
+               <br>
+                  <c:choose>
+                  <c:when  test="${fn:length(cafeboardvo.category) != 0 && cafeboardvo.category ne 'null' }">
+                              [ ${cafeboardvo.category } ] 
+                  </c:when>
+                  <c:otherwise>
+                           [ 말머리 없음  ]
+                  </c:otherwise>
+                  
+                  </c:choose>
+                  &nbsp;&nbsp;&nbsp; || 조회수 : ${cafeboardvo.hit }
                   <br>
                <label>제 목</label><br>
-                  <input type="text" value="${cafeboardvo.title }" name="title" size="70">
+                  <input type="text" value="${cafeboardvo.title }" name="title" size="70" required="required">
                   <br><br>
                <label>내 용</label><br>
-                  <textarea cols="90" rows="10" name="content" >${cafeboardvo.content }</textarea>  
+                  <textarea cols="90" rows="10" name="content" required="required">${cafeboardvo.content }</textarea>  
                   
                <br>
                <br>
@@ -103,12 +112,14 @@ $(window).load(function(){
            console.log("size"+key.category2);
            
            if(key.category2.length==0 || key.category2.length==null){
-              alert("ddddddd");
+              
+              alert("말머리 없음");
               $("#category").hide();
+              
            }else{
               $.each(key.category2,function(index,item){
                    var rlist = '';                     
-                     rlist += "<option value="+item.category+">"+item.category+"</option>";
+                     rlist += "<option value='"+item.category+"'>"+item.category+"</option>";
                      
                      console.log("foreach문 안"+rlist);          
                      

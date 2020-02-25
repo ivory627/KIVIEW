@@ -44,12 +44,26 @@
 			
 		})  
 		
+		$("input[name=concept]:input[value=table]").on("click",function(){
+			$("#categorychk").attr("disabled",false);
+			
+		})
+		
+		$("input[name=concept]:input[value=guest]").on("click",function(){
+			$("#categorychk").attr("disabled",true);
+			$("#categorychk").attr("checked",false);
+			$("#category_insert").hide();
+			$("input[name=category1]").val("");
+			$("input[name=category2]").val("");
+			$("input[name=category3]").val("");
+		})
+		
 		$("#categorychk").on("click",function(){
 			if(("#categorychk").is(":checked")){
 				$("input[name=category1]").val("");
 				$("input[name=category2]").val("");
 				$("input[name=category3]").val(""); 
-			}
+			} 
 		})
 
 		

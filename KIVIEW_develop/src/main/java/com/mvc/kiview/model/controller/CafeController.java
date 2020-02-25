@@ -140,11 +140,13 @@ public class CafeController {
 		CafeVo cafe = biz.cafe_selectone(cafe_no);
 		List<CafeMenuVo> menu = biz.menu_list(cafe_no);
 		List<CafeMemberVo> member = biz.cafe_member_list(cafe_no);
+		List<CafeBoardVo> board = biz.cafe_board_list_total(cafe_no);
 
 		List list = new ArrayList();
 		list.add(cafe);
 		list.add(menu);
 		list.add(member);
+		list.add(board);
 
 		return list;
 	}
@@ -779,8 +781,7 @@ public class CafeController {
 	      
 	      
 	      CafeBoardVo cafeboardvo = new CafeBoardVo();
-	      cafeboardvo.setCafe_menu_no(cafe_menu_no);
-	      cafeboardvo.setCategory(category.trim());      
+	      cafeboardvo.setCafe_menu_no(cafe_menu_no);     
 	      cafeboardvo.setTitle(title);
 	      cafeboardvo.setWriter(writer);
 	      cafeboardvo.setContent(content);
@@ -798,11 +799,11 @@ public class CafeController {
 	       }
 	      
 	   }
-	   @RequestMapping("/boarddetail.do")
+	   @RequestMapping("/cafeboarddetail.do")
 	   public String board_detail(Model model, int cafe_board_no , int cafe_menu_no, int cafe_no) {
 	      List list = sidebar(cafe_no);  
 	      model.addAttribute("cafe_list", list );
-	      
+	      int countupdate = biz.cafe_board_hit(cafe_board_no);
 	      CafeBoardVo cafeboardvo = biz.cafe_board_detail(cafe_board_no);
 	      model.addAttribute("cafe_board_detail",cafeboardvo);      
 	      model.addAttribute("cafe_menu_no",cafe_menu_no);

@@ -21,6 +21,9 @@ function sign_ready(){
 	alert('${login.member_id}님은 승인 대기중이십니다.');
 }
 
+function ataglink(cafe_no,cafe_menu_no){
+	alert('카페를 이용 할 수 없습니다.');
+}
 
 </script>
 <script src="https://kit.fontawesome.com/5c51969fc5.js" crossorigin="anonymous"></script>
@@ -111,10 +114,12 @@ textarea{
                   <tr><th>회원수</th><td>${fn:length(cafe_list[2]) }명</td></tr>    
                   <tr><th>게시글</th><td>${fn:length(cafe_list[3]) }개</td></tr>
                   </table>
+                  <c:if test="${!empty cafe_list[1] && permit eq 'true'}"> 
                   <a href="cafeconfig.do?cafe_no=${cafe_list[0].cafe_no }&memeberno=${login.member_no}" style="color:blue"># 카페 관리</a>
+                  </c:if>
                   <br><br>
 <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
-           
+           		
                
               	<div>
               		<c:set var="count" value="0"/>
@@ -164,13 +169,31 @@ textarea{
                   <h3><b>게시판</b></h3>
                   <hr>
                         
+                  <!--가입여부-->
+           		<c:set var="sign" value="0"/>
+           		<c:set var="permit" value="false"/>  
+           		<c:forEach var="member" items="${cafe_list[2] }">
+		
+               				<c:if test="${login.member_no == member.member_no }">
+               					<c:set var="sign" value="${sign+1 }"/>
+	               					<c:if test="${sign>0 }"> 
+	               						
+	               						<c:if test="${member.signyn eq 'Y' || member.signyn eq 'A' }">
+	               							<c:set var="permit" value="true"/>
+	               						</c:if>
+	               					</c:if> 
+            				</c:if>
+            				
+            				
+            	</c:forEach> 
+           		   
+                     
                          
-                    
-                  <c:if test="${!empty cafe_list[1] }">
+                       
+                  <c:if test="${!empty cafe_list[1] && permit eq 'true'}">   
                   <ul id="channel">
                   <c:forEach var="menu" items="${cafe_list[1] }">
                       <c:choose>
-                               
                      <c:when test="${menu.concept eq 'table' }">                       
                            <li><i class="fas fa-clipboard-list"></i><a href="cafeboardlist.do?cafe_no=${cafe_list[0].cafe_no }&cafe_menu_no=${menu.cafe_menu_no }&curpagenum=1"> ${menu.name}</a></li>                        
                      </c:when>
@@ -180,7 +203,30 @@ textarea{
                     </c:choose>   
                   </c:forEach>
                  </ul>  
-                  </c:if>   
+                  </c:if> 
+                  <c:if test="${!empty cafe_list[1] && permit eq 'false'}">   
+                   <ul id="channel">
+                  <c:forEach var="menu" items="${cafe_list[1] }">
+                      <c:choose>
+                     <c:when test="${menu.concept eq 'table' }">                       
+                           <li><i class="fas fa-clipboard-list"></i>
+	                           <a onclick="ataglink(${cafe_list[0].cafe_no },${menu.cafe_menu_no });"> 
+	                           		${menu.name}
+	                           </a>
+                           </li>                        
+                     </c:when>
+                     <c:otherwise>
+                           <li><i class="fas fa-clipboard-check"></i>
+	                            <a onclick="ataglink(${cafe_list[0].cafe_no },${menu.cafe_menu_no });"> 
+	                           		${menu.name}
+	                           </a>                       
+                           </li>        
+                     </c:otherwise>
+                    </c:choose>   
+                  </c:forEach>
+                 </ul>  
+                  
+                  </c:if>
                      
                      
                      

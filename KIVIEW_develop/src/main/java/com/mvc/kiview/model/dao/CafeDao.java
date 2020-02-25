@@ -87,7 +87,7 @@ public interface CafeDao {
 	
 	public List<CafeReplyVo> cafe_board_reply_allList();
 	
-	
+	public List<CafeBoardVo> cafe_board_list_total(int cafe_no);
 	
 	
 	
@@ -118,6 +118,8 @@ public interface CafeDao {
 	public int member_delete(int cafe_member_no);
 
 	public int member_unblock(int cafe_member_no);
+
+	
 
 	
 

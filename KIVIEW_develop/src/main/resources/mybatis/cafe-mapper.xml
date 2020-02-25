@@ -179,6 +179,11 @@
      <select id="cafe_board_list" parameterType="int" resultType="CafeBoardVo">
         SELECT * FROM CAFE_BOARD WHERE CAFE_MENU_NO = #{cafe_menu_no} ORDER BY CAFE_BOARD_NO desc
      </select>
+     
+     <select id="cafe_board_list_total" parameterType="int" resultType="CafeBoardVo">
+     	SELECT * FROM CAFE_BOARD WHERE CAFE_MENU_NO IN (SELECT CAFE_MENU_NO FROM CAFE_MENU WHERE CAFE_NO = #{cafe_no})
+     
+     </select>
         
       <select id="cafe_menu_name" parameterType="int" resultType="String">
          SELECT NAME FROM CAFE_MENU WHERE CAFE_MENU_NO = #{cafe_menu_no}

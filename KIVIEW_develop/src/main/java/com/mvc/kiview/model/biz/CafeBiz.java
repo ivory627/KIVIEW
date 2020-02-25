@@ -122,6 +122,8 @@ public interface CafeBiz {
 
 	public int member_delete(int cafe_member_no);
 
+	public List<CafeBoardVo> cafe_board_list_total(int cafe_no);
+
 	
 
 	

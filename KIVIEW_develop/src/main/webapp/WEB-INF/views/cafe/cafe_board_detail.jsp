@@ -55,7 +55,15 @@
                <hr>
                               
                <label>제 목</label><br>
-                  <input type="text" value="${cafe_board_detail.title }" name="title" size="70" readonly>
+                  <input type="text" value="${cafe_board_detail.title }" name="title" size="70" readonly><br>
+                  <c:choose>
+                  <c:when  test="${fn:length(cafe_board_detail.category) != 0 && cafe_board_detail.category ne 'null' }">
+                              [ ${cafe_board_detail.category } ] 
+                  </c:when>
+                  <c:otherwise>
+                         
+                  </c:otherwise>
+                  </c:choose>
                <br>     
                <br>
                <span align=right>${cafe_board_detail.writer}  &nbsp;|&nbsp;  <fmf:formatDate value='${cafe_board_detail.regdate}' pattern='yyyy-MM-dd'/> &nbsp;|&nbsp; 조회수  ${cafe_board_detail.hit }</span> 
@@ -105,13 +113,13 @@
                <input type="hidden" name="" value="${cafe_list[0].admin}" id="adminid">
                         
               
-                    <label style="font-weight:bold; color:black" >${login.member_id }</label>                
-                  <input type="text" size="70" placeholder="상대방을 향한 욕설, 음담패설은 자제해주세요."  id="replycontent">                  
-                  <input type="text" size="1" value="0"  id="replycount" >자
-               <c:if test="${cafe_board_detail.writer eq login.member_id || cafe_list[0].admin eq login.member_id  }">
-                  <input type="button" class="btn btn-primary" value="등록" onclick="replyinsert();">                  
+                   <label style="font-weight:bold; color:black" >${login.member_id }</label><br>                  
+                  <textarea style="resize:none"cols="90" rows="2" placeholder="상대방을 향한 욕설, 음담패설은 자제해주세요."  id="replycontent" minlength="4" maxlength="100" required></textarea>                 
+                  <br><input type="text" size="1" value="0"  id="replycount" >자
+               <c:if test="permit eq 'true'"> 
+                  <input style="position:relative; left:86%;" type="button" class="btn btn-primary" value="등록" onclick="replyinsert();">                  
                </c:if>   
-               </form>         
+               </form>          
               
              
                </div>
@@ -165,7 +173,7 @@ function ajaxreplylist(){
                  $("#replylist").append(rlistcount);
                 
              if(data.rlist.length==0){                
-                $("#noreply").html("작성된 댓글이 없습니다.");                
+                    
                 
              }else{             
                 $.each(data.rlist, function(key,value){    
@@ -177,9 +185,10 @@ function ajaxreplylist(){
                     
                        "<div style='font-weight:bold; color:black' id='replywriter"+value.cafe_reply+"' >"+value.writer+"</div>"+
                        "<div style='color:black' >"+value.content+"</div>"+
-                       "<div style='font-size:smell'>"+changeDate(value.regdate)+";</div>"+                       
+                       "<div style='font-size:smell'>"+changeDate(value.regdate)+"</div>"+ 
+                       "<input type='button' value='수 정' class='btn btn-primary btnhide"+value.cafe_reply+"' onclick='replyupdate1("+value.cafe_reply+");'/>"+
                        "<input type='button' value='삭 제' class='btn btn-secondary btnhide"+value.cafe_reply+"' onclick='replydelete("+value.cafe_reply+");' />"+
-                         "<input type='button' value='수 정' class='btn btn-primary btnhide"+value.cafe_reply+"' onclick='replyupdate1("+value.cafe_reply+");'/>"+
+                        
                          
                          
                       "</div><hr>"+
@@ -187,12 +196,12 @@ function ajaxreplylist(){
                       "<div id='commentupdate"+value.cafe_reply+"' style='display:none'>"+                      
                          "<div style='font-weight:bold; color:black'>"+value.writer+"</div>"+
                          "<input type='text' size='80' name='content' value='"+value.content+"' id='updatecontent"+value.cafe_reply+"'/> "+
-                         "<div style='font-size:smell'>"+changeDate(value.regdate)+";</div>"+   
+                         "<div style='font-size:smell'>"+changeDate(value.regdate)+"</div>"+   
                          "<input type='button' value='수정완료' class='btn btn-primary' onclick='replyupdate2("+value.cafe_reply+");'/>"+
                          "<input type='button' value='수정취소' class='btn btn-secondary' onclick='replyupdatex("+value.cafe_reply+");'/>"+       
-                                            
+                                              
                       "</div>";                 
-                   
+                       
                    console.log(rlist1);
                    $("#replylistthis").append(rlist1);
                    
@@ -231,7 +240,6 @@ ajaxreplylist();
    
 
 function replyinsert(){
-   alert("글등록 이벤트");
    var  content = $("#replycontent").val();
    var cafe_board_no= $("#replyboard_no").val();    
    var writer = $("#loginid").val();   
@@ -255,7 +263,7 @@ function replyinsert(){
             $("#replycontent").val('');
             
          }else{
-            alert("댓글 등록을 다시 시도 해 주세요.");
+            alert("다시 시도 해 주세요.");
          }                    
        },
       
@@ -280,7 +288,7 @@ function replydelete(cafe_reply){
              $("#replylistthis").empty();
                ajaxreplylist();
           }else{
-             alert("댓글 삭제를 다시 시도 해 주세요.");
+             alert("다시 시도 해주세요.");
           }
           
        },
@@ -322,12 +330,12 @@ function replyupdate2(cafe_reply){
        success : function(data){
                    
          if(data.res==1){
-            alert("댓글이 수정 완료");
+            alert("댓글이 수정되었습니다.");
             $("#replylistthis").empty();
             ajaxreplylist();            
             
          }else{
-            alert("댓글 수정을 다시 시도 해 주세요.");
+            alert("다시 시도해 주세요.");
          }                    
        },
       
@@ -357,23 +365,23 @@ function changeDate(date){
     second = date.getSeconds();
     
     if(month<10){
-    	 
-    	month = "0"+month;
+        
+       month = "0"+month
     }
      
     if(day<10){
-    	day = "0"+day; 
+       day = "0"+day
     }
     
     if(hour<10){
-    	hour = "0"+hour;
+       hour = "0"+hour
     }
     
     if(minute<10){
-    	minute = "0"+minute;
+       minute = "0"+minute
     }
     
-    	    
+           
     strDate = year+"-"+month+"-"+day+" "+hour+":"+minute
     
     

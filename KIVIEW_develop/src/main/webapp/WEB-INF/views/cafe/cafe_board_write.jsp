@@ -59,9 +59,9 @@
                <input type="hidden" name="cafe_menu_no" value="${cafe_menu_no }">
                <input type="hidden" name="cafe_no" value="${cafe_list[0].cafe_no }">
                <input type="hidden" name="writer" value="${login.member_id}">
-               <input type="hidden" name="category" value="카테고리인서트테스트">
-               <label>말머리 선택.</label><br>
-             
+               
+                
+             	<label>말머리</label>
                <select name="menu_name" id="boardcategory1">
                <c:forEach var="menu" items="${cafe_list[1] }">
                         
@@ -71,10 +71,10 @@
                </c:forEach>   
                </select> 
 
-               <select name="categoryname" id="boardcategory2">
+               <select name="category" id="boardcategory2">
                   <option selected="selected">말머리 선택</option>                  
                </select>
-                
+               
                
                <br>               
                <label>제 목</label><br>
@@ -87,7 +87,7 @@
                <br>
                <div align="center">
                <input type="submit" value="작 성" class="btn btn-secondary" style="width:20%">
-               <input type="button" value="취 소" class="btn btn-primary" style="width:20%" onclick="location.href='cafeboardlist.do?cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_no }'"> 
+               <input type="button" value="취 소" class="btn btn-primary" style="width:20%" onclick="location.href='cafeboardlist.do?cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }&curpagenum=1'"> 
                </div>
                </form>
                
@@ -119,7 +119,7 @@
   </body>
 <script type="text/javascript">
 
-$("#boardcategory1").on("click",function(){
+$(function(){
    
   var no = $("#boardcategory1 option:selected").val();
    
@@ -134,18 +134,19 @@ $("#boardcategory1").on("click",function(){
           
          dataType:"json",
          success:function(key){
-            alert("통신성공!");        
+                    
             console.log(key.category2);
             
             if(key.category2==0){
-               alert("말머리가 존재하지 않습니다.");                            
+                                
             $("#boardcategory2").hide();
                
             }else{
+               
                 $.each(key.category2,function(index,item){               
                     
                                 
-                    alert("말머리 있음!");                                
+                                                
                    var rlist = "";                        
                         rlist += "<option value='"+item.category+"'>"+item.category+"</option>";                         
                         console.log(rlist);        
@@ -166,9 +167,9 @@ $("#boardcategory1").on("click",function(){
          }
          
       });
-   });
 
-     
+
+})   
 
 
 
