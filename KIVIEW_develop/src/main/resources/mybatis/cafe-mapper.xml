@@ -79,6 +79,27 @@
      
      </delete>
      
+     <select id="cafe_admin" parameterType="String" resultType="CafeVo">
+     	SELECT *
+     	FROM CAFE
+     	WHERE ADMIN=#{admin}
+     
+     </select>
+     
+     <select id="cafe_selectAll" resultType="CafeVo">
+     	SELECT *
+     	FROM CAFE
+     	
+     
+     </select>
+     
+     <select id="best_cafe" resultType="CafeMemberVo">
+     	select count(*), cafe_no 
+     	from cafe_member 
+     	where rownum between 0 and 3 
+     	group by cafe_no 
+     	order by count(*) desc;
+     </select>
 
      
      <!-- 메뉴 CRUD -->
@@ -209,6 +230,10 @@
         UPDATE CAFE_BOARD SET HIT=HIT+1 WHERE CAFE_BOARD_NO=#{cafe_board_no}
      </update>
      
+     
+     
+     
+     <!-- 카페 리플 -->
      <select id="cafe_reply_list" parameterType="int" resultType="CafeReplyVo">
         SELECT *
         FROM CAFE_REPLY WHERE CAFE_BOARD_NO=#{cafe_board_no} 

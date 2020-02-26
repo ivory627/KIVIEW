@@ -136,7 +136,7 @@ function test(){
                      </div>
                   </div>
                   <p class="mb-0">
-                     <a href="cafeopen.do" class="btn btn-secondary"
+                     <a href="cafeadmin.do?member_no=${login.member_no }&member_id=${login.member_id }" class="btn btn-secondary"
                         style="width: 300px">카페 개설하기 </a>
                   </p>
                </div>
@@ -211,7 +211,17 @@ function test(){
                                     <!-- 카페장 -->
                                     <a href="#" class="mr-2">${Ulist.admin }</a>
                                     <!-- 카페 회원 수 -->
-                                    <a href="#" class="meta-chat">1 /50</a>
+                                    <c:set var="count" value="0"/>
+													<c:forEach items="${member }" var="member">
+													
+														<c:if test="${Ulist.cafe_no == member.cafe_no }">
+															<c:set var="count" value="${count+1 }"/>
+
+														</c:if>
+													
+													</c:forEach>    
+													
+                                    <a href="#" class="meta-chat">${count } 명</a>
                                  </p>
                               </div>
                            </div>
@@ -312,7 +322,18 @@ function test(){
                                        <!-- 카페장 -->
                                        <a href="#" class="mr-2">${Alist.admin }</a>
                                        <!-- 카페 회원 수 -->
-                                       <a href="#" class="meta-chat">1 /50</a>
+                                       <c:set var="count" value="0"/>
+													<c:forEach items="${member }" var="member">
+													
+														<c:if test="${Alist.cafe_no == member.cafe_no }">
+															<c:set var="count" value="${count+1 }"/>
+
+														</c:if>
+													
+													</c:forEach>    
+													
+                                   	 <a href="#" class="meta-chat">${count } 명</a>
+                                      
                                     </p>
                                  </div>
                               </div>

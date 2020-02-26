@@ -39,6 +39,7 @@ import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.CafePageVo;
 import com.mvc.kiview.model.vo.CafeReplyVo;
 import com.mvc.kiview.model.vo.CafeVo;
+import com.mvc.kiview.model.vo.MemberVo;
 
 @Controller // 카페관련
 public class CafeController {
@@ -59,11 +60,21 @@ public class CafeController {
 
 		List<CafeVo> Alist = new ArrayList<CafeVo>();
 		Alist = biz.cafe_Alist(member_id);
+		
+		List<CafeMemberVo> member = biz.member_selectAll();
+		//List<CafeMemberVo> best = biz.best_cafe();
+		//List<CafeVo> cafe = biz.cafe_selectAll();
+		
+		
 		// 내가 가입한 카페 카페 목록
 		model.addAttribute("Ulist", Ulist);
 
 		// 내가 운영 중이 카페 목록
 		model.addAttribute("Alist", Alist);
+		
+		model.addAttribute("member", member);
+		//model.addAttribute("best",best);
+		//model.addAttribute("cafe",cafe);
 
 		return "cafe/cafe_home";
 	}
@@ -75,8 +86,10 @@ public class CafeController {
 		List<CafeMemberVo> member = biz.member_selectAll(); 
 		
 		
+		
 		model.addAttribute("cafe", cafe);
 		model.addAttribute("member",member);
+		
 		
 
 		return "cafe/cafe_my";
@@ -127,9 +140,11 @@ public class CafeController {
 	public String cafe_search(Model model, String keyword) {
 
 		List<CafeVo> slist = biz.cafe_search(keyword);
-
+		List<CafeMemberVo> member = biz.member_selectAll();
+		
 		model.addAttribute("Slist", slist);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("member",member);
 		return "cafe/cafe_search";
 	}
 
@@ -589,6 +604,29 @@ public class CafeController {
 
 	// ------------------------카페 오픈---------------------------//
 
+	@RequestMapping("/cafeadmin.do")
+	public void cafe_admin(MemberVo member, HttpServletResponse response) throws IOException {
+		List<CafeVo> cafe = biz.cafe_admin(member.getMember_id());
+		
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/html; charset=utf-8");
+		if(cafe.size()>0) {
+			out.print("<script> alert('더 이상 카페를 개설할 수 없습니다.'); location.href='cafehome.do?member_id="+member.getMember_id()+"&member_no="+member.getMember_no()+"'</script>");
+			
+			out.flush();
+			
+		} else {
+			
+			out.print("<script> location.href='cafeopen.do' </script>");
+			out.flush();
+		}
+		
+		
+		
+		
+		
+	}
+	
 	@RequestMapping("/cafeopen.do")
 	public String cafe_open() {
 		return "cafe/cafe_open";
@@ -596,7 +634,8 @@ public class CafeController {
 
 	@RequestMapping("/cafeinsert.do")
 	public String cafe_insert(HttpServletRequest request, Model model, CafeVo cafe, uploadFile uploadfile,
-			@RequestParam("member_no") int member_no, @RequestParam("admin") String admin, BindingResult result) throws FileNotFoundException {
+			@RequestParam("member_no") int member_no, @RequestParam("admin") String admin, BindingResult result, HttpServletResponse response) throws IOException {
+		
 		
 
 		filevalidate.validate(uploadfile, result);
@@ -727,6 +766,8 @@ public class CafeController {
 			
 			return "redirect:cafeopen.do";
 		}
+		
+		
 
 	}
 	
@@ -1070,12 +1111,17 @@ public class CafeController {
 	   public Map cafe_reply_delete(CafeReplyVo vo) {
 		   int res = biz.reply_delete(vo.getCafe_reply());
 		   List<CafeReplyVo> reply = biz.cafe_board_reply_list(vo.getCafe_board_no());
-		   System.out.println(reply);
+		   
 		   Map map = new HashMap();
 		   
-		   for(int i=0; i<reply.size(); i++) {
-			   map.put(i, reply.get(i));
+		   if(reply.size()>0) {
+			   for(int i=0; i<reply.size(); i++) {
+				   map.put(i, reply.get(i));
+			   }
+		   } else {
+			   map.put(0, 0);
 		   }
+		   
 		   
 		   return map;
 		   

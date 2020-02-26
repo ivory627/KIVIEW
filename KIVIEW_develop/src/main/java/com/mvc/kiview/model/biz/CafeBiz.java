@@ -34,6 +34,8 @@ public interface CafeBiz {
 	
 	public int cafe_update(CafeVo cafe);
 	
+	public List<CafeVo> cafe_admin(String admin);
+	
 	//--메뉴 CRUD--
 	
 	public List<CafeMenuVo> menu_list(int cafe_no);
@@ -116,13 +118,23 @@ public interface CafeBiz {
 	
 	public int member_sign(int cafe_member_no);
 	
-	
-
 	public List<CafeMemberVo> member_selectAll();
 
 	public int member_delete(int cafe_member_no);
 
+	
+	
+	
+	
 	public List<CafeBoardVo> cafe_board_list_total(int cafe_no);
+
+	
+	
+	public List<CafeMemberVo> best_cafe();
+
+	public List<CafeVo> cafe_selectAll();
+
+	
 
 	
 

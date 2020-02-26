@@ -353,6 +353,26 @@ public class CafeBizImpl implements CafeBiz {
 		return dao.cafe_board_list_total(cafe_no);
 	}
 
+	@Override
+	public List<CafeVo> cafe_admin(String admin) {
+		
+		return dao.cafe_admin(admin);
+	}
+
+	
+
+	@Override
+	public List<CafeMemberVo> best_cafe() {
+		
+		return dao.best_cafe();
+	}
+
+	@Override
+	public List<CafeVo> cafe_selectAll() {
+		
+		return dao.cafe_selectAll();
+	}
+
 	
 
 	

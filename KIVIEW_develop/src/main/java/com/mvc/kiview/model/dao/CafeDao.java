@@ -17,6 +17,8 @@ public interface CafeDao {
    
    public List<CafeVo> cafe_Alist(String member_id);
    
+   public List<CafeVo> cafe_admin(String admin);
+   
    public CafeMemberVo cafe_regyn(CafeMemberVo regyn);
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   
    
@@ -118,6 +120,18 @@ public interface CafeDao {
 	public int member_delete(int cafe_member_no);
 
 	public int member_unblock(int cafe_member_no);
+
+	
+	
+	
+	
+	
+
+	public List<CafeMemberVo> best_cafe();
+
+	public List<CafeVo> cafe_selectAll();
+
+	
 
 	
 

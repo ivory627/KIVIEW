@@ -109,7 +109,7 @@ function test(){
               <div class="col-md-6 col-lg-4 ftco-animate"
                      style="position: relative; left: 40%">
                      <br>
-                     <br> 검색 된 카페가 없습니다. [버튼] 추가 하자 카페 전체 목록 뿌려주자. <br>
+                     <br> 검색 된 카페가 없습니다.<br>
                      <br>
                   </div>         
             
@@ -152,7 +152,17 @@ function test(){
                            <!-- 카페장 -->`
                            <a href="#" class="mr-2">${Slist.admin }</a>
                            <!-- 카페 회원 수 -->
-                           <a href="#" class="meta-chat">1 /50</a>
+                           <c:set var="count" value="0"/>
+													<c:forEach items="${member }" var="member">
+													
+														<c:if test="${Slist.cafe_no == member.cafe_no }">
+															<c:set var="count" value="${count+1 }"/>
+
+														</c:if>
+													
+													</c:forEach>    
+													
+                                    <a href="#" class="meta-chat">${count } 명</a>
                         </p>
                      </div>
                   </div>

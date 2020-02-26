@@ -236,40 +236,49 @@ function show(cafe_board_no){
 				 $.each(data, function(idx, value){ 
 						$("#reply"+cafe_board_no).empty();
 						
-						var count = parseInt(idx)+1;  
-						if(data[0]===null||data[0]===undefined){   
+						
+						if(data[0]===0){   
 							
 							count=0; 
-						} 
+							
+							 $("#reply"+cafe_board_no).append(
+									 "댓글 <a style='color:#fda638;'>"+count+"</a>개"	   
+									 
+							 );
+						} else {
+							var count = parseInt(idx)+1;  
+							 $("#reply"+cafe_board_no).append(
+									 "댓글 <a style='color:#fda638;'>"+count+"</a>개"	   
+									 
+							 );
+						 
+						 
+							 var button = ''
+							 
+							if(value.writer=='${login.member_id}' || '${cafe_list[0].admin}' == '${login.member_id}'){
+	
+								var button=	"<span style='position:relative; color:#fda638; left:88%; cursor:pointer'onclick='reply_delete("+value.cafe_board_no+","+value.cafe_reply+")'>x</span>"
+						 
+							 }
+						 			 
+							 $("#replylist"+cafe_board_no).append(
+									 "<div style=' background-color:#F2F2F2'>"+
+									 "<div style='font-weight:bold; color:black'>"+value.writer+
+									button
+						 
+					                  +"</div>" +
+									 
+					                  "<div style='color:black'>"+value.content+"</div>"+
+					                  "<div style='font-size:small'>"+changeDate(value.regdate)+"</div>"+
+					               "<hr>"
+									 +"</div>"
+									 						 
+							 );
+						}
 						
-						 $("#reply"+cafe_board_no).append(
-								 "댓글 <a style='color:#fda638;'>"+count+"</a>개"	   
-								 
-						 );
-						 
-						 
-						 var button = ''
-						 
-						if(value.writer=='${login.member_id}' || '${cafe_list[0].admin}' == '${login.member_id}'){
-
-							var button=	"<span style='position:relative; color:#fda638; left:88%; cursor:pointer'onclick='reply_delete("+value.cafe_board_no+","+value.cafe_reply+")'>x</span>"
+				})	
 					 
-						 }
-					 			 
-						 $("#replylist"+cafe_board_no).append(
-								 "<div style=' background-color:#F2F2F2'>"+
-								 "<div style='font-weight:bold; color:black'>"+value.writer+
-								button
-					 
-				                  +"</div>" +
-								 
-				                  "<div style='color:black'>"+value.content+"</div>"+
-				                  "<div style='font-size:small'>"+changeDate(value.regdate)+"</div>"+
-				               "<hr>"
-								 +"</div>"
-								 						 
-						 );
-					 })	
+				 
 			 },
 			 error:function(error){
 				 alert("명령 실행중 오류")
@@ -318,6 +327,8 @@ function show(cafe_board_no){
 	    
 	    return strDate;
 	}
+
+ 
  
 </script>
   </head>
@@ -390,13 +401,13 @@ function show(cafe_board_no){
                	
                	</c:when>
                	<c:otherwise>
-               		<c:forEach var="guest" items="${guest }">
+               		<c:forEach var="guest" items="${guest }" >
                	
                 <div id="guest${guest.cafe_board_no }" class="col-lg-8 ftco-animate" style="padding:20px; margin-top:20px; width:100%;  background-color:white; border:1px solid lightgray;"> 
                   	
-                  	<!-- 본문영역 -->
+                  	<!-- 본문영역 --> 
                   	<div id="board${guest.cafe_board_no }">   
-		               <label style="margin-left:10px;">${guest.writer }&nbsp;&nbsp;|&nbsp;&nbsp;<fmf:formatDate value='${guest.regdate}' pattern='yyyy-MM-dd hh:mm'/></label><br>  
+		               <label style="margin-left:10px;">${guest.writer }&nbsp;&nbsp;|&nbsp;&nbsp;<fmf:formatDate value='${guest.regdate}' pattern='yyyy-MM-dd HH:mm'/></label><br>  
 		                    
 		               <p class="content" style="margin-left:10px;">${guest.content }</p>
       					<div style="margin-right:60px; margin-top:10px; position:relative; left:80%">
@@ -419,7 +430,7 @@ function show(cafe_board_no){
                			<form id="update_data${guest.cafe_board_no }" action="cafeguestupdate.do">
                				<input type="hidden" name="cafe_board_no" value="${guest.cafe_board_no }"> 
                				<input type="hidden" name="title" value="방명록">  
-			               <label style="margin-left:10px;">${guest.writer }&nbsp;&nbsp;|&nbsp;&nbsp;<fmf:formatDate value='${guest.regdate}' pattern='yyyy-MM-dd hh:mm'/></label><br>  
+			               <label style="margin-left:10px;">${guest.writer }&nbsp;&nbsp;|&nbsp;&nbsp;<fmf:formatDate value='${guest.regdate}' pattern='yyyy-MM-dd HH:mm'/></label><br>  
 			                    
 			       			<textarea style="resize:none" cols="80" rows="7" name="content" minlength="4" maxlength="500">${guest.content }</textarea> 
 	      					<div style="margin-right:60px; margin-top:10px; position:relative; left:80%">
@@ -466,7 +477,7 @@ function show(cafe_board_no){
 					                  
 					                  </div>
 					                  <div style="color:black">${reply.content }</div> 
-					                  <div style="font-size:small"><fmf:formatDate value='${reply.regdate}' pattern='yyyy-MM-dd hh:mm'/></label></div>
+					                  <div style="font-size:small"><fmf:formatDate value='${reply.regdate}' pattern='yyyy-MM-dd HH:mm'/></label></div>
 					               <hr>          
 				               
 			               		</div>

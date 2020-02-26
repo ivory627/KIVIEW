@@ -683,6 +683,50 @@ public class CafeDaoImpl implements CafeDao {
 		}
 		return res;
 	}
+
+	@Override
+	public List<CafeVo> cafe_admin(String admin) {
+		List<CafeVo> res = null;
+		
+		try { 
+			res = sqlSession.selectList(namespace+"cafe_admin",admin);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("cafe_admin 오류");
+		}
+		return res;
+	}
+
+	
+	
+	
+	
+
+	@Override
+	public List<CafeMemberVo> best_cafe() {
+		List<CafeMemberVo> res = null;
+		
+		try { 
+			res = sqlSession.selectList(namespace+"best_cafe");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("best_cafe 오류");
+		}
+		return res;
+	}
+
+	@Override
+	public List<CafeVo> cafe_selectAll() {
+		List<CafeVo> res = null;
+		
+		try { 
+			res = sqlSession.selectList(namespace+"cafe_selectAll");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("cafe_selectAll 오류");
+		}
+		return res;
+	}
 	
 	
 

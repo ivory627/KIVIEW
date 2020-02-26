@@ -51,6 +51,8 @@ a {
 	}
 	
 	
+	
+	
 </script>
 
 </head>
@@ -131,7 +133,7 @@ a {
 											
 											
 											<p>
-												<span>${cafe.admin }</span> | <span>게시글 수</span> | 
+												<span>${cafe.admin }</span> | 
 												
 												
 												<c:set var="count" value="0"/>
@@ -143,7 +145,7 @@ a {
 														</c:if>
 													
 													</c:forEach>
-													<span>${count}</span>
+													<span>${count} 명</span>
 												
 											</p>
 											
@@ -233,7 +235,7 @@ a {
 							</div>
 						</div>
 						<p class="mb-0">
-							<a href="cafeopen.do" class="btn btn-secondary"
+							<a href="cafeadmin.do?member_no=${login.member_no }&member_id=${login.member_id }" class="btn btn-secondary"
 								style="width: 300px">카페 개설하기 </a>
 						</p>
 					</div>
