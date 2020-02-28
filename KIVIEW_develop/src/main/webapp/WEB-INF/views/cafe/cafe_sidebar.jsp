@@ -29,8 +29,12 @@ function sign_ready(){
 
 function ban(){
 	alert('카페 회원만 이용하실 수 있습니다.');
-}
+} 
 
+function cafechat(){
+	window.open("cafechat.do?member_id=${login.member_id}&member_no=${login.member_no}","_blank","width=900, height=700, scrollbars=yes"); 
+	
+}
 
 
 
@@ -139,7 +143,7 @@ textarea{
                					<c:set var="count" value="${count+1 }"/>
                					<c:if test="${count>0 }">
                							<c:if test="${member.signyn eq 'Y' || member.signyn eq 'A' }">
-											<p class="mb-0" align=center><a href="cafejoinform.do?cafe_no=${cafe_list[0].cafe_no }" 
+											<p class="mb-0" align=center><a onclick="cafechat()"
 											class="btn btn-secondary" style="width:100%; border-radius:0px;" >채팅방 입장하기</a></p>
             							</c:if>
             						
@@ -210,7 +214,7 @@ textarea{
                            <li><i class="fas fa-clipboard-list"></i><a href="cafeboardlist.do?cafe_no=${cafe_list[0].cafe_no }&cafe_menu_no=${menu.cafe_menu_no }&curpagenum=1"> ${menu.name}</a></li>                        
                      </c:when>
                      <c:otherwise>
-                           <li><i class="fas fa-clipboard-check"></i><a href="cafeguestlist.do?cafe_no=${cafe_list[0].cafe_no }&cafe_menu_no=${menu.cafe_menu_no }"> ${menu.name}</a></li>        
+                           <li><i class="fas fa-clipboard-check"></i><a href="cafeguestlist.do?cafe_no=${cafe_list[0].cafe_no }&cafe_menu_no=${menu.cafe_menu_no }&curpagenum=1"> ${menu.name}</a></li>        
                      </c:otherwise>
                     </c:choose>   
                   </c:forEach>

@@ -15,7 +15,28 @@
     
     <%@ include file = "../head.jsp" %>
 
+<style type="text/css">
+.paging{
+   float : left;
+   list-style: none;
 
+}
+
+.active{
+ background-color: lightgray;
+
+}   
+
+
+
+#replypaging {
+	width:100%;
+	margin:0 auto; 
+	text-align:center;
+	float:center; 
+}
+
+</style>
   </head>
   <body id = "body">
   
@@ -75,10 +96,10 @@
             
                <div align="right" style="margin-right:60px; margin-top:10px">
                <c:if test="${cafe_board_detail.writer eq login.member_id || cafe_list[0].admin eq login.member_id  }">
-                  <input type="button" onclick="location.href='cafeboardupdateform.do?cafe_board_no=${cafe_board_detail.cafe_board_no}&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }'" value="수 정" class="btn btn-primary" style="width:10%">
-                  <input type="button" value="삭 제" class="btn btn-secondary" style="width:10%" onclick="location.href='cafeboarddelete.do?cafe_board_no=${cafe_board_detail.cafe_board_no}&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }'">
+                  <input type="button" onclick="location.href='cafeboardupdateform.do?cafe_board_no=${cafe_board_detail.cafe_board_no}&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }&curpagenum=${curpagenum }'" value="수 정" class="btn btn-primary" style="width:10%">
+                  <input type="button" value="삭 제" class="btn btn-secondary" style="width:10%" onclick="location.href='cafeboarddelete.do?cafe_board_no=${cafe_board_detail.cafe_board_no}&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }&curpagenum=${curpagenum }'">
                </c:if>
-               <input type="button" value="목 록" class="btn btn-primary" style="width:10%" onclick="location.href='cafeboardlist.do?&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }'"> 
+               <input type="button" value="목 록" class="btn btn-primary" style="width:10%" onclick="location.href='cafeboardlist.do?&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }&curpagenum=${curpagenum }'"> 
                </div>
                
                
@@ -98,7 +119,8 @@
                <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->     
               <div id="replylistthis">
               </div>                
-               
+              <div id="replypaging">               
+              </div>  
               
                <!-- 페이징 관련 코드 여기에 넣어야 함. -->
                
@@ -114,11 +136,12 @@
                         
               
                    <label style="font-weight:bold; color:black" >${login.member_id }</label><br>                  
-                  <textarea style="resize:none"cols="90" rows="2" placeholder="상대방을 향한 욕설, 음담패설은 자제해주세요."  id="replycontent" minlength="4" maxlength="100" required></textarea>                 
-                  <br><input type="text" size="1" value="0"  id="replycount" >자
-               <c:if test="permit eq 'true'"> 
+                  <textarea style="resize:none"cols="90" rows="2" placeholder="상대방을 향한 욕설, 음담패설은 자제해주세요."  id="replycontent" maxlength="100" required></textarea>                 
+                  <br>
+                  <input type="text" size="1" placeholder="0" id="replycount" readonly="readonly" >자
+              
                   <input style="position:relative; left:86%;" type="button" class="btn btn-primary" value="등록" onclick="replyinsert();">                  
-               </c:if>   
+              
                </form>          
               
              
@@ -137,6 +160,9 @@
 
   
 <script type="text/javascript">
+var curpagenum= 1;
+
+
 
 
 $(document).on("keyup","#replycontent",function(){
@@ -151,13 +177,22 @@ function contentcount(num){
       var content = $("#replycontent2").val();   
       var length1 = content.length ;
       
-      $("#replycount2").val(length1);   
+      $("#replycount2").val(length1);
+      
+      
    });   
 }
 contentcount();
 
+function PageMove(curpagenum){
+   
+   ajaxreplylist(curpagenum);
+}
 
-function ajaxreplylist(){
+function ajaxreplylist(curpagenum){
+   if(curpagenum.length==0){
+      curpagenum = 1;
+   }
    var cafe_board_no = $("#replyboard_no").val();
    
    console.log(cafe_board_no);
@@ -166,10 +201,17 @@ function ajaxreplylist(){
           url : "ajaxreplylist.do",
           type : "post",
           dataType:"json",
-          data : {"cafe_board_no" : cafe_board_no },
+          contentType:"application/json",
+          data : JSON.stringify({
+             "cafe_board_no" : cafe_board_no,
+             "curpagenum"   :   curpagenum
+          }),
+                
           success : function(data){
+             
                  $("#replylist").empty();
-             var rlistcount = "<h5>댓글<a style='color:fda638'>"+data.rlist.length+"</a>개</h5>";       
+                 $("#replylistthis").empty();
+             var rlistcount = "<h5>댓글<a style='color:fda638'>"+data.pagevo.totallistcount+"</a>개</h5>";       
                  $("#replylist").append(rlistcount);
                 
              if(data.rlist.length==0){                
@@ -187,7 +229,7 @@ function ajaxreplylist(){
                        "<div style='color:black' >"+value.content+"</div>"+
                        "<div style='font-size:smell'>"+changeDate(value.regdate)+"</div>"+ 
                        "<input type='button' value='수 정' class='btn btn-primary btnhide"+value.cafe_reply+"' onclick='replyupdate1("+value.cafe_reply+");'/>"+
-                       "<input type='button' value='삭 제' class='btn btn-secondary btnhide"+value.cafe_reply+"' onclick='replydelete("+value.cafe_reply+");' />"+
+                       "<input type='button' value='삭 제' class='btn btn-secondary btnhide"+value.cafe_reply+"' onclick='replydelete("+value.cafe_reply+","+data.pagevo.curpagenum+","+data.pagevo.cafe_board_no+");' />"+
                         
                          
                          
@@ -197,7 +239,7 @@ function ajaxreplylist(){
                          "<div style='font-weight:bold; color:black'>"+value.writer+"</div>"+
                          "<input type='text' size='80' name='content' value='"+value.content+"' id='updatecontent"+value.cafe_reply+"'/> "+
                          "<div style='font-size:smell'>"+changeDate(value.regdate)+"</div>"+   
-                         "<input type='button' value='수정완료' class='btn btn-primary' onclick='replyupdate2("+value.cafe_reply+");'/>"+
+                         "<input type='button' value='수정완료' class='btn btn-primary' onclick='replyupdate2("+value.cafe_reply+","+data.pagevo.curpagenum+","+data.pagevo.cafe_board_no+");'/>"+
                          "<input type='button' value='수정취소' class='btn btn-secondary' onclick='replyupdatex("+value.cafe_reply+");'/>"+       
                                               
                       "</div>";                 
@@ -213,10 +255,80 @@ function ajaxreplylist(){
                   if(loginid != replywriter && loginid != adminid ){
                      $(".btnhide"+value.cafe_reply).hide(); 
                   }else{
-                     $(".btnhide"+value.cafe_reply).show(); 
+                     $(".btnhide"+value.cafe_reply).show();
                   }
                 })
-
+            /* 페이징  */
+                if(data.rlist.length > 0){
+                   
+               $("#replypaging").empty();
+               
+               var prepage = data.pagevo.curpagenum;
+               var prepage1 = prepage-1;
+               var nextpage1 = prepage+1;
+               var searchresultpaging1 = '';
+                  searchresultpaging1 +=                              
+                  
+                  "<ul class='pagination' >"+
+                  "<li class='paging'><a href='javascript:PageMove(1)'>&nbsp;&nbsp; << &nbsp;&nbsp; </a> </li>";
+                  $("#replypaging").append(searchresultpaging1);
+               if(data.pagevo.pagepre == true){
+                  var searchresultpaging1 = '';
+                  searchresultpaging1 +=                           
+                  "<li class='paging'><a href='javascript:PageMove("+prepage1+")'>&nbsp;&nbsp; < &nbsp;&nbsp;</a></li>";
+                  $("#replypaging").find("ul").append(searchresultpaging1);
+               }
+               
+               for(var i=data.pagevo.startpage ; i<data.pagevo.endpage+1; i++ ){
+                  
+                  console.log(data.pagevo.startpage);
+                  
+                  var searchresultpaging1 = '';
+                  if(i == data.pagevo.curpagenum){
+                     
+                     searchresultpaging1 +=
+                     "<li class='active paging' ><a href='javascript:PageMove("+i+")'>&nbsp;&nbsp;"+i+"&nbsp;&nbsp;</a></li>";
+                     $("#replypaging").find("ul").append(searchresultpaging1);
+                     
+                  }else{
+                     
+                     searchresultpaging1 +=
+                     "<li class='paging'><a href='javascript:PageMove("+i+")'>&nbsp;&nbsp;"+i+"&nbsp;&nbsp;</a></li>";
+                     $("#replypaging").find("ul").append(searchresultpaging1);
+                     
+                  }
+                  
+               }
+               
+               if(data.pagevo.pagenext == true){
+                  var searchresultpaging1 = '';
+                  searchresultpaging1 +=
+                     "<li class='paging'><a href='javascript:PageMove("+nextpage1+")'>&nbsp;&nbsp; > &nbsp;&nbsp;</a></li>";
+                  $("#replypaging").find("ul").append(searchresultpaging1);   
+               }
+               
+               var searchresultpaging1 = '';
+               searchresultpaging1 +=                              
+               "<li class='paging'><a href='javascript:PageMove("+data.pagevo.totalpagecount+")'>&nbsp;&nbsp; >> &nbsp;&nbsp; </a> </li></ul>";
+               $("#replypaging").find("ul").append(searchresultpaging1);
+                  
+               
+               console.log(searchresultpaging1);
+                  
+                  
+               
+               
+            } 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
              }    
                    
                              
@@ -232,34 +344,43 @@ function ajaxreplylist(){
 
    
    
-}
-   
-ajaxreplylist();   
+}   
+ajaxreplylist(curpagenum);   
 
 
    
 
 function replyinsert(){
+   
    var  content = $("#replycontent").val();
+   if(content.length < 4){
+      alert("4글자 이상 입력해주세요.");
+      $("#replycontent").focus();
+      return;
+   }
    var cafe_board_no= $("#replyboard_no").val();    
-   var writer = $("#loginid").val();   
+   var writer = $("#loginid").val();
    jQuery.ajax({
        url : "ajaxreplyinsert.do",
        type : "post",
        dataType:"json",
        contentType:"application/json",
        data : JSON.stringify({
-              "cafe_board_no" : cafe_board_no,
+             "cafe_board_no" : cafe_board_no,
              "writer"       : writer,
              "content"       : content
           
           }),
        success : function(data){
-                   
+         var textareacount = 0;          
          if(data.res==1){
             alert("댓글이 등록 되었습니다.");
+           
             $("#replylistthis").empty();
-            ajaxreplylist();
+            var page = data.insertpage;
+            alert(page);
+            ajaxreplylist(page);
+            
             $("#replycontent").val('');
             
          }else{
@@ -273,20 +394,26 @@ function replyinsert(){
 });
 
 }
-function replydelete(cafe_reply){       
+function replydelete(cafe_reply,curpagenum,cafe_board_no){       
    console.log(cafe_reply);
+   alert(curpagenum);
    
    jQuery.ajax({   
       url : "ajaxreplydelete.do",
        type : "post",
-       dataType:"json",       
-       data : { "cafe_reply" : cafe_reply },
+       dataType:"json",
+       contentType:"application/json",
+       data : JSON.stringify({ 
+          "cafe_reply" : cafe_reply,
+          "curpagenum" : curpagenum,
+          "cafe_board_no" : cafe_board_no
+          }),
        success : function(data){
           
           if(data.res==1){
              alert("댓글이 삭제 되었습니다.");
              $("#replylistthis").empty();
-               ajaxreplylist();
+               ajaxreplylist(data.deletepage);
           }else{
              alert("다시 시도 해주세요.");
           }
@@ -304,6 +431,7 @@ function replydelete(cafe_reply){
 
 function replyupdate1(cafe_reply){
    console.log(cafe_reply);
+   
    console.log("#comment"+cafe_reply);
    
    $("#comment"+cafe_reply).hide();
@@ -312,8 +440,9 @@ function replyupdate1(cafe_reply){
 
  
 
-function replyupdate2(cafe_reply){
+function replyupdate2(cafe_reply,curpagenum,cafe_board_no){
    console.log(cafe_reply);
+   
    console.log("#updatecontent"+cafe_reply);
    var content = $("#updatecontent"+cafe_reply).val();
    console.log(content);
@@ -324,15 +453,17 @@ function replyupdate2(cafe_reply){
        dataType:"json",
        contentType:"application/json",
        data : JSON.stringify({
-              "cafe_reply" : cafe_reply,             
-             "content"       : content          
+              "cafe_reply" : cafe_reply, 
+             "content"       : content,
+             "curpagenum"   : curpagenum,
+             "cafe_board_no" : cafe_board_no
           }),
        success : function(data){
                    
          if(data.res==1){
             alert("댓글이 수정되었습니다.");
             $("#replylistthis").empty();
-            ajaxreplylist();            
+            ajaxreplylist(data.curpagenum);            
             
          }else{
             alert("다시 시도해 주세요.");

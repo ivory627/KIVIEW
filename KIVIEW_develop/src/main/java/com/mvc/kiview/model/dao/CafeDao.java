@@ -1,6 +1,7 @@
 package com.mvc.kiview.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeCategoryVo;
@@ -90,6 +91,22 @@ public interface CafeDao {
 	public List<CafeReplyVo> cafe_board_reply_allList();
 	
 	public List<CafeBoardVo> cafe_board_list_total(int cafe_no);
+	
+	
+	public int cafe_board_list_count(int cafe_menu_no);
+	   
+	   public List<CafeBoardVo> cafe_boardlistcount(Map slistcount);
+
+	   public List<CafeBoardVo> cafe_boardlistpage(CafePageVo pagevo);
+
+	   public List<CafeReplyVo> cafe_board_reply_list(CafePageVo pagevo);
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

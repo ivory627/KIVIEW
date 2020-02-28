@@ -1,6 +1,7 @@
 package com.mvc.kiview.model.biz;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -374,6 +375,45 @@ public class CafeBizImpl implements CafeBiz {
 	}
 
 	
+	
+	
+	
+	//200228
+	@Override
+	   public List<CafeBoardVo> cafe_boardlistcount(Map slistcount) {
+	      
+	      return dao.cafe_boardlistcount(slistcount);
+	   }
+
+	   @Override
+	   public List<CafeBoardVo> cafe_boardlistpage(CafePageVo pagevo) {
+	      
+	      return dao.cafe_boardlistpage(pagevo);
+	   }
+
+	   @Override
+	   public List<CafeReplyVo> cafe_board_reply_list(CafePageVo page) {
+	      
+	      return dao.cafe_board_reply_list(page);
+	   }
+	   
+	   @Override
+	   public CafePageVo paging(int curpagenum, int lsitsize) {
+	      CafePageVo page = new CafePageVo();
+	      page.setCurpagenum(curpagenum);
+	      page.setTotallistcount(lsitsize);
+	      page.setPagepercount(10);
+	      page.setDisplaypagenum(10);
+	      page.setTotalpagecount(10, page.getTotallistcount());
+	      page.setEndpage(curpagenum, page.getDisplaypagenum(), page.getTotalpagecount());
+	      page.setStartpage(page.getEndpage(), page.getDisplaypagenum(), page.getTotalpagecount());
+	      page.setRowStart(page.getRowStart());
+	      page.setRowEnd(page.getRowEnd());
+	      page.setPagepre(page.getCurpagenum());
+	      page.setPagenext(page.getCurpagenum(), page.getTotalpagecount());
+	      
+	      return page;
+	   }
 
 	
 	

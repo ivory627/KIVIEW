@@ -29,8 +29,26 @@ textarea {
 	cursor : pointer;
 }
 
+#paging{ 
+	align:center;
+	width:100%; 
+	float:center;
+	text-align:center;
+	margin:0 auto;
+	margin-top:15px; 
+}
+
 </style>
 <script type="text/javascript">
+function PageMove(page) {
+    var curpagenum = page;
+    var cafe_no = '${cafe_list[0].cafe_no }';
+    var cafe_menu_no = '${pagevo.cafe_menu_no }'; 
+    
+    location.href = "cafeguestlist.do?curpagenum=" + page + "&cafe_no="
+          + cafe_no + "&cafe_menu_no=" + cafe_menu_no;
+ }
+
 function show(cafe_board_no){
 	$("#replylist"+cafe_board_no).toggle(); 
 	
@@ -111,28 +129,7 @@ function show(cafe_board_no){
 					
 					
 					
-					var button = ''
-						
-						if(data.guest.writer=='${login.member_id}' || '${cafe_list[0].admin}' == '${login.member_id}'){
-						button = "<input type='button' value='수정' class='btn btn-secondary' onclick='update("+data.guest.cafe_board_no+")'>"+
-			               "<input type='button' value='삭제' class='btn btn-primary' onclick='guest_delete("+data.guest.cafe_board_no+")'>"
-					}
-				
-					$("#board"+cafe_board_no).append(
-							
-							"<label style='margin-left:10px;'>"+data.guest.writer+
-							"&nbsp;&nbsp;|&nbsp;&nbsp;"+changeDate(data.guest.regdate)+"</label><br>"+  
-		                   
-				            "<p class='content' style='margin-left:10px;'>"+data.guest.content+"</p>"+
-		   					"<div style='margin-right:60px; margin-top:10px; position:relative; left:80%'>"+
-					                +button+
-					               "<br><br>"+   
-					              
-				               	"</div>"+	               
-		               
-				               "<br>"
-				
-					)
+					
 				
 				}, 
 				
@@ -513,14 +510,49 @@ function show(cafe_board_no){
                
             </div>
             
+			
+			 <div id="paging">
+			  
+        		 <c:if test="${pagevo.totallistcount ne '0' }">
+                    
+                        <ul class="pagination pull-right">
+                           <li><a href="javascript:PageMove(1)"> &nbsp;&nbsp;<< &nbsp;&nbsp; </a> </li>
+                           <c:if test="${pagevo.pagepre eq true }">
+                              <li><a
+                                 href="javascript:PageMove(${pagevo.curpagenum-1 })">&nbsp;&nbsp; < &nbsp;&nbsp;</a></li>
+                           </c:if>
+                           
+                           <c:forEach var="i" begin="${pagevo.startpage }" end="${pagevo.endpage }">
+                              <c:choose>
+                                 <c:when test="${i eq pagevo.curpagenum }">
+                                    <li class="active"><a href="javascript:PageMove(${i})">&nbsp;&nbsp;${i}&nbsp;&nbsp;</a></li>
+                                 </c:when>
+                                 <c:otherwise>
+                                    <li><a href="javascript:PageMove(${i})">&nbsp;&nbsp;${i}&nbsp;&nbsp;</a></li>
+                                 </c:otherwise>
+                              </c:choose>
+                           </c:forEach>
+                           <c:if test="${pagevo.pagenext eq true }">
+                              <li><a
+                                 href="javascript:PageMove(${pagevo.curpagenum+1 })">&nbsp;&nbsp; >&nbsp;&nbsp;</a></li>
+                           </c:if>
+                           <li><a
+                              href="javascript:PageMove(${pagevo.totalpagecount})"> &nbsp;&nbsp;>>&nbsp;&nbsp; </a></li>
+                        </ul>
 
+
+ 
+                      
+                  </c:if>
+         
+         	</div>
             
 
          </div>
 
 
          
-         
+        
 
 
       </div>

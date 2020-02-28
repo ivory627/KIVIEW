@@ -2,6 +2,7 @@ package com.mvc.kiview.model.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -728,7 +729,60 @@ public class CafeDaoImpl implements CafeDao {
 		return res;
 	}
 	
-	
+	//200228
+	@Override
+	   public List<CafeBoardVo> cafe_boardlistcount(Map slistcount) {
+	      List<CafeBoardVo> res =null;
+	      try { 
+	         res = sqlSession.selectList(namespace+"board_searchlistcount",slistcount);
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	         System.out.println("cafe_board_list_count 오류");
+	      }
+	      
+	      
+	      return res;
+	   }
+	   @Override
+	   public List<CafeBoardVo> cafe_boardlistpage(CafePageVo pagevo) {
+	      List<CafeBoardVo> res =null;
+	      try { 
+	         res = sqlSession.selectList(namespace+"cafe_board_list_page",pagevo);
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	         System.out.println("cafe_board_list_page 오류");
+	      }
+	      
+	      
+	      return res;
+	   }
+
+	   @Override
+	   public List<CafeReplyVo> cafe_board_reply_list(CafePageVo pagevo) {
+	      List<CafeReplyVo> res = null;
+	       try {
+	            res = sqlSession.selectList(namespace+"cafe_reply_list_pagevo",pagevo);
+	         }catch(Exception e) {
+	            e.printStackTrace();
+	            System.out.println("cafe_reply_list_pagevo 오류");
+	         }
+	      
+	      return res;
+	   }
+
+	   @Override
+	   public int cafe_board_list_count(int cafe_menu_no) {
+	      int res = 0;
+	      
+	      try { 
+	         res = sqlSession.selectOne(namespace+"cafe_board_list_count",cafe_menu_no);
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	         System.out.println("cafe_board_list_count 오류");
+	      }
+	      
+	      return res;
+	   }
 
 	
 
