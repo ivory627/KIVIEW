@@ -97,12 +97,15 @@ $(function(){
 })
 </script>
 
-<div style="position: fixed; bottom: 100px; right: 24px; z-index: 1;">
+<div style="position: fixed; bottom: 192px; right: 24px; z-index: 1;">
    <a href="#body"><img src="resources/images/main/up-arrow.png" /></a>
+</div>
+<div style="position: fixed; bottom: 25px; right: 24px; z-index: 1;">
+   <a href="#footer"><img src="resources/images/main/down-arrow.png" /></a>
 </div>
 <div id="frogue-container" class="position-right-bottom"
       data-chatbot="1d82e168-7048-41c1-b3e1-3ce0bc07c366"
-      data-user="사용자ID" data-init-key="value" style = "right:80px;"
+      data-user="사용자ID" data-init-key="value" style = "right:85px; bottom:170px"
       ></div>
 <script>
 (function(d, s, id){

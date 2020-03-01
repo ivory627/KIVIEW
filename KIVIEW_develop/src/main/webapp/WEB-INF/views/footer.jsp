@@ -8,7 +8,7 @@
 	response.setContentType("text/html; charset=UTF-8");
 %>
 
-<footer class="ftco-footer ftco-bg-dark ftco-section">
+<footer class="ftco-footer ftco-bg-dark ftco-section" id = "footer">
       <div class="container">
         <div class="row mb-5">
          <div class="col-md-6 col-lg-3">
