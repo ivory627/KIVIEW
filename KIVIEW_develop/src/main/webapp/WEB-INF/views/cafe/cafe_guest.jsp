@@ -29,14 +29,17 @@ textarea {
 	cursor : pointer;
 }
 
-#paging{ 
-	align:center;
-	width:100%; 
+#paging{    
+	
+	width:40%;   
+	margin:0 auto; 
+	text-align:center; 
 	float:center;
-	text-align:center;
-	margin:0 auto;
-	margin-top:15px; 
+	margin-top:15px;     
 }
+
+
+
 
 </style>
 <script type="text/javascript">
@@ -384,7 +387,18 @@ function show(cafe_board_no){
 		               <br>
 		               <br>
 		               <div align="center">
-			               <input type="submit" value="작 성" class="btn btn-secondary" style="width:20%">
+		               		<c:choose>
+		               			<c:when test="${menu.authority eq 'N' }">
+			               			<input type="submit" value="작 성" class="btn btn-secondary" style="width:20%">
+			               
+			              		</c:when>
+			              		<c:when test="${menu.authority eq 'Y' && login.member_id==cafe_list[0].admin}">
+			              			<input type="submit" value="작 성" class="btn btn-secondary" style="width:20%">
+			              		</c:when>
+			              		<c:otherwise>
+			              		
+			              		</c:otherwise>
+			              	</c:choose>
 			               
 			              		  
 		                
@@ -515,7 +529,7 @@ function show(cafe_board_no){
 			  
         		 <c:if test="${pagevo.totallistcount ne '0' }">
                     
-                        <ul class="pagination pull-right">
+                        <ul  class="pagination pull">  
                            <li><a href="javascript:PageMove(1)"> &nbsp;&nbsp;<< &nbsp;&nbsp; </a> </li>
                            <c:if test="${pagevo.pagepre eq true }">
                               <li><a

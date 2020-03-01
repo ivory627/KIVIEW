@@ -704,8 +704,8 @@ public class CafeDaoImpl implements CafeDao {
 	
 
 	@Override
-	public List<CafeMemberVo> best_cafe() {
-		List<CafeMemberVo> res = null;
+	public List<CafeVo> best_cafe() {
+		List<CafeVo> res = null;
 		
 		try { 
 			res = sqlSession.selectList(namespace+"best_cafe");

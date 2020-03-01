@@ -144,7 +144,7 @@ public interface CafeDao {
 	
 	
 
-	public List<CafeMemberVo> best_cafe();
+	public List<CafeVo> best_cafe();
 
 	public List<CafeVo> cafe_selectAll();
 

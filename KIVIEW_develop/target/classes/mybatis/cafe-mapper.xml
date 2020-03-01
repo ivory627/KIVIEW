@@ -93,12 +93,14 @@
      
      </select>
      
-     <select id="best_cafe" resultType="CafeMemberVo">
-     	select count(*), cafe_no 
-     	from cafe_member 
-     	where rownum between 0 and 3 
-     	group by cafe_no 
-     	order by count(*) desc;
+     <select id="best_cafe" resultType="CafeVo">
+     	SELECT *
+		FROM(
+		SELECT C.*,
+      	(SELECT COUNT(*) FROM CAFE_MEMBER WHERE CAFE_NO = C.CAFE_NO) AS MEMBERCOUNT,
+      	ROW_NUMBER() OVER(ORDER BY 'MEMBERCOUNT' DESC) AS RNUM
+      	FROM CAFE C)
+		CAFE WHERE RNUM BETWEEN 1 AND 3;
      </select>
 
      

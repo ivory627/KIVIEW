@@ -48,17 +48,61 @@ padding:15px;
 height:10%
 	
 }
-</style>
-<script type="text/javascript">
-window.onload=function(){
-	window.document.body.scroll="auto";
-	
+
+.msgbox{
+	background-color:white;
+	border:1px solid lightgray;
+	margin:15px;
+	padding:15px;
+	border-radius:5px;
 }
+
+label{
+	color:black;
+	font-weight:bold;
+}
+</style>
+<script src="http://localhost:82/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	window.document.body.scroll="auto";
+	var socket = io("http://localhost:82");
+
+	$("#msg").on("keydown",function(key){
+		if(key.keyCode=='13'){
+			$("#msg_submit").click();
+		}
+	})
+	
+	$("#msg_submit").on("click",function(){
+		
+		socket.emit("send_msg",$("#msg").val());
+		$("#msg").val('');
+	})
+	
+	socket.on("send_msg",function(msg){
+		
+		$(".chat_body").append("<div class='msgbox'>"+'<label>${login.member_id}</label>'+"<br>"+msg+"</div>")
+	})
+	
+	socket.on("connection", function(msg){
+		$(".chat_body").append("<div class='msgbox'>"+'<label>${login.member_id}</label>'+msg+"</div>")
+	})
+	
+
+
+
+})
+
+
+
 
 </script>
 
 </head>
-<body onresize="parent.resizeTo(900,680)" onload="parent.resizeTo(900,680)">
+<body onresize="parent.resizeTo(900,740)" onload="parent.resizeTo(900,740)">
 <%@ include file="../head.jsp" %>
 
 <!-- 카페 홈  --> 
@@ -72,16 +116,16 @@ window.onload=function(){
                		</div>
                		
                		<div class="chat_body">
-               		
+					<br>
   					
                		
                		</div>
 	               
 	          <div class="chat_input">
-	               <form action="#">
-	                  	<input style="border-radius:5px;" placeholder="메시지를 입력하세요." type="text" size="50" name="text">  
-	                   	<input style="width:20%; border-radius:5px" type="submit" value="작 성" class="btn btn-secondary">
-			       </form>
+	               
+	          	<input style="border-radius:5px;" placeholder="메시지를 입력하세요." type="text" size="50" name="text" id="msg">  
+	         	<input style="width:20%; border-radius:5px" type="button" value="작 성" class="btn btn-secondary" id="msg_submit">
+			       
 
 		      </div>
 	               	

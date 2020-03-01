@@ -100,7 +100,7 @@ td{
             <div id="home" class="col-lg-8 ftco-animate"
                style="padding: 25px; margin-left: 0px; background-color: white; border: 1px solid lightgray;">
                <h2 class="mb-3">
-                  <b>${cafe_menu_name }</b>
+                  <b>${menu.name }</b>
                </h2>
                <div id="seachbeforetable">
                   <table class="table table" style="text-align: center">
@@ -206,8 +206,22 @@ td{
 
                
                   <div align=right>
-                     <input type="button" value="글작성" class="btn btn-secondary"
+                  	<c:choose>
+		               			<c:when test="${menu.authority eq 'N' }">
+			               			<input type="button" value="글작성" class="btn btn-secondary"
                         onclick="location.href='boardwrite.do?cafe_no=${cafe_list[0].cafe_no}&cafe_menu_no=${cafe_menu_no }'">
+			               
+			              		</c:when>
+			              		<c:when test="${menu.authority eq 'Y' && login.member_id==cafe_list[0].admin}">
+			              			<input type="button" value="글작성" class="btn btn-secondary"
+                        onclick="location.href='boardwrite.do?cafe_no=${cafe_list[0].cafe_no}&cafe_menu_no=${cafe_menu_no }'">
+			              		</c:when>
+			              		<c:otherwise>
+			              		
+			              		</c:otherwise>
+			              	</c:choose>
+                  	
+                     
                   </div>
                <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ검색 결과 페이징 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
                
@@ -295,7 +309,7 @@ td{
                }),
                contentType : "application/json",
                success : function(data) {
-                  alert("성공!");
+                 
 
                   $("#searchlisttable").empty();
 

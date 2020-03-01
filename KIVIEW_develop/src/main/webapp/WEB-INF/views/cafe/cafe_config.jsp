@@ -121,6 +121,19 @@ td{
 			data:{"no":no}, 
 			dataType:"json",
 			success:function(data){
+				console.log(data.menu.concept)
+				
+				if(data.menu.concept=='guest'){   
+					
+					$("#category_update").hide(); 
+					
+				} 
+				
+				if(data.menu.concept=='table'){   
+					
+					$("#category_update").show(); 
+					
+				} 
 				
 				$("#category_update").find($("input[name=category1]")).val("");  
 				$("#category_update").find($("input[name=category2]")).val("");
@@ -138,6 +151,8 @@ td{
 				$("#category_update").find($("input[name=category_no2]")).val(data.category[1].cafe_category_no);
 				$("#category_update").find($("input[name=category3]")).val(data.category[2].category); 
 				$("#category_update").find($("input[name=category_no3]")).val(data.category[2].cafe_category_no);
+				
+				 
 			
 			
 			},
@@ -928,6 +943,9 @@ td{
 								</c:otherwise>
 							</c:choose>
 						</table>
+						
+						
+						
 						<br> <label>신청 목록</label>
 						<table id="sign_list" class="table table"
 							style="text-align: center; table-layout: fixed">  
@@ -969,6 +987,9 @@ td{
 							</c:choose>
 
 						</table>
+						
+						
+						
 					</div>
 				</div>
 
@@ -984,6 +1005,20 @@ td{
 
 		</div>
 	</section>
+	<script type="text/javascript">
+	function PageMove1(page) {
+	    var curpagenum = page;
+	    
+	    location.href = "cafeconfig.do?cafe_no=${cafe_list[0].cafe_no }&memeberno=${login.member_no}&curpagenum1="+page+"&curpagenum2=${page}";
+	 }
+	
+	function PageMove2(page) {
+	    var curpagenum = page;
+	    
+	    location.href = "cafeconfig.do?cafe_no=${cafe_list[0].cafe_no }&memeberno=${login.member_no}&curpagenum1=${page}&curpagenum2="+page;
+	 }
+	
+	</script>
 
 
 	<!-- @@ footer 영역 @@ -->

@@ -30,7 +30,7 @@ a {
 
 function test(){
    var keyword = $('#cafesearch').val().trim();
-   location.href="cafesearch.do?keyword="+keyword;   
+   location.href="cafesearch.do?curpagenum=1&keyword="+keyword;   
 }
 
 </script>
@@ -147,7 +147,7 @@ function test(){
          <!-- 카페 리스트 단위 -->
          <span><h3 style="display: inline">가입한 카페</h3>&nbsp;[${fn:length(Ulist)}]<!-- 카페 수 --></span>
          <!-- **20/02/07 내 카페 관리 버튼형식으로 변경  -->
-         <span><a href="cafemy.do?member_no=${login.member_no }"
+         <span><a href="cafemy.do?member_no=${login.member_no }&curpagenum=1"
             class="btn btn-secondary2"
             style="width: 160px; position: relative; left: 77%;">내 카페 관리</a></span>
          <hr style="margin-top: 5px;">
@@ -247,7 +247,7 @@ function test(){
          <c:if test="${fn:length(Ulist) > 5}">
 
             <div>
-               <span><a href="cafemy.do?member_no=${login.member_no }"
+               <span><a href="cafemy.do?member_no=${login.member_no }&curpagenum=1"
                   class="btn btn-secondary2"
                   style="width: 25%; position: relative; left: 40%;">더 보기</a></span>
             </div>

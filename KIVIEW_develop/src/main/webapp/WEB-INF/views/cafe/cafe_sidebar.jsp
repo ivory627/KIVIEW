@@ -129,8 +129,9 @@ textarea{
                   <tr><th>게시글</th><td>${fn:length(cafe_list[3]) }개</td></tr>
                   </table>
                   
-                  <a href="cafeconfig.do?cafe_no=${cafe_list[0].cafe_no }&memeberno=${login.member_no}" style="color:blue"># 카페 관리</a>
-                   
+                  <c:if test="${cafe_list[0].admin == login.member_id }">
+                  	<a href="cafeconfig.do?cafe_no=${cafe_list[0].cafe_no }&memeberno=${login.member_no}" style="color:blue"># 카페 관리</a>
+                  </c:if>
                   <br><br>
 <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
            		

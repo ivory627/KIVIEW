@@ -22,14 +22,32 @@
 a {
    text-decoration: none;
 }
+
+
+#paging{    
+	
+	width:40%;   
+	margin:0 auto; 
+	text-align:center; 
+	float:center;
+	margin-top:15px;     
+}
 </style>
 <script type="text/javascript">
 
 function test(){
    var keyword = $('#cafesearch').val().trim();
-   location.href="cafesearch.do?keyword="+keyword;
+   location.href="cafesearch.do?curpagenum=1&keyword="+keyword;
 }
+
+function PageMove(page) {
+    var curpagenum = page;
+    
+    location.href = "cafeguestlist.do?curpagenum=" + page + "&keyword=${keyword}" ;
+ }
+
 </script>
+
 
 
 </head>
@@ -176,6 +194,42 @@ function test(){
 
 
          </div>
+         
+         <div id="paging">
+			  
+        		 <c:if test="${pagevo.totallistcount ne '0' }">
+                    
+                        <ul class="pagination pull-right">
+                           <li><a href="javascript:PageMove(1)"> &nbsp;&nbsp;<< &nbsp;&nbsp; </a> </li>
+                           <c:if test="${pagevo.pagepre eq true }">
+                              <li><a
+                                 href="javascript:PageMove(${pagevo.curpagenum-1 })">&nbsp;&nbsp; < &nbsp;&nbsp;</a></li>
+                           </c:if>
+                           
+                           <c:forEach var="i" begin="${pagevo.startpage }" end="${pagevo.endpage }">
+                              <c:choose>
+                                 <c:when test="${i eq pagevo.curpagenum }">
+                                    <li class="active"><a href="javascript:PageMove(${i})">&nbsp;&nbsp;${i}&nbsp;&nbsp;</a></li>
+                                 </c:when>
+                                 <c:otherwise>
+                                    <li><a href="javascript:PageMove(${i})">&nbsp;&nbsp;${i}&nbsp;&nbsp;</a></li>
+                                 </c:otherwise>
+                              </c:choose>
+                           </c:forEach>
+                           <c:if test="${pagevo.pagenext eq true }">
+                              <li><a
+                                 href="javascript:PageMove(${pagevo.curpagenum+1 })">&nbsp;&nbsp; >&nbsp;&nbsp;</a></li>
+                           </c:if>
+                           <li><a
+                              href="javascript:PageMove(${pagevo.totalpagecount})"> &nbsp;&nbsp;>>&nbsp;&nbsp; </a></li>
+                        </ul>
+
+
+ 
+                      
+                  </c:if>
+         
+         	</div>
          
          
 

@@ -62,7 +62,7 @@ public class CafeController {
 		Alist = biz.cafe_Alist(member_id);
 		
 		List<CafeMemberVo> member = biz.member_selectAll();
-		//List<CafeMemberVo> best = biz.best_cafe();
+		List<CafeVo> best = biz.best_cafe();
 		//List<CafeVo> cafe = biz.cafe_selectAll();
 		
 		
@@ -80,13 +80,14 @@ public class CafeController {
 	}
 
 	@RequestMapping("cafemy.do")
-	public String cafe_my(Model model, int member_no) {
+	public String cafe_my(Model model, int member_no, int curpagenum) {
 
 		List<CafeVo> cafe = biz.cafe_Ulist(member_no);
 		List<CafeMemberVo> member = biz.member_selectAll(); 
 		
-		
-		
+		CafePageVo pagevo = biz.paging(curpagenum,cafe.size());
+	    
+	    model.addAttribute("pagevo",pagevo);   
 		model.addAttribute("cafe", cafe);
 		model.addAttribute("member",member);
 		
@@ -137,11 +138,13 @@ public class CafeController {
 
 	// ----------------------------카페 검색 -------------------------- ///
 	@RequestMapping("/cafesearch.do")
-	public String cafe_search(Model model, String keyword) {
+	public String cafe_search(Model model, String keyword,int curpagenum) {
 
 		List<CafeVo> slist = biz.cafe_search(keyword);
 		List<CafeMemberVo> member = biz.member_selectAll();
+		CafePageVo pagevo = biz.paging(curpagenum, slist.size());
 		
+		model.addAttribute("pagevo", pagevo);
 		model.addAttribute("Slist", slist);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("member",member);
@@ -790,18 +793,18 @@ public class CafeController {
 		return map;
 	}
 
-	// -------------------------- 테이블 게시판 --------------------//
+	
 	// -------------------------- 테이블 게시판 --------------------//
 	   @RequestMapping("/cafeboardlist.do")
 	   public String cafe_board_list(Model model, int cafe_no, int cafe_menu_no, int curpagenum) {
 	      List list = sidebar(cafe_no);
 	      model.addAttribute("cafe_list", list);
 
-	      String cafemenuname = biz.cafe_menu_name(cafe_menu_no);
-	            
+	      //String cafemenuname = biz.cafe_menu_name(cafe_menu_no);
+	      CafeMenuVo menu = biz.menu_detail1(cafe_menu_no);
 	      
 	      List<CafeBoardVo> Blist = biz.cafe_boardlist(cafe_menu_no);
-	      model.addAttribute("cafe_menu_name", cafemenuname);
+	      model.addAttribute("menu", menu);
 	      model.addAttribute("cafe_menu_no", cafe_menu_no);
 	      
 	      

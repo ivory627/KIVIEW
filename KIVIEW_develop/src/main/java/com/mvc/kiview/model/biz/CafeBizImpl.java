@@ -363,7 +363,7 @@ public class CafeBizImpl implements CafeBiz {
 	
 
 	@Override
-	public List<CafeMemberVo> best_cafe() {
+	public List<CafeVo> best_cafe() {
 		
 		return dao.best_cafe();
 	}
