@@ -16,6 +16,7 @@
 <jsp:include page="../head.jsp"/>
 <!-- js -->
 <script type="text/javascript" src = "resources/js/notice.js"></script>
+<script type="text/javascript" src = "resources/js/kiview_intro.js"></script>
 
 <style type="text/css">
 .modal-content {
@@ -108,7 +109,7 @@
         		<div class="pricing-entry bg-light pb-4 text-center"
         			style = "position:relative; right:25%; width:35%;">
 	        		<div class="img" 
-	        			style="background-image: url(resources/images/bg_1.jpg); height: 100%;"></div>
+	        			style="background-image: url(resources/images/main/intro-main01.jpg); height: 100%;"></div>
 	        		<div class="px-4" style = "background:#fafafa;">
 	        			<h3>유치원의 모든 리뷰 
 	        			<span style = "color:#FFDC00">KIVIEW</span></h3>
@@ -131,9 +132,25 @@
 			      <!-- </div> -->
 			      <!-- modal body -->
 			      <div class="modal-body">
-			       <img src ="resources/images/main/login_img04.png" id = "introimg01">
-			       <img src = "resources/images/main/kiview_login.png" id = "introimg02" onclick = "location.href='index.do'" 
-			       style = "position:absolute; left:32%;">
+			       <img src ="resources/images/main/intro_img01.png" id = "introimg01">
+			       <img src = "resources/images/main/intro_text01.png" id = "introimg02" 
+			       onclick = "location.href='index.do'" style = "position:absolute; left:41%; top:18%">
+			       <img src = "resources/images/main/intro_text02.png" id = "introimg02" 
+			        style = "position:absolute; left: 31.5%; top: 32%;">
+			        
+			       <img src = "resources/images/main/intro_btn01.png" id = "introimg02" 
+			        style = "position:absolute; left: 38%; top: 49%;" onclick = "location.href='reviewboard.do'">
+			        
+			       <c:choose>
+			       <c:when test="${!empty login}">
+			       <img src = "resources/images/main/intro_btn02.png" id = "introimg02" 
+			        style = "position:absolute; left: 52%; top: 49%;" onclick = "cafe();">
+			       </c:when>
+			       <c:otherwise>
+			       <img src = "resources/images/main/intro_btn02.png" id = "introimg02" 
+			        style = "position:absolute; left: 52%; top: 49%;" onclick = "cafe_not();">
+			       </c:otherwise>
+			       </c:choose>
 			      </div>
 			      <!-- modal body 끝 -->
 			    </div>

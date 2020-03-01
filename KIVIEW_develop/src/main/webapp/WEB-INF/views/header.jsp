@@ -11,6 +11,8 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
+
 <script type="text/javascript">
 $(function(){
    
@@ -95,12 +97,22 @@ $(function(){
 })
 </script>
 
-<div style="position: fixed; bottom: 35px; right: 35px; z-index: 1;">
+<div style="position: fixed; bottom: 100px; right: 24px; z-index: 1;">
    <a href="#body"><img src="resources/images/main/up-arrow.png" /></a>
 </div>
-<div style="position: fixed; bottom: 130px; right: 35px; z-index: 1;">
-   <a href="#body"><img src="resources/images/main/chatbot.png" /></a>
-</div>
+<div id="frogue-container" class="position-right-bottom"
+      data-chatbot="1d82e168-7048-41c1-b3e1-3ce0bc07c366"
+      data-user="사용자ID" data-init-key="value" style = "right:80px;"
+      ></div>
+<script>
+(function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "https:\/\/danbee.ai/js/plugins/frogue-embed/frogue-embed.min.js";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'frogue-embed'));
+</script> 
 
 
 
@@ -144,7 +156,9 @@ $(function(){
    id="ftco-navbar">
 
    <div class="container d-flex align-items-center">
-      <a class="navbar-brand" href="index.do">Kiview</a>
+      <a class="navbar-brand" href="index.do">
+      <img alt="" src="resources/images/main/logo01.png">
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse"
          data-target="#ftco-nav" aria-controls="ftco-nav"
          aria-expanded="false" aria-label="Toggle navigation">

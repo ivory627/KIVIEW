@@ -68,7 +68,7 @@ public class KinderController {
 		
 		logger.info("LOCAL SEARCH");
 		
-		ModelAndView mav = new ModelAndView("kiview_search");
+		ModelAndView mav = new ModelAndView("kinder/kiview_search");
 		mav.addObject("sido",biz.ProvinceList());
 		
 		if(vo.getTown()==null&&vo.getTown()=="") {
@@ -93,7 +93,7 @@ public class KinderController {
 		logger.info("NAME SEARCH");
 		//System.out.println(name);
 		
-		ModelAndView mav = new ModelAndView("kiview_search");
+		ModelAndView mav = new ModelAndView("kinder/kiview_search");
 		mav.addObject("sido",biz.ProvinceList());
 		mav.addObject("namevo",biz.NameSearch(name));
 		

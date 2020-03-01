@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,7 +35,7 @@ public class MainController {
 	@RequestMapping("/mainsearch.do")
 	public ModelAndView mainSearch(String keyword) {
 		
-		ModelAndView mav = new ModelAndView("kiview_Search_detail");
+		ModelAndView mav = new ModelAndView("kinder/kiview_Search_detail");
 		mav.addObject("kindervo",biz.Kinderdetail(keyword));
 		
 		return mav;

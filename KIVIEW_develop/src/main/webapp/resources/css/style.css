@@ -198,7 +198,7 @@ abbr[title], abbr[data-original-title] {
 }
 #introimg01{
 	position:relative; 
-	left:30%;
+	left:23.5%;
 }
 #introimg02{
 	position:relative; 
@@ -8633,7 +8633,13 @@ supports ((position: -webkit-sticky ) or (position: sticky )) { .sticky-top
 
 .mb-5, .my-5 {
 	margin-bottom: 1.5rem !important;
+	position:relative;
+	top: 20%;
 }
+/* #footer-ui{
+	position:relative;
+	top: 20%;
+} */
 
 .ml-5, .mx-5 {
 	margin-left: 3rem !important;
@@ -11739,7 +11745,7 @@ textarea.form-control {
 	font-size: 14px;
 	background: #231f1d; /*  */
 	padding: 4em 0;
-	padding-top: 4em;
+	padding-top: 0em;
 	padding-right: 0px;
 	padding-bottom: 1em;
 	padding-left: 0px;
