@@ -109,7 +109,8 @@
         		<div class="pricing-entry bg-light pb-4 text-center"
         			style = "position:relative; right:25%; width:35%;">
 	        		<div class="img" 
-	        			style="background-image: url(resources/images/main/intro-main01.jpg); height: 100%;"></div>
+	        			style="background-image: url('resources/images/main/intro-main01.jpg'); height: 100%;
+	        					border:1px solid lightgray"></div>
 	        		<div class="px-4" style = "background:#fafafa;">
 	        			<h3>유치원의 모든 리뷰 
 	        			<span style = "color:#FFDC00">KIVIEW</span></h3>
