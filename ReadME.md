@@ -75,11 +75,6 @@
 
     
     
-#### 3. Chatbot (고민중)
-  - Power Virtual Agents (MS)
-  - DialogFlow (Google)
-  - Danbi (LG)
-  - Clova (Naver)
-
-  
+#### 3. Chatbot 
+  - Danbi (LG) 
   
