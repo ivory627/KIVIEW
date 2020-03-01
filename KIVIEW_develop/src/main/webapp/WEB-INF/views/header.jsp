@@ -97,7 +97,7 @@ $(function(){
 })
 </script>
 
-<div style="position: fixed; bottom: 192px; right: 24px; z-index: 1;">
+<div style="position: fixed; bottom: 190px; right: 24px; z-index: 1;">
    <a href="#body"><img src="resources/images/main/up-arrow.png" /></a>
 </div>
 <div style="position: fixed; bottom: 25px; right: 24px; z-index: 1;">
