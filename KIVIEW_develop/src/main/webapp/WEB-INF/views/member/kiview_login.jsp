@@ -140,20 +140,19 @@
                   <div id="id01" class="w3-modal">
                      <div class="w3-modal-content w3-animate-top w3-card-4">
                         <header class="w3-container w3-teal">
-                           <span
-                              onclick="document.getElementById('id01').style.display='none'"
+                           <span onclick="document.getElementById('id01').style.display='none'"
                               class="w3-button w3-display-topright">&times;</span>
                            <h2>아이디 찾기</h2>
                         </header>
                         <div class="w3-container">
                            <br>
-                           <input required="필수 입력사항" placeholder="이름" class="find-id" id="idSearch_name">
+                           <input required="" placeholder="이름" class="find-id" id="idSearch_name">
                            <br>
-                           <input required="필수 입력사항" placeholder="이메일" class="find-id" id="idSearch_email">
+                           <input required="" placeholder="이메일" class="find-id" id="idSearch_email">
                            <br>
                            <p id="idSearchHTML" style="color: red;"></p>
                            <p id="idSearchRes" style="color: blue;"></p>
-                           <button type="button" class="jsx-2144885398" id="idChkBtn" onclick="idCk()">검색</button>
+                           <button type="button" class="jsx-2144885398" id="idChkBtn" onclick="idChk()">검색</button>
                            <button type="button" class="jsx-2144885398" id="idUseBtn" onclick="idUse()">사용하기</button>
                         </div>
                      </div>
@@ -171,16 +170,18 @@
                   <div id="id02" class="w3-modal">
                      <div class="w3-modal-content w3-animate-top w3-card-4">
                         <header class="w3-container w3-teal">
-                           <span
-                              onclick="document.getElementById('id02').style.display='none'"
+                           <span  onclick="document.getElementById('id02').style.display='none'"
                               class="w3-button w3-display-topright">&times;</span>
                            <h2>비밀번호 찾기</h2>
                         </header>
                         <div class="w3-container">
-                           <br> <input required="필수 입력사항" placeholder="아이디"
-                              class="find-id" value=""><br> <input
-                              required="필수 입력사항" placeholder="이메일" class="find-id" value=""><br>
-                           <button type="button" class="jsx-2144885398 ">검색</button>
+                           <br>
+                           <input required="" placeholder="아이디" class="find-id" value="" id="findPwd_id">
+                           <br> 
+                           <input required="" placeholder="이메일" class="find-id" value="" id="findPwd_email">
+                           <br>
+                           <p id="findPwdMsg"></p>
+                           <button type="button" class="jsx-2144885398 " id="findPwdBtn" onclick="findPwd()">검색</button>
                         </div>
                      </div>
                   </div>

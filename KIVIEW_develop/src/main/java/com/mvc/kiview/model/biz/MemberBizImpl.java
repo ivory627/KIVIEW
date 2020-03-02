@@ -42,4 +42,12 @@ public class MemberBizImpl implements MemberBiz {
 		return dao.deleteMember(vo);
 	}
 
+	@Override
+	public int findPwd(MemberVo vo) {
+		return dao.findPwd(vo);
+	}
+	
+
+	
+	
 }
