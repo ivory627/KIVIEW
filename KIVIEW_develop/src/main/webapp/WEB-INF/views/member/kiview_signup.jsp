@@ -19,7 +19,8 @@
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" href="resources/css/signup.css">
-
+<!-- KIVIEW FAVICON-->
+<link rel="icon" href="resources/images/main/logo01.png" type="image/x-icon">
 </head>
 <body>
 
@@ -28,8 +29,9 @@
 			<div class="jsx-3372927190 create-info">
 				<div class="jsx-669562709 join-title">
 					<div class="jsx-669562709 join-title-wrap">
-						<a class="jsx-669562709" href="index.do"><img src=""
-							alt="Kiview로고" class="jsx-669562709" id="kiviewLogo"></a>
+						<a class="jsx-669562709" href="index.do">
+						<img src="resources/images/main/login-logo01.png"
+							alt="" class="jsx-669562709" id="kiviewLogo"></a>
 						<h2 class="jsx-669562709">
 							<span class="jsx-669562709">회원가입</span><span
 								class="jsx-669562709">본인인증</span><span

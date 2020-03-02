@@ -30,7 +30,9 @@ public class NoticeController {
 	private NoticeBiz n_biz;
 
 	/* 키뷰안내, 공지사항 */
-	@RequestMapping("/user03kiviewnotice.do")
+
+	@RequestMapping("/kiviewnotice.do")
+
 	public String kiview_notice(Model model, Criteria cri) {
 
 		logger.info("NOTICE LIST");
@@ -134,7 +136,7 @@ public class NoticeController {
 	/* kiview 소개 페이지 */
 	@RequestMapping("/kiviewintro.do")
 	public String kiview_intro() {
-		return "kiview_intro";
+		return "notice/kiview_intro";
 	}
 
 	/* FAQ 처음 로딩시 전체 list */
@@ -244,11 +246,6 @@ public class NoticeController {
 		map.put("faqcatd", faqcatd);
 
 		return map;
-	}
-
-	@RequestMapping("/chatbot.do")
-	public String chatbot() {
-		return "notice/demoChatbot";
 	}
 
 }

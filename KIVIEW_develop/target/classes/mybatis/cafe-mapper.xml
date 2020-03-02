@@ -79,6 +79,29 @@
      
      </delete>
      
+     <select id="cafe_admin" parameterType="String" resultType="CafeVo">
+     	SELECT *
+     	FROM CAFE
+     	WHERE ADMIN=#{admin}
+     
+     </select>
+     
+     <select id="cafe_selectAll" resultType="CafeVo">
+     	SELECT *
+     	FROM CAFE
+     	
+     
+     </select>
+     
+     <select id="best_cafe" resultType="CafeVo">
+     	SELECT *
+		FROM(
+		SELECT C.*,
+      	(SELECT COUNT(*) FROM CAFE_MEMBER WHERE CAFE_NO = C.CAFE_NO) AS MEMBERCOUNT,
+      	ROW_NUMBER() OVER(ORDER BY 'MEMBERCOUNT' DESC) AS RNUM
+      	FROM CAFE C)
+		CAFE WHERE RNUM BETWEEN 1 AND 3
+     </select>
 
      
      <!-- 메뉴 CRUD -->
@@ -179,6 +202,11 @@
      <select id="cafe_board_list" parameterType="int" resultType="CafeBoardVo">
         SELECT * FROM CAFE_BOARD WHERE CAFE_MENU_NO = #{cafe_menu_no} ORDER BY CAFE_BOARD_NO desc
      </select>
+     
+     <select id="cafe_board_list_total" parameterType="int" resultType="CafeBoardVo">
+     	SELECT * FROM CAFE_BOARD WHERE CAFE_MENU_NO IN (SELECT CAFE_MENU_NO FROM CAFE_MENU WHERE CAFE_NO = #{cafe_no})
+     
+     </select>
         
       <select id="cafe_menu_name" parameterType="int" resultType="String">
          SELECT NAME FROM CAFE_MENU WHERE CAFE_MENU_NO = #{cafe_menu_no}
@@ -204,6 +232,112 @@
         UPDATE CAFE_BOARD SET HIT=HIT+1 WHERE CAFE_BOARD_NO=#{cafe_board_no}
      </update>
      
+      <select id="board_searchlist" parameterType="CafePageVo" resultType="CafeBoardVo">
+         SELECT *
+         FROM (            
+         SELECT CB.*,
+               (SELECT COUNT(*) FROM CAFE_REPLY WHERE CAFE_BOARD_NO = CB.CAFE_BOARD_NO) REPLYCOUNT,
+               ROW_NUMBER() OVER(ORDER BY CAFE_BOARD_NO DESC) AS RNUM
+         FROM CAFE_BOARD CB 
+         WHERE CB.CAFE_MENU_NO = #{cafe_menu_no}
+         <choose>            
+            <when test="searchoption == 'title' ">
+               <if test="keyword != null and keyword !=''">
+                  AND CB.TITLE LIKE '%' || #{keyword} || '%'
+               </if>                  
+            </when>
+            <when test="searchoption == 'content' ">
+               <if test="keyword != null and keyword !=''">
+                  AND CB.CONTENT LIKE '%' || #{keyword} || '%'
+               </if>
+            </when>
+            <when test="searchoption == 'writer' ">
+               <if test="keyword != null and keyword !=''"> 
+                  AND CB.WRITER LIKE #{keyword}
+               </if>
+            </when>
+            <when test="searchoption == 'title+content' ">
+               <if test="keyword != null and keyword !=''">
+                  AND CB.CONTENT LIKE '%' || #{keyword} || '%' 
+                  OR CB.TITLE LIKE '%' || #{keyword} || '%' 
+               </if>
+            </when>               
+         </choose> 
+             
+         
+         ) CAFE_BOARD
+         
+         WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+         
+      </select>
+     
+     <select id="board_searchlistcount" parameterType="Map" resultType="CafeBoardVo">
+        SELECT CB.*,
+               (SELECT COUNT(*) FROM CAFE_REPLY WHERE CAFE_BOARD_NO = CB.CAFE_BOARD_NO) REPLYCOUNT
+        FROM CAFE_BOARD CB
+        WHERE CB.CAFE_MENU_NO = #{cafe_menu_no}
+        <choose>            
+            <when test="searchoption == 'title' ">
+               <if test="keyword != null and keyword !=''">
+                  AND CB.TITLE LIKE '%' || #{keyword} || '%'
+               </if>                  
+            </when>
+            <when test="searchoption == 'content' ">
+               <if test="keyword != null and keyword !=''">
+                  AND CB.CONTENT LIKE '%' || #{keyword} || '%'
+               </if>
+            </when>
+            <when test="searchoption == 'writer' ">
+               <if test="keyword != null and keyword !=''"> 
+                  AND CB.WRITER LIKE #{keyword}
+               </if>
+            </when>
+            <when test="searchoption == 'title+content' ">
+               <if test="keyword != null and keyword !=''">
+                  AND CB.CONTENT LIKE '%' || #{keyword} || '%' 
+                  OR CB.TITLE LIKE '%' || #{keyword} || '%' 
+               </if>
+            </when>               
+         </choose> 
+     
+     </select>    
+
+       <select id="cafe_reply_list_pagevo" parameterType="CafePageVo" resultType="CafeReplyVo">
+         SELECT *
+         FROM(
+            SELECT CR.*,
+            ROW_NUMBER() OVER(ORDER BY CAFE_REPLY ) AS RNUM
+            FROM CAFE_REPLY CR WHERE CAFE_BOARD_NO=#{cafe_board_no} 
+         ) CAFE_REPLY
+         WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}     
+       
+     </select>
+     
+     <select id="cafe_board_list_count" parameterType="int">
+        SELECT COUNT(*)
+        FROM CAFE_BOARD WHERE CAFE_MENU_NO = #{cafe_menu_no}
+     </select>
+     
+     <select id="cafe_board_list_page" parameterType="CafePageVo" resultType="CafeBoardVO">
+     
+        SELECT *
+        FROM (
+        SELECT CB.*,
+        (SELECT COUNT(*) FROM CAFE_REPLY WHERE CAFE_BOARD_NO = CB.CAFE_BOARD_NO) AS REPLYCOUNT,
+        ROW_NUMBER() OVER(ORDER BY CAFE_BOARD_NO DESC) AS RNUM
+        FROM CAFE_BOARD CB WHERE CAFE_MENU_NO = #{cafe_menu_no}
+        ) CAFE_BOARD
+        WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+        
+        </select>
+      
+      
+     
+     
+     
+     
+     
+     <!-- 카페 리플 -->
      <select id="cafe_reply_list" parameterType="int" resultType="CafeReplyVo">
         SELECT *
         FROM CAFE_REPLY WHERE CAFE_BOARD_NO=#{cafe_board_no} 
@@ -230,40 +364,7 @@
      </select>
      
      
-     <select id="board_searchlist" parameterType="CafePageVo" resultType="CafeBoardVo">
-         SELECT CB.CAFE_BOARD_NO, CB.CAFE_MENU_NO, CB.CATEGORY, CB.TITLE, CB.CONTENT, CB.WRITER, CB.REGDATE, CB.HIT,
-               (SELECT COUNT(*) FROM CAFE_REPLY WHERE CAFE_BOARD_NO = CB.CAFE_BOARD_NO) REPLYCOUNT
-         FROM CAFE_BOARD CB
-         WHERE CB.CAFE_MENU_NO = #{cafe_menu_no}
-         <choose>
-            <when test="searchoption == 'title' ">
-               <if test="keyword != null and keyword !=''">
-                  AND CB.TITLE LIKE '%' || #{keyword} || '%'
-               </if>                  
-            </when>
-         <when test="searchoption == 'content' ">
-            <if test="keyword != null and keyword !=''">
-               AND CB.CONTENT LIKE '%' || #{keyword} || '%'
-            </if>
-         </when>
-         <when test="searchoption == 'writer' ">
-            <if test="keyword != null and keyword !=''"> 
-               AND CB.WRITER LIKE #{keyword}
-            </if>
-         </when>
-         <when test="searchoption == 'title+content' ">
-            <if test="keyword != null and keyword !=''">
-               AND CB.CONTENT LIKE '%' || #{keyword} || '%' 
-               OR CB.TITLE LIKE '%' || #{keyword} || '%'
-            </if>
-         </when>
-         <otherwise>
-         
-         </otherwise>                     
-         </choose> 
-         ORDER BY CB.CAFE_BOARD_NO DESC
-      
-      </select>
+     
      
      
       

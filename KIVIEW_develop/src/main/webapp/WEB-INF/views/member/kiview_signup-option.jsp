@@ -16,7 +16,8 @@
 <title>KIVIEW &mdash; Resister_Option</title>
 
 <link rel="stylesheet" href="resources/css/signup-option.css">
-
+<!-- KIVIEW FAVICON-->
+<link rel="icon" href="resources/images/main/logo01.png" type="image/x-icon">
 </head>
 <body>
 
@@ -26,7 +27,8 @@
 				<!-- 로고 타이틀 -->
 				<div class="jsx-669562709 join-title">
 					<div class="jsx-669562709 join-title-wrap">
-						<a class="jsx-669562709" href="index.do"><img src=""
+						<a class="jsx-669562709" href="index.do">
+						<img src="resources/images/main/login-logo01.png"
 							alt="Kiview로고" class="jsx-669562709"></a>
 						<h2 class="jsx-669562709">
 							<span class="jsx-669562709">Kiview</span><span

@@ -6,7 +6,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class CafePageVo {
    private int curpagenum; // 현제 페이지 
    private int totallistcount; //총 게시글 수
-   private int pagepernum=10; // 페이지당 보여질 게시글 수   
+   private int pagepercount=10; // 페이지당 보여질 게시글 수   
    private int totalpagecount; // 총 페이지 수
    
    private int displaypagenum = 10; // 페이지 당 보여질 페이지 수 -> << < 1 2 3 4 5 6 7 > >> 7개
@@ -26,21 +26,26 @@ public class CafePageVo {
    private String keyword;
    private int cafe_menu_no;
    private int cafe_board_no;
+   private int cafe_no;
+   private int cafe_reply;
+   private String content;
+   
+   
    
       
-   public CafePageVo() {
-      this.curpagenum = 1;
-      this.pagepernum = 10;
+   public CafePageVo() {     
+      this.pagepercount = 10;
+      this.searchoption = null;
+      this.keyword = null;
+      this.rowStart = 0;
+      this.rowEnd = 0;
+      
    }
    
    //현재페이지
    public int getCurpagenum() {
       return curpagenum;
    }
-   
-   
-
-
    public void setCurpagenum(int curpagenum) {
       if(curpagenum<=0) {
          this.curpagenum = 1;
@@ -49,13 +54,13 @@ public class CafePageVo {
       this.curpagenum =curpagenum;
    }
    // 페이지당 보여질 게시글 수
-   public int getPagepernum() {
-      return pagepernum;
+   public int getPagepercount() {
+      return pagepercount;
    }
 
    
-   public void setPagepernum(int pagepernum) {      
-      this.pagepernum = pagepernum;
+   public void setPagepercount(int pagepercount) {      
+      this.pagepercount = pagepercount;
    }
    
    //총 게시글 수
@@ -74,11 +79,13 @@ public class CafePageVo {
    }
 
    
-   public void setTotalpagecount(int pagepernum,int totallistcount) {
-      if(totallistcount % pagepernum == 0) {
-         this.totalpagecount = (totallistcount / pagepernum);
+   public void setTotalpagecount(int pagepercount,int totallistcount) {
+      
+      if(totallistcount % pagepercount == 0) {
+         this.totalpagecount = (totallistcount / pagepercount);
+       
       }else {
-         this.totalpagecount = (int)((totallistcount / pagepernum)+1);
+         this.totalpagecount = ((int)(totallistcount / pagepercount)+1);
          }   
       
    }   
@@ -93,7 +100,7 @@ public class CafePageVo {
       this.displaypagenum = displaypagenum;
    }
 
-
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
     // 페이지에 보여질 끝 페이지
    public int getEndpage() {
@@ -101,14 +108,23 @@ public class CafePageVo {
    }
    
    
-   public void setEndpage(int curpagenum, int displaypagenum) {
-      System.out.println(Math.ceil(3/displaypagenum));
-         this.endpage =  (int)( Math.ceil(curpagenum/displaypagenum)* displaypagenum );   
-         
+   public void setEndpage(int curpagenum, int displaypagenum,int totalpagecount) {
+      if(totalpagecount < 11) {
+         // 총 페이지 수가 10 페이지면, 총 페이지 수 = endpage 수 
+         this.endpage = totalpagecount;
+      }else {
+         // 총 페이지 수가 10페이지 보다 크면,
+         if(curpagenum%displaypagenum==0) {
+            
+            this.endpage=((int)(curpagenum/displaypagenum))*displaypagenum;
+         }else {
+            
+            this.endpage=((int)(curpagenum/displaypagenum)+1)*displaypagenum;
+         }           
+            
+         }
       }
-      
-      
-   
+     
    
    // 페이지에 보여질 시작 페이지
    public int getStartpage() {
@@ -116,17 +132,22 @@ public class CafePageVo {
    }
 
 
-   public void setStartpage(int endpage , int displaypagenum ) {
+   public void setStartpage(int endpage,int displaypagenum,int totalpagecount ) {
+      if(totalpagecount < 11) {
+         this.startpage = 1;
+      }else {
+         this.startpage = (endpage-displaypagenum) +1;
+                   
+      }
       
-      this.startpage = (endpage-displaypagenum) +1;
    }
+   
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-   public int getCurpagenumStart() {      
-      return ((curpagenum - 1) * pagepernum) + 1;
-   }
+     
+   
    // 리스트 게시글 시작 번호
    public int getRowStart() {
-      rowStart = ((curpagenum - 1) * pagepernum) + 1;
+      rowStart = ((curpagenum - 1) * pagepercount) + 1;
       return rowStart;
    }
 
@@ -135,7 +156,7 @@ public class CafePageVo {
    }
     // 리스트 게시글 끝 번호
    public int getRowEnd() {
-      rowEnd = rowStart + pagepernum - 1;
+      rowEnd = rowStart + pagepercount - 1;
       return rowEnd;
    }
 
@@ -166,8 +187,10 @@ public class CafePageVo {
    public void setPagepre(int curpagenum) {
       if(curpagenum == 1) {
          this.pagepre = false;
+      }else {
+         this.pagepre = true;
       }
-      this.pagepre = true;
+     
    }   
 
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -213,14 +236,44 @@ public class CafePageVo {
       
 
 
+      public int getCafe_no() {
+      return cafe_no;
+   }
+   
+   public void setCafe_no(int cafe_no) {
+      this.cafe_no = cafe_no;
+   }
+   
+   
+
+   public int getCafe_reply() {
+      return cafe_reply;
+   }
+
+   public void setCafe_rely(int cafe_reply) {
+      this.cafe_reply = cafe_reply;
+   }
+   
+   
+
+   public String getContent() {
+      return content;
+   }
+
+   public void setContent(String content) {
+      this.content = content;
+   }
+
+
    @Override
    public String toString() {
-      return "CafePageVo [curpagenum=" + curpagenum + ", totallistcount=" + totallistcount + ", pagepernum="
-            + pagepernum + ", totalpagecount=" + totalpagecount + ", displaypagenum=" + displaypagenum
+      return "CafePageVo [curpagenum=" + curpagenum + ", totallistcount=" + totallistcount + ", pagepercount="
+            + pagepercount + ", totalpagecount=" + totalpagecount + ", displaypagenum=" + displaypagenum
             + ", startpage=" + startpage + ", endpage=" + endpage + ", rowStart=" + rowStart + ", rowEnd=" + rowEnd
             + ", pagenext=" + pagenext + ", pagepre=" + pagepre + ", searchoption=" + searchoption + ", keyword="
-            + keyword + ", cafe_menu_no=" + cafe_menu_no + ", cafe_board_no=" + cafe_board_no + "]";
+            + keyword + ", cafe_menu_no=" + cafe_menu_no + ", cafe_board_no=" + cafe_board_no + ", cafe_reply=" +cafe_reply+"]";
    }
+   
    
     
    

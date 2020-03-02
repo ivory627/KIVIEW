@@ -21,7 +21,8 @@
    href="https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap"
    rel="stylesheet">
 <link rel="stylesheet" href="resources/css/modal.css">
-
+<!-- KIVIEW FAVICON-->
+<link rel="icon" href="resources/images/main/logo01.png" type="image/x-icon">
 </head>
 <body>
 

@@ -1,11 +1,13 @@
 package com.mvc.kiview.model.biz;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.kiview.model.dao.ReviewDao;
+import com.mvc.kiview.model.vo.KinderVo;
 import com.mvc.kiview.model.vo.ReviewVo;
 
 @Service
@@ -34,10 +36,28 @@ public class ReviewBizImpl implements ReviewBiz{
 		return dao.reviewDelete(review_no);
 	}
 
+	
+
 	@Override
-	public int reviewSearch() {
-		// TODO Auto-generated method stub
-		return dao.reviewSearch();
+	public ReviewVo reviewSelect(int review_no) {
+		return dao.reviewSelect(review_no);
+	}
+
+	@Override
+	public List<KinderVo> kinderSearch(String keyword) {
+		
+		return dao.kinderSearch(keyword);
+	}
+
+	@Override
+	public KinderVo kinderSearch2(String kinder_name) {
+		return dao.kinderSearch2(kinder_name);
+	}
+
+	@Override
+	public List<ReviewVo> reviewSearch(Map map) {
+		
+		return dao.reviewSearch(map);
 	}
 
 }
