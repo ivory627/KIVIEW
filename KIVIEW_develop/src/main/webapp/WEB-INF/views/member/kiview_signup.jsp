@@ -39,17 +39,17 @@
 						</h2>
 					</div>
 				</div>
-				<p class="jsx-3372927190 sub-title">
+				<p class="jsx-3372927190 sub-title" id="signupInfo">
 					Kiview에서 활동하실 아이디와 비밀번호,<br class="jsx-3372927190">주소 등의 기본정보를
 					생성합니다.
 				</p>
 				<form class="jsx-3372927190" action="kiviewsignupres.do" name="signupForm" id="signupForm" onsubmit="return signupChk()">
 					<div class="jsx-3372927190 label-box">
-						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">이름&nbsp;</span>
+						<label class="jsx-3712571264 ">
+							<span class="jsx-3712571264">이름&nbsp;</span><span class="jsx-3712571264" id="signupNameMsg"></span>
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
-									<input required="" autocomplete="new-password"
+									<input autocomplete="new-password"
 										placeholder="이름을 입력해주세요" class="jsx-639067573 "
 										name="member_name" id="member_name">
 								</div>
@@ -57,11 +57,11 @@
 						</label>
 					</div>
 					<div class="jsx-3372927190 label-box">
-						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">아이디&nbsp;</span><span class="jsx-3712571264" id="signupIdChk"></span>
+						<label class="jsx-3712571264 ">
+							<span class="jsx-3712571264">아이디&nbsp;</span><span class="jsx-3712571264" id="signupIdMsg"></span>
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
-									<input required="" autocomplete="new-password"
+									<input autocomplete="new-password"
 										placeholder="아이디를 입력해 주세요" class="jsx-639067573 "
 										name="member_id" id="member_id" onkeydown="idChk_chk()">
 									<input type="hidden" id="idChkChk" value="idUnchecked" />
@@ -71,61 +71,61 @@
 							</div></label>
 					</div>
 					<div class="jsx-3372927190 label-box">
-						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">비밀번호&nbsp;</span><span class="jsx-3712571264" id="signupPwdChkMsg"></span>
+						<label class="jsx-3712571264 ">
+							<span class="jsx-3712571264">비밀번호&nbsp;</span><span class="jsx-3712571264" id="signupPwdMsg"></span>
 							<div class="jsx-3372927190 first-password">
 								<div class="jsx-639067573 input">
-									<input type="password" required="" placeholder="비밀번호를 입력해주세요 (영문,숫자,특수문자 포함 5~20자리)"
-										class="jsx-639067573 " name="member_pwd" id="signupPwd">
+									<input type="password" placeholder="비밀번호를 입력해주세요 (영문,숫자,특수문자 포함 5~20자리)"
+										class="jsx-639067573 " name="member_pwd" id="member_pwd" onkeyup="idPwd_chk()">
 								</div>
 							</div>
 							<div class="jsx-3372927190">
 								<div class="jsx-639067573 input">
-									<input type="password" required="" placeholder="비밀번호를 다시 한번 확인 입력해 주세요"
-										class="jsx-639067573 " id="signupPwdChk">
+									<input type="password" placeholder="비밀번호를 다시 한번 확인 입력해 주세요"
+										class="jsx-639067573 " id="member_pwdChk" onkeyup="idPwd_chk()">
 								</div>
 							</div>
 						</label>
 					</div>
 					<div class="jsx-3372927190 label-box">
-						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">도로명주소&nbsp;</span>
+						<label class="jsx-3712571264 ">
+							<span class="jsx-3712571264">도로명주소&nbsp;</span><span class="jsx-3712571264" id="signupAddrMsg"></span>
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
-									<input required="필수 입력사항" placeholder="도로명주소"
+									<input placeholder="도로명주소"
 										class="jsx-639067573 " name="member_addr" id="member_addr">
 								</div>
 								<button class="jsx-771227029 btn-nickname-check" type="button"
 									style="margin-left: 16px;" onclick="addrPopup()">주소찾기</button>
 							</div>
 						</label>
-						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">상세주소&nbsp;</span>
+						<label class="jsx-3712571264 ">
+							<span class="jsx-3712571264">상세주소&nbsp;</span>
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
-									<input required="필수 입력사항" placeholder="상세주소"
+									<input placeholder="상세주소"
 										class="jsx-639067573 " name="member_addrDetail" id="member_addrDetail">
 								</div>
 							</div>
 						</label>
 					</div>
 					<div class="jsx-3372927190 label-box">
-						<label class="jsx-3712571264 "> <span
-							class="jsx-3712571264">연락처&nbsp;</span><span class="jsx-3712571264" id="signupPhoneChkMsg"></span>
+						<label class="jsx-3712571264 ">
+							<span class="jsx-3712571264">연락처&nbsp;</span><span class="jsx-3712571264" id="signupPhoneMsg"></span>
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
-									<input required="" autocomplete="new-password"
+									<input autocomplete="new-password"
 										placeholder="휴대폰 번호를 입력해주세요 (숫자만 입력)" class="jsx-639067573 "
 										name="member_phone" id="member_phone">
 								</div>
 							</div>
 						</label>
 						<div class="jsx-3372927190 label-box">
-							<label class="jsx-3712571264 "> <span
-								class="jsx-3712571264">이메일&nbsp;</span><span class="jsx-3712571264" id="signupEmailChkMsg"></span>
+							<label class="jsx-3712571264 ">
+								<span class="jsx-3712571264">이메일&nbsp;</span><span class="jsx-3712571264" id="signupEmailMsg"></span>
 								<div class="jsx-3372927190 input-flex">
 									<div class="jsx-639067573 input">
-										<input required="" placeholder="이메일을 입력해주세요"
+										<input placeholder="이메일을 입력해주세요"
 											class="jsx-639067573 " name="member_email" id="member_email">
 									</div>
 								</div>

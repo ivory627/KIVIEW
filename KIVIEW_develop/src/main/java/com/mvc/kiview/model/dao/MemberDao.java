@@ -17,5 +17,7 @@ public interface MemberDao {
 	public int updateMember(MemberVo vo);
 
 	public int deleteMember(MemberVo vo);
+
+	public int findPwd(MemberVo vo);
 	
 }
