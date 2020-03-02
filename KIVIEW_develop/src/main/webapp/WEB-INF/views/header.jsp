@@ -96,7 +96,7 @@ $(function(){
    
 })
 </script>
-
+<!-- ============================승혜 수정 부분=============================== -->
 <div style="position: fixed; bottom: 190px; right: 24px; z-index: 1;">
    <a href="#body"><img src="resources/images/main/up-arrow.png" /></a>
 </div>
@@ -116,7 +116,7 @@ $(function(){
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'frogue-embed'));
 </script> 
-
+<!-- ============================끝=============================== -->
 
 
 <div class="py-2 bg-primary">
