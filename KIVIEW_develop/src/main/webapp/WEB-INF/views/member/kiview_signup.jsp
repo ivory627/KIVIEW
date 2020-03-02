@@ -11,7 +11,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
 <title>KIVIEW &mdash; Sign Up</title>
