@@ -232,7 +232,6 @@
 				</div>
 
 				<!--======================== 페이징 =========================-->
-				
 				<div class="jsx-1407906967 board-list-footer">
 					<ul class="jsx-3635512122 pagination pagination--kindergarten" id = "n_paging">
 						

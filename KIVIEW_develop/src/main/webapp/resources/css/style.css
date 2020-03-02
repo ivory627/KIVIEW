@@ -2079,7 +2079,7 @@ pre code {
 	font-weight: 400;
 	line-height: 1.5;
 	color: #495057;
-	background-color: #fff;
+	background-color: #FDA638;
 	background-clip: padding-box;
 	border: 1px solid #ced4da;
 	border-radius: 0.25rem;
@@ -11695,13 +11695,16 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 
 .form-control {
 	height: 52px !important;
-	background: #fff !important;
-	color: #000000 !important;
+	background: #FDA638 !important;
+	color: #fff !important;
 	font-size: 18px;
 	border-radius: 0px;
 	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
 	border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.form-control:hover{
+	background-color: #9BDAF2;
 }
 
 .form-control:focus, .form-control:active {
