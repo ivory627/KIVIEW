@@ -4,4 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="like">
   
+       <!-- boardLike -->
+     
+     <insert id="insertlike" parameterType="LikeVo">
+        INSERT INTO LIKETABLE(LIKE_NO, REVIEW_NO, MEMBER_NO)
+        VALUES (LIKE_SEQ.NEXTVAL,#{review_no}, #{member_no})
+     </insert>
+  
+  
+     <delete id="deletelike" parameterType="likeVo">
+        DELETE FROM LIKETABLE
+        WHERE MEMBER_NO = #{member_no} AND REVIEW_NO = #{review_no}
+     </delete>
+     
+     <select id="selectLikeCount" parameterType="likeVo" resultType="int">
+        SELECT
+           COUNT(*) CNT
+        FROM
+           LIKETABLE
+        WHERE 
+           REVIEW_NO = #{review_no}
+     </select>
   </mapper>

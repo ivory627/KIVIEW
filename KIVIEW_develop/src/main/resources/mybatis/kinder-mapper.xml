@@ -104,7 +104,7 @@
 		SELECT * FROM KINDER
 	</select>
 	<select id="kinderListMap" parameterType="HashMap" resultMap="KinderMap">
-		SELECT * FROM KINDER WHERE ADDR2 LIKE '%${province}%${city}%'
+		SELECT * FROM KINDER WHERE ADDR2 LIKE '%${province}%${citytown}%'
 	</select>
 
 </mapper>

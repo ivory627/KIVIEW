@@ -10,8 +10,4 @@ public interface LikeDao {
    public int likeDelete(LikeVo vo);
 
    
-   
-   
-   
-   
 }
