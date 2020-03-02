@@ -51,7 +51,7 @@ function clickMap(className){
                 	console.log(res);
                 	$('#sigungudiv').empty();
                 	$.each(res,function(idx, code){
-               		  		var sigunguBtn=$('<button class="btn btn-primary px-4 py-3 mr-3">').html(code.town);
+               		  		var sigunguBtn=$('<button class="btn btn-primary px-4 py-3 mr-3" onclick="viewMap(\'' + myprovince + '\',\'' + code.town + '\');">').html(code.town);
                		  		$('#sigungudiv').append(sigunguBtn);
                  	  	});
                },
@@ -86,13 +86,13 @@ function clickMap(className){
 	});	
 }
 
-function viewMap(province,city){
+function viewMap(province,citytown){
 	
 	//alert(province);
 	//alert(city);
 	var mapSearchVal={
 			"province":province,
-			"city":city
+			"citytown":citytown
 	}
 	$.ajax({
         type: "POST",
@@ -101,78 +101,81 @@ function viewMap(province,city){
         contentType:"application/json;charset=UTF-8",
         dataType: "json",
         success: function(res) {
+        	if(res.length==0){
+        		alert("해당 지역에 유치원이 없습니다.");
+        	}else{
+	     	  $('#searchresmap').show();
+	     	  $('#map').empty();
+	     	  var down = $('#searchresmap').offset();
+	     	  $('html').animate( { scrollTop : down.top }, 50 );
+	     	  
+	     	  var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+					    mapOption = { 
+					        center: new kakao.maps.LatLng(res[0].longitude, res[0].latitude), // 지도의 중심좌표
+					        level:9 // 지도의 확대 레벨
+					    };
+					
+					var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+					 
+					// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+					var positions = [];
+					 $.each(res,function(idx, code){
+						 positions.push({
+							 content:'<div style="width: max-content;"><a href="searchdetail.do?kinder_no='+code.kinder_no+'" target="_blank">'+code.name+'</a></div>', 
+						     latlng: new kakao.maps.LatLng(code.longitude, code.latitude)
+						 })
+				 	  });
+					var selectedMarker = null; // 클릭한 마커를 담을 변수
+					
+					//console.log(positions);
+					
+					for (var i = 0; i < positions.length; i ++) {
+					    // 마커를 생성합니다
+					    var marker = new kakao.maps.Marker({
+					        map: map, // 마커를 표시할 지도
+					        position: positions[i].latlng, //마커의 위치
+					        clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+					    });
+					
+					    // 마커에 표시할 인포윈도우를 생성합니다 
+					    var infowindow = new kakao.maps.InfoWindow({
+					        content: positions[i].content, // 인포윈도우에 표시할 내용
+					        //removable  : true // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+					    });
+					
+					    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+					    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+					    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+					    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+					    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+					    kakao.maps.event.addListener(marker, 'click', function() {
+					    	if (!selectedMarker || selectedMarker !== marker) {
+
+					            !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
+
+					            marker.setImage(clickImage);
+					        }
+
+					        selectedMarker = marker;
+					  });
+					}
+					
+					// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+					function makeOverListener(map, marker, infowindow) {
+					    return function() {
+					        infowindow.open(map, marker);
+					    };
+					}
+					
+					// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+					function makeOutListener(infowindow) {
+					    return function() {
+					        infowindow.close();
+					    };
+					}
+        		
+        	}
            
-     	  $('#searchresmap').show();
-     	  $('#map').empty();
-     	  
-     	  var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
-				    mapOption = { 
-				        center: new kakao.maps.LatLng(res[0].longitude, res[0].latitude), // 지도의 중심좌표
-				        level:10 // 지도의 확대 레벨
-				    };
-				
-				var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-				 
-				// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
-				var positions = [];
-				 $.each(res,function(idx, code){
-					 positions.push({
-						 content: '<div><a href="searchdetail.do?kinder_no='+code.kinder_no+'">'+code.name+'</a></div>', 
-					     latlng: new kakao.maps.LatLng(code.longitude, code.latitude)
-					 })
-			 	  });
-				
-				//console.log(positions);
-				
-				for (var i = 0; i < positions.length; i ++) {
-				    // 마커를 생성합니다
-				    var marker = new kakao.maps.Marker({
-				        map: map, // 마커를 표시할 지도
-				        position: positions[i].latlng // 마커의 위치
-				    });
-				
-				    // 마커에 표시할 인포윈도우를 생성합니다 
-				    var infowindow = new kakao.maps.InfoWindow({
-				        content: positions[i].content // 인포윈도우에 표시할 내용
-				    });
-				
-				    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-				    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-				    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-				    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-				    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-				    kakao.maps.event.addListener(marker, 'click', function() {
-
-				        // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
-				        // 마커의 이미지를 클릭 이미지로 변경합니다
-				        if (!selectedMarker || selectedMarker !== marker) {
-
-				            // 클릭된 마커 객체가 null이 아니면
-				            // 클릭된 마커의 이미지를 기본 이미지로 변경하고
-				            !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
-
-				            // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
-				            marker.setImage(clickImage);
-				        }
-
-				        // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
-				        selectedMarker = marker;
-				    });
-				}
-				
-				// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
-				function makeOverListener(map, marker, infowindow) {
-				    return function() {
-				        infowindow.open(map, marker);
-				    };
-				}
-				
-				// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
-				function makeOutListener(infowindow) {
-				    return function() {
-				        infowindow.close();
-				    };
-				}
 
      	        
        },
@@ -209,7 +212,7 @@ function hoverMap(className){
     });
 }
 $(function(){
-	
+		
 	$("text").each(function(index) {
 		
 		var className = $(this).attr("class");

@@ -134,7 +134,7 @@ public class NoticeController {
 	/* kiview 소개 페이지 */
 	@RequestMapping("/kiviewintro.do")
 	public String kiview_intro() {
-		return "kiview_intro";
+		return "notice/kiview_intro";
 	}
 
 	/* FAQ 처음 로딩시 전체 list */
