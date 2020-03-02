@@ -196,7 +196,7 @@
 												stroke-linejoin="round"
 												style="position: relative; vertical-align: top;">
 											<path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
-											<!-- ** 요 span부분에 좋아요 갯수 카운팅 한거 ${}이렇게 넣어주면 될 것 같아요! **-->
+											<!-- ** 요 span부분에 좋아요 갯수 카운팅 한거 넣어주면 될 것 같아요! **-->
 											<span class="jsx-693606843 count">1</span>
 										</button>
 									</div>
@@ -213,7 +213,7 @@
 												stroke-linejoin="round"
 												style="position: relative; vertical-align: top;">
 											<path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
-											<!-- ** 요 span부분에 좋아요 갯수 카운팅 한거 ${}이렇게 넣어주면 될 것 같아요! **-->
+											<!-- ** 요 span부분에 좋아요 갯수 카운팅 한거 넣어주면 될 것 같아요! **-->
 											<span class="jsx-693606843 count">1</span>
 										</button>
 									</div>
