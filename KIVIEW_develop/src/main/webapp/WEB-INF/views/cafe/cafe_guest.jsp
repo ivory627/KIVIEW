@@ -323,7 +323,7 @@ function show(cafe_board_no){
   </head>
   
   <body id = "body">
- <%@include file="cafe/cafe_modal.jsp" %> 
+ <%@include file="cafe_modal.jsp" %> 
      <!-- @@ header 부분 @@ -->
      <%@ include file = "../header.jsp" %>
     
@@ -349,7 +349,7 @@ function show(cafe_board_no){
             <div class="col-lg-3 sidebar ftco-animate" style="padding:25px; margin-right:30px;  background-color:white; border:1px solid lightgray;" >
                 
                
-               <%@include file="cafe/cafe_sidebar.jsp" %>
+               <%@include file="cafe_sidebar.jsp" %>
 
             </div>
 

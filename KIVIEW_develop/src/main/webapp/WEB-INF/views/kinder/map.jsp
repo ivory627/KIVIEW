@@ -106,11 +106,13 @@ function viewMap(province,citytown){
         	}else{
 	     	  $('#searchresmap').show();
 	     	  $('#map').empty();
+	     	  var down = $('#searchresmap').offset();
+	     	  $('html').animate( { scrollTop : down.top }, 50 );
 	     	  
 	     	  var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 					    mapOption = { 
 					        center: new kakao.maps.LatLng(res[0].longitude, res[0].latitude), // 지도의 중심좌표
-					        level:10 // 지도의 확대 레벨
+					        level:9 // 지도의 확대 레벨
 					    };
 					
 					var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -119,10 +121,11 @@ function viewMap(province,citytown){
 					var positions = [];
 					 $.each(res,function(idx, code){
 						 positions.push({
-							 content:'<div><a href="searchdetail.do?kinder_no='+code.kinder_no+'">'+code.name+'</a></div>', 
+							 content:'<div style="width: max-content;"><a href="searchdetail.do?kinder_no='+code.kinder_no+'" target="_blank">'+code.name+'</a></div>', 
 						     latlng: new kakao.maps.LatLng(code.longitude, code.latitude)
 						 })
 				 	  });
+					var selectedMarker = null; // 클릭한 마커를 담을 변수
 					
 					//console.log(positions);
 					
@@ -130,12 +133,14 @@ function viewMap(province,citytown){
 					    // 마커를 생성합니다
 					    var marker = new kakao.maps.Marker({
 					        map: map, // 마커를 표시할 지도
-					        position: positions[i].latlng // 마커의 위치
+					        position: positions[i].latlng, //마커의 위치
+					        clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
 					    });
 					
 					    // 마커에 표시할 인포윈도우를 생성합니다 
 					    var infowindow = new kakao.maps.InfoWindow({
-					        content: positions[i].content // 인포윈도우에 표시할 내용
+					        content: positions[i].content, // 인포윈도우에 표시할 내용
+					        //removable  : true // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 					    });
 					
 					    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
@@ -144,22 +149,15 @@ function viewMap(province,citytown){
 					    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 					    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 					    kakao.maps.event.addListener(marker, 'click', function() {
-	
-					        // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
-					        // 마커의 이미지를 클릭 이미지로 변경합니다
-					        if (!selectedMarker || selectedMarker !== marker) {
-	
-					            // 클릭된 마커 객체가 null이 아니면
-					            // 클릭된 마커의 이미지를 기본 이미지로 변경하고
+					    	if (!selectedMarker || selectedMarker !== marker) {
+
 					            !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
-	
-					            // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
+
 					            marker.setImage(clickImage);
 					        }
-	
-					        // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
+
 					        selectedMarker = marker;
-					    }); 
+					  });
 					}
 					
 					// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
@@ -214,7 +212,7 @@ function hoverMap(className){
     });
 }
 $(function(){
-	
+		
 	$("text").each(function(index) {
 		
 		var className = $(this).attr("class");
