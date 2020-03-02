@@ -1,6 +1,7 @@
 package com.mvc.kiview.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeCategoryVo;
@@ -16,6 +17,8 @@ public interface CafeDao {
    public List<CafeVo> cafe_Ulist(int member_no);
    
    public List<CafeVo> cafe_Alist(String member_id);
+   
+   public List<CafeVo> cafe_admin(String admin);
    
    public CafeMemberVo cafe_regyn(CafeMemberVo regyn);
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   
@@ -87,6 +90,22 @@ public interface CafeDao {
 	
 	public List<CafeReplyVo> cafe_board_reply_allList();
 	
+	public List<CafeBoardVo> cafe_board_list_total(int cafe_no);
+	
+	
+	public int cafe_board_list_count(int cafe_menu_no);
+	   
+	   public List<CafeBoardVo> cafe_boardlistcount(Map slistcount);
+
+	   public List<CafeBoardVo> cafe_boardlistpage(CafePageVo pagevo);
+
+	   public List<CafeReplyVo> cafe_board_reply_list(CafePageVo pagevo);
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -118,6 +137,20 @@ public interface CafeDao {
 	public int member_delete(int cafe_member_no);
 
 	public int member_unblock(int cafe_member_no);
+
+	
+	
+	
+	
+	
+
+	public List<CafeVo> best_cafe();
+
+	public List<CafeVo> cafe_selectAll();
+
+	
+
+	
 
 	
 

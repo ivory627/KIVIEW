@@ -17,7 +17,7 @@
     
     <%@ include file = "../head.jsp" %>
     
-
+<script type="text/javascript" src="se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 
   </head>
   <body id = "body">
@@ -55,13 +55,13 @@
             <div id="home" class="col-lg-8 ftco-animate" style="padding:25px; margin-left:0px; background-color:white; border:1px solid lightgray; "> 
                <h2 class="mb-3"><b># 글작성</b></h2>
                <hr>
-               <form action="cafeboardinsert.do" method="get">
+               <form action="cafeboardinsert.do" method="get" id="submitgo">
                <input type="hidden" name="cafe_menu_no" value="${cafe_menu_no }">
                <input type="hidden" name="cafe_no" value="${cafe_list[0].cafe_no }">
                <input type="hidden" name="writer" value="${login.member_id}">
-               <input type="hidden" name="category" value="카테고리인서트테스트">
-               <label>말머리 선택.</label><br>
-             
+               
+                
+                <label>말머리</label>
                <select name="menu_name" id="boardcategory1">
                <c:forEach var="menu" items="${cafe_list[1] }">
                         
@@ -71,23 +71,26 @@
                </c:forEach>   
                </select> 
 
-               <select name="categoryname" id="boardcategory2">
+               <select name="category" id="boardcategory2">
                   <option selected="selected">말머리 선택</option>                  
                </select>
-                
+               
                
                <br>               
                <label>제 목</label><br>
-                  <input type="text"  placeholder="제목을 입력하세요." name="title" size="70" minlength="4" maxlength="30" required>
+                  <input type="text" id="title" placeholder="제목을 입력하세요." name="title" size="70" minlength="4" maxlength="30" required>
                   <br><br>
-               <label>내 용</label><br>
-                  <textarea cols="90" rows="10" name="content" minlength="4" maxlength="1000" required></textarea>  
+               <label>내 용</label><br>              
+                  
+                  <textarea name="content" id="smartEditor" rows="10" cols="100" ></textarea>                  
+                  
+                
                   
                <br>
                <br>
                <div align="center">
-               <input type="submit" value="작 성" class="btn btn-secondary" style="width:20%">
-               <input type="button" value="취 소" class="btn btn-primary" style="width:20%" onclick="location.href='cafeboardlist.do?cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_no }'"> 
+               <input type="button" value="작 성" class="btn btn-secondary" style="width:20%" id="submitbefore" >
+               <input type="button" value="취 소" class="btn btn-primary" style="width:20%" onclick="location.href='cafeboardlist.do?cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }&curpagenum=1'"> 
                </div>
                </form>
                
@@ -117,13 +120,36 @@
 
     
   </body>
+
 <script type="text/javascript">
 
-$("#boardcategory1").on("click",function(){
+var oEditors = [];
+nhn.husky.EZCreator.createInIFrame({
+   oAppRef : oEditors,
+   elPlaceHolder : "smartEditor",
+   sSkinURI : "se2/SmartEditor2Skin.html",
+   fCreator : "createSEditor2",
+   htParams : {
+      // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+      bUseToolbar : true,
+
+      // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+      bUseVerticalResizer : false,
+
+      // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+      bUseModeChanger : false
+   }
+});
+
+
+
+
+$(function(){
    
   var no = $("#boardcategory1 option:selected").val();
    
    console.log("게시메뉴 번호     :    "+no);
+   
    
    $("#boardcategory2").empty();
   
@@ -134,18 +160,19 @@ $("#boardcategory1").on("click",function(){
           
          dataType:"json",
          success:function(key){
-            alert("통신성공!");        
+                    
             console.log(key.category2);
             
             if(key.category2==0){
-               alert("말머리가 존재하지 않습니다.");                            
+                                
             $("#boardcategory2").hide();
-               
+            alert("해당 게시판은 말머리가 존재하지 않습니다.");   
             }else{
+               
                 $.each(key.category2,function(index,item){               
                     
                                 
-                    alert("말머리 있음!");                                
+                                                
                    var rlist = "";                        
                         rlist += "<option value='"+item.category+"'>"+item.category+"</option>";                         
                         console.log(rlist);        
@@ -166,11 +193,41 @@ $("#boardcategory1").on("click",function(){
          }
          
       });
-   });
-
-     
 
 
+})   
+
+$(function() {
+      $("#submitbefore").click(function() {
+         oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);
+
+         var selcatd = $("#boardcategory2 > option:selected").val();
+         var title = $("#title").val();
+         var content = document.getElementById("smartEditor").value;;
+
+         
+         if (title == null || title == "") {
+            alert("제목을 입력해주세요.");
+            $("#title").focus();
+            return;
+         }
+         if(content == "" || content == null || content == '&nbsp;' || 
+               content == '<br>' || content == '<br/>' || content == '<p>&nbsp;</p>'){
+            alert("본문을 작성해주세요.");
+            oEditors.getById["smartEditor"].exec("FOCUS"); //포커싱
+            return;
+         }
+         
+         var result = confirm("글 작성 하시겠습니까?");
+         
+         if(result){
+            alert("글 작성 완료");
+            $("#submitgo").submit();
+         }else{
+            return;
+         }
+      });
+   })
 
 
 
