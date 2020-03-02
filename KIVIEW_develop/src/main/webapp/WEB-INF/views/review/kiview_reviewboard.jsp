@@ -3,6 +3,9 @@
 <% request.setCharacterEncoding("UTF-8");%>
 <% response.setContentType("text/html; charset=UTF-8");%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmf" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.List" %>
 
 <!DOCTYPE html>
@@ -19,7 +22,7 @@
 
 <%@include file="../head.jsp"%>
 
-<link rel="stylesheet" type="text/css" href="css/star.css">
+<link rel="stylesheet" type="text/css" href="resources/css/star.css">
 
 
 <style type="text/css">
@@ -151,46 +154,165 @@ form select {
 		$(".close").on("click", function() {
 			$("#myModal2").hide();
 		})
+		
+		
+		$("#kinder_search").on("keyup", function(){
+			$("#myModal").find($("input[name=kinder_addr]")).val("");
+			if($(this).val().length>1){
+				var search = []
+				$.ajax({
+					type:"post",
+					url:"searchkinder.do",
+					data:{"keyword":$("#kinder_search").val()},
+					dataType:"json",
+					success:function(data){
+						$.each(data.kinder, function(key, value){
+							search.push(value.name);
+						})
+						
+					},
+					error:function(){
+						
+					}
+					
+				})
+				
+				
+				$("#kinder_search").autocomplete({
+					source: search
+				})
+			}
+		})
 
 	})
+	
+function kinder_search2(){
+		$.ajax({
+			type:"post",
+			url:"searchkinder2.do",
+			data:{"kinder_name":$("#kinder_search").val()},
+			dataType:"json",
+			success:function(map){
+				console.log(map);
+				//Map으로 받은 정보 중 kinder(KinderVo) 안에 있는 addr1을 가지고 온다
+				var addr = map.kinder.addr1
+				if(!map || addr==null || map==null) {
+					alert("해당 유치원이 없습니다.");
+					
+				} else {
+					
+					console.log(map.kinder);
+					$("#myModal").find($("input[name=kinder_no]")).val(map.kinder.kinder_no);
+					$("#myModal").find($("input[name=kinder_addr]")).val(map.kinder.addr1);
+				}
+			},
+			error:function(){
+				alert("명령 실행 중 오류가 발생했습니다.");
+			}
+			
+		})
+		
+	}	
 
-$(document).ready(function() {
-    $('#review_content').on('keyup', function() {
-        if($(this).val().length > 4000) {
-            $(this).val($(this).val().substring(0, 4000));
-        }
-    });
-});
-// 수정 버튼 누를 때 데이터 들고가기
-function inputInfo(title, content, no){
-	$("#review_edit_title").val(title);
-	$("#review_edit_content").val(content);
-	$("#review_no").val(no);
-	$("#myModal2").show();
+
+function update_form(review_no){
+	$.ajax({
+		type:"post",
+		url:"reviewselect.do",
+		data:{"review_no":review_no},
+		dataType:"json",
+		success:function(data){
+			$("#myModal2").find($("input[name=review_no]")).val(data.review.review_no);
+			$("#myModal2").find($("input[name=kinder_no]")).val(data.review.kinder_no);
+			$("#myModal2").find($("input[name=kinder_name]")).val(data.review.kinder_name);
+			$("#myModal2").find($("input[name=kinder_addr]")).val(data.review.kinder_addr);
+			$("#myModal2").find($("input[name=avg_score1]:input[value="+data.review.avg_score1+"]")).prop("checked", true);
+			$("#myModal2").find($("input[name=avg_score2]:input[value="+data.review.avg_score2+"]")).prop("checked", true);
+			$("#myModal2").find($("input[name=avg_score3]:input[value="+data.review.avg_score3+"]")).prop("checked", true);
+			$("#myModal2").find($("input[name=review_title]")).val(data.review.review_title);
+			$("#myModal2").find($("textarea[name=review_content]")).val(data.review.review_content);
+			
+			$("#review_year_update option").each(function(i){
+				if($(this).val()==data.review.review_year){
+					$(this).attr("selected", "selected")
+				}
+				
+			})
+			
+			$("#myModal2").find($("input[name=review_date]")).val(data.review.review_date);
+			
+		},
+		error:function(){
+			alert("실패")
+		}
+	
+	})
+	
+	$("#myModal2").show(); 
+	
 }
 
+function insertchk(){
+		
+	if($("#review_year option:selected").val()=="선택"){
+			
+		alert("등원시기를 선택해 주세요.")
+		return false;
+	}
+		
+	
+	if($("#myModal").find("input[name=kinder_addr]").val()==''){
+		alert("유치원을 검색해 주세요.")
+		
+		return false;
+		
+	}
+	return true;
+}
 
-///////////////////////////지민like//////////////////////////////
-var likeSubmit = function(review_no,memeber_no){
+/////////////////////////// 지민like //////////////////////////////
+
+var likeSubmit = function(review_no){
+   var member_no = '${login.member_no}';
+   console.log(member_no);
+   
+   
       $.ajax({
-         url:'/kiview/likeSubmit.do',
-         dataType:'json',
-         type:'POST',
-         data:{'review_no':review_no},
+         url: "likeSubmit.do",
+         dataType:"json",
+         type: "post",
+         contentType:"application/json",  
+         data: JSON.stringify({
+            "review_no":review_no,
+            "member_no":member_no       
+         }),
          success:function(data){
+            
             var resultFlag = data.resultFlag;
             var resultMsg = data.resultMsg;
             if(resultFlag > 0){
                 if(resultMsg == "insert"){
-                  alert("좋아요 누름");
+                  alert("좋아요 목록에 추가되었습니다.");
                }else if(resultMsg == "delete"){
-                  alert("좋아요 지움");
+                  alert("좋아요 목록에서 삭제되었습니다.");
                }
             }
+            
+         },
+         error : function(request,status,error){
+            alert('오류가 발생했습니다. 다시 시도해 주세요.');
+            console.log("code = "+request.status + "message = " + request.responseText + "error  =   "+ error);
          }
       });
    }
-///////////////////////////지민like 끝//////////////////////////////
+   
+function LikeBtn(){
+	alert('로그인이 필요합니다.');
+}
+
+/////////////////////////// 지민like 끝 //////////////////////////////
+
+
 </script>
 </head>
 
@@ -239,32 +361,36 @@ var likeSubmit = function(review_no,memeber_no){
 				</h1>
 				<br>
 				<!-- 검색 기능 -->
-				<form action="">
-					<select>
-						<option>시/도</option>
+				<form action="reviewsearch.do" >
+					
+					<select name="type">
+						<option value="kinder_name">유치원명</option>
+						<option value="review_writer">작성자</option>
+						
 
-					</select> &nbsp;&nbsp; <select>
-						<option>시/군/구</option>
-
-					</select> &nbsp;&nbsp; <select>
-						<option>유치원명</option>
-
-					</select> &nbsp;&nbsp; <input type="text" placeholder="검색어를 입력하세요."
-						style="height: 40px; width: 40%"> <input
-						class="btn btn-secondary" style="width: 10%; border-radius: 0px"
-						type="button" value="검색"> <br>
+					</select> &nbsp;&nbsp; 
+					<input type="text" name="keyword" placeholder="검색어를 입력하세요." style="height: 40px; width: 40%"> 
+					<input class="btn btn-secondary" style="width: 10%; border-radius: 0px"
+						type="submit" value="검색"> <br>
 				</form>
 
 				<br>
-				<h6 class="mb-4">총 311개의 리뷰가 작성되었습니다. 페이지 로딩 시 리뷰들을 최신 리뷰순으로?</h6>
+				
+				
 			</div>
 
 			<div class="ftco-animate" style="margin: 40px; margin-bottom: 0px;">
-				<h2>
-					<label><span style="color: #fda638">유치원</span>에 대한 <span style="color: #fda638">321</span>건의 리뷰가 검색되었습니다.</label>
-					<!-- 해인 : 유치원명 name으로, 갯수 부분 review_no개로 받기 -->
-					<!-- 삭제 글 갯수를 마이너스 해 줘야 하기 때문에 delete 만들 때 n/y로 삭제 유무 확인할 수 있도록 체크해야 될 듯 -->
-				</h2>
+				<c:choose>
+					<c:when test="${keyword != null && keyword!=''}">
+						<h2>
+					<label><span style="color: #fda638">${keyword}</span>에 대한 <span style="color: #fda638">${fn:length(list)} </span>건의 리뷰가 검색되었습니다.</label>
+						</h2>
+					</c:when>
+					<c:otherwise>
+					
+					</c:otherwise>
+				</c:choose>
+				
 			</div>
 			
 			<!-- 리뷰리스트 영역 -->
@@ -284,39 +410,57 @@ var likeSubmit = function(review_no,memeber_no){
 						<input type="hidden" name="review_no" value="${review.review_no}">
 						<div class="review"
 							style="width: 25%; margin-right: 30px; border-right: 1px solid lightgray">
+							<label style="font-size:20px"> ${review.kinder_name} </label>
+							<p style="font-size: 14px;"> ${review.kinder_addr}</p>
+							<br> <label style="font-size: 18px;">원장/교사</label><span
+								style="font-size: 18px; position: relative; left: 10%"> 
+								<c:forEach begin="1" end="${review.avg_score1}"> ★ </c:forEach>
+								</span>
+							<br> <label style="font-size: 18px;">교과/수업</label>
+							<span
+								style="font-size: 18px; position: relative; left: 10%">
+								<c:forEach begin="1" end="${review.avg_score2}"> ★ </c:forEach>
+							</span>
+							<br> <label style="font-size: 18px;">시설/청결</label><span
+								style="font-size: 18px; position: relative; left: 10%">
+								<c:forEach begin="1" end="${review.avg_score3}"> ★ </c:forEach>
+							</span>
+							<br>
 							<h3>
-								<label>총점</label>&nbsp;&nbsp;&nbsp;<span> 3.6 /5.0</span> <br>
-								<!-- 해인 : 총점 계산하기: 평점 세 개의 평균 내기(double) -->
+								<c:set var="score" value="${(review.avg_score1+review.avg_score2+review.avg_score3)/3 }"/>
+								<label>총점</label>&nbsp;&nbsp;&nbsp;<span><fmt:formatNumber value="${score}" pattern=".00"/></span> / 5.00 <br>
 							</h3>
-							<br> <label style="font-size: 20px;">원장/교사</label><span
-								style="font-size: 20px; position: relative; left: 20%"> ${review.avg_score1} </span>
-							<br> <label style="font-size: 20px;">교과/수업</label><span
-								style="font-size: 20px; position: relative; left: 20%"> ${review.avg_score2} </span>
-							<br> <label style="font-size: 20px;">시설/청결</label><span
-								style="font-size: 20px; position: relative; left: 20%"> ${review.avg_score3} </span>
-							<br>	<!-- 해인 : 별 부분 이미지 넣고 평점마다 연결될 수 있도록 구현하기 -->
-
 						</div>
 					
 
 						<div style="width: 70%">
+						
 							<h3>
 								<label>“ ${review.review_title} ”</label>
 							</h3>
 							<p class="subheading">
-								<span> ${review.review_writer} </span> | <span>2017년 등원</span> | <span>${review.review_date} </span>
+								<span id="writer"> ${review.review_writer} </span>　|　<span>${review.review_year}</span>　|　<span><fmf:formatDate value="${review.review_date}" pattern='yyyy-MM-dd HH:mm'/> </span>
 							</p>
-							<p>내용 ${review.review_content} </p>
+							<c:if test="${login.member_id==null }">
+								<img src="resources/images/review_blur.jpg" width="90%"/>
+							</c:if>
+							<c:if test="${login.member_id!=null }">
+							<p>${review.review_content} </p>
+							</c:if>
 						</div>
 					</div>
 
 					<div class="reviewBtn" style="padding: 30px; width: 100%;">
 					<c:if test="${review.review_writer eq login.member_id}">
-						<input id="myBtn2" class="btn btn-secondary" type="button" value="수정"  onclick='inputInfo("${review.review_no}", "${review.review_title}", "${review_edit_content}");'>
-						<%-- <button id="myBtn2" class="btn btn-secondary"  type="button" onClick="inputInfo(${review.review_title});">수정</button> --%>
+						<input class="btn btn-secondary" type="button" value="수정" onclick="update_form(${review.review_no})">
 						<input class="btn btn-primary" type="button" value="삭제" onclick="location.href='reviewDelete.do?review_no=${review.review_no}'">
 					</c:if>
-						<input class="btn btn-primary" type="button" value="좋아요">
+					<c:if test="${login.member_id!=null }">
+						<input class="btn btn-primary" type="button" value="좋아요" onclick="likeSubmit('${review.review_no}')">
+					</c:if>
+					<c:if test="${login.member_id==null }">
+						<input class="btn btn-primary" type="button" value="좋아요" onclick="javascript:LikeBtn()">
+					</c:if>
 						<hr>
 					</div>
 					
@@ -337,7 +481,6 @@ var likeSubmit = function(review_no,memeber_no){
 		</section>
 
 	<!-- 리뷰 글 작성 시 모달 페이지 -->
-	<!-- 별 평점 작성이 가능한 상태. //////// 평점 점수는 현재 0으로 고정된 상태임......코드를 바꾸거나 해야하는 부분임.     -->
 	<!-- Trigger/Open The Modal -->
 	<!--<button id="myBtn">Open Modal</button>-->
 
@@ -356,14 +499,20 @@ var likeSubmit = function(review_no,memeber_no){
 					않음을 약속드립니다.</h6>
 				<br>
 
-				<form action="reviewInsert.do">
+				<form action="reviewInsert.do" onsubmit="return insertchk()">
 					<div>
 						<label>유치원 명 </label><br> 
 						<input type="hidden" name="review_writer" value="${login.member_id}">
-						<input type="text" placeholder="유치원을 검색해 주세요. 유치원 목록 필요." name="name"
-							style="width: 101%"><br> <br> 
+						<input type="hidden" name="kinder_no" >
+						
+						<input id="kinder_search" type="text" placeholder="유치원을 검색해 주세요." name="kinder_name"
+							style="width: 50%" minlength="4" maxlength="20" required>
+						<input type="button" onclick="kinder_search2()" value="선택"> 
+						<input style="width:100%" type="text" name="kinder_addr" placeholder="유치원 주소" readonly>
+							
+							<br> <br> 
 							<label> 등원시기 </label><br> 
-							<select style="width: 101%; height: 35px;" name="review_year">
+							<select id="review_year" style="width: 101%; height: 35px;" name="review_year" >
 							<option selected="selected">선택</option>
 							<option>2020년</option>
 							<option>2019년</option>
@@ -386,11 +535,11 @@ var likeSubmit = function(review_no,memeber_no){
 						<label>제목 </label><br> 
 						<input
 							type="text" placeholder="제목을 입력하세요" name="review_title"
-							style="width: 101%"><br> <br> 
+							style="width: 101%" minlength="4" maxlength="30" required><br> <br> 
 							<label>내용 </label>
-							<span style="position: relative; left: 85%">0/200자</span><br>
+							<span style="position: relative; left: 85%">0/500자</span><br>
 						<textarea style="width: 100%; height: auto; resize: none;"
-							placeholder="내용 주의사항 적어서 쓰십쇼! 최소 글자수 제한 필요" name="review_content"></textarea>
+							placeholder="200자 이상, 500자 이하의 글자수만 작성이 가능합니다." name="review_content" minlength="200" maxlength="500" required></textarea>
 						<br> <br>
 					</div>
 					<br>
@@ -403,68 +552,62 @@ var likeSubmit = function(review_no,memeber_no){
 							<label>원장/교사</label><br>
 							<div class="input">
 
-								<input type="radio" name="avg_score1" value="1" id="p1">
+								<input type="radio" name="avg_score1" value="1" id="p1" required>
 								<label for="p1">1</label> 
-								<input type="radio" name="avg_score1" value="2" id="p2"> 
+								<input type="radio" name="avg_score1" value="2" id="p2" required> 
 									<label for="p2">2</label> 
-								<input type="radio" name="avg_score1" value="3" id="p3"> 
+								<input type="radio" name="avg_score1" value="3" id="p3" required> 
 								<label for="p3">3</label> 
-								<input type="radio" name="avg_score1" value="4" id="p4"> 
+								<input type="radio" name="avg_score1" value="4" id="p4" required> 
 								<label for="p4">4</label> 
-								<input type="radio" name="avg_score1" value="5" id="p5"> 
+								<input type="radio" name="avg_score1" value="5" id="p5" required> 
 								<label for="p5">5</label>
 
 							</div>
 
-							<output for="star-input">
-								<b>0</b>점
-							</output>
+							
 						</div>
 						<br> <br>
 						<div class="star-input2">
 							<label>교과/수업</label><br>
 							<div class="input2">
 
-								<input type="radio" name="avg_score2" value="1" id="p12">
+								<input type="radio" name="avg_score2" value="1" id="p12" required>
 								<label for="p12">1</label> 
-								<input type="radio" name="avg_score2" value="2" id="p22"> 
+								<input type="radio" name="avg_score2" value="2" id="p22" required> 
 								<label for="p22">2</label>
-								<input type="radio" name="avg_score2" value="3" id="p32">
+								<input type="radio" name="avg_score2" value="3" id="p32" required>
 								<label for="p32">3</label> 
-								<input type="radio" name="avg_score2" value="4" id="p42"> 
+								<input type="radio" name="avg_score2" value="4" id="p42" required> 
 								<label for="p42">4</label>
-								<input type="radio" name="avg_score2" value="5" id="p52">
+								<input type="radio" name="avg_score2" value="5" id="p52" required>
 								<label for="p52">5</label>
 
 
 							</div>
 
-							<output for="star-input2">
-								<b>0</b>점
-							</output>
+							
 						</div>
 						<br> <br>
 						<div class="star-input3">
 							<label>시설/청결</label><br>
 							<div class="input3">
 
-								<input type="radio" name="avg_score3" value="1" id="p13">
+								<input type="radio" name="avg_score3" value="1" id="p13" required>
 								<label for="p13">1</label> 
-								<input type="radio" name="avg_score3" value="2" id="p23"> 
+								<input type="radio" name="avg_score3" value="2" id="p23" required> 
 								<label for="p23">2</label>
-								<input type="radio" name="avg_score3" value="3" id="p33">
+								<input type="radio" name="avg_score3" value="3" id="p33" required>
 								<label for="p33">3</label> 
-								<input type="radio" name="avg_score3" value="4" id="p43"> 
+								<input type="radio" name="avg_score3" value="4" id="p43" required> 
 								<label for="p43">4</label>
-								<input type="radio" name="avg_score3" value="5" id="p53">
+								<input type="radio" name="avg_score3" value="5" id="p53" required>
 								<label for="p53">5</label>
 
 
 							</div>
 
-							<output for="star-input3">
-								<b>0</b>점
-							</output>
+							
 						</div>
 						<br> <br> <br>
 
@@ -472,7 +615,7 @@ var likeSubmit = function(review_no,memeber_no){
 					<div style="position: relative; left: 38%;">
 						<input class="btn btn-secondary" style="width: 15%" type="submit" value="작성">
 						&nbsp;&nbsp;&nbsp;
-						<input id="modal-close" class="btn btn-primary" style="width: 15%" type="button" value="취소" onclick="location.href='reviewList.do'">
+						<input id="modal-close" class="btn btn-primary" style="width: 15%" type="button" value="취소" onclick="location.href='reviewboard.do'">
 					</div>
 				</form>
 			</div>
@@ -497,7 +640,7 @@ var likeSubmit = function(review_no,memeber_no){
 	<div id="myModal2" class="modal">
 
 		<!-- Modal content -->
-		<div class="modal-content" id="myModal2test" style="padding: 40px;">
+		<div class="modal-content" style="padding: 40px;">
 			<span style="width: 5%;" class="close">&times;</span>
 
 			<div>
@@ -508,15 +651,18 @@ var likeSubmit = function(review_no,memeber_no){
 					않음을 약속드립니다.</h6>
 				<br>
 
-				<form action="reviewUpdate.do" method="get">
-					<input type="hidden" id="review_no" name="review_no" value="${review.review_no}">
+				<form id="reviewUpdate" action="reviewUpdate.do" method="get">
+					<input type="hidden" name="review_no" >
+					<input type="hidden" name="kinder_no">
 					<div>
 						<label>유치원 명 </label><br> 
-						<input type="hidden" name="review_writer" value="${login.member_id}">
-						<input type="text" placeholder="${review.name}" name="name" value="${review.name}"
-							style="width: 101%"><br> <br> 
+						<input type="hidden" name="review_writer" >
+						<input type="text" placeholder="유치원명을 입력하세요." name="kinder_name" 
+							style="width: 101%">
+							<input type="text" name="kinder_addr">
+								<br> <br> 
 							<label> 등원시기 </label><br> 
-							<select style="width: 101%; height: 35px;" name="review_year">
+							<select id="review_year_update" style="width: 101%; height: 35px;" name="review_year" disabled>
 							<option selected="selected">선택</option>
 							<option>2020년</option>
 							<option>2019년</option>
@@ -538,11 +684,13 @@ var likeSubmit = function(review_no,memeber_no){
 						<br> <br> 
 						<label>제목 </label><br> 
 						<input
-							type="text" name="review_edit_title" id="review_edit_title"
-							style="width: 101%"><br> <br> 
+							type="text" name="review_title"
+							style="width: 101%" placeholder="제목을 입력하세요." minlength="4" maxlength="30" required><br> <br> 
+							
+							
 							<label>내용 </label>
 							<span style="position: relative; left: 85%">0/200자</span><br>
-						<textarea style="width: 100%; height: auto; resize: none;" id="review_edit_content" name="review_edit_content"> ${review.review_content} </textarea>
+						<textarea style="width: 100%; height: auto; resize: none;" name="review_content" minlength="200" maxlength="1000" required></textarea>
 						<br> <br>
 					</div>
 					<br>
@@ -555,68 +703,59 @@ var likeSubmit = function(review_no,memeber_no){
 							<label>원장/교사</label><br>
 							<div class="input">
 
-								<input type="radio" name="avg_score1" value="1" id="p1">
+								<input type="radio" name="avg_score1" value="1" id="p1" disabled>
 								<label for="p1">1</label> 
-								<input type="radio" name="avg_score1" value="2" id="p2"> 
-									<label for="p2">2</label> 
-								<input type="radio" name="avg_score1" value="3" id="p3"> 
+								<input type="radio" name="avg_score1" value="2" id="p2" disabled> 
+								<label for="p2">2</label> 
+								<input type="radio" name="avg_score1" value="3" id="p3" disabled> 
 								<label for="p3">3</label> 
-								<input type="radio" name="avg_score1" value="4" id="p4"> 
+								<input type="radio" name="avg_score1" value="4" id="p4" disabled> 
 								<label for="p4">4</label> 
-								<input type="radio" name="avg_score1" value="5" id="p5"> 
+								<input type="radio" name="avg_score1" value="5" id="p5" disabled> 
 								<label for="p5">5</label>
 
 							</div>
 
-							<output for="star-input">
-								<b>0</b>점
-							</output>
 						</div>
 						<br> <br>
 						<div class="star-input2">
 							<label>교과/수업</label><br>
 							<div class="input2">
 
-								<input type="radio" name="avg_score2" value="1" id="p12">
+								<input type="radio" name="avg_score2" value="1" id="p12" disabled>
 								<label for="p12">1</label> 
-								<input type="radio" name="avg_score2" value="2" id="p22"> 
+								<input type="radio" name="avg_score2" value="2" id="p22" disabled> 
 								<label for="p22">2</label>
-								<input type="radio" name="avg_score2" value="3" id="p32">
+								<input type="radio" name="avg_score2" value="3" id="p32" disabled>
 								<label for="p32">3</label> 
-								<input type="radio" name="avg_score2" value="4" id="p42"> 
+								<input type="radio" name="avg_score2" value="4" id="p42" disabled> 
 								<label for="p42">4</label>
-								<input type="radio" name="avg_score2" value="5" id="p52">
+								<input type="radio" name="avg_score2" value="5" id="p52" disabled>
 								<label for="p52">5</label>
 
 
 							</div>
 
-							<output for="star-input2">
-								<b>0</b>점
-							</output>
 						</div>
 						<br> <br>
 						<div class="star-input3">
 							<label>시설/청결</label><br>
 							<div class="input3">
 
-								<input type="radio" name="avg_score3" value="1" id="p13">
+								<input type="radio" name="avg_score3" value="1" id="p13" disabled>
 								<label for="p13">1</label> 
-								<input type="radio" name="avg_score3" value="2" id="p23"> 
+								<input type="radio" name="avg_score3" value="2" id="p23" disabled> 
 								<label for="p23">2</label>
-								<input type="radio" name="avg_score3" value="3" id="p33">
+								<input type="radio" name="avg_score3" value="3" id="p33" disabled>
 								<label for="p33">3</label> 
-								<input type="radio" name="avg_score3" value="4" id="p43"> 
+								<input type="radio" name="avg_score3" value="4" id="p43" disabled> 
 								<label for="p43">4</label>
-								<input type="radio" name="avg_score3" value="5" id="p53">
+								<input type="radio" name="avg_score3" value="5" id="p53" disabled>
 								<label for="p53">5</label>
 
 
 							</div>
 
-							<output for="star-input3">
-								<b>0</b>점
-							</output>
 						</div>
 						<br> <br> <br>
 
@@ -624,17 +763,12 @@ var likeSubmit = function(review_no,memeber_no){
 					<div style="position: relative; left: 38%;">
 						<input class="btn btn-secondary" style="width: 15%" type="submit" value="수정">
 						&nbsp;&nbsp;&nbsp;
-						<input id="modal-close" class="btn btn-primary" style="width: 15%" type="button" value="취소">
+						<input id="modal2-close" class="btn btn-primary" style="width: 15%" type="button" value="취소">
 					</div>
 				</form>
 			</div>
 
-
-
 		</div>
-
-
-
 
 	</div>
 

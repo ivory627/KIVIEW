@@ -29,7 +29,7 @@ public class LikeDaoImpl implements LikeDao {
       try {
          res = sqlSession.insert(namespace+"insertlike",vo);
       }catch(Exception e) {
-         e.printStackTrace();
+          e.printStackTrace();
       }
       return res;
    }
@@ -41,7 +41,7 @@ public class LikeDaoImpl implements LikeDao {
       try {
       res = sqlSession.delete(namespace+"deletelike",vo);
       }catch(Exception e) {
-         e.printStackTrace();
+          e.printStackTrace();
       }
       return res;
    }
