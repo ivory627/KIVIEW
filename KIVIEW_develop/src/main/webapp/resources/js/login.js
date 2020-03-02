@@ -171,7 +171,7 @@ function findPwd() {
 			dataType : "json",
 			success : function(msg) {
 
-				if (msg != null) {
+				if (msg.check2 == true) {
 					$("#findPwdMsg").show().css("color","blue").html("이메일로 임시 비밀번호가 발송되었습니다");
 					
 				} else {
@@ -186,8 +186,6 @@ function findPwd() {
 				$('#findPwd_email').val("");
 			}
 		});
-
-		$("#idSearchRes").hide();
 
 	}
 
