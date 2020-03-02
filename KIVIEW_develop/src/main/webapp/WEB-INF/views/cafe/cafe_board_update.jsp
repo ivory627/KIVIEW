@@ -13,7 +13,8 @@
     <title>KIVIEW &mdash; Blog</title>
     
     <%@ include file = "../head.jsp" %>
-
+    
+<script type="text/javascript" src="se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 
   </head>
   <body id = "body">
@@ -53,28 +54,37 @@
                <h2 class="mb-3"><b># 글 수정</b></h2>
                <hr>
                 
-               <form action="cafeboardupdate.do">
+               <form action="cafeboardupdate.do" id="submitgo">
                <input type="hidden" name="cafe_no" value="${cafe_list[0].cafe_no }">
                <input type="hidden" name="cafe_board_no" value="${cafeboardvo.cafe_board_no}">
                <input type="hidden" name="cafe_menu_no" value="${cafe_menu_no }">
-               <label>게시판 말머리</label>
-               
-               <select id="category">                     
-               </select>    
-               
-                  ${cafeboardvo.category } &nbsp;&nbsp;&nbsp; || ${cafeboardvo.hit }
+               <input type="hidden" name="curpagenum" value="${curpagenum }" >
+               <label>게시판 말머리</label>               
+               <select id="category" name="category">                     
+               </select>
+               <br>
+                  <c:choose>
+                  <c:when  test="${fn:length(cafeboardvo.category) != 0 && cafeboardvo.category ne 'null' }">
+                              [ ${cafeboardvo.category } ] 
+                  </c:when>
+                  <c:otherwise>
+                           [ 말머리 없음  ]
+                  </c:otherwise>
+                  
+                  </c:choose>
+                  &nbsp;&nbsp;&nbsp; || 조회수 : ${cafeboardvo.hit }
                   <br>
                <label>제 목</label><br>
-                  <input type="text" value="${cafeboardvo.title }" name="title" size="70">
+                  <input type="text" id="title"value="${cafeboardvo.title }" name="title" size="70" required="required">
                   <br><br>
                <label>내 용</label><br>
-                  <textarea cols="90" rows="10" name="content" >${cafeboardvo.content }</textarea>  
+                  <textarea name="content" id="smartEditor" rows="10" cols="100" >${cafeboardvo.content }</textarea>    
                   
                <br>
                <br>
                <div align="center">
-               <input type="submit" value="수 정" class="btn btn-secondary" style="width:20%">
-               <input type="button" value="취 소" class="btn btn-primary" style="width:20%" onclick="location.href='boarddetail.do?cafe_no=${cafe_no}&cafe_menu_no=${cafe_menu_no }&cafe_board_no=${cafeboardvo.cafe_board_no }'"> 
+               <input type="submit" value="수 정" class="btn btn-secondary" style="width:20%" id="submitbefore">
+               <input type="button" value="취 소" class="btn btn-primary" style="width:20%" onclick="location.href='boarddetail.do?cafe_no=${cafe_no}&cafe_menu_no=${cafe_menu_no }&cafe_board_no=${cafeboardvo.cafe_board_no }&curpagenum=${curpagenum }'"> 
                </div>
                </form>
                
@@ -92,7 +102,7 @@
 <script type="text/javascript">
 $(window).load(function(){
    var no = "${cafe_menu_no}";
-   alert(no);
+  
    jQuery.ajax({
         type:"post",
         url:"ajaxcategory.do",
@@ -103,12 +113,14 @@ $(window).load(function(){
            console.log("size"+key.category2);
            
            if(key.category2.length==0 || key.category2.length==null){
-              alert("ddddddd");
+              
+              alert("말머리 없음");
               $("#category").hide();
+              
            }else{
               $.each(key.category2,function(index,item){
                    var rlist = '';                     
-                     rlist += "<option value="+item.category+">"+item.category+"</option>";
+                     rlist += "<option value='"+item.category+"'>"+item.category+"</option>";
                      
                      console.log("foreach문 안"+rlist);          
                      
@@ -127,6 +139,56 @@ $(window).load(function(){
      });
 
 });
+
+var oEditors = [];
+nhn.husky.EZCreator.createInIFrame({
+   oAppRef : oEditors,
+   elPlaceHolder : "smartEditor",
+   sSkinURI : "se2/SmartEditor2Skin.html",
+   fCreator : "createSEditor2",
+   htParams : {
+      // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+      bUseToolbar : true,
+
+      // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+      bUseVerticalResizer : false,
+
+      // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+      bUseModeChanger : false
+   }
+});
+
+$(function() {
+   $("#submitbefore").click(function() {
+      oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);
+
+      var selcatd = $("#category > option:selected").val();
+      var title = $("#title").val();
+      var content = document.getElementById("smartEditor").value;;
+
+      
+      if (title == null || title == "") {
+         alert("제목을 입력해주세요.");
+         $("#title").focus();
+         return;
+      }
+      if(content == "" || content == null || content == '&nbsp;' || 
+            content == '<br>' || content == '<br/>' || content == '<p>&nbsp;</p>'){
+         alert("본문을 작성해주세요.");
+         oEditors.getById["smartEditor"].exec("FOCUS"); //포커싱
+         return;
+      }
+      
+      var result = confirm("글 작성 하시겠습니까?");
+      
+      if(result){
+         alert("글 작성 완료");
+         $("#submitgo").submit();
+      }else{
+         return;
+      }
+   });
+})
 
 </script>   
 

@@ -1,6 +1,7 @@
 package com.mvc.kiview.model.biz;
 
 import java.util.List;
+import java.util.Map;
 
 import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeCategoryVo;
@@ -33,6 +34,10 @@ public interface CafeBiz {
 	public List<CafeVo> cafe_search(String keyword);
 	
 	public int cafe_update(CafeVo cafe);
+	
+	public List<CafeVo> cafe_admin(String admin);
+	
+	
 	
 	//--메뉴 CRUD--
 	
@@ -87,6 +92,21 @@ public interface CafeBiz {
 
 	public List<CafeBoardVo> cafe_searchlist(CafePageVo cafepagevo);
 
+	public List<CafeBoardVo> cafe_board_list_total(int cafe_no);
+	
+	
+	
+	//200228
+	public List<CafeBoardVo> cafe_boardlistpage(CafePageVo cafepagevo);
+
+	public List<CafeReplyVo> cafe_board_reply_list(CafePageVo pagevo);
+	   
+	public CafePageVo paging(int curpagenum,int lsitsize );
+	
+	public List<CafeBoardVo> cafe_boardlistcount(Map<String, Object> slistcount);
+	
+	
+	
 	
 	
 	//-----------댓글-----------------------------
@@ -116,11 +136,23 @@ public interface CafeBiz {
 	
 	public int member_sign(int cafe_member_no);
 	
-	
-
 	public List<CafeMemberVo> member_selectAll();
 
 	public int member_delete(int cafe_member_no);
+
+	
+	
+	
+	
+	
+
+	
+	
+	public List<CafeVo> best_cafe();
+
+	public List<CafeVo> cafe_selectAll();
+
+	
 
 	
 
