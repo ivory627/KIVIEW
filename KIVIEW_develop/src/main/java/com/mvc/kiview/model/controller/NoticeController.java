@@ -246,9 +246,4 @@ public class NoticeController {
 		return map;
 	}
 
-	@RequestMapping("/chatbot.do")
-	public String chatbot() {
-		return "notice/demoChatbot";
-	}
-
 }

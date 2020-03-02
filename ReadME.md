@@ -27,7 +27,8 @@
   2. Github / Github Desktop
 
 🎈 DBMS 
-  1. Mybatis
+  1. MyBatis
+
   
 🎈 OS
   1. Chrome
@@ -75,11 +76,6 @@
 
     
     
-#### 3. Chatbot (고민중)
-  - Power Virtual Agents (MS)
-  - DialogFlow (Google)
-  - Danbi (LG)
-  - Clova (Naver)
-
-  
+#### 3. Chatbot 
+  - Danbi (LG) 
   
