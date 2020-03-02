@@ -40,7 +40,6 @@ public class ReviewBizImpl implements ReviewBiz{
 
 	@Override
 	public ReviewVo reviewSelect(int review_no) {
-		// TODO Auto-generated method stub
 		return dao.reviewSelect(review_no);
 	}
 
@@ -52,7 +51,6 @@ public class ReviewBizImpl implements ReviewBiz{
 
 	@Override
 	public KinderVo kinderSearch2(String kinder_name) {
-		// TODO Auto-generated method stub
 		return dao.kinderSearch2(kinder_name);
 	}
 

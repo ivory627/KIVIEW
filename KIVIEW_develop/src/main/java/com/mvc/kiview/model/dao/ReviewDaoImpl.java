@@ -21,7 +21,6 @@ public class ReviewDaoImpl implements ReviewDao{
 	public List<ReviewVo> reviewList() {
 		
 		List<ReviewVo> list = new ArrayList<ReviewVo>();
-		System.out.println("list" + list);
 		
 		try {
 			list = sqlSession.selectList(namespace + "reviewList");

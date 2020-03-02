@@ -24,13 +24,6 @@ public class ReviewController {
 	
 	@Autowired
 	private ReviewBiz biz;
-	/*
-	@RequestMapping("/reviewboard.do")
-	public String reviewBoard() {
-		
-		return "kiview_reviewboard";
-	}
-	*/
 	
 	@RequestMapping("/reviewboard.do")
 	public String list(Model model) {
@@ -47,7 +40,6 @@ public class ReviewController {
 		logger.info("ReviewController : INSERT REVIEW");
 		
 		int res = biz.reviewInsert(vo);
-		System.out.println("insert" + vo);
 		
 		if(res > 0) {
 			return "redirect:reviewboard.do";
@@ -72,7 +64,6 @@ public class ReviewController {
 	@RequestMapping("/reviewDelete.do")
 	public String reviewDelete(int review_no) {
 		logger.info("ReviewController : DELETE REVIEW");
-		System.out.println(review_no);
 		
 		int res = biz.reviewDelete(review_no);
 		
@@ -131,8 +122,6 @@ public class ReviewController {
 		List<ReviewVo> list = biz.reviewSearch(map); 
 		model.addAttribute("list",list);
 		model.addAttribute("keyword", keyword);
-		
-		
 		
 		return "review/kiview_reviewboard";
 	}

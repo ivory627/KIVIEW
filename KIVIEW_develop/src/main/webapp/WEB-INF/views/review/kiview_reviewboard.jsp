@@ -156,10 +156,6 @@ form select {
 		})
 		
 		
-		
-		
-		
-		
 		$("#kinder_search").on("keyup", function(){
 			$("#myModal").find($("input[name=kinder_addr]")).val("");
 			if($(this).val().length>1){
@@ -173,8 +169,6 @@ form select {
 						$.each(data.kinder, function(key, value){
 							search.push(value.name);
 						})
-						
-						
 						
 					},
 					error:function(){
@@ -211,44 +205,16 @@ function kinder_search2(){
 					$("#myModal").find($("input[name=kinder_no]")).val(map.kinder.kinder_no);
 					$("#myModal").find($("input[name=kinder_addr]")).val(map.kinder.addr1);
 				}
-				
-				
-				
 			},
 			error:function(){
-				alert("명령 실행 중 오류");
+				alert("명령 실행 중 오류가 발생했습니다.");
 			}
-			
-			
 			
 		})
 		
 	}	
 
 
-	
-
-///////////////////////////지민like//////////////////////////////
-var likeSubmit = function(review_no,memeber_no){
-      $.ajax({
-         url:'/kiview/likeSubmit.do',
-         dataType:'json',
-         type:'POST',
-         data:{'review_no':review_no},
-         success:function(data){
-            var resultFlag = data.resultFlag;
-            var resultMsg = data.resultMsg;
-            if(resultFlag > 0){
-                if(resultMsg == "insert"){
-                  alert("좋아요 누름");
-               }else if(resultMsg == "delete"){
-                  alert("좋아요 지움");
-               }
-            }
-         }
-      });
-   }
-///////////////////////////지민like 끝//////////////////////////////
 function update_form(review_no){
 	$.ajax({
 		type:"post",
@@ -275,51 +241,76 @@ function update_form(review_no){
 			
 			$("#myModal2").find($("input[name=review_date]")).val(data.review.review_date);
 			
-			
-			
 		},
 		error:function(){
 			alert("실패")
 		}
 	
-	
 	})
-	
-	
 	
 	$("#myModal2").show(); 
 	
 }
 
 function insertchk(){
-	
-	
-
 		
 	if($("#review_year option:selected").val()=="선택"){
 			
-		alert("등원시기를 선택해주세요.")
+		alert("등원시기를 선택해 주세요.")
 		return false;
 	}
 		
-	
 	
 	if($("#myModal").find("input[name=kinder_addr]").val()==''){
-		alert("유치원을 검색해주세요.")
+		alert("유치원을 검색해 주세요.")
 		
 		return false;
 		
 	}
-	
-	
-	
-	
-	
-	
 	return true;
 }
 
+/////////////////////////// 지민like //////////////////////////////
 
+var likeSubmit = function(review_no){
+   var member_no = '${login.member_no}';
+   console.log(member_no);
+   
+   
+      $.ajax({
+         url: "likeSubmit.do",
+         dataType:"json",
+         type: "post",
+         contentType:"application/json",  
+         data: JSON.stringify({
+            "review_no":review_no,
+            "member_no":member_no       
+         }),
+         success:function(data){
+            
+            var resultFlag = data.resultFlag;
+            var resultMsg = data.resultMsg;
+            if(resultFlag > 0){
+                if(resultMsg == "insert"){
+                  alert("좋아요 목록에 추가되었습니다.");
+               }else if(resultMsg == "delete"){
+                  alert("좋아요 목록에서 삭제되었습니다.");
+               }
+            }
+            
+         },
+         error : function(request,status,error){
+            alert('오류가 발생했습니다. 다시 시도해 주세요.');
+            console.log("code = "+request.status + "message = " + request.responseText + "error  =   "+ error);
+         }
+      });
+   }
+   
+function LikeBtn(){
+	alert('로그인이 필요합니다.');
+}
+
+/////////////////////////// 지민like 끝 //////////////////////////////
 
 
 </script>
@@ -392,9 +383,7 @@ function insertchk(){
 				<c:choose>
 					<c:when test="${keyword != null && keyword!=''}">
 						<h2>
-					<label><span style="color: #fda638">${keyword }</span>에 대한 <span style="color: #fda638">${fn:length(list)} </span>건의 리뷰가 검색되었습니다.</label>
-					<!-- 해인 : 유치원명 name으로, 갯수 부분 review_no개로 받기 -->
-					<!-- 삭제 글 갯수를 마이너스 해 줘야 하기 때문에 delete 만들 때 n/y로 삭제 유무 확인할 수 있도록 체크해야 될 듯 -->
+					<label><span style="color: #fda638">${keyword}</span>에 대한 <span style="color: #fda638">${fn:length(list)} </span>건의 리뷰가 검색되었습니다.</label>
 						</h2>
 					</c:when>
 					<c:otherwise>
@@ -425,28 +414,21 @@ function insertchk(){
 							<p style="font-size: 14px;"> ${review.kinder_addr}</p>
 							<br> <label style="font-size: 18px;">원장/교사</label><span
 								style="font-size: 18px; position: relative; left: 10%"> 
-								<c:forEach begin="1" end="${review.avg_score1}">
-									★
-								</c:forEach>
+								<c:forEach begin="1" end="${review.avg_score1}"> ★ </c:forEach>
 								</span>
 							<br> <label style="font-size: 18px;">교과/수업</label>
 							<span
 								style="font-size: 18px; position: relative; left: 10%">
-								<c:forEach begin="1" end="${review.avg_score2}">
-									★
-								</c:forEach>
+								<c:forEach begin="1" end="${review.avg_score2}"> ★ </c:forEach>
 							</span>
 							<br> <label style="font-size: 18px;">시설/청결</label><span
 								style="font-size: 18px; position: relative; left: 10%">
-								<c:forEach begin="1" end="${review.avg_score3}">
-									★
-								</c:forEach>
+								<c:forEach begin="1" end="${review.avg_score3}"> ★ </c:forEach>
 							</span>
-							<br>	<!-- 해인 : 별 부분 이미지 넣고 평점마다 연결될 수 있도록 구현하기 -->
+							<br>
 							<h3>
 								<c:set var="score" value="${(review.avg_score1+review.avg_score2+review.avg_score3)/3 }"/>
-								<label>총점</label>&nbsp;&nbsp;&nbsp;<span><fmt:formatNumber value="${score }" pattern=".00"/></span> / 5.00 <br>
-								<!-- 해인 : 총점 계산하기: 평점 세 개의 평균 내기(double) -->
+								<label>총점</label>&nbsp;&nbsp;&nbsp;<span><fmt:formatNumber value="${score}" pattern=".00"/></span> / 5.00 <br>
 							</h3>
 						</div>
 					
@@ -460,10 +442,10 @@ function insertchk(){
 								<span id="writer"> ${review.review_writer} </span>　|　<span>${review.review_year}</span>　|　<span><fmf:formatDate value="${review.review_date}" pattern='yyyy-MM-dd HH:mm'/> </span>
 							</p>
 							<c:if test="${login.member_id==null }">
-								<p>로그인 좀하세요</p>
+								<img src="resources/images/review_blur.jpg" width="90%"/>
 							</c:if>
 							<c:if test="${login.member_id!=null }">
-							<p>내용 ${review.review_content} </p>
+							<p>${review.review_content} </p>
 							</c:if>
 						</div>
 					</div>
@@ -473,7 +455,12 @@ function insertchk(){
 						<input class="btn btn-secondary" type="button" value="수정" onclick="update_form(${review.review_no})">
 						<input class="btn btn-primary" type="button" value="삭제" onclick="location.href='reviewDelete.do?review_no=${review.review_no}'">
 					</c:if>
-						<input class="btn btn-primary" type="button" value="좋아요">
+					<c:if test="${login.member_id!=null }">
+						<input class="btn btn-primary" type="button" value="좋아요" onclick="likeSubmit('${review.review_no}')">
+					</c:if>
+					<c:if test="${login.member_id==null }">
+						<input class="btn btn-primary" type="button" value="좋아요" onclick="javascript:LikeBtn()">
+					</c:if>
 						<hr>
 					</div>
 					
@@ -494,7 +481,6 @@ function insertchk(){
 		</section>
 
 	<!-- 리뷰 글 작성 시 모달 페이지 -->
-	<!-- 별 평점 작성이 가능한 상태. //////// 평점 점수는 현재 0으로 고정된 상태임......코드를 바꾸거나 해야하는 부분임.     -->
 	<!-- Trigger/Open The Modal -->
 	<!--<button id="myBtn">Open Modal</button>-->
 
@@ -553,7 +539,7 @@ function insertchk(){
 							<label>내용 </label>
 							<span style="position: relative; left: 85%">0/500자</span><br>
 						<textarea style="width: 100%; height: auto; resize: none;"
-							placeholder="내용 주의사항 적어서 쓰십쇼! 최소 글자수 제한 필요" name="review_content" minlength="4" maxlength="500" required></textarea>
+							placeholder="200자 이상, 500자 이하의 글자수만 작성이 가능합니다." name="review_content" minlength="200" maxlength="500" required></textarea>
 						<br> <br>
 					</div>
 					<br>
@@ -704,7 +690,7 @@ function insertchk(){
 							
 							<label>내용 </label>
 							<span style="position: relative; left: 85%">0/200자</span><br>
-						<textarea style="width: 100%; height: auto; resize: none;" name="review_content" minlength="4" maxlength="1000" required></textarea>
+						<textarea style="width: 100%; height: auto; resize: none;" name="review_content" minlength="200" maxlength="1000" required></textarea>
 						<br> <br>
 					</div>
 					<br>
@@ -720,7 +706,7 @@ function insertchk(){
 								<input type="radio" name="avg_score1" value="1" id="p1" disabled>
 								<label for="p1">1</label> 
 								<input type="radio" name="avg_score1" value="2" id="p2" disabled> 
-									<label for="p2">2</label> 
+								<label for="p2">2</label> 
 								<input type="radio" name="avg_score1" value="3" id="p3" disabled> 
 								<label for="p3">3</label> 
 								<input type="radio" name="avg_score1" value="4" id="p4" disabled> 
@@ -730,9 +716,6 @@ function insertchk(){
 
 							</div>
 
-							<output for="star-input">
-								<b>0</b>점
-							</output>
 						</div>
 						<br> <br>
 						<div class="star-input2">
@@ -753,9 +736,6 @@ function insertchk(){
 
 							</div>
 
-							<output for="star-input2">
-								<b>0</b>점
-							</output>
 						</div>
 						<br> <br>
 						<div class="star-input3">
@@ -776,9 +756,6 @@ function insertchk(){
 
 							</div>
 
-							<output for="star-input3">
-								<b>0</b>점
-							</output>
 						</div>
 						<br> <br> <br>
 
@@ -791,12 +768,7 @@ function insertchk(){
 				</form>
 			</div>
 
-
-
 		</div>
-
-
-
 
 	</div>
 
