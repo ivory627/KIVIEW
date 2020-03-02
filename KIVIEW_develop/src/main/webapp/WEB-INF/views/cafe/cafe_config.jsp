@@ -21,6 +21,12 @@
 
 <%@ include file="../head.jsp"%>
 <style type="text/css">
+td{
+	word-break:break-all;
+	text-overflow: ellipsis; /* 위에 설정한 100px 보다 길면 말줄임표처럼 표시합니다. */
+	white-space: nowrap; /* 줄바꿈을 하지 않습니다. */
+	overflow: hidden; /* 내용이 길면 감춤니다 */  
+}
 </style>
 <script>
 	$(function() {
@@ -44,12 +50,26 @@
 			
 		})  
 		
+		$("input[name=concept]:input[value=table]").on("click",function(){
+			$("#categorychk").attr("disabled",false);
+			
+		})
+		
+		$("input[name=concept]:input[value=guest]").on("click",function(){
+			$("#categorychk").attr("disabled",true);
+			$("#categorychk").attr("checked",false);
+			$("#category_insert").hide();
+			$("input[name=category1]").val("");
+			$("input[name=category2]").val("");
+			$("input[name=category3]").val("");
+		})
+		
 		$("#categorychk").on("click",function(){
 			if(("#categorychk").is(":checked")){
 				$("input[name=category1]").val("");
 				$("input[name=category2]").val("");
 				$("input[name=category3]").val(""); 
-			}
+			} 
 		})
 
 		
@@ -101,6 +121,19 @@
 			data:{"no":no}, 
 			dataType:"json",
 			success:function(data){
+				console.log(data.menu.concept)
+				
+				if(data.menu.concept=='guest'){   
+					
+					$("#category_update").hide(); 
+					
+				} 
+				
+				if(data.menu.concept=='table'){   
+					
+					$("#category_update").show(); 
+					
+				} 
 				
 				$("#category_update").find($("input[name=category1]")).val("");  
 				$("#category_update").find($("input[name=category2]")).val("");
@@ -118,6 +151,8 @@
 				$("#category_update").find($("input[name=category_no2]")).val(data.category[1].cafe_category_no);
 				$("#category_update").find($("input[name=category3]")).val(data.category[2].category); 
 				$("#category_update").find($("input[name=category_no3]")).val(data.category[2].cafe_category_no);
+				
+				 
 			
 			
 			},
@@ -276,7 +311,7 @@
 				
 			}
 			
-			if(category2!=""){ 
+			if(category2!=""){  
 				if(category2==category3 || category2==category1){
 					alert(category2+"은 중복입니다.")
 					return false;
@@ -363,7 +398,7 @@
 						 
 							 $("#member_list").append( 
 									 	
-										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td>"+changeDate(value.signdate)+"</td>"
 										+"<td> <input type='button' class='btn btn-primary' style='background-color:black' value='블락' onclick='block("+ value.cafe_member_no
 										+")'</td></tr>"
 			
@@ -377,7 +412,7 @@
 							 $("#member_list").append( 
 									 	
 									 //<fmf:formatDate value="${member.signdate }" pattern="yyyy-MM-dd"/>
-										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td>"+changeDate(value.signdate)+"</td>"
 										+"<td> <input type='button' class='btn btn-primary' value='해제' onclick='unblock("+ value.cafe_member_no
 										+")'</td></tr>"
 			
@@ -391,9 +426,9 @@
 							 $("#member_list").append( 
 									 	
 									 //<fmf:formatDate value="${member.signdate }" pattern="yyyy-MM-dd"/>
-										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td>"+changeDate(value.signdate)+"</td>"
 										+"<td></td></tr>"
-			
+			 
 									
 							) 
 						
@@ -427,13 +462,13 @@
 				success:function(data){
 					
 					 $.each(data, function(idx, value){
-				
+						console.log(value.signdate)
 						if(value.signyn=="Y" && value.blockyn=="Y"){
 							 
 							 $("#member_list").append( 
 									 	
 									 //<fmf:formatDate value="${member.signdate }" pattern="yyyy-MM-dd"/>
-										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td>"+changeDate(value.signdate)+"</td>"
 										+"<td> <input type='button' class='btn btn-primary' value='해제' onclick='unblock("+ value.cafe_member_no
 										+")'</td></tr>"											
 							) 						
@@ -443,8 +478,8 @@
 							 
 							 $("#member_list").append( 
 									 	
-									 //<fmf:formatDate value="${member.signdate }" pattern="yyyy-MM-dd"/>
-										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+									 
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td>"+changeDate(value.signdate)+"</td>"
 										+"<td> <input type='button' class='btn btn-primary' style='background-color:black' value='블락' onclick='block("+ value.cafe_member_no
 										+")'</td></tr>"			
 									
@@ -456,8 +491,8 @@
 							 
 							 $("#member_list").append( 
 									 	
-									 //<fmf:formatDate value="${member.signdate }" pattern="yyyy-MM-dd"/>
-										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+									 
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td>"+changeDate(value.signdate)+"</td>"
 										+"<td></td></tr>"
 			
 									
@@ -495,10 +530,10 @@
 						 
 							 $("#sign_list").append( 
 					
-										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td>"+changeDate(value.signdate)+"</td>"
 										+"<td> <input type='button' class='btn btn-secondary' value='가입' onclick='sign("+value.cafe_member_no+")'>"
 										+"<input type='button' class='btn btn-primary' value='거절'onclick='cancle("+value.cafe_member_no+")'>"
-										+"</td></tr>"									
+										+"</td></tr>"  									
 							) 
 						
 						}
@@ -508,7 +543,7 @@
 							 $("#member_list").append( 
 									 	
 									
-										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td>"+changeDate(value.signdate)+"</td>"
 										+"<td> <input type='button' class='btn btn-primary' value='해제' onclick='unblock("+ value.cafe_member_no
 										+")'</td></tr>"		
 									
@@ -521,7 +556,7 @@
 							 $("#member_list").append( 
 									 	
 									 //<fmf:formatDate value="${member.signdate }" pattern="yyyy-MM-dd"/>
-										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td>"+changeDate(value.signdate)+"</td>"
 										+"<td> <input type='button' class='btn btn-primary' style='background-color:black' value='블락' onclick='block("+ value.cafe_member_no
 										+")'</td></tr>"			
 									
@@ -534,7 +569,7 @@
 							 $("#member_list").append( 
 									 	
 									 //<fmf:formatDate value="${member.signdate }" pattern="yyyy-MM-dd"/>
-										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td><fmf:formatDate value='${value.signdate}' pattern='yyyy-MM-dd'/></td>"
+										"<tr><td>"+value.name+"</td><td>"+value.answer+"</td><td>"+changeDate(value.signdate)+"</td>"
 										+"<td></td></tr>"								
 							) 
 						
@@ -551,6 +586,30 @@
 				}
 			})
 		}
+	}
+	
+	function changeDate(date) {
+		date = new Date(parseInt(date));
+		year = date.getFullYear();
+		month = date.getMonth();
+		day = date.getDate();
+		hour = date.getHours();
+		minute = date.getMinutes();
+		second = date.getSeconds();
+
+		if (month < 10) {
+
+			month = "0" + month;
+		}
+
+		if (day < 10) {
+			day = "0" + day;
+		}
+
+
+		strDate = year + "-" + month + "-" + day
+
+		return strDate;
 	}
 </script>
 </head>
@@ -838,7 +897,7 @@
 						<hr>
 						<br> <label>가입 목록</label>
 						<table id="member_list" class="table table"
-							style="text-align: center">
+							style="text-align: center; table-layout: fixed">
 							<col width="10%">
 							<col width="50%">
 							<col width="20%">
@@ -884,9 +943,12 @@
 								</c:otherwise>
 							</c:choose>
 						</table>
+						
+						
+						
 						<br> <label>신청 목록</label>
 						<table id="sign_list" class="table table"
-							style="text-align: center">
+							style="text-align: center; table-layout: fixed">  
 							<col width="10%">
 							<col width="50%">
 							<col width="20%">
@@ -925,6 +987,9 @@
 							</c:choose>
 
 						</table>
+						
+						
+						
 					</div>
 				</div>
 
@@ -940,6 +1005,20 @@
 
 		</div>
 	</section>
+	<script type="text/javascript">
+	function PageMove1(page) {
+	    var curpagenum = page;
+	    
+	    location.href = "cafeconfig.do?cafe_no=${cafe_list[0].cafe_no }&memeberno=${login.member_no}&curpagenum1="+page+"&curpagenum2=${page}";
+	 }
+	
+	function PageMove2(page) {
+	    var curpagenum = page;
+	    
+	    location.href = "cafeconfig.do?cafe_no=${cafe_list[0].cafe_no }&memeberno=${login.member_no}&curpagenum1=${page}&curpagenum2="+page;
+	 }
+	
+	</script>
 
 
 	<!-- @@ footer 영역 @@ -->

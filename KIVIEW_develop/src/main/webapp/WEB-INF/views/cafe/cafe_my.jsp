@@ -26,6 +26,15 @@ a {
 	white-space: nowrap; /* 줄바꿈을 하지 않습니다. */
 	overflow: hidden; /* 내용이 길면 감춤니다 */
 }
+
+#paging{    
+	
+	width:100%;   
+	margin:0 auto; 
+	text-align:center; 
+	float:center!impotant;
+	margin-top:15px;  
+}
 </style>
 
 <script type="text/javascript">
@@ -49,6 +58,8 @@ a {
 			location.href="cafedelete.do?member_no="+member_no+"&cafe_no="+cafe_no 
 		}
 	}
+	
+	
 	
 	
 </script>
@@ -131,7 +142,7 @@ a {
 											
 											
 											<p>
-												<span>${cafe.admin }</span> | <span>게시글 수</span> | 
+												<span>${cafe.admin }</span> | 
 												
 												
 												<c:set var="count" value="0"/>
@@ -143,7 +154,7 @@ a {
 														</c:if>
 													
 													</c:forEach>
-													<span>${count}</span>
+													<span>${count} 명</span>
 												
 											</p>
 											
@@ -184,6 +195,42 @@ a {
 
 					</c:choose>
 					<!-- 여기까지 반복 -->
+					
+					<div id="paging">
+			  
+        		 <c:if test="${pagevo.totallistcount ne '0' }">
+                    
+                        <ul class="pagination pull-right">
+                           <li><a href="javascript:PageMove(1)"> &nbsp;&nbsp;<< &nbsp;&nbsp; </a> </li>
+                           <c:if test="${pagevo.pagepre eq true }">
+                              <li><a
+                                 href="javascript:PageMove(${pagevo.curpagenum-1 })">&nbsp;&nbsp; < &nbsp;&nbsp;</a></li>
+                           </c:if>
+                           
+                           <c:forEach var="i" begin="${pagevo.startpage }" end="${pagevo.endpage }">
+                              <c:choose>
+                                 <c:when test="${i eq pagevo.curpagenum }">
+                                    <li class="active"><a href="javascript:PageMove(${i})">&nbsp;&nbsp;${i}&nbsp;&nbsp;</a></li>
+                                 </c:when>
+                                 <c:otherwise>
+                                    <li><a href="javascript:PageMove(${i})">&nbsp;&nbsp;${i}&nbsp;&nbsp;</a></li>
+                                 </c:otherwise>
+                              </c:choose>
+                           </c:forEach>
+                           <c:if test="${pagevo.pagenext eq true }">
+                              <li><a
+                                 href="javascript:PageMove(${pagevo.curpagenum+1 })">&nbsp;&nbsp; >&nbsp;&nbsp;</a></li>
+                           </c:if>
+                           <li><a
+                              href="javascript:PageMove(${pagevo.totalpagecount})"> &nbsp;&nbsp;>>&nbsp;&nbsp; </a></li>
+                        </ul>
+
+
+ 
+                      
+                  </c:if>
+         
+         	</div>
 
 
 
@@ -233,7 +280,7 @@ a {
 							</div>
 						</div>
 						<p class="mb-0">
-							<a href="cafeopen.do" class="btn btn-secondary"
+							<a href="cafeadmin.do?member_no=${login.member_no }&member_id=${login.member_id }" class="btn btn-secondary"
 								style="width: 300px">카페 개설하기 </a>
 						</p>
 					</div>
@@ -249,6 +296,21 @@ a {
 
 
 	</section>
+	
+	<script type="text/javascript">
+	function PageMove(page) {
+	    var curpagenum = page;
+	   
+	    
+	    location.href = "cafemy.do?member_no=${login.member_no}&curpagenum=" + page
+	 }
+	 
+	</script>
+	<style type="text/css">
+	
+	
+	
+	</style>
 
 
 	<!-- @@ footer 영역 @@ -->

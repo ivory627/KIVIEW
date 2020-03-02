@@ -228,6 +228,7 @@
          <version>${org.springframework-version}</version> <!-- 버전을 바꿔줘야함 -->
       </dependency>
       
+
         <!-- **승혜 : google login -->
     <dependency>
       <groupId>org.springframework.social</groupId>
@@ -240,7 +241,20 @@
       <artifactId>httpclient</artifactId>
       <version>4.5.3</version>
     </dependency>
+    
+    <!-- Mail -->
+   <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>${org.springframework-version}</version>
+   </dependency>
+   <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+      <version>1.6.1</version>
+   </dependency>
       
+
 
    </dependencies>
    

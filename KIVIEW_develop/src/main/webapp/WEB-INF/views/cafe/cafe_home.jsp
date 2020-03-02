@@ -30,7 +30,7 @@ a {
 
 function test(){
    var keyword = $('#cafesearch').val().trim();
-   location.href="cafesearch.do?keyword="+keyword;   
+   location.href="cafesearch.do?curpagenum=1&keyword="+keyword;   
 }
 
 </script>
@@ -136,7 +136,7 @@ function test(){
                      </div>
                   </div>
                   <p class="mb-0">
-                     <a href="cafeopen.do" class="btn btn-secondary"
+                     <a href="cafeadmin.do?member_no=${login.member_no }&member_id=${login.member_id }" class="btn btn-secondary"
                         style="width: 300px">카페 개설하기 </a>
                   </p>
                </div>
@@ -147,7 +147,7 @@ function test(){
          <!-- 카페 리스트 단위 -->
          <span><h3 style="display: inline">가입한 카페</h3>&nbsp;[${fn:length(Ulist)}]<!-- 카페 수 --></span>
          <!-- **20/02/07 내 카페 관리 버튼형식으로 변경  -->
-         <span><a href="cafemy.do?member_no=${login.member_no }"
+         <span><a href="cafemy.do?member_no=${login.member_no }&curpagenum=1"
             class="btn btn-secondary2"
             style="width: 160px; position: relative; left: 77%;">내 카페 관리</a></span>
          <hr style="margin-top: 5px;">
@@ -211,7 +211,17 @@ function test(){
                                     <!-- 카페장 -->
                                     <a href="#" class="mr-2">${Ulist.admin }</a>
                                     <!-- 카페 회원 수 -->
-                                    <a href="#" class="meta-chat">1 /50</a>
+                                    <c:set var="count" value="0"/>
+													<c:forEach items="${member }" var="member">
+													
+														<c:if test="${Ulist.cafe_no == member.cafe_no }">
+															<c:set var="count" value="${count+1 }"/>
+
+														</c:if>
+													
+													</c:forEach>    
+													
+                                    <a href="#" class="meta-chat">${count } 명</a>
                                  </p>
                               </div>
                            </div>
@@ -237,7 +247,7 @@ function test(){
          <c:if test="${fn:length(Ulist) > 5}">
 
             <div>
-               <span><a href="cafemy.do?member_no=${login.member_no }"
+               <span><a href="cafemy.do?member_no=${login.member_no }&curpagenum=1"
                   class="btn btn-secondary2"
                   style="width: 25%; position: relative; left: 40%;">더 보기</a></span>
             </div>
@@ -312,7 +322,18 @@ function test(){
                                        <!-- 카페장 -->
                                        <a href="#" class="mr-2">${Alist.admin }</a>
                                        <!-- 카페 회원 수 -->
-                                       <a href="#" class="meta-chat">1 /50</a>
+                                       <c:set var="count" value="0"/>
+													<c:forEach items="${member }" var="member">
+													
+														<c:if test="${Alist.cafe_no == member.cafe_no }">
+															<c:set var="count" value="${count+1 }"/>
+
+														</c:if>
+													
+													</c:forEach>    
+													
+                                   	 <a href="#" class="meta-chat">${count } 명</a>
+                                      
                                     </p>
                                  </div>
                               </div>

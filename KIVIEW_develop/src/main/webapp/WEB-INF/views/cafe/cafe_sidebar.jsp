@@ -15,11 +15,28 @@ $(function(){
    }, function(){
       $(this).css("text-decoration","none")
    })
+	
+   if(${login==null}){
+	   alert("로그인 후 이용해주세요.")
+	   location.href='login.do';
+   }
+ 
 })
 
 function sign_ready(){
 	alert('${login.member_id}님은 승인 대기중이십니다.');
 }
+
+function ban(){
+	alert('카페 회원만 이용하실 수 있습니다.');
+} 
+
+function cafechat(){
+	window.open("cafechat.do?member_id=${login.member_id}&member_no=${login.member_no}","_blank","width=900, height=700, scrollbars=yes"); 
+	
+}
+
+
 
 
 </script>
@@ -111,10 +128,13 @@ textarea{
                   <tr><th>회원수</th><td>${fn:length(cafe_list[2]) }명</td></tr>    
                   <tr><th>게시글</th><td>${fn:length(cafe_list[3]) }개</td></tr>
                   </table>
-                  <a href="cafeconfig.do?cafe_no=${cafe_list[0].cafe_no }&memeberno=${login.member_no}" style="color:blue"># 카페 관리</a>
+                  
+                  <c:if test="${cafe_list[0].admin == login.member_id }">
+                  	<a href="cafeconfig.do?cafe_no=${cafe_list[0].cafe_no }&memeberno=${login.member_no}" style="color:blue"># 카페 관리</a>
+                  </c:if>
                   <br><br>
 <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
-           
+           		
                
               	<div>
               		<c:set var="count" value="0"/>
@@ -124,7 +144,7 @@ textarea{
                					<c:set var="count" value="${count+1 }"/>
                					<c:if test="${count>0 }">
                							<c:if test="${member.signyn eq 'Y' || member.signyn eq 'A' }">
-											<p class="mb-0" align=center><a href="cafejoinform.do?cafe_no=${cafe_list[0].cafe_no }" 
+											<p class="mb-0" align=center><a onclick="cafechat()"
 											class="btn btn-secondary" style="width:100%; border-radius:0px;" >채팅방 입장하기</a></p>
             							</c:if>
             						
@@ -164,23 +184,66 @@ textarea{
                   <h3><b>게시판</b></h3>
                   <hr>
                         
+                  <!--가입여부-->
+           		<c:set var="sign" value="0"/>
+           		<c:set var="permit" value="true"/>  
+           		<c:forEach var="member" items="${cafe_list[2] }">	
+               			<c:if test="${login.member_no == member.member_no }">
+               				<c:set var="sign" value="${sign+1 }"/>
+			            		<if test="${sign>0 }">
+			            			<c:if test="${member.signyn eq 'N' || member.blockyn eq 'Y' }">
+				               			<c:set var="permit" value="false"/>
+				               		</c:if>
+			            		</if>
+            				
+            			</c:if>        					
+            	</c:forEach> 
+            	<c:if test="${sign==0 }">
+            		<c:set var="permit" value="false"/>
+            	</c:if>
+            	
+            	
+           		   
+                     
                          
-                    
-                  <c:if test="${!empty cafe_list[1] }">
+                       
+                  <c:if test="${!empty cafe_list[1] && permit eq 'true'}">   
                   <ul id="channel">
                   <c:forEach var="menu" items="${cafe_list[1] }">
                       <c:choose>
-                               
                      <c:when test="${menu.concept eq 'table' }">                       
                            <li><i class="fas fa-clipboard-list"></i><a href="cafeboardlist.do?cafe_no=${cafe_list[0].cafe_no }&cafe_menu_no=${menu.cafe_menu_no }&curpagenum=1"> ${menu.name}</a></li>                        
                      </c:when>
                      <c:otherwise>
-                           <li><i class="fas fa-clipboard-check"></i><a href="cafeguestlist.do?cafe_no=${cafe_list[0].cafe_no }&cafe_menu_no=${menu.cafe_menu_no }"> ${menu.name}</a></li>        
+                           <li><i class="fas fa-clipboard-check"></i><a href="cafeguestlist.do?cafe_no=${cafe_list[0].cafe_no }&cafe_menu_no=${menu.cafe_menu_no }&curpagenum=1"> ${menu.name}</a></li>        
                      </c:otherwise>
                     </c:choose>   
                   </c:forEach>
                  </ul>  
-                  </c:if>   
+                  </c:if> 
+                  <c:if test="${!empty cafe_list[1] && permit eq 'false'}">   
+                   <ul id="channel">
+                  <c:forEach var="menu" items="${cafe_list[1] }">
+                      <c:choose>
+                     <c:when test="${menu.concept eq 'table' }">                       
+                           <li><i class="fas fa-clipboard-list"></i>
+	                           <a onclick="ban()"> 
+	                           		${menu.name}
+	                           </a>
+                           </li>                        
+                     </c:when>
+                     <c:otherwise>
+                           <li><i class="fas fa-clipboard-check"></i>
+	                            <a onclick="ban()"> 
+	                           		${menu.name}
+	                           </a>                       
+                           </li>        
+                     </c:otherwise>
+                    </c:choose>   
+                  </c:forEach>
+                 </ul>  
+                  
+                  </c:if>
                      
                      
                      

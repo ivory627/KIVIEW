@@ -125,7 +125,7 @@ function check(){
                   <div class="form-group">
                      <label>카페명</label><br>
                      <input name="title" type="text" class="form-control" placeholder="카페명을 입력하세요."
-                      minlength="2" maxlength="30" required><span id="check"></span>
+                      minlength="4" maxlength="30" required><span id="check"></span>
                   </div>
                   <div class="form-group">
                      <label>대표 썸네일</label><br>

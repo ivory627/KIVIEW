@@ -29,8 +29,29 @@ textarea {
 	cursor : pointer;
 }
 
+#paging{    
+	
+	width:40%;   
+	margin:0 auto; 
+	text-align:center; 
+	float:center;
+	margin-top:15px;     
+}
+
+
+
+
 </style>
 <script type="text/javascript">
+function PageMove(page) {
+    var curpagenum = page;
+    var cafe_no = '${cafe_list[0].cafe_no }';
+    var cafe_menu_no = '${pagevo.cafe_menu_no }'; 
+    
+    location.href = "cafeguestlist.do?curpagenum=" + page + "&cafe_no="
+          + cafe_no + "&cafe_menu_no=" + cafe_menu_no;
+ }
+
 function show(cafe_board_no){
 	$("#replylist"+cafe_board_no).toggle(); 
 	
@@ -111,28 +132,7 @@ function show(cafe_board_no){
 					
 					
 					
-					var button = ''
-						
-						if(data.guest.writer=='${login.member_id}' || '${cafe_list[0].admin}' == '${login.member_id}'){
-						button = "<input type='button' value='수정' class='btn btn-secondary' onclick='update("+data.guest.cafe_board_no+")'>"+
-			               "<input type='button' value='삭제' class='btn btn-primary' onclick='guest_delete("+data.guest.cafe_board_no+")'>"
-					}
-				
-					$("#board"+cafe_board_no).append(
-							
-							"<label style='margin-left:10px;'>"+data.guest.writer+
-							"&nbsp;&nbsp;|&nbsp;&nbsp;"+changeDate(data.guest.regdate)+"</label><br>"+  
-		                   
-				            "<p class='content' style='margin-left:10px;'>"+data.guest.content+"</p>"+
-		   					"<div style='margin-right:60px; margin-top:10px; position:relative; left:80%'>"+
-					                +button+
-					               "<br><br>"+   
-					              
-				               	"</div>"+	               
-		               
-				               "<br>"
-				
-					)
+					
 				
 				}, 
 				
@@ -236,40 +236,49 @@ function show(cafe_board_no){
 				 $.each(data, function(idx, value){ 
 						$("#reply"+cafe_board_no).empty();
 						
-						var count = parseInt(idx)+1;  
-						if(data[0]===null||data[0]===undefined){   
+						
+						if(data[0]===0){   
 							
 							count=0; 
-						} 
+							
+							 $("#reply"+cafe_board_no).append(
+									 "댓글 <a style='color:#fda638;'>"+count+"</a>개"	   
+									 
+							 );
+						} else {
+							var count = parseInt(idx)+1;  
+							 $("#reply"+cafe_board_no).append(
+									 "댓글 <a style='color:#fda638;'>"+count+"</a>개"	   
+									 
+							 );
+						 
+						 
+							 var button = ''
+							 
+							if(value.writer=='${login.member_id}' || '${cafe_list[0].admin}' == '${login.member_id}'){
+	
+								var button=	"<span style='position:relative; color:#fda638; left:88%; cursor:pointer'onclick='reply_delete("+value.cafe_board_no+","+value.cafe_reply+")'>x</span>"
+						 
+							 }
+						 			 
+							 $("#replylist"+cafe_board_no).append(
+									 "<div style=' background-color:#F2F2F2'>"+
+									 "<div style='font-weight:bold; color:black'>"+value.writer+
+									button
+						 
+					                  +"</div>" +
+									 
+					                  "<div style='color:black'>"+value.content+"</div>"+
+					                  "<div style='font-size:small'>"+changeDate(value.regdate)+"</div>"+
+					               "<hr>"
+									 +"</div>"
+									 						 
+							 );
+						}
 						
-						 $("#reply"+cafe_board_no).append(
-								 "댓글 <a style='color:#fda638;'>"+count+"</a>개"	   
-								 
-						 );
-						 
-						 
-						 var button = ''
-						 
-						if(value.writer=='${login.member_id}' || '${cafe_list[0].admin}' == '${login.member_id}'){
-
-							var button=	"<span style='position:relative; color:#fda638; left:88%; cursor:pointer'onclick='reply_delete("+value.cafe_board_no+","+value.cafe_reply+")'>x</span>"
+				})	
 					 
-						 }
-					 			 
-						 $("#replylist"+cafe_board_no).append(
-								 "<div style=' background-color:#F2F2F2'>"+
-								 "<div style='font-weight:bold; color:black'>"+value.writer+
-								button
-					 
-				                  +"</div>" +
-								 
-				                  "<div style='color:black'>"+value.content+"</div>"+
-				                  "<div style='font-size:small'>"+changeDate(value.regdate)+"</div>"+
-				               "<hr>"
-								 +"</div>"
-								 						 
-						 );
-					 })	
+				 
 			 },
 			 error:function(error){
 				 alert("명령 실행중 오류")
@@ -318,6 +327,8 @@ function show(cafe_board_no){
 	    
 	    return strDate;
 	}
+
+ 
  
 </script>
   </head>
@@ -376,7 +387,18 @@ function show(cafe_board_no){
 		               <br>
 		               <br>
 		               <div align="center">
-			               <input type="submit" value="작 성" class="btn btn-secondary" style="width:20%">
+		               		<c:choose>
+		               			<c:when test="${menu.authority eq 'N' }">
+			               			<input type="submit" value="작 성" class="btn btn-secondary" style="width:20%">
+			               
+			              		</c:when>
+			              		<c:when test="${menu.authority eq 'Y' && login.member_id==cafe_list[0].admin}">
+			              			<input type="submit" value="작 성" class="btn btn-secondary" style="width:20%">
+			              		</c:when>
+			              		<c:otherwise>
+			              		
+			              		</c:otherwise>
+			              	</c:choose>
 			               
 			              		  
 		                
@@ -390,13 +412,13 @@ function show(cafe_board_no){
                	
                	</c:when>
                	<c:otherwise>
-               		<c:forEach var="guest" items="${guest }">
+               		<c:forEach var="guest" items="${guest }" >
                	
                 <div id="guest${guest.cafe_board_no }" class="col-lg-8 ftco-animate" style="padding:20px; margin-top:20px; width:100%;  background-color:white; border:1px solid lightgray;"> 
                   	
-                  	<!-- 본문영역 -->
+                  	<!-- 본문영역 --> 
                   	<div id="board${guest.cafe_board_no }">   
-		               <label style="margin-left:10px;">${guest.writer }&nbsp;&nbsp;|&nbsp;&nbsp;<fmf:formatDate value='${guest.regdate}' pattern='yyyy-MM-dd hh:mm'/></label><br>  
+		               <label style="margin-left:10px;">${guest.writer }&nbsp;&nbsp;|&nbsp;&nbsp;<fmf:formatDate value='${guest.regdate}' pattern='yyyy-MM-dd HH:mm'/></label><br>  
 		                    
 		               <p class="content" style="margin-left:10px;">${guest.content }</p>
       					<div style="margin-right:60px; margin-top:10px; position:relative; left:80%">
@@ -419,7 +441,7 @@ function show(cafe_board_no){
                			<form id="update_data${guest.cafe_board_no }" action="cafeguestupdate.do">
                				<input type="hidden" name="cafe_board_no" value="${guest.cafe_board_no }"> 
                				<input type="hidden" name="title" value="방명록">  
-			               <label style="margin-left:10px;">${guest.writer }&nbsp;&nbsp;|&nbsp;&nbsp;<fmf:formatDate value='${guest.regdate}' pattern='yyyy-MM-dd hh:mm'/></label><br>  
+			               <label style="margin-left:10px;">${guest.writer }&nbsp;&nbsp;|&nbsp;&nbsp;<fmf:formatDate value='${guest.regdate}' pattern='yyyy-MM-dd HH:mm'/></label><br>  
 			                    
 			       			<textarea style="resize:none" cols="80" rows="7" name="content" minlength="4" maxlength="500">${guest.content }</textarea> 
 	      					<div style="margin-right:60px; margin-top:10px; position:relative; left:80%">
@@ -466,7 +488,7 @@ function show(cafe_board_no){
 					                  
 					                  </div>
 					                  <div style="color:black">${reply.content }</div> 
-					                  <div style="font-size:small"><fmf:formatDate value='${reply.regdate}' pattern='yyyy-MM-dd hh:mm'/></label></div>
+					                  <div style="font-size:small"><fmf:formatDate value='${reply.regdate}' pattern='yyyy-MM-dd HH:mm'/></label></div>
 					               <hr>          
 				               
 			               		</div>
@@ -485,7 +507,7 @@ function show(cafe_board_no){
 			                  <textarea id="reply_text${guest.cafe_board_no }" style="resize:none; padding:10px;" name="content" cols="80" rows="3" minlength="4" maxlength="100" required></textarea>
 			                    
 			                  <input style="display:inline; position:relative; left:112%"  type="button" class="btn btn-primary"  
-			                  value="등록" onclick="reply_write(${guest.cafe_board_no})">          
+			                  value="등록" onclick="reply_write(${guest.cafe_board_no})">        
 			                   
 		               </form>
 	               </div>
@@ -502,14 +524,49 @@ function show(cafe_board_no){
                
             </div>
             
+			
+			 <div id="paging">
+			  
+        		 <c:if test="${pagevo.totallistcount ne '0' }">
+                    
+                        <ul  class="pagination pull">  
+                           <li><a href="javascript:PageMove(1)"> &nbsp;&nbsp;<< &nbsp;&nbsp; </a> </li>
+                           <c:if test="${pagevo.pagepre eq true }">
+                              <li><a
+                                 href="javascript:PageMove(${pagevo.curpagenum-1 })">&nbsp;&nbsp; < &nbsp;&nbsp;</a></li>
+                           </c:if>
+                           
+                           <c:forEach var="i" begin="${pagevo.startpage }" end="${pagevo.endpage }">
+                              <c:choose>
+                                 <c:when test="${i eq pagevo.curpagenum }">
+                                    <li class="active"><a href="javascript:PageMove(${i})">&nbsp;&nbsp;${i}&nbsp;&nbsp;</a></li>
+                                 </c:when>
+                                 <c:otherwise>
+                                    <li><a href="javascript:PageMove(${i})">&nbsp;&nbsp;${i}&nbsp;&nbsp;</a></li>
+                                 </c:otherwise>
+                              </c:choose>
+                           </c:forEach>
+                           <c:if test="${pagevo.pagenext eq true }">
+                              <li><a
+                                 href="javascript:PageMove(${pagevo.curpagenum+1 })">&nbsp;&nbsp; >&nbsp;&nbsp;</a></li>
+                           </c:if>
+                           <li><a
+                              href="javascript:PageMove(${pagevo.totalpagecount})"> &nbsp;&nbsp;>>&nbsp;&nbsp; </a></li>
+                        </ul>
 
+
+ 
+                      
+                  </c:if>
+         
+         	</div>
             
 
          </div>
 
 
          
-         
+        
 
 
       </div>
