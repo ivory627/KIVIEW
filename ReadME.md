@@ -27,7 +27,7 @@
   2. Github / Github Desktop
 
 🎈 DBMS 
-  1. MyBatis
+  1. Mybatis
   
 🎈 OS
   1. Chrome
