@@ -28,7 +28,7 @@
 				<div class="jsx-669562709 join-title">
 					<div class="jsx-669562709 join-title-wrap">
 						<a class="jsx-669562709" href="index.do">
-						<img src="resources/images/main/login-logo01.png"
+						<img src="resources/images/main/login-logo02.png"
 							alt="Kiview로고" class="jsx-669562709"></a>
 						<h2 class="jsx-669562709">
 							<span class="jsx-669562709">Kiview</span><span

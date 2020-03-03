@@ -113,7 +113,6 @@ h1{
 
 	<!-- @@ Main 이미지 부분 @@ -->
 	<section class="home-slider owl-carousel">
-
 		<div class="slider-item" style="background-image: url(resources/images/main/main_07.jpg);">
 			<div class="overlay"></div>
 			<div class="container">
@@ -189,6 +188,7 @@ h1{
 			</div>
 				</form>
 		</div>
+		<jsp:include page="searchbar.jsp"/>
 	      </div>
 	    </div>
 	  </div>
@@ -202,11 +202,12 @@ h1{
 	<br>
 
 	<!-- @@ 카운팅 부분  @@ -->
-	<section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(resources/images/bg_4.jpg);" data-stellar-background-ratio="0.5">
+	<section class="ftco-section ftco-counter img" id="section-counter" 
+	style="background-image: url(resources/images/bg_4.jpg);" data-stellar-background-ratio="0.5">
     	<div class="container">
     		<div class="row justify-content-center mb-5 pb-2">
           <div class="col-md-8 text-center heading-section heading-section-black ftco-animate">
-            <h2 class="mb-4"><span>지금 KIVIEW에서는</span><br> N개의 리뷰가 작성되고 있습니다.</h2>
+            <h2 class="mb-4"><span style = "color:black;">지금</span><span> KIVIEW </span>에서는<br>N개의 리뷰가 작성되고 있습니다.</h2>
             <p>실시간 작성되고 있는 리뷰와 유치원 소식을 알려드립니다.</p>
           </div>
         </div>	
@@ -218,7 +219,7 @@ h1{
 		            	<div class="icon"><span class="flaticon-doctor"></span></div>
 		              <div class="text">
 		                <strong class="number" data-number="18">0</strong>
-		                <span>Certified Teachers</span>
+		                <span id = "cntfont">유치원 리뷰</span>
 		              </div>
 		            </div>
 		          </div>
@@ -227,7 +228,7 @@ h1{
 		            	<div class="icon"><span class="flaticon-doctor"></span></div>
 		              <div class="text">
 		                <strong class="number" data-number="351">0</strong>
-		                <span>Successful Kids</span>
+		                <span id = "cntfont">등록된 유치원</span>
 		              </div>
 		            </div>
 		          </div>
@@ -236,7 +237,7 @@ h1{
 		            	<div class="icon"><span class="flaticon-doctor"></span></div>
 		              <div class="text">
 		                <strong class="number" data-number="564">0</strong>
-		                <span>Happy Parents</span>
+		                <span id = "cntfont">카페 개설 수</span>
 		              </div>
 		            </div>
 		          </div>
@@ -245,7 +246,7 @@ h1{
 		            	<div class="icon"><span class="flaticon-doctor"></span></div>
 		              <div class="text">
 		                <strong class="number" data-number="300">0</strong>
-		                <span>Awards Won</span>
+		                <span id = "cntfont">키뷰 회원 수</span>
 		              </div>
 		            </div>
 		          </div>
@@ -259,117 +260,6 @@ h1{
 	<br>
 	<br>
 	<br>
-	<!-- <section class="ftco-section ftco-no-pt ftc-no-pb">
-		<div class="container">
-			<div class="row">
-				<div
-					class="col-md-5 order-md-last wrap-about py-5 wrap-about bg-light">
-					<div class="text px-4 ftco-animate">
-						<h2 class="mb-4">이 부분 어떻게 쓸까나</h2>
-						<p>On her way she met a copy. The copy warned the Little Blind
-							Text, that where it came from it would have been rewritten a
-							thousand times and everything that was left from its origin would
-							be the word.</p>
-						<p>Separated they live in Bookmarksgrove right at the coast of
-							the Semantics, a large language ocean. A small river named Duden
-							flows by their place and supplies it with the necessary
-							regelialia. And if she hasn’t been rewritten, then they are still
-							using her.</p>
-						<p>
-							<a href="#" class="btn btn-secondary px-4 py-3">Read More</a>
-						</p>
-					</div>
-				</div>
-				<div class="col-md-7 wrap-about py-5 pr-md-4 ftco-animate">
-					<h2 class="mb-4">뭘로 사용할까나</h2>
-					<p>On her way she met a copy. The copy warned the Little Blind
-						Text, that where it came from it would have been rewritten a
-						thousand times and everything that was left from its origin would
-						be the word.</p>
-					<div class="row mt-5">
-						<div class="col-lg-6">
-							<div class="services-2 d-flex">
-								<div
-									class="icon mt-2 mr-3 d-flex justify-content-center align-items-center">
-									<span class="flaticon-security"></span>
-								</div>
-								<div class="text">
-									<h3>Safety First</h3>
-									<p>Far far away, behind the word mountains, far from the
-										countries Vokalia.</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="services-2 d-flex">
-								<div
-									class="icon mt-2 mr-3 d-flex justify-content-center align-items-center">
-									<span class="flaticon-reading"></span>
-								</div>
-								<div class="text">
-									<h3>Regular Classes</h3>
-									<p>Far far away, behind the word mountains, far from the
-										countries Vokalia.</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="services-2 d-flex">
-								<div
-									class="icon mt-2 mr-3 d-flex justify-content-center align-items-center">
-									<span class="flaticon-diploma"></span>
-								</div>
-								<div class="text">
-									<h3>Certified Teachers</h3>
-									<p>Far far away, behind the word mountains, far from the
-										countries Vokalia.</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="services-2 d-flex">
-								<div
-									class="icon mt-2 mr-3 d-flex justify-content-center align-items-center">
-									<span class="flaticon-education"></span>
-								</div>
-								<div class="text">
-									<h3>Sufficient Classrooms</h3>
-									<p>Far far away, behind the word mountains, far from the
-										countries Vokalia.</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="services-2 d-flex">
-								<div
-									class="icon mt-2 mr-3 d-flex justify-content-center align-items-center">
-									<span class="flaticon-jigsaw"></span>
-								</div>
-								<div class="text">
-									<h3>Creative Lessons</h3>
-									<p>Far far away, behind the word mountains, far from the
-										countries Vokalia.</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="services-2 d-flex">
-								<div
-									class="icon mt-2 mr-3 d-flex justify-content-center align-items-center">
-									<span class="flaticon-kids"></span>
-								</div>
-								<div class="text">
-									<h3>Sports Facilities</h3>
-									<p>Far far away, behind the word mountains, far from the
-										countries Vokalia.</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section> -->
 	<br>
 	<br>
 	<br>
@@ -472,7 +362,7 @@ h1{
 
 
 
-	<!-- @@ 선생님 소개 영역 @@ -->
+	<!-- @@ 유치원 추천 영역 @@ -->
 	<section class="ftco-section ftco-no-pb">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-2">
@@ -591,220 +481,9 @@ h1{
 			</div>
 		</div>
 	</section>
-	<!-- @@ 선생님 소개 영역 끝 @@ -->
-
-
-<!-- 	<section class="ftco-section">
-		<div class="container">
-			<div class="row justify-content-center mb-5 pb-2">
-				<div class="col-md-8 text-center heading-section ftco-animate">
-					<h2 class="mb-4">
-						<span>Our</span> Courses
-					</h2>
-					<p>Separated they live in. A small river named Duden flows by
-						their place and supplies it with the necessary regelialia. It is a
-						paradisematic country</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6 course d-lg-flex ftco-animate">
-					<div class="img"
-						style="background-image: url(resources/images/course-1.jpg);"></div>
-					<div class="text bg-light p-4">
-						<h3>
-							<a href="#">Arts Lesson</a>
-						</h3>
-						<p class="subheading">
-							<span>Class time:</span> 9:00am - 10am
-						</p>
-						<p>Separated they live in. A small river named Duden flows by
-							their place and supplies it with the necessary regelialia. It is
-							a paradisematic country</p>
-					</div>
-				</div>
-				<div class="col-md-6 course d-lg-flex ftco-animate">
-					<div class="img"
-						style="background-image: url(resources/images/course-2.jpg);"></div>
-					<div class="text bg-light p-4">
-						<h3>
-							<a href="#">Language Lesson</a>
-						</h3>
-						<p class="subheading">
-							<span>Class time:</span> 9:00am - 10am
-						</p>
-						<p>Separated they live in. A small river named Duden flows by
-							their place and supplies it with the necessary regelialia. It is
-							a paradisematic country</p>
-					</div>
-				</div>
-				<div class="col-md-6 course d-lg-flex ftco-animate">
-					<div class="img"
-						style="background-image: url(resources/images/course-3.jpg);"></div>
-					<div class="text bg-light p-4">
-						<h3>
-							<a href="#">Music Lesson</a>
-						</h3>
-						<p class="subheading">
-							<span>Class time:</span> 9:00am - 10am
-						</p>
-						<p>Separated they live in. A small river named Duden flows by
-							their place and supplies it with the necessary regelialia. It is
-							a paradisematic country</p>
-					</div>
-				</div>
-				<div class="col-md-6 course d-lg-flex ftco-animate">
-					<div class="img"
-						style="background-image: url(resources/images/course-4.jpg);"></div>
-					<div class="text bg-light p-4">
-						<h3>
-							<a href="#">Sports Lesson</a>
-						</h3>
-						<p class="subheading">
-							<span>Class time:</span> 9:00am - 10am
-						</p>
-						<p>Separated they live in. A small river named Duden flows by
-							their place and supplies it with the necessary regelialia. It is
-							a paradisematic country</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section> -->
-
-	<!-- @@ 원래 카운팅 부분  @@ -->
-
-	<!-- @@ 카운팅 끝 @@ -->
-
-
-	<!-- @@ 원래 리뷰 보여주는 영역 @@ -->
-
-	<!-- @@ 리뷰 끝 @@ -->
-
-
-
-	<!-- @@ Request 보내는 폼 영역 주석 @@ -->
-
-	<!-- <section class="ftco-section ftco-consult ftco-no-pt ftco-no-pb" style="background-image: url(images/bg_5.jpg);" data-stellar-background-ratio="0.5">
-    	<div class="container">
-    		<div class="row justify-content-end">
-    			<div class="col-md-6 py-5 px-md-5 bg-primary">
-	          <div class="heading-section heading-section-white ftco-animate mb-5">
-	            <h2 class="mb-4">Request A Quote</h2>
-	            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-	          </div>
-	          <form action="#" class="appointment-form ftco-animate">
-	    				<div class="d-md-flex">
-		    				<div class="form-group">
-		    					<input type="text" class="form-control" placeholder="First Name">
-		    				</div>
-		    				<div class="form-group ml-md-4">
-		    					<input type="text" class="form-control" placeholder="Last Name">
-		    				</div>
-	    				</div>
-	    				<div class="d-md-flex">
-	    					<div class="form-group">
-		    					<div class="form-field">
-          					<div class="select-wrap">
-                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                      <select name="" id="" class="form-control">
-                      	<option value="">Select Your Course</option>
-                        <option value="">Art Lesson</option>
-                        <option value="">Language Lesson</option>
-                        <option value="">Music Lesson</option>
-                        <option value="">Sports</option>
-                        <option value="">Other Services</option>
-                      </select>
-                    </div>
-		              </div>
-		    				</div>
-	    					<div class="form-group ml-md-4">
-		    					<input type="text" class="form-control" placeholder="Phone">
-		    				</div>
-	    				</div>
-	    				<div class="d-md-flex">
-	    					<div class="form-group">
-		              <textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="Message"></textarea>
-		            </div>
-		            <div class="form-group ml-md-4">
-		              <input type="submit" value="Request A Quote" class="btn btn-secondary py-3 px-4">
-		            </div>
-	    				</div>
-	    			</form>
-    			</div>
-        </div>
-    	</div>
-    </section> -->
 	<!-- @@ 끝 @@ -->
 
 
-
-	<!-- @@ Pricing 영역  @@ -->
-
-	<!-- <section class="ftco-section">
-    	<div class="container">
-    		<div class="row justify-content-center mb-5 pb-2">
-          <div class="col-md-8 text-center heading-section ftco-animate">
-            <h2 class="mb-4"><span>Our</span> Pricing</h2>
-            <p>Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country</p>
-          </div>
-        </div>
-    		<div class="row">
-        	<div class="col-md-6 col-lg-3 ftco-animate">
-        		<div class="pricing-entry bg-light pb-4 text-center">
-        			<div>
-	        			<h3 class="mb-3">Basic</h3>
-	        			<p><span class="price">$24.50</span> <span class="per">/ 5mos</span></p>
-	        		</div>
-	        		<div class="img" style="background-image: url(images/bg_1.jpg);"></div>
-	        		<div class="px-4">
-	        			<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-        			</div>
-        			<p class="button text-center"><a href="#" class="btn btn-primary px-4 py-3">Take A Course</a></p>
-        		</div>
-        	</div>
-        	<div class="col-md-6 col-lg-3 ftco-animate">
-        		<div class="pricing-entry bg-light pb-4 text-center">
-        			<div>
-	        			<h3 class="mb-3">Standard</h3>
-	        			<p><span class="price">$34.50</span> <span class="per">/ 5mos</span></p>
-	        		</div>
-	        		<div class="img" style="background-image: url(images/bg_2.jpg);"></div>
-        			<div class="px-4">
-	        			<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-        			</div>
-        			<p class="button text-center"><a href="#" class="btn btn-secondary px-4 py-3">Take A Course</a></p>
-        		</div>
-        	</div>
-        	<div class="col-md-6 col-lg-3 ftco-animate">
-        		<div class="pricing-entry bg-light active pb-4 text-center">
-        			<div>
-	        			<h3 class="mb-3">Premium</h3>
-	        			<p><span class="price">$54.50</span> <span class="per">/ 5mos</span></p>
-	        		</div>
-	        		<div class="img" style="background-image: url(images/bg_3.jpg);"></div>
-        			<div class="px-4">
-	        			<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-        			</div>
-        			<p class="button text-center"><a href="#" class="btn btn-tertiary px-4 py-3">Take A Course</a></p>
-        		</div>
-        	</div>
-        	<div class="col-md-6 col-lg-3 ftco-animate">
-        		<div class="pricing-entry bg-light pb-4 text-center">
-        			<div>
-	        			<h3 class="mb-3">Platinum</h3>
-	        			<p><span class="price">$89.50</span> <span class="per">/ 5mos</span></p>
-	        		</div>
-	        		<div class="img" style="background-image: url(images/bg_5.jpg);"></div>
-        			<div class="px-4">
-	        			<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-        			</div>
-        			<p class="button text-center"><a href="#" class="btn btn-quarternary px-4 py-3">Take A Course</a></p>
-        		</div>
-        	</div>
-        </div>
-    	</div>
-    </section> -->
-	<!-- @@ Pricing 끝 @@ -->
 
 
 
@@ -816,9 +495,7 @@ h1{
 					<h2 class="mb-4">
 						<span>키뷰</span> 카페
 					</h2>
-					<p>Separated they live in. A small river named Duden flows by
-						their place and supplies it with the necessary regelialia. It is a
-						paradisematic country</p>
+					<p>키뷰 회원님들의 커뮤니티, 키뷰 카페를 소개해드립니다!</p>
 				</div>
 			</div>
 			<div class="row">
@@ -912,51 +589,9 @@ h1{
 	<!-- @@ 카페 끝 @@ -->
 
 
-
-	<!-- @@ Main 제일 하단에 있는 애기들 이미지 제거 @@ -->
-	<!-- <section class="ftco-gallery">
-    	<div class="container-wrap">
-    		<div class="row no-gutters">
-					<div class="col-md-3 ftco-animate">
-						<a href="images/image_1.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/course-1.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
-    					</div>
-						</a>
-					</div>
-					<div class="col-md-3 ftco-animate">
-						<a href="images/image_2.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/image_2.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
-    					</div>
-						</a>
-					</div>
-					<div class="col-md-3 ftco-animate">
-						<a href="images/image_3.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/image_3.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
-    					</div>
-						</a>
-					</div>
-					<div class="col-md-3 ftco-animate">
-						<a href="images/image_4.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/image_4.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
-    					</div>
-						</a>
-					</div>
-        </div>
-    	</div>
-    </section> -->
-	<!-- @@ 끝 @@ -->
-
-
-
 	<!-- @@ footer 영역 @@ -->
 	<jsp:include page="footer.jsp"/>
 
-
-	
 
 
 </body>

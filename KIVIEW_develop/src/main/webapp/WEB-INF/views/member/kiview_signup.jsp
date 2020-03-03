@@ -30,7 +30,7 @@
 				<div class="jsx-669562709 join-title">
 					<div class="jsx-669562709 join-title-wrap">
 						<a class="jsx-669562709" href="index.do">
-						<img src="resources/images/main/login-logo01.png"
+						<img src="resources/images/main/login-logo02.png"
 							alt="" class="jsx-669562709" id="kiviewLogo"></a>
 						<h2 class="jsx-669562709">
 							<span class="jsx-669562709">회원가입</span><span
