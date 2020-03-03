@@ -63,7 +63,7 @@ public class CafeController {
 		
 		List<CafeMemberVo> member = biz.member_selectAll();
 		List<CafeVo> best = biz.best_cafe();
-		//List<CafeVo> cafe = biz.cafe_selectAll();
+		
 		
 		
 		// 내가 가입한 카페 카페 목록
@@ -73,8 +73,8 @@ public class CafeController {
 		model.addAttribute("Alist", Alist);
 		
 		model.addAttribute("member", member);
-		//model.addAttribute("best",best);
-		//model.addAttribute("cafe",cafe);
+		model.addAttribute("best",best);
+		
 
 		return "cafe/cafe_home";
 	}

@@ -24,10 +24,11 @@ li{
 }
 
 .chat{
-	width:70%; height:100%";
+	width:70%; 
+	height:680px";
 }
 
-
+ 
 .chat_top{
 	width:100%; height:8%; 
 	margin:0px;
@@ -39,7 +40,8 @@ li{
 
 .chat_body{
 	background-color:#9BDAF2;
-	width:100%; height:82%; 
+	height:82%;
+	overflow:auto; 
 }
 
 .chat_input{
@@ -49,11 +51,14 @@ height:10%
 	
 }
 
-.msgbox{
+.msgbox_me{
+	clear:both;
+	float:right;
+	text-align:right;
 	background-color:white;
 	border:1px solid lightgray;
 	margin:15px;
-	padding:15px;
+	padding:10px;
 	border-radius:5px;
 }
 
@@ -67,7 +72,7 @@ label{
 
 <script type="text/javascript">
 $(function(){
-	window.document.body.scroll="auto";
+	//window.document.body.scroll="auto";
 	var socket = io("http://localhost:82");
 
 	$("#msg").on("keydown",function(key){
@@ -84,11 +89,16 @@ $(function(){
 	
 	socket.on("send_msg",function(msg){
 		
-		$(".chat_body").append("<div class='msgbox'>"+'<label>${login.member_id}</label>'+"<br>"+msg+"</div>")
+		$(".chat_body").append("<div class='msgbox_me'>"+'<label>${login.member_id}</label>'+"<br>"+msg+"</div><br>")
 	})
 	
-	socket.on("connection", function(msg){
-		$(".chat_body").append("<div class='msgbox'>"+'<label>${login.member_id}</label>'+msg+"</div>")
+	socket.on("connect", function(){
+		var name = '${login.member_id}'
+		socket.emit('newUser',name)
+	})
+	
+	socket.on('connect',function(){
+		$(".chat_body").append("<div class='msgbox_me'>"+msg+"</div><br>")
 	})
 	
 
@@ -107,7 +117,7 @@ $(function(){
 
 <!-- 카페 홈  --> 
             
-            <div class="row" style="width:900px; height:680px; margin-left:0px; " >   
+            <div class="row" style="width:900px; height:680px; margin-left:0px; overflow:auto" >   
                
                <!-- 채팅방 영역 -->
                <div class="chat" > 
