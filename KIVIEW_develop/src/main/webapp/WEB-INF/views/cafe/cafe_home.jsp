@@ -30,7 +30,7 @@ a {
 
 function test(){
    var keyword = $('#cafesearch').val().trim();
-   location.href="cafesearch.do?curpagenum=1&keyword="+keyword;   
+   location.href="cafesearch.do?curpagenum=1&keyword="+keyword;
 }
 
 </script>
@@ -55,6 +55,7 @@ function test(){
                <p class="breadcrumbs">
                   <span class="mr-2"><a href="index.jsp">홈 <i
                         class="ion-ios-arrow-forward"></i></a></span> <span>키뷰카페 <i
+                     class="ion-ios-arrow-forward"></i></span> <span>카페홈 <i
                      class="ion-ios-arrow-forward"></i></span>
                </p>
             </div>
@@ -101,9 +102,9 @@ function test(){
                   <h3>카페 찾기</h3>
                   <form action="cafe_search.do" class="search-form" style="padding: 0px" onsubmit="return false">
                      <div class="form-group"  >
-                        <span class="icon icon-search" style="cursor: pointer" onclick="test();"></span> 
+                        <span class="icon icon-search" style="cursor: pointer" onclick="test();"></span>
                         <input type="text" class="form-control" placeholder="카페명을 입력해주세요." id="cafesearch" onkeypress="if( event.keyCode == 13 ){test();}">
-                           
+
                      </div>
                   </form>
                </div>
@@ -112,41 +113,47 @@ function test(){
 
                <!-- 카페 추천 -->
                <div class="sidebar-box ftco-animate">
+
                   <h3>Popular Cafe</h3>
-                  
+
                   <c:choose>
                   	<c:when test="${!empty best }">
-                  		<c:forEach var="best" items="${best }"> 
-                  
+                  		<c:forEach var="best" items="${best }">
+
 		                  <div class="block-21 mb-4 d-flex">
 		                     <a class="blog-img mr-4"
 		                        style="background-image: url('http://localhost:8787/img/${best.thumb }')"></a>
+
 		                     <div class="text">
 		                        <h3 class="heading">
 		                           <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${best.intro }</a>
 		                        </h3>
 		                        <div class="meta">
-		                           
+
 		                           <div>
 		                              <span class="icon-person">${best.admin }</span>
 		                           </div>
 		                           <div>
-		                           		<c:set var="count" value="0"/> 
-		                           			
+
+		                           		<c:set var="count" value="0"/>
+
 		                           				<c:forEach	var="member" items="${member }">
 		                           					<c:if test="${member.cafe_no == best.cafe_no }">
 		                           						<c:set var="count" value="${count+1 }"/>
-		                           						
+
 		                           					</c:if>
 		                           				</c:forEach>
-		                           			  
-		                              <span>${count } 명</span> 
+
+		                              <span>${count } 명</span>
+
 		                           </div>
 		                        </div>
 		                     </div>
 		                  </div>
+
                   		</c:forEach>
                   	</c:when>
+
                   </c:choose>
                   <p class="mb-0">
                      <a href="cafeadmin.do?member_no=${login.member_no }&member_id=${login.member_id }" class="btn btn-secondary"
@@ -194,10 +201,10 @@ function test(){
                               style="background-image: url('http://localhost:8787/img/${Ulist.thumb }');">
                               <!-- 가입제한 -->
                               <div class="meta-date text-center p-2">
-                                 <span class="mos"> 
-                                    <c:if test="${Ulist.restriction eq 'Y'}">                           
-                                                     바로가입                           
-                                    </c:if> 
+                                 <span class="mos">
+                                    <c:if test="${Ulist.restriction eq 'Y'}">
+                                                     바로가입
+                                    </c:if>
                                     <c:if test="${Ulist.restriction eq 'N'}">
                                                       승인후 가입
                                     </c:if>
@@ -226,14 +233,14 @@ function test(){
                                     <!-- 카페 회원 수 -->
                                     <c:set var="count" value="0"/>
 													<c:forEach items="${member }" var="member">
-													
+
 														<c:if test="${Ulist.cafe_no == member.cafe_no }">
 															<c:set var="count" value="${count+1 }"/>
 
 														</c:if>
-													
-													</c:forEach>    
-													
+
+													</c:forEach>
+
                                     <a href="#" class="meta-chat">${count } 명</a>
                                  </p>
                               </div>
@@ -291,11 +298,11 @@ function test(){
                   </div>
                </c:when>
                <c:otherwise>
-                  
-                  <c:forEach var="Alist" items="${Alist }">
-                     
 
- 
+                  <c:forEach var="Alist" items="${Alist }">
+
+
+
 
 
                         <div class="col-md-6 col-lg-4 ftco-animate">
@@ -306,10 +313,10 @@ function test(){
                                  style="background-image: url('http://localhost:8787/img/${Alist.thumb }');">
                                  <!-- 가입제한 -->
                                  <div class="meta-date text-center p-2">
-                                    <span class="mos"> 
-                                    <c:if test="${Alist.restriction eq 'Y'}">                           
-                                                      바로가입                           
-                                             </c:if> 
+                                    <span class="mos">
+                                    <c:if test="${Alist.restriction eq 'Y'}">
+                                                      바로가입
+                                             </c:if>
                                              <c:if test="${Alist.restriction eq 'N'}">
                                                       승인후 가입
                                              </c:if>
@@ -337,16 +344,16 @@ function test(){
                                        <!-- 카페 회원 수 -->
                                        <c:set var="count" value="0"/>
 													<c:forEach items="${member }" var="member">
-													
+
 														<c:if test="${Alist.cafe_no == member.cafe_no }">
 															<c:set var="count" value="${count+1 }"/>
 
 														</c:if>
-													
-													</c:forEach>    
-													
+
+													</c:forEach>
+
                                    	 <a href="#" class="meta-chat">${count } 명</a>
-                                      
+
                                     </p>
                                  </div>
                               </div>
@@ -355,11 +362,11 @@ function test(){
                         </div>
                         <br>
 
-                     
-                  </c:forEach> 
-                  
+
+                  </c:forEach>
+
                </c:otherwise>
-               
+
 
             </c:choose>
 

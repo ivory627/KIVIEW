@@ -25,10 +25,12 @@ li{
 }
 
 .chat{
+
 	width:75%; height:680px";
+
 }
 
-
+ 
 .chat_top{
 	width:100%; height:54px; 
 	margin:0px;
@@ -43,6 +45,7 @@ li{
 	width:100%; 
 	height:557px; 
 	overflow:scroll;
+
 }
 
 .chat_input{
@@ -75,10 +78,11 @@ height:10%
 .msgbox_other{
 	clear:both;
 	float:left;
+	text-align:right;
 	background-color:white;
 	border:1px solid lightgray;
 	margin:15px;
-	padding:15px;
+	padding:10px;
 	border-radius:5px;
 }
 
@@ -150,9 +154,9 @@ $(function(){
 		$("#msg").val('');
 		
 		
-		
 	})
 	
+
 	
 	
 	
@@ -224,7 +228,7 @@ $(function(){
 
 <!-- 카페 홈  --> 
             
-            <div class="row" style="width:900px; height:680px; margin-left:0px; " >   
+            <div class="row" style="width:900px; height:680px; margin-left:0px; overflow:auto" >   
                
                <!-- 채팅방 영역 -->
                <div class="chat" > 
