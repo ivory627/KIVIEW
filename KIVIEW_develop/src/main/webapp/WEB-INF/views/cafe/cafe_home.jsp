@@ -113,28 +113,41 @@ function test(){
                <!-- 카페 추천 -->
                <div class="sidebar-box ftco-animate">
                   <h3>Popular Cafe</h3>
-                  <div class="block-21 mb-4 d-flex">
-                     <a class="blog-img mr-4"
-                        style="background-image: url(resources/images/image_1.jpg);"></a>
-                     <div class="text">
-                        <h3 class="heading">
-                           <a href="#">Even the all-powerful Pointing has no control
-                              about the blind texts</a>
-                        </h3>
-                        <div class="meta">
-                           <div>
-                              <a href="#"><span class="icon-calendar"></span> Jan. 27,
-                                 2019</a>
-                           </div>
-                           <div>
-                              <a href="#"><span class="icon-person"></span> Dave Lewis</a>
-                           </div>
-                           <div>
-                              <a href="#"><span class="icon-chat"></span> 19</a>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
+                  
+                  <c:choose>
+                  	<c:when test="${!empty best }">
+                  		<c:forEach var="best" items="${best }"> 
+                  
+		                  <div class="block-21 mb-4 d-flex">
+		                     <a class="blog-img mr-4"
+		                        style="background-image: url('http://localhost:8787/img/${best.thumb }')"></a>
+		                     <div class="text">
+		                        <h3 class="heading">
+		                           <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${best.intro }</a>
+		                        </h3>
+		                        <div class="meta">
+		                           
+		                           <div>
+		                              <span class="icon-person">${best.admin }</span>
+		                           </div>
+		                           <div>
+		                           		<c:set var="count" value="0"/> 
+		                           			
+		                           				<c:forEach	var="member" items="${member }">
+		                           					<c:if test="${member.cafe_no == best.cafe_no }">
+		                           						<c:set var="count" value="${count+1 }"/>
+		                           						
+		                           					</c:if>
+		                           				</c:forEach>
+		                           			  
+		                              <span>${count } 명</span> 
+		                           </div>
+		                        </div>
+		                     </div>
+		                  </div>
+                  		</c:forEach>
+                  	</c:when>
+                  </c:choose>
                   <p class="mb-0">
                      <a href="cafeadmin.do?member_no=${login.member_no }&member_id=${login.member_id }" class="btn btn-secondary"
                         style="width: 300px">카페 개설하기 </a>

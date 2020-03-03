@@ -63,7 +63,9 @@ public class CafeController {
 		
 		List<CafeMemberVo> member = biz.member_selectAll();
 		List<CafeVo> best = biz.best_cafe();
-		//List<CafeVo> cafe = biz.cafe_selectAll();
+		System.out.println(best);
+		System.out.println(member);
+		
 		
 		
 		// 내가 가입한 카페 카페 목록
@@ -73,8 +75,8 @@ public class CafeController {
 		model.addAttribute("Alist", Alist);
 		
 		model.addAttribute("member", member);
-		//model.addAttribute("best",best);
-		//model.addAttribute("cafe",cafe);
+		model.addAttribute("best",best);
+		
 
 		return "cafe/cafe_home";
 	}
@@ -123,10 +125,10 @@ public class CafeController {
 		PrintWriter out = response.getWriter();
 			
 		if(res>0) {
-			out.print("<script> alert('카페를 폐쇄하였습니다.'); location.href='cafemy.do?member_no=" + member_no 
+			out.print("<script> alert('카페를 폐쇄하였습니다.'); location.href='cafemy.do?curpagenum=1&member_no=" + member_no 
 			+ "'</script>");
 		} else {
-			out.print("<script> alert('명령 실행 중 오류.'); location.href='cafemy.do?member_no=" + member_no 
+			out.print("<script> alert('명령 실행 중 오류.'); location.href='cafemy.do?curpagenum=1&member_no=" + member_no 
 					+ "'</script>");
 		}
 			
@@ -1227,7 +1229,10 @@ public class CafeController {
 	   
 	   //--카페 채팅--
 	   @RequestMapping("/cafechat.do")
-	   public String cafe_chat(Model model, MemberVo login) {
+	   public String cafe_chat(Model model, int cafe_no) {
+		   CafeVo cafe = biz.cafe_selectone(cafe_no);
+		   
+		   model.addAttribute("cafe",cafe);
 		   
 		   
 		   

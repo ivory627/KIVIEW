@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +11,8 @@
 .chat_member{
 	padding:15px;
 	overflow:scroll; 
-	width:30%; 
-	height:100%; 
+	width:25%; 
+	height:680px; 
 	border:1px solid lightgray; 
 	overflow:scroll;
 	margin:0px; 
@@ -24,12 +25,12 @@ li{
 }
 
 .chat{
-	width:70%; height:100%";
+	width:75%; height:680px";
 }
 
 
 .chat_top{
-	width:100%; height:8%; 
+	width:100%; height:54px; 
 	margin:0px;
 	
 	background-color:#fda638; 
@@ -39,7 +40,9 @@ li{
 
 .chat_body{
 	background-color:#9BDAF2;
-	width:100%; height:82%; 
+	width:100%; 
+	height:557px; 
+	overflow:scroll;
 }
 
 .chat_input{
@@ -49,7 +52,29 @@ height:10%
 	
 }
 
-.msgbox{
+.msgbox_me{
+	clear:both;
+	float:right;
+	background-color:#F2F5A9;
+	border:1px solid lightgray;
+	margin:15px;
+	padding:15px;
+	border-radius:5px;
+}
+
+.msgbox_system{
+	clear:both;
+	float:center;
+	text-align:center;
+	
+	margin:15px;
+	padding:15px;
+	border-radius:5px;
+}
+
+.msgbox_other{
+	clear:both;
+	float:left;
 	background-color:white;
 	border:1px solid lightgray;
 	margin:15px;
@@ -67,9 +92,45 @@ label{
 
 <script type="text/javascript">
 $(function(){
-	window.document.body.scroll="auto";
-	var socket = io("http://localhost:82");
+	
+	var now = new Date();
+	
+	var socket = io("http://localhost:82"); //페이지 로드시 해당 포트로 접속
+	
+	socket.on('connection', function(data){
+		if(data.type == 'connected'){
+			socket.emit('connection', {
+				type:'join',
+				member_no:'${login.member_no}',
+				member_id:'${login.member_id}',
+				cafe_no:'${cafe.cafe_no}',
+				title:'${cafe.title}'
+				
+				
+			});
+		}
+	})
+	
+	socket.on('disconnect', function(data){
+		writeMsg('system','SYSTEM',data.msg,changeDate(now));
+	})
 
+	
+	socket.on('system',function(data){
+		writeMsg('system','SYSTEM',data.msg,changeDate(now));
+	})
+	
+	socket.on('other',function(data){
+		writeMsg('other', data.member_id, data.msg, data.time);
+	})
+	
+	socket.on("me",function(data){
+		writeMsg('me', data.member_id, data.msg, data.time);
+			
+	})
+	
+	
+	
 	$("#msg").on("keydown",function(key){
 		if(key.keyCode=='13'){
 			$("#msg_submit").click();
@@ -78,19 +139,75 @@ $(function(){
 	
 	$("#msg_submit").on("click",function(){
 		
-		socket.emit("send_msg",$("#msg").val());
-		$("#msg").val('');
-	})
-	
-	socket.on("send_msg",function(msg){
+		socket.emit("me", {
+			member_id:"${login.member_id}",
+			msg:$("#msg").val(),
+			time:changeDate(now)
+			
+		});
 		
-		$(".chat_body").append("<div class='msgbox'>"+'<label>${login.member_id}</label>'+"<br>"+msg+"</div>")
+		
+		$("#msg").val('');
+		
+		
+		
 	})
 	
-	socket.on("connection", function(msg){
-		$(".chat_body").append("<div class='msgbox'>"+'<label>${login.member_id}</label>'+msg+"</div>")
-	})
 	
+	
+	
+	function writeMsg(type, name, msg, time){
+		if(type=='me'){
+			$(".chat_body").append("<div class='msgbox_me'>"+'<label>'+name+'</label>  <span>'+time+'</span>'+"<br>"+msg+"</div>")
+			$(".chat_body").scrollTop($(".chat_body").prop('scrollHeight'));
+			
+		}
+		
+		if(type=='system'){
+			$(".chat_body").append("<div class='msgbox_system'>"+'<label>'+name+'</label>'+"<br><span>"+time+'</span><br>'+msg+"</div>")
+			$(".chat_body").scrollTop($(".chat_body").prop('scrollHeight'));
+		}
+		
+		if(type=='other'){
+			$(".chat_body").append("<div class='msgbox_other'>"+'<label>'+name+'</label>  <span>'+time+'</span>'+"<br>"+msg+"</div>")
+			$(".chat_body").scrollTop($(".chat_body").prop('scrollHeight'));
+			
+		}
+		
+	}
+	
+	function changeDate(date){
+	    //date = new Date(parseInt(date));
+	    year = date.getFullYear();
+	    month = date.getMonth();
+	    day = date.getDate();
+	    hour = date.getHours();
+	    minute = date.getMinutes();
+	    second = date.getSeconds();
+	    
+	    if(month<10){
+	        
+	       month = "0"+month
+	    }
+	     
+	    if(day<10){
+	       day = "0"+day
+	    }
+	    
+	    if(hour<10){
+	       hour = "0"+hour
+	    }
+	    
+	    if(minute<10){
+	       minute = "0"+minute
+	    }
+	    
+	           
+	    strDate = hour+":"+minute
+	    
+	    
+	    return strDate;
+	}
 
 
 
@@ -116,7 +233,7 @@ $(function(){
                		</div>
                		
                		<div class="chat_body">
-					<br>
+					
   					
                		
                		</div>
