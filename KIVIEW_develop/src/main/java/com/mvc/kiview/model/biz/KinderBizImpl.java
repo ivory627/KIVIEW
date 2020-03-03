@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.mvc.kiview.model.dao.KinderDao;
 import com.mvc.kiview.model.vo.KinderVo;
 import com.mvc.kiview.model.vo.ProvinceVo;
+import com.mvc.kiview.model.vo.ReviewVo;
 
 @Service
 public class KinderBizImpl implements KinderBiz {
@@ -79,6 +80,11 @@ public class KinderBizImpl implements KinderBiz {
 	@Override
 	public List<KinderVo> mapSearch(HashMap<String, String> map) {
 		return dao.mapSearch(map);
+	}
+
+	@Override
+	public List<ReviewVo> ReviewList(int kinder_no) {
+		return dao.ReviewList(kinder_no);
 	}
 
 }

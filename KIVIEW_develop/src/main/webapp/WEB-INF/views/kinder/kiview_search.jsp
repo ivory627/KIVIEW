@@ -169,7 +169,7 @@
               	  			$("<td>").append(code.addr2),
               	  			$("<td>").append($("<a href='searchdetail.do?kinder_no="+code.kinder_no+"'>").append(code.name)),
               	  			$("<td>").append(code.type),
-              	  			$("<td>").append("★★★")	
+              	  			$("<td>").append($("<button class='btn btn-primary px-3' onclick='location.href=\"searchdetail.do?kinder_no="+code.kinder_no+"\"'>평점보기</button>"))	
               	  		)
               	  	);	
               	  });    	            		
@@ -303,7 +303,7 @@
 			</div>
 			
 		</section>
-		 <section id="searchres" class="ftco-section bg-light" style="padding: 0.0em 0;">
+		 <section id="searchres" class="ftco-section bg-light"><!-- style="padding: 0.0em 0;" -->
 			<div class="container">
 				<div class="row" id="box">
           			<div style="width:100%;margin:0 auto;" class="col-md-8 text-center heading-section ftco-animate fadeInUp ftco-animated">
@@ -316,7 +316,7 @@
 						     <th style="width:20%">지 역 </th>
 						     <th style="width:50%">유치원명</th>
 						     <th style="width:10%">구분</th>
-						     <th style="width:20%">평점</th>
+						     <th style="width:20%">평점보기</th>
 						   </tr>
 						   </thead>
 						   <tbody id="tbody">
@@ -343,7 +343,7 @@
 						   	 			<td>${vo.addr2 }</td>
 						   	 			<td><a href="searchdetail.do?kinder_no=${vo.kinder_no }">${vo.name }</a></td>
 						   	 			<td>${vo.type }</td>
-						   	 			<td>★★★★</td>
+						   	 			<td><button class="btn btn-primary px-3" onclick="location.href='searchdetail.do?kinder_no=${vo.kinder_no}'">평점보기</button></td>
 						   	 		</tr>
 						   	 	</c:forEach>
 						   	 </c:otherwise>						   
@@ -372,7 +372,7 @@
 						   	 			<td>${vo.addr2 }</td>
 						   	 			<td><a href="searchdetail.do?kinder_no=${vo.kinder_no}">${vo.name }</a></td>
 						   	 			<td>${vo.type }</td>
-						   	 			<td>★★★★</td>
+						   	 			<td><button class="btn btn-primary px-3" onclick="location.href='searchdetail.do?kinder_no=${vo.kinder_no}'">평점보기</button></td>
 						   	 		</tr>
 						   	 	</c:forEach>
 						   	 </c:otherwise>						   
@@ -384,11 +384,12 @@
 				</div>
 			</div>
 		</section>
-		<section id="searchresmap" class="ftco-section bg-light" style="padding: 0.0em 0;">
+		
+		<section id="searchresmap" class="ftco-section bg-light"> <!-- style="padding: 0.0em 0;" -->
 			<div class="container">
 				<div class="row" id="box">
           			<div style="width:100%;margin:0 auto;" class="col-md-8 text-center heading-section ftco-animate fadeInUp ftco-animated">
-           			 <h2 class="mb-4"><span>검색 결과</span></h2>
+           			 <h2 class="mb-4"><span>지도 검색 결과</span></h2>
           			</div>
           			<div style="width:100%;margin:0 auto;" class="ftco-animate fadeInUp ftco-animated">
           			<div id="map" style="width:100%;margin:0 auto;height:20%;height:500px;" class="col-md-15 text-center heading-section ftco-animate fadeInUp ftco-animated">
@@ -400,7 +401,7 @@
 		</section>
 		
 		<!-- **20/02/07 검색결과 section footer랑 띄우기** -->
-		<section style = "background:#fafafa;">
+ 		<section style = "background:#fafafa;">
 			<div class="container">
 				<br><br><br><br>
 			</div>

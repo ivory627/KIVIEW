@@ -106,5 +106,8 @@
 	<select id="kinderListMap" parameterType="HashMap" resultMap="KinderMap">
 		SELECT * FROM KINDER WHERE ADDR2 LIKE '%${province}%${citytown}%'
 	</select>
+	<select id="reviewList" parameterType="int" resultType="reviewVo">
+		SELECT * FROM REVIEW WHERE KINDER_NO = #{kinder_no}
+	</select>
 
 </mapper>

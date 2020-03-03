@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mvc.kiview.model.biz.KinderBiz;
+import com.mvc.kiview.model.biz.ReviewBiz;
 import com.mvc.kiview.model.vo.KinderVo;
 import com.mvc.kiview.model.vo.ProvinceVo;
 
@@ -38,6 +39,7 @@ public class KinderController {
 		logger.info("KINDER SEARCH DETAIL");
 		//System.out.println(kinder_no);
 		model.addAttribute("kindervo",biz.Kinderdetail(kinder_no));
+		model.addAttribute("reviewvo",biz.ReviewList(kinder_no));
 		return "kinder/kiview_Search_detail";
 	}
 	

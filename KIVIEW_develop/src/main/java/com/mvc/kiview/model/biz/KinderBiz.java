@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.mvc.kiview.model.vo.KinderVo;
 import com.mvc.kiview.model.vo.ProvinceVo;
+import com.mvc.kiview.model.vo.ReviewVo;
 
 public interface KinderBiz {
 	public List<KinderVo> LocalSerach(ProvinceVo vo);
@@ -18,5 +19,6 @@ public interface KinderBiz {
 	public List<KinderVo> KinderList(String keyword);
 	public List<KinderVo> KinderListAll();
 	public List<KinderVo> mapSearch(HashMap<String, String> map);
+	public List<ReviewVo> ReviewList(int kinder_no);
 
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mvc.kiview.model.vo.KinderVo;
 import com.mvc.kiview.model.vo.ProvinceVo;
+import com.mvc.kiview.model.vo.ReviewVo;
 
 @Repository
 public class KinderDaoImpl implements KinderDao{
@@ -145,6 +146,18 @@ public class KinderDaoImpl implements KinderDao{
 			list = sqlSession.selectList(namespace+"kinderListMap",map);
 		}catch(Exception e) {
 			System.out.println("error:kinder list map");
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<ReviewVo> ReviewList(int kinder_no) {
+		List<ReviewVo> list = new ArrayList<ReviewVo>();
+		try {
+			list = sqlSession.selectList(namespace+"reviewList",kinder_no);
+		}catch(Exception e) {
+			System.out.println("error:Review list");
 			e.printStackTrace();
 		}
 		return list;

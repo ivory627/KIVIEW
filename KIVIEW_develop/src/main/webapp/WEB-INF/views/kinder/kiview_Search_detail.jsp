@@ -5,6 +5,7 @@
 	
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@ taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"%>
+	<%@ taglib prefix="fmf" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,12 +13,24 @@
     
     <jsp:include page="../head.jsp"/>
     <style type="text/css">
+    label {
+	font-weight: bold;
+	color: black;
+	margin-bottom: 5px;
+	}
+	.reviewBtn input {
+	position: relative;
+	left: 90%
+	}
     table{
     	color:black;
     	text-align:center;
     }
     th{
     	background-color: rgb(244, 241, 238);;
+    }
+    td a{
+    	color:black;
     }
     #box {
     background-color: white;
@@ -27,11 +40,11 @@
     .auth-popup.jsx-182210165 {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 58%;
     transform: translate(-50%, -50%);
 	}
 	.content.jsx-2941005022 {
-    width: 500px;
+    width: 400px;
     display: flex;
     text-align: center;
     flex-direction: column;
@@ -45,53 +58,49 @@
     -webkit-box-pack: center;
     justify-content: center;
 	}
-     /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-        /* Modal Content/Box */
-        .modal-content {
-            background-color: #FEFEFE;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 60px;
-            border: 1px solid #888;
-            width: 50%; /* Could be more or less, depending on screen size */
-        }
-        /* The Close Button */
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-           	position:relative;
-           	left:95%;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
     </style>
     <script type="text/javascript">
-		$(function(){
-			$("#myBtn").on("click",function(){
-				//modal.style.display = "block";
-				$("#myModal").show();
-			})
-			$(".close").on("click",function(){
-				$("#myModal").hide();
-			})
-		})
+	/////////////////////////// 지민like //////////////////////////////
+
+var likeSubmit = function(review_no){
+   var member_no = '${login.member_no}';
+   console.log(member_no);
+   
+   
+      $.ajax({
+         url: "likeSubmit.do",
+         dataType:"json",
+         type: "post",
+         contentType:"application/json",  
+         data: JSON.stringify({
+            "review_no":review_no,
+            "member_no":member_no       
+         }),
+         success:function(data){
+            
+            var resultFlag = data.resultFlag;
+            var resultMsg = data.resultMsg;
+            if(resultFlag > 0){
+                if(resultMsg == "insert"){
+                  alert("좋아요 목록에 추가되었습니다.");
+               }else if(resultMsg == "delete"){
+                  alert("좋아요 목록에서 삭제되었습니다.");
+               }
+            }
+            
+         },
+         error : function(request,status,error){
+            alert('오류가 발생했습니다. 다시 시도해 주세요.');
+            console.log("code = "+request.status + "message = " + request.responseText + "error  =   "+ error);
+         }
+      });
+   }
+   
+function LikeBtn(){
+	alert('로그인이 필요합니다.');
+}
+
+/////////////////////////// 지민like 끝 //////////////////////////////
 	</script>
   </head>
 <body id = "body">
@@ -124,7 +133,20 @@
            			 	<span> ${kindervo.name}</span><!-- <span style = "color:#FFDC00;"> 유치원</span> --></h2><br>
          				<button class="btn btn-secondary px-4 py-3">${kindervo.type} </button>
          				<button class="btn btn-secondary px-4 py-3"><i class="icon icon-map-marker"></i>   ${kindervo.addr2}</button>
-         				<button id="star" class="btn btn-secondary px-4 py-3">4.5/5</button>
+         				<c:set var = "sum" value = "0" />
+         				<c:forEach items="${reviewvo}" var="review" varStatus="status">
+         				<c:set var="sum" value="${sum+((review.avg_score1+review.avg_score2+review.avg_score3)/3) }"/>
+         				<c:set var="cnt" value="${status.count}"/>
+         				</c:forEach>
+         				<%-- <c:out value="${cnt}"/> --%>
+         				<c:choose>
+         					<c:when test="${empty reviewvo}">
+         						<button id="star" class="btn btn-secondary px-4 py-3">0/5.00</button>
+         					</c:when>
+         					<c:otherwise>         					
+         						<button id="star" class="btn btn-secondary px-4 py-3"><fmt:formatNumber value="${sum/cnt}" pattern=".00"/>/5.00</button>
+         					</c:otherwise>
+         				</c:choose>
 						<hr>
 						<div style="padding: 20px">
 						<h4><b>항목별 평가</b></h4>
@@ -133,15 +155,33 @@
 						  <thead>
 						    <tr>
 						      <th scope="col">선생님 평가</th>
-						      <th scope="col">시설 평가</th>
 						      <th scope="col">교육 평가</th>
+						      <th scope="col">시설 평가</th>
 						    </tr>
 						  </thead>
 						  <tbody>
 						    <tr>
-						      <td>4.5</td>
-						      <td>4.3</td>
-						      <td>3.8</td>
+						    <c:set var = "tscore" value = "0" />
+						    <c:set var = "eduscore" value = "0" />
+						    <c:set var = "fscore" value = "0" />
+         					<c:forEach items="${reviewvo}" var="review" varStatus="status">
+         					<c:set var="tscore" value="${tscore+review.avg_score1 }"/>
+         					<c:set var="eduscore" value="${eduscore+review.avg_score2 }"/>
+         					<c:set var="fscore" value="${fscore+review.avg_score3 }"/>
+         					<c:set var="cnt" value="${status.count}"/>
+         					</c:forEach>
+         					<c:choose>
+         						<c:when test="${empty reviewvo}">
+         							<td>0</td>
+         							<td>0</td>
+         							<td>0</td>
+         						</c:when>
+         						<c:otherwise>
+						      		<td><fmt:formatNumber value="${tscore/cnt}" pattern=".0"/></td>
+						      		<td><fmt:formatNumber value="${eduscore/cnt}" pattern=".0"/></td>
+						      		<td><fmt:formatNumber value="${fscore/cnt}" pattern=".0"/></td>   						
+         						</c:otherwise>
+         					</c:choose>
 						    </tr>
 						  </tbody>
 						</table>
@@ -214,7 +254,7 @@
 					      <th>홈페이지</th>
 					      <c:choose>
 					      	<c:when test="${kindervo.homepage != null && kindervo.homepage != ' ' }">
-					      		<td>${kindervo.homepage }</td>
+					      		<td><a href="${kindervo.homepage }" target="_blank">${kindervo.homepage }</a></td>
 					      	</c:when>
 					      	<c:otherwise>
 					      		<td>X</td>
@@ -276,54 +316,100 @@
            	</div>
           </section>
 		 <section class="ftco-section bg-light">
-			<div class="container">	
-          		<div class="row" id="box">
-          		<div style="width:100%;margin:0 auto;" class="col-md-15 heading-section ftco-animate fadeInUp ftco-animated">
+			<div class="container">
+			    <!-- <div class="text px-4 ftco-animate" style="background-color: white; margin-top: 20px; padding: 40px; border: 1px solid lightgray;"> -->
+			    <div class="row" id="box">
+					<div style="width:100%;margin:0 auto;" class="col-md-15 heading-section ftco-animate fadeInUp ftco-animated">
            			 <h2 class="mb-4"><span>리뷰</span></h2>
            			 <hr>
-          		</div>
-          		<div class="row d-md-flex">
-          			<div class="col-md-3 wrap-about py-5 pr-md-4 ftco-animate fadeInUp ftco-animated" style="border-right:0.5px solid lightgray">
-          				<h2 class="mb-4">총점 ★★★★☆</h2>
-          				<div style="padding: 20px"><span>선생님 ★★★★☆</span></div>
-          				<div style="padding: 20px"><span>교육 ★★★★☆</span></div>
-          				<div style="padding: 20px"><span>시설 ★★★★☆</span></div>
+           			 </div>
+					    <c:if test="${empty reviewvo}">
+					    	<h4><b>아직 작성된 리뷰가 없어요. 리뷰 쓰러 갈까요?</b></h4>
+							<input style="position: relative;left:10px; width: 20%" class="btn btn-secondary" type="button" value="리뷰쓰러 가기!"
+							onclick="location.href='reviewboard.do'">
+					    </c:if>
+				
+				<!-- 여기서부터 반복 -->
+				<c:forEach items="${reviewvo}" var="review">
+				<!-- <div class="row"> -->
+					<div class="col-md-12 course d-lg-flex ftco-animate" style="padding: 30px;">
+						<input type="hidden" name="review_no" value="${review.review_no}">
+						<div class="review" style="width: 25%; margin-right: 30px; border-right: 1px solid lightgray">
+							<label style="font-size:20px"> ${review.kinder_name} </label>
+							<p style="font-size: 14px;"> ${review.kinder_addr}</p>
+							<br> <label style="font-size: 18px;">원장/교사</label>
+							<span style="font-size: 18px; position: relative; left: 10%"> 
+								<c:forEach begin="1" end="${review.avg_score1}"> ★ </c:forEach>
+							</span>
+							<br> <label style="font-size: 18px;">교과/수업</label>
+							<span style="font-size: 18px; position: relative; left: 10%">
+								<c:forEach begin="1" end="${review.avg_score2}"> ★ </c:forEach>
+							</span>
+							<br> <label style="font-size: 18px;">시설/청결</label>
+							<span style="font-size: 18px; position: relative; left: 10%">
+								<c:forEach begin="1" end="${review.avg_score3}"> ★ </c:forEach>
+							</span>
+							<br>
+							<h3>
+								<c:set var="score" value="${(review.avg_score1+review.avg_score2+review.avg_score3)/3 }"/>
+								<label>총점</label>&nbsp;&nbsp;&nbsp;<span><fmt:formatNumber value="${score}" pattern=".00"/></span> / 5.00 <br>
+							</h3>
+						</div>
+					
+
+						<div style="width: 70%">
 						
-					</div>
-					<div class="col-md-9 order-md-last wrap-about py-5 wrap-about bg-light">
-						<div class="text px-4 ftco-animate fadeInUp ftco-animated">
-							<div class="jsx-182210165 auth-popup">
-								<div class="jsx-2941005022 content">
-									<h4 style="margin-bottom: 16px;">로그인하고 전체보기</h4>
-									<div class="jsx-2941005022 btn-box">
-										<div>
-											<button type="button" class="btn btn-secondary " onclick="location.href='kiviewsignupoption.do'">회원가입</button>
-										</div>
-										&nbsp;&nbsp;
-										<div>
-											<button type="button" class="btn btn-secondary " onclick="location.href='kiviewlogin.do'">로그인</button>
+							<h3>
+								<label>“ ${review.review_title} ”</label>
+							</h3>
+							<p class="subheading">
+								<span id="writer"> ${review.review_writer} </span>　|　<span>${review.review_year}</span>　|　<span><fmf:formatDate value="${review.review_date}" pattern='yyyy-MM-dd HH:mm'/> </span>
+							</p>
+							<c:if test="${login.member_id==null }">
+								<div class="text px-4 ftco-animate fadeInUp ftco-animated">
+									<div class="jsx-182210165 auth-popup">
+										<div class="jsx-2941005022 content">
+											<h4 style="margin-bottom: 16px;"><label>로그인하고 전체보기</label></h4>
+											<div class="jsx-2941005022 btn-box">
+												<div>
+													<button type="button" class="btn btn-secondary " onclick="location.href='kiviewsignupoption.do'">회원가입</button>
+												</div>
+												&nbsp;&nbsp;
+												<div>
+													<button type="button" class="btn btn-secondary " onclick="location.href='login.do'">로그인</button>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<h2 class="mb-4">"교육방식이 좋아요~!"</h2>
-							<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word.</p>
-							<p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. And if she hasn’t been rewritten, then they are still using her.</p>
-							<p style="margin-left:650px"><a href="#" class="btn btn-secondary px-4 py-3">좋아요</a></p>
+								<img src="resources/images/review_blur.jpg" width="90%"/>
+							</c:if>
+							<c:if test="${login.member_id!=null }">
+							<p>${review.review_content} </p>
+							</c:if>
 						</div>
 					</div>
-				</div>
-				</div>
-				<div style="width:100%;margin:0 auto;" class="col-md-18 heading-section ftco-animate fadeInUp ftco-animated">
-           			 <input type="button" id="myBtn" class="btn btn-secondary" style="position:relative;top:15px;left:1120px;" value="리뷰쓰기">
-          		</div>
-				<div id="myModal" class="modal">
-			      <!-- Modal content -->
-			      <div class="modal-content">
-			        <span class="close">&times;</span>
-			        	<!---여기서 모달 작업--->
-			 </div>
-			    </div>
+
+					<div class="reviewBtn" style="padding: 30px; width: 100%;">
+					<%-- <c:if test="${review.review_writer eq login.member_id}">
+						<input class="btn btn-secondary" type="button" value="수정" onclick="update_form(${review.review_no})">
+						<input class="btn btn-primary" type="button" value="삭제" onclick="location.href='reviewDelete.do?review_no=${review.review_no}'">
+					</c:if> --%>
+					<c:if test="${login.member_id!=null }">
+						<input class="btn btn-primary" type="button" value="좋아요" onclick="likeSubmit('${review.review_no}')">
+					</c:if>
+					<c:if test="${login.member_id==null }">
+						<input class="btn btn-primary" type="button" value="좋아요" onclick="javascript:LikeBtn()">
+					</c:if>
+						<hr>
+					</div>
+					
+
+				<!-- </div> -->
+				</c:forEach>
+				<!-- 여기까지 반복 -->
+
+			</div>
 			</div>
 		</section>
      
