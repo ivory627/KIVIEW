@@ -306,7 +306,7 @@ var likeSubmit = function(review_no){
       });
    }
    
-function LikeBtn(){
+function NullBtn(){
 	alert('로그인이 필요합니다.');
 }
 
@@ -361,12 +361,12 @@ function LikeBtn(){
 				</h1>
 				<br>
 				<!-- 검색 기능 -->
-				<form action="reviewsearch.do" >
+				<form action="reviewSearch.do" >
 					
 					<select name="type">
 						<option value="kinder_name">유치원명</option>
 						<option value="review_writer">작성자</option>
-						
+						<option value="review_title">제　목</option>
 
 					</select> &nbsp;&nbsp; 
 					<input type="text" name="keyword" placeholder="검색어를 입력하세요." style="height: 40px; width: 40%"> 
@@ -397,8 +397,14 @@ function LikeBtn(){
 			<div class="text px-4 ftco-animate"
 				style="background-color: white; margin-top: 20px; 
 				 padding: 40px; border: 1px solid lightgray;">
-				<input style="position: relative; left: 35%; width: 30%"
-					class="btn btn-secondary" id="myBtn" type="button" value="리뷰쓰기">
+				<c:choose>
+					<c:when test="${login.member_id != null}">
+						<input style="position: relative; left: 35%; width: 30%" class="btn btn-secondary" id="myBtn" type="button" value="리뷰쓰기">
+					</c:when>
+					<c:otherwise>
+						<input style="position: relative; left: 35%; width: 30%" class="btn btn-secondary" type="button" value="리뷰쓰기" onclick="location.href='login.do'">
+					</c:otherwise>
+				</c:choose>
 				<br>
 				<br>
 				
@@ -455,12 +461,14 @@ function LikeBtn(){
 						<input class="btn btn-secondary" type="button" value="수정" onclick="update_form(${review.review_no})">
 						<input class="btn btn-primary" type="button" value="삭제" onclick="location.href='reviewDelete.do?review_no=${review.review_no}'">
 					</c:if>
-					<c:if test="${login.member_id!=null }">
-						<input class="btn btn-primary" type="button" value="좋아요" onclick="likeSubmit('${review.review_no}')">
-					</c:if>
-					<c:if test="${login.member_id==null }">
-						<input class="btn btn-primary" type="button" value="좋아요" onclick="javascript:LikeBtn()">
-					</c:if>
+					<c:choose>
+						<c:when test="${login.member_id != null}">
+							<input class="btn btn-primary" type="button" value="좋아요" onclick="likeSubmit('${review.review_no}')">
+						</c:when>
+						<c:otherwise>
+							<input class="btn btn-primary" type="button" value="좋아요" onclick="javascript:NullBtn()">
+						</c:otherwise>
+					</c:choose>
 						<hr>
 					</div>
 					

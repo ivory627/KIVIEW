@@ -112,7 +112,7 @@ public class ReviewController {
 		return map;
 	}
 	
-	@RequestMapping("/reviewsearch.do")
+	@RequestMapping("/reviewSearch.do")
 	public String reviewSearch(@Param("value=type") String type, @Param("value=keyword") String keyword, Model model){
 		Map map = new HashMap();
 		map.put("type", type);
