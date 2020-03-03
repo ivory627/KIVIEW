@@ -190,17 +190,30 @@ progress::-moz-progress-bar {
     margin-right: 26px;
     line-height: 42px;
     position: relative;
-    left: 22%;
-    top: 75px;
+    left: 24%;
+    top: 115px;
+
 }
 .keyword-link.jsx-2533767983 ul.jsx-2533767983 {
     display: flex;
     flex-wrap: wrap;
     position: relative;
-    left: 22%;
-    top: 100px;
+    left: 30%;
+    top: 130px;
 }
-.keyword-link.jsx-2533767983 ul.jsx-2533767983 li.jsx-2533767983 {
+.searchtitle{
+	position:relative;
+	top: 20px;
+	left: 65%;
+}
+.main-modal-closebtn{
+	position: relative;
+	bottom: 10px;
+    font-size: 2.5rem;
+    cursor: pointer;
+    outline: none;
+}
+/* .keyword-link.jsx-2533767983 ul.jsx-2533767983 li.jsx-2533767983 {
     height: 42px;
     border-radius: 21px;
     border-width: 1px;
@@ -208,7 +221,7 @@ progress::-moz-progress-bar {
     border-color: rgb(223, 223, 223);
     border-image: initial;
     margin: 0px 8px 8px 0px;
-}
+} */
 .keyword-link.jsx-2533767983 ul.jsx-2533767983 li.jsx-2533767983 a.jsx-2533767983 {
     display: flex;
     -webkit-box-align: center;
@@ -219,17 +232,12 @@ progress::-moz-progress-bar {
     padding: 0px 16px;
     color: #212121;;
 }
-.keyword-link.jsx-2533767983 ul.jsx-2533767983 li.jsx-2533767983 a.jsx-2533767983:hover {
-   color:#FDA638;
+.searchicon{
+	padding-right: 90px;
+	position: relative;
+    left: 68%;
+
 }
-
-
-
-
-
-
-
-
 
 
 abbr[title], abbr[data-original-title] {
@@ -6189,6 +6197,7 @@ button.close {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
+	outline:none;
 }
 
 a.close.disabled {

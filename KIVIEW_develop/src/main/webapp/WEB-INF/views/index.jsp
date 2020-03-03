@@ -170,7 +170,8 @@ h1{
 	  <div class="modal-dialog modal-fullsize" role="document">
 	    <div class="modal-content modal-fullsize">
 	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	        <span aria-hidden="true" class = "main-modal-closebtn">&times;</span></button>
 	        <h4 class="modal-title" id="myModalLabel"></h4>
 	      </div>
 	      <div class="modal-body">
@@ -188,7 +189,7 @@ h1{
 			</div>
 				</form>
 		</div>
-		<jsp:include page="searchbar.jsp"/>
+			<jsp:include page="searchbar.jsp"/>
 	      </div>
 	    </div>
 	  </div>
@@ -413,14 +414,26 @@ h1{
 								<p>I am an ambitious workaholic, but apart from that, pretty
 									simple person.</p>
 								<ul class="ftco-social text-center">
-									<li class="ftco-animate"><a href="#"><span
-											class="icon-twitter"></span></a></li>
-									<li class="ftco-animate"><a href="#"><span
-											class="icon-facebook"></span></a></li>
-									<li class="ftco-animate"><a href="#"><span
-											class="icon-google-plus"></span></a></li>
-									<li class="ftco-animate"><a href="#"><span
-											class="icon-instagram"></span></a></li>
+									<li class="ftco-animate">
+									<a href="#">
+									<span class="icon-twitter"></span>
+									</a>
+									</li>
+									<li class="ftco-animate">
+									<a href="#">
+									<span class="icon-facebook"></span>
+									</a>
+									</li>
+									<li class="ftco-animate">
+									<a href="#">
+									<span class="icon-google-plus"></span>
+									</a>
+									</li>
+									<li class="ftco-animate">
+									<a href="#">
+									<span class="icon-instagram"></span>
+									</a>
+									</li>
 								</ul>
 							</div>
 						</div>
