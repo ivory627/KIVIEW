@@ -135,6 +135,23 @@ table{
 					<a href="#" style="position:relative; left:90%;  color:gray"><u>더 보기</u></a>
 					
 					
+					
+					<br><br><br> 
+					<label>즐겨찾기</label>&nbsp;&nbsp;<span>총 <span style="color:orange">0</span>개의 즐겨찾기가 검색되었습니다.</span><br>  
+					<col width="20%"> 
+					<col width="60%">  
+					<col width="20%"> 
+					<table class="table table">
+					<tr><th>유치원명</th><th>주 소</th><th>전화 번호</th></tr>
+					<tr><td colspan="3">------즐겨찾기를 클릭한 유치원이 없습니다-------</td></tr>  
+					</table>
+					 
+					
+					 
+					
+					<a href="#" style="position:relative; left:90%;  color:gray"><u>더 보기</u></a>
+					
+					
 				</div>
 				
 				
