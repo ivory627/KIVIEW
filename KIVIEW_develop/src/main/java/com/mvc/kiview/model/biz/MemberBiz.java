@@ -20,4 +20,6 @@ public interface MemberBiz {
 
 	public MemberVo selectEmail(String snsEmail);
 
+	public int tmpPwd(MemberVo vo);
+
 }

@@ -3,6 +3,7 @@ package com.mvc.kiview.model.controller;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -324,14 +325,6 @@ public class MemberController {
       HashMap<String, Object> userInfo = kakaoApi.getUserInfo(access_Token);
       System.out.println("login Controller : " + userInfo);
       
-      /*
-      //클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
-      if (userInfo.get("email") != null) {
-         session.setAttribute("login", userInfo.get("email"));
-         session.setAttribute("access_Token", access_Token);
-      }
-      */
-      
       String snsEmail = (String) userInfo.get("email");
       
       vo = biz.selectEmail(snsEmail);
@@ -375,8 +368,19 @@ public class MemberController {
 	//비밀번호 찾기 이메일 발송
  	@RequestMapping(value = "/kiviewsendemail.do", method = RequestMethod.POST)
  	@ResponseBody
-	public boolean send_mail(@RequestBody MemberVo vo) throws Exception {
+	public int send_mail(@RequestBody MemberVo vo) throws Exception {
  		logger.info("sendEmail");
+ 		
+ 		//임시비밀번호 DB에 저장
+ 		String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");	//임시 비밀번호 생성
+ 		tmpPwd = tmpPwd.substring(0, 8); //임시비밀번호를 8자리까지 자름
+ 		vo.setMember_pwd(passwordEncoder.encode(tmpPwd));	//임시비밀번호 암호화
+ 		
+ 		System.out.println("암호화 전 임시비밀번호: "+ tmpPwd);
+ 		System.out.println("암호화 후 임시비밀번호: "+ vo.getMember_pwd());
+ 		System.out.println("vo: " + vo);
+ 		
+ 		int res = biz.tmpPwd(vo);	//임시비밀번호  update
 		
  		// Mail Server 설정
 		String charSet = "utf-8";
@@ -385,14 +389,14 @@ public class MemberController {
 		String hostSMTPpwd = "Ehdud21170@#";
 
 		// 보내는 사람 EMail, 제목, 내용
-		String fromEmail = "admin@kiview.com";
+		String fromEmail = "pdy2324@naver.com";
 		String fromName = "Kiview";
 		String subject = "kiview에서 임시비밀번호가 발급되었습니다";
 		String msg = "";
 		
 		msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
 		msg += "<h3 style='color: blue;'>";
-		msg += vo.getMember_id() + "님의 임시 비밀번호는"+ vo.getMember_pwd() +"입니다. 로그인 후 비밀번호를 변경하여 사용하세요.</h3></p></div>";
+		msg += vo.getMember_id() + "님의 임시 비밀번호는"+ tmpPwd +"입니다. 로그인 후 비밀번호를 변경하여 사용하세요.</h3></p></div>";
 		
 		// 받는 사람 E-Mail 주소
 		try {
@@ -417,7 +421,7 @@ public class MemberController {
 			System.out.println("메일발송 실패 : " + e);
 		}
  		
- 		return true;
+ 		return res;
  		
 	}
 

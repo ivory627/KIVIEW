@@ -120,6 +120,19 @@ public class MemberDaoImpl implements MemberDao{
 		return res;
 	}
 
+	@Override
+	public int tmpPwd(MemberVo vo) {
+		int res = 0;	
+
+		try {
+			res = sqlSession.update(namespace + "tmpPwd",vo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("[error] : tmpPwd");
+		}		
+		return res;
+	}
+
 }
 
 

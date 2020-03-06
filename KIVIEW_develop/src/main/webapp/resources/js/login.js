@@ -180,10 +180,10 @@ function findPwd() {
 						contentType : "application/json",
 						dataType : "json",
 						success : function(msg) {
-							console.log("성공");
+							console.log("메일전송성공");
 						},
 						error : function() {
-							console.log("실패");
+							$("#findPwdMsg").show().css("color","blue").html("이메일인증에 실패하였습니다. 다시 시도해주세요");
 						}
 					});
 					//
@@ -203,6 +203,9 @@ function findPwd() {
 		});
 
 	}
+	
+	$("#findPwd_id").val("");
+	$("#findPwd_email").val("");
 
 }
 

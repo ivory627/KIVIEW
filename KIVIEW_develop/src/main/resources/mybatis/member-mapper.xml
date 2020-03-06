@@ -55,6 +55,13 @@
 		WHERE MEMBER_EMAIL = #{snsEmail}
 	</select>
 	
+	<!-- 임시비밀번호 저장 -->
+	<update id="tmpPwd" parameterType="memberVo" >
+		UPDATE MEMBER SET
+		MEMBER_PWD = #{member_pwd}
+		WHERE MEMBER_ID = #{member_id}
+	</update>
+	
 </mapper>
 
 
