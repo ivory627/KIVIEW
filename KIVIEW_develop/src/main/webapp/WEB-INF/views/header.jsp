@@ -188,22 +188,18 @@ $(function(){
 
             <!-- 스크립트 조건에 소메뉴를 사라지게 해놔서 c태그로 변경 
               	  로그인 되어 있을 때 로그아웃, 안되어있을 때 로그인 뜨도록
-            -->
-            <c:choose>
-               <c:when test="${empty login}">
-                  <li class="nav-item"><a href="login.do"
-                     class="nav-link">로그인</a></li>
-               </c:when>
-               <c:when test="${empty snsLogin}">
-                  <li class="nav-item"><a href="login.do"
-                     class="nav-link">로그인</a></li>
-               </c:when>
-               <c:otherwise>
-                  <li class="nav-item"><a href="kiviewlogout.do"
-                     class="nav-link">로그아웃</a></li>
-               </c:otherwise>
-            </c:choose>
-         </ul>
+           -->
+			<c:choose>
+				<c:when test="${empty login && empty snsLogin}">
+					<li class="nav-item">
+					<a href="login.do" class="nav-link">로그인</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="nav-item">
+					<a href="kiviewlogout.do" class="nav-link">로그아웃</a></li>
+				</c:otherwise>
+			</c:choose>
+		</ul>
       </div>
    </div>
 </nav>

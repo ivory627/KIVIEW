@@ -314,7 +314,7 @@ public class MemberController {
 
    //카카오 로그인 성공시 callback 호출
    @RequestMapping("/callback3.do")
-   public String callback3(HttpServletRequest request, @RequestParam("code") String code, HttpSession session) {
+   public String callback3(HttpServletRequest request, @RequestParam("code") String code, HttpSession session, MemberVo vo, Model model) {
 
       System.out.println("카카오 callback");
       String access_Token = kakaoApi.getAccessToken(code);
@@ -322,14 +322,31 @@ public class MemberController {
 
       HashMap<String, Object> userInfo = kakaoApi.getUserInfo(access_Token);
       System.out.println("login Controller : " + userInfo);
-
+      
+      /*
       //클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
       if (userInfo.get("email") != null) {
          session.setAttribute("login", userInfo.get("email"));
          session.setAttribute("access_Token", access_Token);
       }
+      */
+      
+      String snsEmail = (String) userInfo.get("email");
+      
+      vo = biz.selectEmail(snsEmail);
+      System.out.println(vo);
+      if(vo != null) {
+    	  session.setAttribute("snsLogin", vo);
 
-      return "index";
+          //세션 유지 시간 1시간으로 설정
+          session.setMaxInactiveInterval(60*60) ;
+          
+    	  return "index";
+      }else {
+    	  model.addAttribute("snsEmail", snsEmail);
+    	  return "member/kiview_signup_sns";
+      }
+
 
    }
    
