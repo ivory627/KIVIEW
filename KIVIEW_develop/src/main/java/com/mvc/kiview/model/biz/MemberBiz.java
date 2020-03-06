@@ -18,4 +18,6 @@ public interface MemberBiz {
 
 	public int findPwd(MemberVo vo);
 
+	public MemberVo selectEmail(String snsEmail);
+
 }

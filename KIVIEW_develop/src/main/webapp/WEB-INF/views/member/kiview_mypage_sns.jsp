@@ -94,10 +94,10 @@ label {
 						공개 또는 제 3자에게 제공되지 않습니다.</p>
 					<form method="post" action="kiviewdelete.do" id="deleteform">
 						<label>이 름</label><br>
-						<input type="text" value="${loginmember_name}" readonly="readonly"
+						<input type="text" value="${snsLogin.member_name}" readonly="readonly"
 							style="width: 80%" readonly id="member_name"> <br> <br>
 						<label>아이디</label><br>
-						<input type="text" value="${loginmember_id}" readonly="readonly"
+						<input type="text" value="${snsLogin.member_id}" readonly="readonly"
 							style="width: 80%" readonly id="member_id"> <br> <br>
 						<input type="button" onclick="memberDel();" class="btn btn-secondary"
 							style="position: relative; left: 35%; width: 30%" value="회원 탈퇴">
@@ -112,7 +112,7 @@ label {
 					<p style="font-size: 13px;">회원정보는 개인정보처리방침에 따라 안전하게 보호되며, 동의없이 공개 또는 제 3자에게 제공되지 않습니다.</p>
   
 					<form method="post" action="kiviewupdate.do" id="mypageUpdateForm">
-						<input type="hidden" name="member_id" value="${loginmember_id}">
+						<input type="hidden" name="member_id" value="${snsLogin.member_id}">
 						<br>
 						<label>비밀번호</label><span class="mypageUpdateMsg" id="mypagePwdMsg" style="color: red;"></span><br>
 						<input type="password" name="member_pwd" placeholder="비밀번호" style="width: 80%" id="mypagePwd">
@@ -121,14 +121,14 @@ label {
 						<input type="password" placeholder="비밀번호 확인" style="width: 80%" id="mypagePwdChk">
 						<br><br>
 						<label>주소</label><span class="mypageUpdateMsg" id="mypageAddrMsg" style="color: red;"></span><br>
-						<input type="text" value="${loginmember_addr}" name="member_addr" style="width: 65%" id="mypageAddr">
+						<input type="text" value="${snsLogin.member_addr}" name="member_addr" style="width: 65%" id="mypageAddr">
 						<input type="button" class="btn btn-primary" value="주소 검색" onclick="addrPopup()">
 						<br><br>
 				 		<label>연락처</label><span class="mypageUpdateMsg" id="mypagePhoneMsg" style="color: red;"></span><br>
-						<input type="text" name="member_phone" value="${loginmember_phone}" style="width: 80%" id="mypagePhone">
+						<input type="text" name="member_phone" value="${snsLogin.member_phone}" style="width: 80%" id="mypagePhone">
 						<br><br>
 						<label>이메일</label><span class="mypageUpdateMsg" id="mypageEmailMsg" style="color: red;"></span><br>
-						<input type="text" name="member_email" value="${loginmember_email}" style="width: 80%" id="mypageEmail">
+						<input type="text" name="member_email" value="${snsLogin.member_email}" style="width: 80%" id="mypageEmail">
 						<br><br><br>
 						<input type="button" class="btn btn-secondary" style="position: relative; left: 35%; width: 30%" value="수정" onclick="mypageUpdate()">
 						

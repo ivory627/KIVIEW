@@ -24,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mvc.kiview.model.biz.MemberBiz;
 import com.mvc.kiview.model.vo.KakaoApi;
 import com.mvc.kiview.model.vo.MemberVo;
@@ -168,9 +171,15 @@ public class MemberController {
    //@@ 마이페이지 @@ /////////////////////////////////////////////////////////////////////////
    //마이페이지 - 회원정보
    @RequestMapping("/kiviewmypage.do")
-   public String mypage() {
+   public String mypage(HttpSession session) {
       logger.info("mypage");
-      return "member/kiview_mypage"; 
+      
+      if(session.getAttribute("login") != null) {
+    	  return "member/kiview_mypage"; 
+      }else {
+    	  return "member/kiview_mypage_sns"; 
+      }
+      
    }
    
    //마이페이지 - 회원활동
@@ -257,7 +266,7 @@ public class MemberController {
 
    // 네이버 로그인 성공시 callback호출 메소드 **보충 필요
    @RequestMapping(value = "/callback.do")
-   public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
+   public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, MemberVo vo)
          throws IOException {
 
       System.out.println("네이버 callback");
@@ -265,11 +274,32 @@ public class MemberController {
       oauthToken = naverLoginBO.getAccessToken(session, code, state);
       // 로그인 사용자 정보를 읽어온다.
       apiResult = naverLoginBO.getUserProfile(oauthToken);
-      System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
+      //System.out.println(apiResult.toString());
       model.addAttribute("result", apiResult);
-      System.out.println("result" + apiResult);
+      System.out.println("result: " + apiResult);
+      
+      //
+      JsonParser parser = new JsonParser();
+      JsonElement element = parser.parse(apiResult);
+      JsonObject response = element.getAsJsonObject().get("response").getAsJsonObject();
+      String snsEmail = response.getAsJsonObject().get("email").getAsString();
+      System.out.println("내가 출력하고 싶은 이메일: " + snsEmail );
+      
+      vo = biz.selectEmail(snsEmail);
+      System.out.println(vo);
+      if(vo != null) {
+    	  session.setAttribute("snsLogin", vo);
 
-      return "index";
+          //세션 유지 시간 1시간으로 설정
+          session.setMaxInactiveInterval(60*60) ;
+          
+    	  return "index";
+      }else {
+    	  model.addAttribute("snsEmail", snsEmail);
+    	  return "member/kiview_signup_sns";
+      }
+      
+
    }
 
    //구글 로그인 성공시 callback 호출 **보충 필요

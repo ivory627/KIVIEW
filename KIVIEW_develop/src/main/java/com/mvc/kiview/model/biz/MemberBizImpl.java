@@ -46,6 +46,11 @@ public class MemberBizImpl implements MemberBiz {
 	public int findPwd(MemberVo vo) {
 		return dao.findPwd(vo);
 	}
+
+	@Override
+	public MemberVo selectEmail(String snsEmail) {
+		return dao.selectEmail(snsEmail);
+	}
 	
 
 	

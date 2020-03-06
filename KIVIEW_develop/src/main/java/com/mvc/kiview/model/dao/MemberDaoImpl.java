@@ -60,7 +60,7 @@ public class MemberDaoImpl implements MemberDao{
 			res=sqlSession.selectOne(namespace+"signupIdChk",vo);
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("[error] : signup");
+			System.out.println("[error] : signupIdChk");
 		}		
 		return res;
 	}
@@ -100,6 +100,22 @@ public class MemberDaoImpl implements MemberDao{
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("[error] : update");
+		}		
+		return res;
+	}
+
+	@Override
+	public MemberVo selectEmail(String snsEmail) {
+		//
+		System.out.println(snsEmail);	//삭젝
+		
+		MemberVo res = null;
+
+		try {
+			res=sqlSession.selectOne(namespace+"selectEmail",snsEmail);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("[error] : selectEmail");
 		}		
 		return res;
 	}

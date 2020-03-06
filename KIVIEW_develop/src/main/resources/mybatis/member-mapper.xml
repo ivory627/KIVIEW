@@ -48,6 +48,11 @@
 		UPDATE MEMBER SET MEMBER_PWD = #{member_pwd} where member_id = #{member_id} and member_email = #{member_email}
 	</update>
 	
+	<!-- 소셜로그인 이메일 확인 -->
+	<select id="selectEmail" parameterType="String" resultType="memberVo">
+		SELECT * FROM MEMBER
+		WHERE MEMBER_EMAIL = #{snsEmail}
+	</select>
 	
 </mapper>
 
