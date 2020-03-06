@@ -417,7 +417,7 @@ function LikeBtn(){
 						
 						<c:if test = "${pageMaker.prev}">
 						<li class="jsx-3635512122 prev disabled" >
-						<a href = "${pageMaker.makeQuery(pageMaker.startPage - 1)}">
+						<a href = "${pageMaker.makeQuery(pageMaker.startPage - 1)}&kinder_no=${kindervo.kinder_no}">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 								viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
 								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -445,7 +445,7 @@ function LikeBtn(){
 						
 						<c:if test = "${pageMaker.next && pageMaker.endPage > 0}">
 						<li class="jsx-3635512122 next">
-						<a href = "${pageMaker.makeQuery(pageMaker.endPage + 1)}">
+						<a href = "${pageMaker.makeQuery(pageMaker.endPage + 1)}&kinder_no=${kindervo.kinder_no}">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 								viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
 								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

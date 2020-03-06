@@ -19,9 +19,9 @@ public class KinderBizImpl implements KinderBiz {
 	private KinderDao dao;
 
 	@Override
-	public List<KinderVo> LocalSerach(ProvinceVo vo) {
+	public List<KinderVo> LocalSearch(ProvinceVo vo, Criteria cri) {
 		
-		return dao.LocalSerach(vo);
+		return dao.LocalSearch(vo,cri);
 	}
 
 	@Override
@@ -31,9 +31,9 @@ public class KinderBizImpl implements KinderBiz {
 	}
 
 	@Override
-	public List<KinderVo> NameSearch(String name) {
+	public List<KinderVo> NameSearch(String name, Criteria cri) {
 			
-		return dao.NameSearch(name);
+		return dao.NameSearch(name,cri);
 	}
 
 	@Override
@@ -91,6 +91,16 @@ public class KinderBizImpl implements KinderBiz {
 	@Override
 	public int ReviewCnt(int kinder_no) {
 		return dao.ReviewCnt(kinder_no);
+	}
+
+	@Override
+	public int LocalSearchCnt(ProvinceVo vo) {
+		return dao.LocalSearchCnt(vo);
+	}
+
+	@Override
+	public int NameSearchCnt(String name) {
+		return dao.NameSearchCnt(name);
 	}
 
 }

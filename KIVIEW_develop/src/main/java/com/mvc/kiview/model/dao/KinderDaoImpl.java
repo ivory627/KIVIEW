@@ -21,10 +21,17 @@ public class KinderDaoImpl implements KinderDao{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<KinderVo> LocalSerach(ProvinceVo vo) {
+	public List<KinderVo> LocalSearch(ProvinceVo vo,Criteria cri) {
 		List<KinderVo> list = new ArrayList<KinderVo>();
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("province", vo.getProvince());
+		map.put("city", vo.getCity());
+		map.put("town", vo.getTown());
+		map.put("rowStart",cri.getRowStart());
+		map.put("rowEnd", cri.getRowEnd());
+		
 		try {
-			list = sqlSession.selectList(namespace+"kinderList",vo);
+			list = sqlSession.selectList(namespace+"kinderList",map);
 		}catch(Exception e) {
 			System.out.println("error:kinder list");
 			e.printStackTrace();
@@ -45,10 +52,14 @@ public class KinderDaoImpl implements KinderDao{
 	}
 
 	@Override
-	public List<KinderVo> NameSearch(String name) {
+	public List<KinderVo> NameSearch(String name,Criteria cri) {
 		List<KinderVo> list = new ArrayList<KinderVo>();
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("name", name);
+		map.put("rowStart",cri.getRowStart());
+		map.put("rowEnd", cri.getRowEnd());
 		try {
-			list = sqlSession.selectList(namespace+"kinderListName",name);
+			list = sqlSession.selectList(namespace+"kinderListName",map);
 		}catch(Exception e) {
 			System.out.println("error:kinder list name");
 			e.printStackTrace();
@@ -174,12 +185,34 @@ public class KinderDaoImpl implements KinderDao{
 		int count = 0;
 
 		try {
-			count = sqlSession.selectOne(namespace + "listCount", kinder_no);
+			count = sqlSession.selectOne(namespace + "rlistCount", kinder_no);
 		} catch (Exception e) {
-			System.out.println("error:Review count");
+			System.out.println("error:Review list count");
 			e.printStackTrace();
 		}
 
+		return count;
+	}
+
+	@Override
+	public int LocalSearchCnt(ProvinceVo vo) {
+		int count = 0;
+		try {
+			count = sqlSession.selectOne(namespace+"llistCount",vo);
+		}catch (Exception e) {
+			System.out.println("error:Local kinder list count");
+		}
+		return count;
+	}
+
+	@Override
+	public int NameSearchCnt(String name) {
+		int count = 0;
+		try {
+			count = sqlSession.selectOne(namespace+"nlistCount",name);
+		}catch (Exception e) {
+			System.out.println("error:name kinder list count");
+		}
 		return count;
 	}
 	

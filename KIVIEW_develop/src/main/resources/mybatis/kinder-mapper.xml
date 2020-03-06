@@ -60,8 +60,13 @@
 	</select>
 	
 	<!-- 지역 select box 유치원 검색  -->
-	<select id="kinderList" parameterType="ProvinceVo" resultMap="KinderMap">
-		SELECT * FROM KINDER WHERE 1=1
+	<select id="kinderList" parameterType="HashMap" resultMap="KinderMap">
+		SELECT *
+		FROM (
+		SELECT K.*, 
+		ROW_NUMBER() OVER(ORDER BY NAME) AS RNUM
+		FROM KINDER K
+		WHERE 1=1
 		<choose>
 			<when test="town==null">
 				AND ADDR2 LIKE '%${province}%${city}%'
@@ -70,11 +75,24 @@
 				AND ADDR2 LIKE '%${province}%${city}%${town}%'
 			</otherwise>
 		</choose>
+		) KINDER
+		WHERE
+		RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY NAME
 	</select>
 	
 	<!-- 유치원 이름 검색  -->
-	<select id="kinderListName" parameterType="String" resultMap="KinderMap">
-		SELECT * FROM KINDER WHERE NAME LIKE '%${name}%'
+	<select id="kinderListName" parameterType="HashMap" resultMap="KinderMap">
+		SELECT *
+		FROM (
+		SELECT K.*, 
+		ROW_NUMBER() OVER(ORDER BY NAME) AS RNUM
+		FROM KINDER K
+		WHERE NAME LIKE '%${name}%'
+		) KINDER
+		WHERE
+		RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY NAME
 	</select>
 	
 	<!-- 타입 선택  -->
@@ -148,8 +166,26 @@
 	</select>
 	
 	<!-- 해당 유치원 리뷰 카운트 -->
-	<select id="listCount" parameterType="int" resultType="int">
+	<select id="rlistCount" parameterType="int" resultType="int">
 		SELECT COUNT(*) FROM REVIEW WHERE KINDER_NO = #{kinder_no}
+	</select>
+	
+	<!-- 지역 검색 유치원 카운트 -->
+	<select id="llistCount" parameterType="ProvinceVo" resultType="int">
+		SELECT COUNT(*) FROM KINDER WHERE 1=1
+		<choose>
+			<when test="town==null">
+				AND ADDR2 LIKE '%${province}%${city}%'
+			</when>
+			<otherwise>
+				AND ADDR2 LIKE '%${province}%${city}%${town}%'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 이름 검색 유치원 카운트 -->
+	<select id="nlistCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM KINDER WHERE NAME LIKE '%${name}%'
 	</select>
 
 </mapper>
