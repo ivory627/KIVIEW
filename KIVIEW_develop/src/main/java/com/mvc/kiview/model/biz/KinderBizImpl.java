@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.kiview.model.dao.KinderDao;
+import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.KinderVo;
 import com.mvc.kiview.model.vo.ProvinceVo;
 import com.mvc.kiview.model.vo.ReviewVo;
@@ -83,8 +84,13 @@ public class KinderBizImpl implements KinderBiz {
 	}
 
 	@Override
-	public List<ReviewVo> ReviewList(int kinder_no) {
-		return dao.ReviewList(kinder_no);
+	public List<ReviewVo> ReviewList(int kinder_no, Criteria cri) {
+		return dao.ReviewList(kinder_no,cri);
+	}
+
+	@Override
+	public int ReviewCnt(int kinder_no) {
+		return dao.ReviewCnt(kinder_no);
 	}
 
 }

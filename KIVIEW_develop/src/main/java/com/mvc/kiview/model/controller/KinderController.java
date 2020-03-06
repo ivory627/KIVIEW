@@ -15,7 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mvc.kiview.model.biz.KinderBiz;
 import com.mvc.kiview.model.biz.ReviewBiz;
+import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.KinderVo;
+import com.mvc.kiview.model.vo.PageMaker;
 import com.mvc.kiview.model.vo.ProvinceVo;
 
 @Controller //검색관련
@@ -35,11 +37,16 @@ public class KinderController {
 	}
 	
 	@RequestMapping("/searchdetail.do")
-	public String searchdetail(Model model, int kinder_no) {
+	public String searchdetail(Model model, int kinder_no , Criteria cri) {
 		logger.info("KINDER SEARCH DETAIL");
 		//System.out.println(kinder_no);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(biz.ReviewCnt(kinder_no));
+
 		model.addAttribute("kindervo",biz.Kinderdetail(kinder_no));
-		model.addAttribute("reviewvo",biz.ReviewList(kinder_no));
+		model.addAttribute("reviewvo",biz.ReviewList(kinder_no,cri));
+		model.addAttribute("pageMaker", pageMaker);
 		return "kinder/kiview_Search_detail";
 	}
 	

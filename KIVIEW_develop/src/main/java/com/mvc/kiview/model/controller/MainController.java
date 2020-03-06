@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mvc.kiview.model.biz.KinderBiz;
+import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.KinderVo;
+import com.mvc.kiview.model.vo.PageMaker;
 
 @Controller // 인덱스 관련된 컨트롤러
 public class MainController {
@@ -33,10 +35,23 @@ public class MainController {
 	}
 	
 	@RequestMapping("/mainsearch.do")
-	public ModelAndView mainSearch(String keyword) {
+	public ModelAndView mainSearch(String keyword,Criteria cri,Integer kinder_no) {
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
 		
 		ModelAndView mav = new ModelAndView("kinder/kiview_Search_detail");
-		mav.addObject("kindervo",biz.Kinderdetail(keyword));
+		if(keyword!=null ) {
+			mav.addObject("kindervo",biz.Kinderdetail(keyword));			
+			mav.addObject("reviewvo",biz.ReviewList(biz.Kinderdetail(keyword).getKinder_no(),cri));
+			pageMaker.setTotalCount(biz.ReviewCnt(biz.Kinderdetail(keyword).getKinder_no()));
+		}else {
+			mav.addObject("kindervo", biz.Kinderdetail(kinder_no));
+			mav.addObject("reviewvo",biz.ReviewList(kinder_no,cri));
+			pageMaker.setTotalCount(biz.ReviewCnt(kinder_no));
+
+		}
+		mav.addObject("pageMaker", pageMaker);
 		
 		return mav;
 	}

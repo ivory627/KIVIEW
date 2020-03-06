@@ -3,11 +3,13 @@ package com.mvc.kiview.model.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.KinderVo;
 import com.mvc.kiview.model.vo.ProvinceVo;
 import com.mvc.kiview.model.vo.ReviewVo;
@@ -150,17 +152,35 @@ public class KinderDaoImpl implements KinderDao{
 		}
 		return list;
 	}
-
+	
 	@Override
-	public List<ReviewVo> ReviewList(int kinder_no) {
+	public List<ReviewVo> ReviewList(int kinder_no, Criteria cri) {
 		List<ReviewVo> list = new ArrayList<ReviewVo>();
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("kinder_no", kinder_no);
+		map.put("rowStart",cri.getRowStart());
+		map.put("rowEnd", cri.getRowEnd());
 		try {
-			list = sqlSession.selectList(namespace+"reviewList",kinder_no);
+			list = sqlSession.selectList(namespace+"reviewList",map);
 		}catch(Exception e) {
 			System.out.println("error:Review list");
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	@Override
+	public int ReviewCnt(int kinder_no) {
+		int count = 0;
+
+		try {
+			count = sqlSession.selectOne(namespace + "listCount", kinder_no);
+		} catch (Exception e) {
+			System.out.println("error:Review count");
+			e.printStackTrace();
+		}
+
+		return count;
 	}
 	
 	

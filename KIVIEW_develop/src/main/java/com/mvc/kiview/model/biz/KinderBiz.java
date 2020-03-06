@@ -3,6 +3,7 @@ package com.mvc.kiview.model.biz;
 import java.util.HashMap;
 import java.util.List;
 
+import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.KinderVo;
 import com.mvc.kiview.model.vo.ProvinceVo;
 import com.mvc.kiview.model.vo.ReviewVo;
@@ -19,6 +20,7 @@ public interface KinderBiz {
 	public List<KinderVo> KinderList(String keyword);
 	public List<KinderVo> KinderListAll();
 	public List<KinderVo> mapSearch(HashMap<String, String> map);
-	public List<ReviewVo> ReviewList(int kinder_no);
+	public List<ReviewVo> ReviewList(int kinder_no, Criteria cri);
+	public int ReviewCnt(int kinder_no);
 
 }

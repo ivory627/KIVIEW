@@ -133,9 +133,23 @@
 		SELECT * FROM KINDER WHERE ADDR2 LIKE '%${province}%${citytown}%'
 	</select>
 	
-	<!-- 해당 유치원 리뷰  -->
-	<select id="reviewList" parameterType="int" resultType="reviewVo">
-		SELECT * FROM REVIEW WHERE KINDER_NO = #{kinder_no}
+	<!-- 해당 유치원 리뷰리스트  -->
+	<select id="reviewList" parameterType="HashMap" resultType="reviewVo">
+		SELECT *
+		FROM (
+		SELECT R.*, 
+		ROW_NUMBER() OVER(ORDER BY KINDER_NO DESC) AS RNUM
+		FROM REVIEW R
+		WHERE KINDER_NO = #{kinder_no}
+		) REVIEW
+		WHERE 
+		RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY REVIEW_NO
+	</select>
+	
+	<!-- 해당 유치원 리뷰 카운트 -->
+	<select id="listCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM REVIEW WHERE KINDER_NO = #{kinder_no}
 	</select>
 
 </mapper>
