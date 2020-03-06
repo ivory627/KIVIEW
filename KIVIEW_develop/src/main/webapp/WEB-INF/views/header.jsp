@@ -100,12 +100,12 @@ $(function(){
 <div style="position: fixed; bottom: 190px; right: 24px; z-index: 1;">
    <a href="#body"><img src="resources/images/main/up-arrow.png" /></a>
 </div>
-<div style="position: fixed; bottom: 25px; right: 24px; z-index: 1;">
+<div style="position: fixed; bottom: 105px; right: 24px; z-index: 1;">
    <a href="#footer"><img src="resources/images/main/down-arrow.png" /></a>
 </div>
 <div id="frogue-container" class="position-right-bottom"
       data-chatbot="1d82e168-7048-41c1-b3e1-3ce0bc07c366"
-      data-user="사용자ID" data-init-key="value" style = "right:85px; bottom:170px"
+      data-user="${login.member_id}" data-init-key="value" style = "right:85px; bottom:90px"
       ></div>
 <script>
 (function(d, s, id){
