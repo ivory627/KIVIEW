@@ -172,6 +172,21 @@ function findPwd() {
 			success : function(msg) {
 
 				if (msg.check2 == true) {
+					//이메일발송
+					$.ajax({
+						type : "post",
+						url : "kiviewsendemail.do",
+						data : JSON.stringify(findPwdVal),
+						contentType : "application/json",
+						dataType : "json",
+						success : function(msg) {
+							console.log("성공");
+						},
+						error : function() {
+							console.log("실패");
+						}
+					});
+					//
 					$("#findPwdMsg").show().css("color","blue").html("이메일로 임시 비밀번호가 발송되었습니다");
 					
 				} else {

@@ -96,10 +96,10 @@ public class MemberDaoImpl implements MemberDao{
 		int res = 0;	
 
 		try {
-			res = sqlSession.update(namespace + "findPwd",vo);
+			res = sqlSession.selectOne(namespace + "findPwd",vo);
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("[error] : update");
+			System.out.println("[error] : findPwd");
 		}		
 		return res;
 	}

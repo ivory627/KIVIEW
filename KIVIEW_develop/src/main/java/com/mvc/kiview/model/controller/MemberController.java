@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.mail.HtmlEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -350,8 +351,8 @@ public class MemberController {
 
    }
    
-   //비밀번호찾기
-   @RequestMapping(value = "/kiviewfindPwd.do", method = RequestMethod.POST)
+   //비밀번호찾기 - 아이디/이메일 일치 여부확인
+   @RequestMapping(value = "/kiviewfindpwd.do", method = RequestMethod.POST)
    @ResponseBody
    public Map<String, Boolean> findPwd(@RequestBody MemberVo vo) {
 	   logger.info("findPwd");
@@ -370,46 +371,34 @@ public class MemberController {
    }
    
    
-/*
+
 	//비밀번호 찾기 이메일 발송
- 	@RequestMapping(value = "/kiviewseneemail.do", method = RequestMethod.POST)
- 	logger.info("sendEmail")
-	public void send_mail(MemberVo member, String div) throws Exception {
-		// Mail Server 설정
+ 	@RequestMapping(value = "/kiviewsendemail.do", method = RequestMethod.POST)
+ 	@ResponseBody
+	public boolean send_mail(@RequestBody MemberVo vo) throws Exception {
+ 		logger.info("sendEmail");
+		
+ 		// Mail Server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com";
-		String hostSMTPid = "이메일 입력";
-		String hostSMTPpwd = "비밀번호 입력";
+		String hostSMTPid = "pdy2324";
+		String hostSMTPpwd = "Ehdud21170@#";
 
 		// 보내는 사람 EMail, 제목, 내용
-		String fromEmail = "이메일 입력";
-		String fromName = "Spring Homepage";
-		String subject = "";
+		String fromEmail = "admin@kiview.com";
+		String fromName = "Kiview";
+		String subject = "kiview에서 임시비밀번호가 발급되었습니다";
 		String msg = "";
-
-		if(div.equals("join")) {
-			// 회원가입 메일 내용
-			subject = "Spring Homepage 회원가입 인증 메일입니다.";
-			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
-			msg += "<h3 style='color: blue;'>";
-			msg += member.getId() + "님 회원가입을 환영합니다.</h3>";
-			msg += "<div style='font-size: 130%'>";
-			msg += "하단의 인증 버튼 클릭 시 정상적으로 회원가입이 완료됩니다.</div><br/>";
-			msg += "<form method='post' action='http://localhost:8081/homepage/member/approval_member.do'>";
-			msg += "<input type='hidden' name='email' value='" + member.getEmail() + "'>";
-			msg += "<input type='hidden' name='approval_key' value='" + member.getApproval_key() + "'>";
-			msg += "<input type='submit' value='인증'></form><br/></div>";
-		}else if(div.equals("find_pw")) {
-			subject = "Spring Homepage 임시 비밀번호 입니다.";
-			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
-			msg += "<h3 style='color: blue;'>";
-			msg += member.getId() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
-			msg += "<p>임시 비밀번호 : ";
-			msg += member.getPw() + "</p></div>";
-		}
+		
+		msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+		msg += "<h3 style='color: blue;'>";
+		msg += vo.getMember_id() + "님의 임시 비밀번호는"+ vo.getMember_pwd() +"입니다. 로그인 후 비밀번호를 변경하여 사용하세요.</h3></p></div>";
+		
 		// 받는 사람 E-Mail 주소
-		String mail = member.getEmail();
 		try {
+			String mail = vo.getMember_email();
+	 		System.out.println("mail: " + mail);
+	 		
 			HtmlEmail email = new HtmlEmail();
 			email.setDebug(true);
 			email.setCharset(charSet);
@@ -427,8 +416,11 @@ public class MemberController {
 		} catch (Exception e) {
 			System.out.println("메일발송 실패 : " + e);
 		}
+ 		
+ 		return true;
+ 		
 	}
-*/
+
   
    
    

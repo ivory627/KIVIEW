@@ -182,7 +182,7 @@
                            <input required="" placeholder="이메일" class="find-id" value="" id="findPwd_email">
                            <br>
                            <p id="findPwdMsg"></p>
-                           <button type="button" class="jsx-2144885398 " id="findPwdBtn" onclick="findPwd()">검색</button>
+                           <button type="button" class="jsx-2144885398 " id="findPwdBtn" onclick="findPwd()">임시비밀번호 발급</button>
                         </div>
                      </div>
                   </div>
