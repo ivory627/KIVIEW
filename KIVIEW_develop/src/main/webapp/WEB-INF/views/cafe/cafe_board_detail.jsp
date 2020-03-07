@@ -30,10 +30,10 @@
 
 
 #replypaging {
-	width:100%;
-	margin:0 auto; 
-	text-align:center;
-	float:center; 
+   width:100%;
+   margin:0 auto; 
+   text-align:center;
+   float:center; 
 }
 
 </style>
@@ -90,10 +90,13 @@
                <span align=right>${cafe_board_detail.writer}  &nbsp;|&nbsp;  <fmf:formatDate value='${cafe_board_detail.regdate}' pattern='yyyy-MM-dd'/> &nbsp;|&nbsp; 조회수  ${cafe_board_detail.hit }</span> 
                <br><br>
                <label>내 용</label><br>  
-                  <textarea cols="90" rows="10" name="content" readonly>${cafe_board_detail.content }</textarea>  
-                  
+ <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ20.03.02 수정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->                  
+                  <div style=" overflow-y:auto; width:93%; ">
+                      <div  id="contentbefore2"></div> 
+                  </div>
+ <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->                  
                <br>
-            
+              
                <div align="right" style="margin-right:60px; margin-top:10px">
                <c:if test="${cafe_board_detail.writer eq login.member_id || cafe_list[0].admin eq login.member_id  }">
                   <input type="button" onclick="location.href='cafeboardupdateform.do?cafe_board_no=${cafe_board_detail.cafe_board_no}&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }&curpagenum=${curpagenum }'" value="수 정" class="btn btn-primary" style="width:10%">
@@ -161,9 +164,10 @@
   
 <script type="text/javascript">
 var curpagenum= 1;
-
-
-
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ20.03.02 수정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->   
+var contentbefore = '${cafe_board_detail.content }';
+$("#contentbefore2").append(contentbefore);
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ20.03.02 수정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->   
 
 $(document).on("keyup","#replycontent",function(){
    var content = $("#replycontent").val();   

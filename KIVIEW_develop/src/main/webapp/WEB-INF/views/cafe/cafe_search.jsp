@@ -43,7 +43,7 @@ function test(){
 function PageMove(page) {
     var curpagenum = page;
     
-    location.href = "cafeguestlist.do?curpagenum=" + page + "&keyword=${keyword}" ;
+    location.href = "cafesearch.do?curpagenum=" + page + "&keyword=${keyword}" ;
  }
 
 </script>
@@ -156,7 +156,7 @@ function PageMove(page) {
                   <div class="text bg-white p-4">
                      <!-- 카페명 -->
                      <h3 class="heading">
-                        <a href="cafe_detail.do?cafe_no=${Slist.cafe_no}&member_no=${login.member_no }">${Slist.title }</a>
+                        <a href="cafedetail.do?cafe_no=${Slist.cafe_no}&member_no=${login.member_no }">${Slist.title }</a>
                      </h3>
 
                      <!-- 카페소개 -->

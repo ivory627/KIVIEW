@@ -216,7 +216,7 @@ function test(){
                            <div class="text bg-white p-4">
                               <!-- 카페명 -->
                               <h3 class="heading">
-                                 <a href="cafe_detail.do?cafe_no=${Ulist.cafe_no }&member_no=${login.member_no }">${Ulist.title }</a>
+                                 <a href="cafedetail.do?cafe_no=${Ulist.cafe_no }&member_no=${login.member_no }">${Ulist.title }</a>
                               </h3>
 
                               <!-- 카페소개 -->

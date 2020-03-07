@@ -181,7 +181,6 @@ $(function(){
 	}
 	
 	function changeDate(date){
-	    //date = new Date(parseInt(date));
 	    year = date.getFullYear();
 	    month = date.getMonth();
 	    day = date.getDate();

@@ -84,7 +84,7 @@
                <br>
                <div align="center">
                <input type="submit" value="수 정" class="btn btn-secondary" style="width:20%" id="submitbefore">
-               <input type="button" value="취 소" class="btn btn-primary" style="width:20%" onclick="location.href='boarddetail.do?cafe_no=${cafe_no}&cafe_menu_no=${cafe_menu_no }&cafe_board_no=${cafeboardvo.cafe_board_no }&curpagenum=${curpagenum }'"> 
+               <input type="button" value="취 소" class="btn btn-primary" style="width:20%" onclick="location.href='cafeboarddetail.do?cafe_no=${cafe_no}&cafe_menu_no=${cafe_menu_no }&cafe_board_no=${cafeboardvo.cafe_board_no }&curpagenum=${curpagenum }'"> 
                </div>
                </form>
                
