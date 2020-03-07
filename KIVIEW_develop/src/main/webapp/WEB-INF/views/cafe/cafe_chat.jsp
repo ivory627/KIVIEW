@@ -144,6 +144,7 @@ $(function(){
 	$("#msg_submit").on("click",function(){
 		
 		socket.emit("me", {
+			member_no:"${login.member_no}",
 			member_id:"${login.member_id}",
 			msg:$("#msg").val(),
 			time:changeDate(now)
@@ -157,7 +158,6 @@ $(function(){
 	})
 	
 
-	
 	
 	
 	function writeMsg(type, name, msg, time){
