@@ -5,11 +5,39 @@ import java.util.Date;
 public class CafeChatVo {
 	private int cafe_chat_no;
 	private int cafe_no;
+	private int member_no;
 	private String writer;
 	private String msg;
 	private Date senddate;
 	
 	CafeChatVo(){}
+	
+	
+	
+	
+	public CafeChatVo(int cafe_chat_no, int cafe_no, int member_no, String writer, String msg, Date senddate) {
+		super();
+		this.cafe_chat_no = cafe_chat_no;
+		this.cafe_no = cafe_no;
+		this.member_no = member_no;
+		this.writer = writer;
+		this.msg = msg;
+		this.senddate = senddate;
+	}
+
+
+
+
+	public int getMember_no() {
+		return member_no;
+	}
+
+	public void setMember_no(int member_no) {
+		this.member_no = member_no;
+	}
+
+	
+	
 
 	public int getCafe_chat_no() {
 		return cafe_chat_no;
@@ -51,11 +79,6 @@ public class CafeChatVo {
 		this.senddate = senddate;
 	}
 
-	@Override
-	public String toString() {
-		return "CafeChatVo [cafe_chat_no=" + cafe_chat_no + ", cafe_no=" + cafe_no + ", writer=" + writer + ", msg="
-				+ msg + ", senddate=" + senddate + "]";
-	}
 	
 	
 	

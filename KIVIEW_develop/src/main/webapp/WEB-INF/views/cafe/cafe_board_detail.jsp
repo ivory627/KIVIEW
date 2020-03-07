@@ -50,8 +50,12 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-            <h1 class="mb-2 bread">카페  게시판 디테일</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="index.jsp">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog <i class="ion-ios-arrow-forward"></i></span></p>
+           <h1 class="mb-2 bread">키뷰 카페</h1>
+               <p class="breadcrumbs">
+                  <span class="mr-2"><a href="index.jsp">홈 <i
+                        class="ion-ios-arrow-forward"></i></a></span> <span>키뷰카페 <i
+                     class="ion-ios-arrow-forward"></i></span>
+               </p>
           </div>
         </div>
       </div>

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mvc.kiview.model.dao.CafeDao;
 import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeCategoryVo;
+import com.mvc.kiview.model.vo.CafeChatVo;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.CafePageVo;
@@ -414,6 +415,12 @@ public class CafeBizImpl implements CafeBiz {
 	         
 	         return page;
 	      }
+
+	@Override
+	public List<CafeChatVo> cafe_chat_select(Map parameter) {
+		
+		return dao.cafe_chat_select(parameter);
+	}
 
 	
 	

@@ -34,6 +34,7 @@ import com.mvc.kiview.common.validate.uploadFile;
 import com.mvc.kiview.model.biz.CafeBiz;
 import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeCategoryVo;
+import com.mvc.kiview.model.vo.CafeChatVo;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.CafePageVo;
@@ -1237,6 +1238,38 @@ public class CafeController {
 
 
 		   return "cafe/cafe_chat";
+	   }
+	   
+	   @RequestMapping("/cafechatselect.do")
+	   @ResponseBody
+	   public Map cafe_chat_select(CafeChatVo vo, int page, int count) {
+		   
+		   int start = 1;
+		   int last = 10;
+		   
+		   if(page==1) {
+			   start = 1+count;
+			   last = 10+count;
+		   } else {
+			   start = page*10-9+count;
+			   last = page*10+count;
+		   }
+		   
+		   Map parameter = new HashMap();
+		   parameter.put("cafe_no", vo.getCafe_no());
+		   parameter.put("member_no", vo.getMember_no());
+		   parameter.put("start",start);
+		   parameter.put("last", last);
+		   
+		   
+		   
+		   List<CafeChatVo> chat = biz.cafe_chat_select(parameter);
+		   Map map = new HashMap();
+		   map.put("chat", chat);
+		   
+		   return map;
+		   
+		   
 	   }
 
 }

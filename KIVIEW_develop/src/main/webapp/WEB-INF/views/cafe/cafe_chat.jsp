@@ -10,7 +10,6 @@
 
 .chat_member{
 	padding:15px;
-	overflow:scroll; 
 	width:25%; 
 	height:680px; 
 	border:1px solid lightgray; 
@@ -90,12 +89,77 @@ label{
 	color:black;
 	font-weight:bold;
 }
+
+
 </style>
 <script src="http://localhost:82/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
 <script type="text/javascript">
+
+
+
 $(function(){
+	
+	var page = 1;
+	var count = 0;
+	
+	$(".chat_body").scroll(function(){
+		
+		if($(".chat_body").scrollTop()==0){
+			page++;
+			
+			
+			$.ajax({
+				url:"cafechatselect.do",
+				type:"post",
+				dataType:"json",
+				data:{"cafe_no":'${cafe.cafe_no}', "member_no":'${login.member_no}', "page":page, "count":count},
+				success:function(data){
+				
+					
+					$.each(data.chat, function(key, value){
+						if(value.writer=='${login.member_id}'){
+							loadMsg('me',value.writer, value.msg, changeFullDate(value.senddate));
+						} else if (value.writer!='system' && value.writer!='${login.member_id}') {
+							loadMsg('other',value.writer, value.msg, changeFullDate(value.senddate));
+						} else if (value.writer=='system'){
+							loadMsg('system','SYSTEM', value.msg, changeFullDate(value.senddate));
+						}
+						
+						
+					})
+					
+				}
+				
+				
+			})
+		}
+	})
+	
+	
+	$.ajax({
+		url:"cafechatselect.do",
+		type:"post",
+		dataType:"json",
+		data:{"cafe_no":'${cafe.cafe_no}', "member_no":'${login.member_no}', "page":page, "count":count},
+		success:function(data){
+			$.each(data.chat, function(key, value){
+				if(value.writer=='${login.member_id}'){
+					loadMsg('me',value.writer, value.msg, changeFullDate(value.senddate));
+				} else if (value.writer!='system' && value.writer!='${login.member_id}') {
+					loadMsg('other',value.writer, value.msg, changeFullDate(value.senddate));
+				} else if (value.writer=='system'){
+					loadMsg('system','SYSTEM', value.msg, changeFullDate(value.senddate));
+				}
+				
+				
+			})
+			
+		}
+		
+		
+	})
 	
 	var now = new Date();
 	
@@ -115,6 +179,10 @@ $(function(){
 		}
 	})
 	
+	socket.on('chat_data', function(data){
+		alert(data);
+	})
+	
 	socket.on('disconnect', function(data){
 		writeMsg('system','SYSTEM',data.msg,changeDate(now));
 	})
@@ -126,6 +194,12 @@ $(function(){
 	
 	socket.on('other',function(data){
 		writeMsg('other', data.member_id, data.msg, data.time);
+		socket.emit('other', {
+			member_no:"${login.member_no}",
+			member_id:data.member_id,
+			msg:data.msg,
+			
+		})
 	})
 	
 	socket.on("me",function(data){
@@ -143,6 +217,13 @@ $(function(){
 	
 	$("#msg_submit").on("click",function(){
 		
+		if($("#msg").val().length<1){
+			alert("메시지를 입력해주세요.");
+			
+		} else {
+			
+		count++;
+		
 		socket.emit("me", {
 			member_no:"${login.member_no}",
 			member_id:"${login.member_id}",
@@ -154,6 +235,7 @@ $(function(){
 		
 		$("#msg").val('');
 		
+		}
 		
 	})
 	
@@ -163,24 +245,52 @@ $(function(){
 	function writeMsg(type, name, msg, time){
 		if(type=='me'){
 			$(".chat_body").append("<div class='msgbox_me'>"+'<label>'+name+'</label>  <span>'+time+'</span>'+"<br>"+msg+"</div>")
-			$(".chat_body").scrollTop($(".chat_body").prop('scrollHeight'));
+			
 			
 		}
 		
 		if(type=='system'){
 			$(".chat_body").append("<div class='msgbox_system'>"+'<label>'+name+'</label>'+"<br><span>"+time+'</span><br>'+msg+"</div>")
-			$(".chat_body").scrollTop($(".chat_body").prop('scrollHeight'));
+			
 		}
 		
 		if(type=='other'){
 			$(".chat_body").append("<div class='msgbox_other'>"+'<label>'+name+'</label>  <span>'+time+'</span>'+"<br>"+msg+"</div>")
-			$(".chat_body").scrollTop($(".chat_body").prop('scrollHeight'));
+			
 			
 		}
+		
+		$(".chat_body").scrollTop($(".chat_body").prop('scrollHeight'));
+	}
+	
+	function loadMsg(type, name, msg, time){
+		
+		
+		
+		if(type=='me'){
+			$(".chat_body").prepend("<div class='msgbox_me'>"+'<label>'+name+'</label>  <span>'+time+'</span>'+"<br>"+msg+"</div>")
+			
+			
+		}
+		
+		if(type=='system'){
+			$(".chat_body").prepend("<div class='msgbox_system'>"+'<label>'+name+'</label>'+"<br><span>"+time+'</span><br>'+msg+"</div>")
+			
+		}
+		
+		if(type=='other'){
+			$(".chat_body").prepend("<div class='msgbox_other'>"+'<label>'+name+'</label>  <span>'+time+'</span>'+"<br>"+msg+"</div>")
+			
+			
+		}
+		
+		$(".chat_body").scrollTop($(document).height()+700);
+		
 		
 	}
 	
 	function changeDate(date){
+		
 	    year = date.getFullYear();
 	    month = date.getMonth();
 	    day = date.getDate();
@@ -211,6 +321,39 @@ $(function(){
 	    
 	    return strDate;
 	}
+	
+	function changeFullDate(date){
+	    date = new Date(parseInt(date));
+	    year = date.getFullYear();
+	    month = date.getMonth();
+	    day = date.getDate();
+	    hour = date.getHours();
+	    minute = date.getMinutes();
+	    second = date.getSeconds();
+	    
+	    if(month<10){
+	    	 
+	    	month = "0"+month;
+	    }
+	     
+	    if(day<10){
+	    	day = "0"+day; 
+	    }
+	    
+	    if(hour<10){
+	    	hour = "0"+hour;
+	    }
+	    
+	    if(minute<10){
+	    	minute = "0"+minute;
+	    }
+	    
+	    	    
+	    strDate = year+"-"+month+"-"+day+" "+hour+":"+minute
+	    
+	    
+	    return strDate;
+	}
 
 
 
@@ -221,13 +364,42 @@ $(function(){
 
 </script>
 
+
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+
+    <link rel="stylesheet" href="resources/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/animate.css">
+    
+    <link rel="stylesheet" href="resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="resources/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="resources/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="resources/css/aos.css">
+
+    <link rel="stylesheet" href="resources/css/ionicons.min.css">
+    
+    <link rel="stylesheet" href="resources/css/flaticon.css">
+    <link rel="stylesheet" href="resources/css/icomoon.css">
+    <link rel="stylesheet" href="resources/css/style_chat.css"> 
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- KIVIEW FAVICON-->
+	<link rel="icon" href="resources/images/main/logo01.png" type="image/x-icon">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </head>
-<body onresize="parent.resizeTo(900,740)" onload="parent.resizeTo(900,740)">
-<%@ include file="../head.jsp" %>
+<body onresize="parent.resizeTo(900,750)" onload="parent.resizeTo(900,750)" style="overflow-x:hidden; overflow-y:hidden">
+
+
 
 <!-- 카페 홈  --> 
             
-            <div class="row" style="width:900px; height:680px; margin-left:0px; overflow:auto" >   
+            <div class="row" style="width:900px; height:680px; margin-left:0px;" >   
                
                <!-- 채팅방 영역 -->
                <div class="chat" > 

@@ -422,6 +422,19 @@
      </select>
      
      
+     <!-- 카페 채팅 -->
+     <select id="cafe_chat_select" parameterType="Map" resultType="CafeChatVo">
+     	
+  		
+  		SELECT *
+        FROM(
+            SELECT CR.*,
+            ROW_NUMBER() OVER(ORDER BY CAFE_CHAT_NO DESC) AS RNUM
+            FROM CAFE_CHAT CR WHERE CAFE_NO=#{cafe_no} AND MEMBER_NO=#{member_no}
+         ) CAFE_CHAT
+         WHERE RNUM BETWEEN #{start} AND #{last}
+     </select>
+     
   
   </mapper>
   
