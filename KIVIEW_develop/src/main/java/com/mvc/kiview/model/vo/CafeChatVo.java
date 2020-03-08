@@ -6,7 +6,7 @@ public class CafeChatVo {
 	private int cafe_chat_no;
 	private int cafe_no;
 	private int member_no;
-	private String writer;
+	private String writer; 
 	private String msg;
 	private Date senddate;
 	
