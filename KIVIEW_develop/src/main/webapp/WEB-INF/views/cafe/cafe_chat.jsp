@@ -179,9 +179,24 @@ $(function(){
 		}
 	})
 	
-	socket.on('chat_data', function(data){
-		alert(data);
-	})
+	
+	socket.on("updateuser",function(data){                  
+      
+      $("#usercount").empty();
+      $("#userlist").empty();
+      $("#usercount").append("현재 채팅인원   : "+data.updateusercount+" 명");      
+      
+      for(var i=0; i< data.updateuserlist.length ;i++){
+         $("#userlist").append("<li>"+data.updateuserlist[i]+"</li>");
+      }         
+   })
+   
+   socket.on("close",function(data){
+      alert(data.msg+"님은 이미 접속 중입니다.");
+      self.close();
+   })
+
+	
 	
 	socket.on('disconnect', function(data){
 		writeMsg('system','SYSTEM',data.msg,changeDate(now));
@@ -370,22 +385,16 @@ $(function(){
 
 
 <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
-
     <link rel="stylesheet" href="resources/css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="resources/css/animate.css">
-    
+    <link rel="stylesheet" href="resources/css/animate.css">    
     <link rel="stylesheet" href="resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="resources/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="resources/css/magnific-popup.css">
-
     <link rel="stylesheet" href="resources/css/aos.css">
-
-    <link rel="stylesheet" href="resources/css/ionicons.min.css">
-    
+    <link rel="stylesheet" href="resources/css/ionicons.min.css">   
     <link rel="stylesheet" href="resources/css/flaticon.css">
     <link rel="stylesheet" href="resources/css/icomoon.css">
     <link rel="stylesheet" href="resources/css/style_chat.css"> 
@@ -427,16 +436,15 @@ $(function(){
 	               	
                </div>
                
-               <!-- 채팅방 영역 -->
+                  <!-- 채팅방 영역 -->
                <div class="chat_member">  
-               		<label>대화멤버 0명</label> 
-               		<hr style="width:100%; padding-left:0px">
-               		<ul>
-               			<li>${login.member_id }</li>
-               		</ul>
+                     <label id="usercount"></label> 
+                     <hr style="width:100%; padding-left:0px">
+                     <ul id="userlist">                        
+                     </ul>
                </div>
                
-            </div>  
+            </div>    
                
 <script src="resources/js/main.kiview.js"></script>
 	<!-- <script src="resources/js/jquery.min.js"></script>
