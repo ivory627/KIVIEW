@@ -125,7 +125,7 @@
 								<span class="jsx-3712571264">이메일&nbsp;</span><span class="jsx-3712571264" id="signupEmailMsg"></span>
 								<div class="jsx-3372927190 input-flex">
 									<div class="jsx-639067573 input">
-										<input placeholder="이메일을 입력해주세요"
+										<input placeholder=""
 											class="jsx-639067573 " name="member_email" id="member_email" readonly="readonly" value="${snsEmail }">
 									</div>
 								</div>

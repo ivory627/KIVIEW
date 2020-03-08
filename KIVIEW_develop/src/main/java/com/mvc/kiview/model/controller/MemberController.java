@@ -377,7 +377,7 @@ public class MemberController {
  		vo.setMember_pwd(passwordEncoder.encode(tmpPwd));	//임시비밀번호 암호화
  		
  		System.out.println("암호화 전 임시비밀번호: "+ tmpPwd);
- 		System.out.println("암호화 후 임시비밀번호: "+ vo.getMember_pwd());
+ 		//System.out.println("암호화 후 임시비밀번호: "+ vo.getMember_pwd());
  		System.out.println("vo: " + vo);
  		
  		int res = biz.tmpPwd(vo);	//임시비밀번호  update
@@ -394,9 +394,10 @@ public class MemberController {
 		String subject = "kiview에서 임시비밀번호가 발급되었습니다";
 		String msg = "";
 		
-		msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+		msg += "<div align='center' style='border:1px solid black; font-family:verdana'; font-size:20px;>";
 		msg += "<h3 style='color: blue;'>";
-		msg += vo.getMember_id() + "님의 임시 비밀번호는"+ tmpPwd +"입니다. 로그인 후 비밀번호를 변경하여 사용하세요.</h3></p></div>";
+		msg += vo.getMember_id() + "님의 임시 비밀번호는&nbsp;<span style='color: red; font-size:30px'>"+ tmpPwd +"</span>&nbsp;입니다. "
+				+ "<br>로그인 후 비밀번호를 변경하여 사용하세요.</h3></p></div>";
 		
 		// 받는 사람 E-Mail 주소
 		try {
