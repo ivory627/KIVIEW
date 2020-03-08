@@ -185,11 +185,13 @@ $(function(){
 	
 	socket.on('disconnect', function(data){
 		writeMsg('system','SYSTEM',data.msg,changeDate(now));
+		count++;
 	})
 
 	
 	socket.on('system',function(data){
 		writeMsg('system','SYSTEM',data.msg,changeDate(now));
+		count++;
 	})
 	
 	socket.on('other',function(data){
@@ -200,6 +202,8 @@ $(function(){
 			msg:data.msg,
 			
 		})
+		
+		count++;
 	})
 	
 	socket.on("me",function(data){
