@@ -48,7 +48,7 @@
   - kiview_notice_update.jsp
     - update, smartEditor2(API)
   - kiview_intro.jsp
-    - view(구현중 - 이미지 제작)
+    - view()
   - kiview_FAQ.jsp // 답글 여부 ajax 완료, 현재 page 나타내기 완료
     - selectList, paging, ajax
   - kiview_faq_write.jsp
