@@ -397,6 +397,32 @@ button {
 #btn1, #btn2, #btn3, #btn4, #btn5{
 	background: #fff;
 }
+#btn2:hover{
+	box-shadow: 1px 1px 10px #ddd;
+}
+#btn3:hover{
+	box-shadow: 1px 1px 10px #ddd;
+}
+#btn4:hover{
+	box-shadow: 1px 1px 10px #ddd;
+}
+#btn2, #btn4{
+	outline:none;
+}
+
+#snackbar{
+  display:inline;
+  font-size:12px;
+  color:whitesmoke;
+  background: #FDA638;
+  text-align:center;
+  width: 200px;
+  padding: 5px;
+  margin:0 auto;
+  opacity:0;
+  transition: 2s opacity; 
+  border-radius: 14px;
+}
 
 button:focus {
 	outline: 1px dotted;
@@ -14458,6 +14484,7 @@ button.jsx-2334299286 {
     justify-content: center;
     cursor: pointer;
 }
+
 .share--small.jsx-2334299286 .icon.jsx-2334299286 {
     width: 14px;
     height: 14px;
