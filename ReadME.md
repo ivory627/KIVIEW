@@ -1,7 +1,7 @@
 ## 📣 KIVIEW 기능 구현 설명<Spring framework final project>
 
 
->SEUNG HYE CHOI - NoticeBoard, Chatbot, UI총괄(BootStrap), index.jsp(Main), SNS Login(Naver, Kakao, Google -> 구현중)
+>SEUNG HYE CHOI - NoticeBoard, Chatbot, UI총괄(BootStrap), index.jsp(Main), SNS Login(Naver, Kakao, Google), SNS Share(kakao)
 
 
 📩 contact - motop68@gmail.com
