@@ -156,9 +156,7 @@
 	</div>
 
 	<!-- script -->
-	<script src="js/signup.min.js"></script>
-	<script type="text/javascript"
-		src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="resources/js/signup_sns.js?version=1.0"></script> 
 
 
