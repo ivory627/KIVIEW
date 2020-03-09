@@ -94,8 +94,23 @@ public class MemberController {
    //@@ 회원가입 @@ /////////////////////////////////////////////////////////////////////////
    //회원가입 종류 선택
    @RequestMapping("/kiviewsignupoption.do")
-   public String kiview_signupOption() {
-      logger.info("signupOption");
+   public String kiview_signupOption(Model model, HttpSession session) throws Exception {
+	   logger.info("signupOption");
+
+      /* 구글,네이버,카카오 code 발행 */
+      OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+      String googleAuthurl = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+      String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+      String kakaoAuthUrl = kakaoApi.getAuthorizationUrl(session);
+
+      /* 생성한 인증 URL을 View로 전달 */
+      model.addAttribute("naver_url", naverAuthUrl);
+      model.addAttribute("google_url", googleAuthurl);
+      model.addAttribute("kakao_url", kakaoAuthUrl);
+
+      System.out.println("model :" + model);
+
+      /* 생성한 인증 URL을 Model에 담아서 전달 */
       return "member/kiview_signup-option";
    }
    
@@ -158,12 +173,7 @@ public class MemberController {
       return "member/kiview_mypage"; 
    }
    
-   //마이페이지 - 회원활동
-   @RequestMapping("/kiviewmyactivity.do")
-   public String myactivity() {
-      logger.info("myactivity");
-      return "member/kiview_myactivity";
-   }
+  
    
    //회원정보 수정
    @RequestMapping("/kiviewupdate.do")
@@ -222,22 +232,22 @@ public class MemberController {
 
    @RequestMapping("/login.do")
    public String initLogin(Model model, HttpSession session) throws Exception {
+	   logger.info("login");
+	   /* 구글,네이버,카카오 code 발행 */
+	   OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+	   String googleAuthurl = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+	   String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+	   String kakaoAuthUrl = kakaoApi.getAuthorizationUrl(session);
 
-      /* 구글,네이버,카카오 code 발행 */
-      OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-      String googleAuthurl = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
-      String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-      String kakaoAuthUrl = kakaoApi.getAuthorizationUrl(session);
+	   /* 생성한 인증 URL을 View로 전달 */
+	   model.addAttribute("naver_url", naverAuthUrl);
+	   model.addAttribute("google_url", googleAuthurl);
+	   model.addAttribute("kakao_url", kakaoAuthUrl);
 
-      /* 생성한 인증 URL을 View로 전달 */
-      model.addAttribute("naver_url", naverAuthUrl);
-      model.addAttribute("google_url", googleAuthurl);
-      model.addAttribute("kakao_url", kakaoAuthUrl);
+	   System.out.println("model :" + model);
 
-      System.out.println("model :" + model);
-
-      /* 생성한 인증 URL을 Model에 담아서 전달 */
-      return "member/kiview_login";
+	   /* 생성한 인증 URL을 Model에 담아서 전달 */
+	   return "member/kiview_login";
    }
 
    // 네이버 로그인 성공시 callback호출 메소드 **보충 필요
@@ -288,7 +298,86 @@ public class MemberController {
 
    }
    
+   //비밀번호찾기
+   @RequestMapping(value = "/kiviewfindPwd.do", method = RequestMethod.POST)
+   @ResponseBody
+   public Map<String, Boolean> findPwd(@RequestBody MemberVo vo) {
+	   logger.info("findPwd");
+	   int res = biz.findPwd(vo);
+
+	   boolean check2 = false;
+
+	   if (res>0) {
+		   check2 = true;
+	   }
+
+	   Map<String, Boolean> map = new HashMap<String, Boolean>();
+	   map.put("check2", check2);
+
+	   return map;
+   }
    
+   
+/*
+	//비밀번호 찾기 이메일 발송
+ 	@RequestMapping(value = "/kiviewseneemail.do", method = RequestMethod.POST)
+ 	logger.info("sendEmail")
+	public void send_mail(MemberVo member, String div) throws Exception {
+		// Mail Server 설정
+		String charSet = "utf-8";
+		String hostSMTP = "smtp.naver.com";
+		String hostSMTPid = "이메일 입력";
+		String hostSMTPpwd = "비밀번호 입력";
+
+		// 보내는 사람 EMail, 제목, 내용
+		String fromEmail = "이메일 입력";
+		String fromName = "Spring Homepage";
+		String subject = "";
+		String msg = "";
+
+		if(div.equals("join")) {
+			// 회원가입 메일 내용
+			subject = "Spring Homepage 회원가입 인증 메일입니다.";
+			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+			msg += "<h3 style='color: blue;'>";
+			msg += member.getId() + "님 회원가입을 환영합니다.</h3>";
+			msg += "<div style='font-size: 130%'>";
+			msg += "하단의 인증 버튼 클릭 시 정상적으로 회원가입이 완료됩니다.</div><br/>";
+			msg += "<form method='post' action='http://localhost:8081/homepage/member/approval_member.do'>";
+			msg += "<input type='hidden' name='email' value='" + member.getEmail() + "'>";
+			msg += "<input type='hidden' name='approval_key' value='" + member.getApproval_key() + "'>";
+			msg += "<input type='submit' value='인증'></form><br/></div>";
+		}else if(div.equals("find_pw")) {
+			subject = "Spring Homepage 임시 비밀번호 입니다.";
+			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+			msg += "<h3 style='color: blue;'>";
+			msg += member.getId() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
+			msg += "<p>임시 비밀번호 : ";
+			msg += member.getPw() + "</p></div>";
+		}
+		// 받는 사람 E-Mail 주소
+		String mail = member.getEmail();
+		try {
+			HtmlEmail email = new HtmlEmail();
+			email.setDebug(true);
+			email.setCharset(charSet);
+			email.setSSL(true);
+			email.setHostName(hostSMTP);
+			email.setSmtpPort(587);
+
+			email.setAuthentication(hostSMTPid, hostSMTPpwd);
+			email.setTLS(true);
+			email.addTo(mail, charSet);
+			email.setFrom(fromEmail, fromName, charSet);
+			email.setSubject(subject);
+			email.setHtmlMsg(msg);
+			email.send();
+		} catch (Exception e) {
+			System.out.println("메일발송 실패 : " + e);
+		}
+	}
+*/
+  
    
    
 }

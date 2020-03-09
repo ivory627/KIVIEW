@@ -56,7 +56,7 @@
 					
 					<!-- 네이버 회원가입 -->
 					<li class="jsx-500558648 naver"><a
-						href="https://nid.naver.com/oauth2.0/authorize?response_type=code&amp;client_id=iFnTW27dv2wNRhfYPsFE&amp;redirect_uri=https%3A%2F%2Fwww.starteacher.co.kr%2Fsignup%3Fchannel%3Dnaver%26step%3D6%26type%3Dstudent&amp;svctype=0&amp;state=student"
+						href="${naver_url }"
 						tabindex="0" class="jsx-500558648">
 							<div class="jsx-500558648 flex-wrap">
 								<img
@@ -68,7 +68,7 @@
 							</div>
 					</a></li>
 					<li class="jsx-500558648 kakao"><a
-						href="https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=cacac2d9fe13a5f296d0459b1506b1bb&amp;redirect_uri=https%3A%2F%2Fwww.starteacher.co.kr%2Fsignup%3Fchannel%3Dkakao%26step%3D6&amp;svctype=&amp;state=student"
+						href="${kakao_url }"
 						tabindex="0" class="jsx-500558648">
 							<div class="jsx-500558648 flex-wrap">
 								<img
@@ -81,7 +81,7 @@
 					</a></li>
 
 					<li class="jsx-500558648 facebook"><a
-						href="https://www.facebook.com/v3.3/dialog/oauth?response_type=code&amp;client_id=2315035918715891&amp;redirect_uri=https%3A%2F%2Fwww.starteacher.co.kr%2Fsignup%3Fchannel%3Dfacebook%26step%3D6%26type%3Dstudent&amp;svctype=&amp;state=student"
+						href="${google_url }"
 						tabindex="0" class="jsx-500558648">
 							<div class="jsx-500558648 flex-wrap">
 								<img

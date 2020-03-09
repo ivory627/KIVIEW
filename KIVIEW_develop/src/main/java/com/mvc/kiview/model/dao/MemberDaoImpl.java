@@ -91,6 +91,19 @@ public class MemberDaoImpl implements MemberDao{
 		return res;
 	}
 
+	@Override
+	public int findPwd(MemberVo vo) {
+		int res = 0;	
+
+		try {
+			res = sqlSession.update(namespace + "findPwd",vo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("[error] : update");
+		}		
+		return res;
+	}
+
 }
 
 
