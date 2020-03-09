@@ -18,171 +18,171 @@ import com.mvc.kiview.model.vo.ReviewVo;
 @Repository
 public class LikeDaoImpl implements LikeDao {
 
-	@Autowired
-	private SqlSessionTemplate sqlSession;
+   @Autowired
+   private SqlSessionTemplate sqlSession;
 
-	@Override
-	public int selectLikeCount(LikeVo vo) {
-		int resultLike = 0;
-		try {
-			resultLike = sqlSession.selectOne(namespace + "selectLikeCount", vo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return resultLike;
-	}
+   @Override
+   public int selectLikeCount(LikeVo vo) {
+      int resultLike = 0;
+      try {
+         resultLike = sqlSession.selectOne(namespace + "selectLikeCount", vo);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+      return resultLike;
+   }
 
-	@Override
-	public int likeInsert(LikeVo vo) {
-		int res = 0;
+   @Override
+   public int likeInsert(LikeVo vo) {
+      int res = 0;
 
-		try {
-			res = sqlSession.insert(namespace + "insertlike", vo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return res;
-	}
+      try {
+         res = sqlSession.insert(namespace + "insertlike", vo);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+      return res;
+   }
 
-	@Override
-	public int likeDelete(LikeVo vo) {
-		int res = 0;
+   @Override
+   public int likeDelete(LikeVo vo) {
+      int res = 0;
 
-		try {
-			res = sqlSession.delete(namespace + "deletelike", vo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return res;
-	}
+      try {
+         res = sqlSession.delete(namespace + "deletelike", vo);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+      return res;
+   }
 
-	
-	@Override
-	public int selectFavoriteCount(FavoriteVo vo) {
-		int resultFavorite = 0;
-		try {
-			resultFavorite = sqlSession.selectOne(namespace + "selectFavoriteCount",vo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return resultFavorite;
-	}
-	
-	@Override
-	public int favoriteInsertCount(FavoriteVo vo) {
-		int res = 0;
-		
-		try {
-		res = sqlSession.insert(namespace + "insertfavorite", vo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return res;
-	}
-	
-	
-	@Override
-	public int favoriteDeleteCount(FavoriteVo vo) {
-		int res = 0;
-		try {
-		res = sqlSession.delete(namespace + "deletefavorite",vo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
- 		return res;
-	}
+   
+   @Override
+   public int selectFavoriteCount(FavoriteVo vo) {
+      int resultFavorite = 0;
+      try {
+         resultFavorite = sqlSession.selectOne(namespace + "selectFavoriteCount",vo);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+      return resultFavorite;
+   }
+   
+   @Override
+   public int favoriteInsertCount(FavoriteVo vo) {
+      int res = 0;
+      
+      try {
+      res = sqlSession.insert(namespace + "insertfavorite", vo);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+      return res;
+   }
+   
+   
+   @Override
+   public int favoriteDeleteCount(FavoriteVo vo) {
+      int res = 0;
+      try {
+      res = sqlSession.delete(namespace + "deletefavorite",vo);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+       return res;
+   }
 
-	@Override
-	public List<LikeVo> selectAll() {
-		List<LikeVo> res = new ArrayList<LikeVo>();
+   @Override
+   public List<LikeVo> selectAll() {
+      List<LikeVo> res = new ArrayList<LikeVo>();
 
-		try {
-			res = sqlSession.selectList(namespace + "selectAll");
+      try {
+         res = sqlSession.selectList(namespace + "selectAll");
 
-		} catch (Exception e) {
-			e.printStackTrace();
+      } catch (Exception e) {
+         e.printStackTrace();
 
-		}
-		return res;
-	}
+      }
+      return res;
+   }
 
-	@Override
-	public List<LikeVo> selectMy(int member_no) {
-		List<LikeVo> res = new ArrayList<LikeVo>();
+   @Override
+   public List<LikeVo> selectMy(int member_no) {
+      List<LikeVo> res = new ArrayList<LikeVo>();
 
-		try {
-			res = sqlSession.selectList(namespace + "selectMy", member_no);
+      try {
+         res = sqlSession.selectList(namespace + "selectMy", member_no);
 
-		} catch (Exception e) {
-			e.printStackTrace();
+      } catch (Exception e) {
+         e.printStackTrace();
 
-		}
-		return res;
-	}
-	
+      }
+      return res;
+   }
+   
 
    
 
-	@Override
-	public List<ReviewVo> myReview(String member_id) {
-		List<ReviewVo> res = null;
-		
-		try {
-			res = sqlSession.selectList(namespace + "myReview", member_id);
+   @Override
+   public List<ReviewVo> myReview(String member_id) {
+      List<ReviewVo> res = null;
+      
+      try {
+         res = sqlSession.selectList(namespace + "myReview", member_id);
 
-		} catch (Exception e) {
-			e.printStackTrace();
+      } catch (Exception e) {
+         e.printStackTrace();
 
-		}
-		
-		return res;
-	}
+      }
+      
+      return res;
+   }
 
-	@Override
-	public List<CafeBoardVo> myBoard(String member_id) {
-		List<CafeBoardVo> res = null;
-		
-		try {
-			res = sqlSession.selectList(namespace + "myBoard", member_id);
+   @Override
+   public List<CafeBoardVo> myBoard(String member_id) {
+      List<CafeBoardVo> res = null;
+      
+      try {
+         res = sqlSession.selectList(namespace + "myBoard", member_id);
 
-		} catch (Exception e) {
-			e.printStackTrace();
+      } catch (Exception e) {
+         e.printStackTrace();
 
-		}
-		
-		return res;
-	}
+      }
+      
+      return res;
+   }
 
-	@Override
-	public List<CafeMenuVo> myMenu() {
-		List<CafeMenuVo> res = null;
-		
-		try {
-			res = sqlSession.selectList(namespace + "myMenu");
+   @Override
+   public List<CafeMenuVo> myMenu() {
+      List<CafeMenuVo> res = null;
+      
+      try {
+         res = sqlSession.selectList(namespace + "myMenu");
 
-		} catch (Exception e) {
-			e.printStackTrace();
+      } catch (Exception e) {
+         e.printStackTrace();
 
-		}
-		
-		return res;
-	}
+      }
+      
+      return res;
+   }
 
-	@Override
-	public List<KinderVo> myFavorite(String member_id) {
-		List<KinderVo> res = null;
-		
-		try {
-			res = sqlSession.selectList(namespace + "myFavorite", member_id);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return res;
-	}
+   @Override
+   public List<KinderVo> myFavorite(String member_id) {
+      List<KinderVo> res = null;
+      
+      try {
+         res = sqlSession.selectList(namespace + "myFavorite", member_id);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+      
+      return res;
+   }
 
 
-	
+   
 
-	
+   
 }

@@ -20,6 +20,7 @@ public class KinderVo {
 	private String drive_yn;
 	private String meal_yn;
 	private String cctv_yn;
+	private int bestcnt;
 	
 	public KinderVo() {
 		super();
@@ -28,7 +29,7 @@ public class KinderVo {
 
 	public KinderVo(int kinder_no, String name, String type, String addr1, String addr2, double latitude, double longitude,
 			String phone, String director, Date opendate, String homepage, int class_num, int children_num,
-			int staff_num, String drive_yn, String meal_yn, String cctv_yn) {
+			int staff_num, String drive_yn, String meal_yn, String cctv_yn, int bestcnt) {
 		super();
 		this.kinder_no = kinder_no;
 		this.name = name;
@@ -47,6 +48,7 @@ public class KinderVo {
 		this.drive_yn = drive_yn;
 		this.meal_yn = meal_yn;
 		this.cctv_yn = cctv_yn;
+		this.setBestcnt(bestcnt);
 	}
 
 	public int getKinder_no() {
@@ -185,6 +187,14 @@ public class KinderVo {
 		this.cctv_yn = cctv_yn;
 	}
 
+	public int getBestcnt() {
+		return bestcnt;
+	}
+	
+	public void setBestcnt(int bestcnt) {
+		this.bestcnt = bestcnt;
+	}
+	
 	@Override
 	public String toString() {
 		return "KinderVo [kinder_no=" + kinder_no + ", name=" + name + ", type=" + type + ", addr1=" + addr1
@@ -193,7 +203,7 @@ public class KinderVo {
 				+ class_num + ", children_num=" + children_num + ", staff_num=" + staff_num + ", drive_yn=" + drive_yn
 				+ ", meal_yn=" + meal_yn + ", cctv_yn=" + cctv_yn + "]";
 	}
-	
+
 	
 	
 	

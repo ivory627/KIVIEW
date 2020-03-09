@@ -103,4 +103,9 @@ public class KinderBizImpl implements KinderBiz {
 		return dao.NameSearchCnt(name);
 	}
 
+	@Override
+	public List<KinderVo> bestKinderList() {
+		return dao.bestKinderList();
+	}
+
 }

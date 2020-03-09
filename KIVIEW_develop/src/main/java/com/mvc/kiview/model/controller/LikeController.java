@@ -30,9 +30,9 @@ import com.mvc.kiview.model.vo.ReviewVo;
 @Controller //좋아요, 즐겨찾기 관련
 public class LikeController {
 
-	private static final Logger logger = LoggerFactory.getLogger(LikeController.class);
+   private static final Logger logger = LoggerFactory.getLogger(LikeController.class);
    
-	@Autowired
+   @Autowired
    private LikeBiz biz;
    
 
@@ -70,30 +70,30 @@ public class LikeController {
    //즐겨찾기
    @RequestMapping(value="/favoriteSubmit.do", method=RequestMethod.POST)
    public @ResponseBody HashMap<String, Object> favoriteSubmit(@RequestBody FavoriteVo vo){
-	   HashMap<String, Object> result = new HashMap<String,Object>();
-	   
-	   int resultSubmit = 0;
-	   logger.info("member_no : " + vo.getMember_no() + " , kinder_no : " + vo.getKinder_no());
-	   int favoriteCount = biz.selectFavoriteCount(vo);
-	   logger.info(String.valueOf(favoriteCount));
-	   
-	   if(favoriteCount > 0) {
-		   resultSubmit = biz.favoriteDelete(vo);
-		   result.put("resultMsg","delete");
-		   System.out.println(favoriteCount);
-	   } else {
-		   resultSubmit = biz.favoriteInsert(vo);
-		   result.put("resultMsg","insert");
-		   System.out.println(favoriteCount);
-	   }
-	   result.put("kinderCnt",biz.selectFavoriteCount(vo));
-	   System.out.println("KinderCnt22 : " + biz.selectFavoriteCount(vo));
-	   
-	   
-	   result.put("resultSubmit", resultSubmit);
-	   
-	   return result;
-	   
+      HashMap<String, Object> result = new HashMap<String,Object>();
+      
+      int resultSubmit = 0;
+      logger.info("member_no : " + vo.getMember_no() + " , kinder_no : " + vo.getKinder_no());
+      int favoriteCount = biz.selectFavoriteCount(vo);
+      logger.info(String.valueOf(favoriteCount));
+      
+      if(favoriteCount > 0) {
+         resultSubmit = biz.favoriteDelete(vo);
+         result.put("resultMsg","delete");
+         System.out.println(favoriteCount);
+      } else {
+         resultSubmit = biz.favoriteInsert(vo);
+         result.put("resultMsg","insert");
+         System.out.println(favoriteCount);
+      }
+      result.put("kinderCnt",biz.selectFavoriteCount(vo));
+      System.out.println("KinderCnt22 : " + biz.selectFavoriteCount(vo));
+      
+      
+      result.put("resultSubmit", resultSubmit);
+      
+      return result;
+      
    }
    
    
@@ -105,26 +105,26 @@ public class LikeController {
    //마이페이지 - 회원활동
    @RequestMapping("/kiviewmyactivity.do")
    public String myactivity(Model model, String member_id) {
-	 //내가 쓴 리뷰
-	  List<ReviewVo> review = biz.myReview(member_id);
-	  model.addAttribute("review",review);
-	  
-	  //내가 쓴  카페 글
-	  List<CafeBoardVo> board = biz.myBoard(member_id);
-	  model.addAttribute("board",board);
-	  
-	  List<CafeVo> cafe = biz_cafe.cafe_selectAll();
-	  model.addAttribute("cafe",cafe);
-	  
-	  List<CafeMenuVo> menu = biz.myMenu();
-	  model.addAttribute("menu",menu);
-	  System.out.println(menu);
-	  System.out.println(board);
-	  
-	  
-	  //나의 즐겨찾기
-	  List<KinderVo> favorite = biz.myFavorite(member_id);
-	  model.addAttribute("favorite", favorite);
+    //내가 쓴 리뷰
+     List<ReviewVo> review = biz.myReview(member_id);
+     model.addAttribute("review",review);
+     
+     //내가 쓴  카페 글
+     List<CafeBoardVo> board = biz.myBoard(member_id);
+     model.addAttribute("board",board);
+     
+     List<CafeVo> cafe = biz_cafe.cafe_selectAll();
+     model.addAttribute("cafe",cafe);
+     
+     List<CafeMenuVo> menu = biz.myMenu();
+     model.addAttribute("menu",menu);
+     System.out.println(menu);
+     System.out.println(board);
+     
+     
+     //나의 즐겨찾기
+     List<KinderVo> favorite = biz.myFavorite(member_id);
+     model.addAttribute("favorite", favorite);
       
       return "member/kiview_myactivity";
    }

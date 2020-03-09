@@ -26,4 +26,5 @@ public interface KinderDao {
 	public int ReviewCnt(int kinder_no);
 	public int LocalSearchCnt(ProvinceVo vo);
 	public int NameSearchCnt(String name);
+	public List<KinderVo> bestKinderList();
 }

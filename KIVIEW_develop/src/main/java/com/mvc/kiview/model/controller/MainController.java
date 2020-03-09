@@ -42,17 +42,19 @@ public class MainController {
 		
 
 		
-		List<KinderVo> kinderlist = biz.KinderListAll();
+		List<KinderVo> kinderlist = biz.bestKinderList();
 		List<KinderVo> kinder_res = new ArrayList<KinderVo>();
+		List<KinderVo> kinderAll = biz.KinderListAll();
 		
 		Collections.shuffle(kinderlist);
 		
-		/*
-		 * for(int i=0; i<4; i++) { kinder_res = (List<KinderVo>)kinderlist.get(i); }
-		 * 
-		 * System.out.println(kinder_res);
-		 */
-
+		
+		for(int i=0; i<4; i++) {
+			kinder_res.add(kinderlist.get(i));
+		}
+		
+		model.addAttribute("bestkinder",kinder_res);
+		model.addAttribute("kindercnt",kinderAll.size());
 		
 		return "index";
 	}

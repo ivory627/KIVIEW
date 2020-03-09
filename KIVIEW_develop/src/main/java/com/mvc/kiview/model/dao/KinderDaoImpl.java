@@ -215,6 +215,18 @@ public class KinderDaoImpl implements KinderDao{
 		}
 		return count;
 	}
+
+	@Override
+	public List<KinderVo> bestKinderList() {
+		List<KinderVo> list = new ArrayList<KinderVo>();
+		try {
+			list = sqlSession.selectList(namespace+"bestKinderList");
+		}catch(Exception e) {
+			System.out.println("error: bestKinderList");
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 	
 }

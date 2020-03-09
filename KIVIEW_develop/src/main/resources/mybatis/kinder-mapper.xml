@@ -187,5 +187,13 @@
 	<select id="nlistCount" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM KINDER WHERE NAME LIKE '%${name}%'
 	</select>
+	
+	<!-- 베스트 유치원 10개  -->
+	<select id="bestKinderList" resultType="kinderVo">
+		<![CDATA[ SELECT * FROM(
+		 SELECT K.*,(SELECT COUNT(*) FROM REVIEW WHERE KINDER_NO = K.KINDER_NO) AS RC
+		 FROM KINDER K ORDER BY RC DESC)
+		 KINDER WHERE ROWNUM <= 10 ]]>
+	</select>
 
 </mapper>

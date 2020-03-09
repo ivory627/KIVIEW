@@ -47,6 +47,9 @@ h1{
    font-size: 60px;
     font-weight: 800;
 }
+h3 a{
+     color:black;
+    }
 
 
 
@@ -230,7 +233,7 @@ h1{
                   <div class="block-18">
                      <div class="icon"><span class="flaticon-doctor"></span></div>
                     <div class="text">
-                      <strong class="number" data-number="351">0</strong>
+                      <strong class="number" data-number="${kindercnt }">0</strong>
                       <span id = "cntfont">등록된 유치원</span>
                     </div>
                   </div>
@@ -373,126 +376,26 @@ h1{
                <h2 class="mb-4">
                   <span>유치원</span> 추천!
                </h2>
-               <p>부모님들이 원하는 조건에 맞는 유치원을 추천해드립니다.</p>
+               <p>리뷰가 많은 유치원을 추천해드립니다.</p>
             </div>
          </div>
          <div class="row">
+         <c:forEach items="${bestkinder }" var="bestkinder" varStatus="i">
             <div class="col-md-6 col-lg-3 ftco-animate">
                <div class="staff">
                   <div class="img-wrap d-flex align-items-stretch">
                      <div class="img align-self-stretch"
-                        style="background-image: url(resources/images/main/kiview_01.png);"></div>
+                        style="background-image: url(resources/images/main/kiview_0${i.count}.png);"></div>
                   </div>
                   <div class="text pt-3 text-center">
-                     <h3>키뷰 유치원</h3>
-                     <span class="position mb-2">서울시 중구 소재</span>
+                     <h3><a href="searchdetail.do?kinder_no=${bestkinder.kinder_no}">${bestkinder.name }</a></h3>
+                     <span class="position mb-2">${bestkinder.addr2 }</span>
                      <div class="faded">
-                        <p>I am an ambitious workaholic, but apart from that, pretty
-                           simple person.</p>
-                        <ul class="ftco-social text-center">
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-twitter"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-facebook"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-google-plus"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-instagram"></span></a></li>
-                        </ul>
                      </div>
                   </div>
                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
-               <div class="staff">
-                  <div class="img-wrap d-flex align-items-stretch">
-                     <div class="img align-self-stretch"
-                        style="background-image: url(resources/images/main/kiview_02.png);"></div>
-                  </div>
-                  <div class="text pt-3 text-center">
-                     <h3>남도 유치원</h3>
-                     <span class="position mb-2">부산시 해운대구 소재</span>
-                     <div class="faded">
-                        <p>I am an ambitious workaholic, but apart from that, pretty
-                           simple person.</p>
-                        <ul class="ftco-social text-center">
-                           <li class="ftco-animate">
-                           <a href="#">
-                           <span class="icon-twitter"></span>
-                           </a>
-                           </li>
-                           <li class="ftco-animate">
-                           <a href="#">
-                           <span class="icon-facebook"></span>
-                           </a>
-                           </li>
-                           <li class="ftco-animate">
-                           <a href="#">
-                           <span class="icon-google-plus"></span>
-                           </a>
-                           </li>
-                           <li class="ftco-animate">
-                           <a href="#">
-                           <span class="icon-instagram"></span>
-                           </a>
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
-               <div class="staff">
-                  <div class="img-wrap d-flex align-items-stretch">
-                     <div class="img align-self-stretch"
-                        style="background-image: url(resources/images/main/kiview_03.png);"></div>
-                  </div>
-                  <div class="text pt-3 text-center">
-                     <h3>KH 유치원</h3>
-                     <span class="position mb-2">대구시 달서구 소재</span>
-                     <div class="faded">
-                        <p>I am an ambitious workaholic, but apart from that, pretty
-                           simple person.</p>
-                        <ul class="ftco-social text-center">
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-twitter"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-facebook"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-google-plus"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-instagram"></span></a></li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
-               <div class="staff">
-                  <div class="img-wrap d-flex align-items-stretch">
-                     <div class="img align-self-stretch"
-                        style="background-image: url(resources/images/main/kiview_04.png);"></div>
-                  </div>
-                  <div class="text pt-3 text-center">
-                     <h3>자바 유치원</h3>
-                     <span class="position mb-2">용인시 처인구 소재</span>
-                     <div class="faded">
-                        <p>I am an ambitious workaholic, but apart from that, pretty
-                           simple person.</p>
-                        <ul class="ftco-social text-center">
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-twitter"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-facebook"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-google-plus"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-instagram"></span></a></li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
+            </div> 
+         </c:forEach>
          </div>
       </div>
    </section>
