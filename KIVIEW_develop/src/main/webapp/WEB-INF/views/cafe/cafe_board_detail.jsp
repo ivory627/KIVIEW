@@ -23,17 +23,17 @@
 }
 
 .active{
- background-color: lightgray;
-
+ background-color: #9bdaf2;
+ border-radius: 40%; 
 }   
 
 
 
 #replypaging {
-	width:100%;
-	margin:0 auto; 
-	text-align:center;
-	float:center; 
+   width:100%;
+   margin:0 auto; 
+   text-align:center;
+   float:center; 
 }
 
 </style>
@@ -50,8 +50,12 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-            <h1 class="mb-2 bread">카페  게시판 디테일</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="index.jsp">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog <i class="ion-ios-arrow-forward"></i></span></p>
+           <h1 class="mb-2 bread">키뷰 카페</h1>
+               <p class="breadcrumbs">
+                  <span class="mr-2"><a href="index.jsp">홈 <i
+                        class="ion-ios-arrow-forward"></i></a></span> <span>키뷰카페 <i
+                     class="ion-ios-arrow-forward"></i></span>
+               </p>
           </div>
         </div>
       </div>
@@ -75,25 +79,32 @@
                <h2 class="mb-3"><b>#글 상세보기 </b></h2>
                <hr>
                               
-               <label>제 목</label><br>
+               
+                     <c:choose>
+                     <c:when  test="${fn:length(cafe_board_detail.category) != 0 && cafe_board_detail.category ne 'null' }">
+                                 [ ${cafe_board_detail.category } ] 
+                     </c:when>
+                     <c:otherwise>
+                            
+                     </c:otherwise>
+                   </c:choose>
+                 <br>     
                   <input type="text" value="${cafe_board_detail.title }" name="title" size="70" readonly><br>
-                  <c:choose>
-                  <c:when  test="${fn:length(cafe_board_detail.category) != 0 && cafe_board_detail.category ne 'null' }">
-                              [ ${cafe_board_detail.category } ] 
-                  </c:when>
-                  <c:otherwise>
-                         
-                  </c:otherwise>
-                  </c:choose>
-               <br>     
-               <br>
-               <span align=right>${cafe_board_detail.writer}  &nbsp;|&nbsp;  <fmf:formatDate value='${cafe_board_detail.regdate}' pattern='yyyy-MM-dd'/> &nbsp;|&nbsp; 조회수  ${cafe_board_detail.hit }</span> 
-               <br><br>
-               <label>내 용</label><br>  
-                  <textarea cols="90" rows="10" name="content" readonly>${cafe_board_detail.content }</textarea>  
                   
+                   
+               
+               <div align="right">${cafe_board_detail.writer}  &nbsp;|&nbsp;  <fmf:formatDate value='${cafe_board_detail.regdate}' pattern='yyyy-MM-dd'/> &nbsp;|&nbsp; 조회수  ${cafe_board_detail.hit }</div> 
+               <br><br>
+               
+ <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ20.03.02 수정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡhr 추가 위아래 추가ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+                                 
+                  <div style=" overflow-y:auto; width:93%; ">
+                      <div  id="contentbefore2"></div> 
+                  </div>
+                  <hr>
+ <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->                  
                <br>
-            
+              
                <div align="right" style="margin-right:60px; margin-top:10px">
                <c:if test="${cafe_board_detail.writer eq login.member_id || cafe_list[0].admin eq login.member_id  }">
                   <input type="button" onclick="location.href='cafeboardupdateform.do?cafe_board_no=${cafe_board_detail.cafe_board_no}&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }&curpagenum=${curpagenum }'" value="수 정" class="btn btn-primary" style="width:10%">
@@ -105,7 +116,7 @@
                
                <br>
                <br>
-<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->                 
+         <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->                 
                <div id="replylist" style="width:100%;"> 
                   
                <hr>
@@ -122,26 +133,26 @@
               <div id="replypaging">               
               </div>  
               
-               <!-- 페이징 관련 코드 여기에 넣어야 함. -->
+               
                
                
                <div id="reply" style="width:80%; border:0px solid lightgray"> 
                <div> 
-               <form action="#">
-               <br> 
+               
+               <form action="#" >
+               <br>
+               <label style="font-weight:bold; color:black" >${login.member_id }</label> 
                <input type="hidden" name="" value="${cafe_board_detail.cafe_board_no}" id="replyboard_no">
                <input type="hidden" name="" value="${cafe_board_detail.writer}" id="writer">
                <input type="hidden" name="" value="${login.member_id }" id="loginid">
                <input type="hidden" name="" value="${cafe_list[0].admin}" id="adminid">
                         
               
-                   <label style="font-weight:bold; color:black" >${login.member_id }</label><br>                  
-                  <textarea style="resize:none"cols="90" rows="2" placeholder="상대방을 향한 욕설, 음담패설은 자제해주세요."  id="replycontent" maxlength="100" required></textarea>                 
                   <br>
-                  <input type="text" size="1" placeholder="0" id="replycount" readonly="readonly" >자
-              
-                  <input style="position:relative; left:86%;" type="button" class="btn btn-primary" value="등록" onclick="replyinsert();">                  
-              
+                  <div id="replyform">            
+                  
+                  </div>                
+                  
                </form>          
               
              
@@ -162,8 +173,25 @@
 <script type="text/javascript">
 var curpagenum= 1;
 
+function onTestChange() {
+    var key = window.event.keyCode
+
+    
+    if (key === 13) {
+        document.getElementById("replycontent").value = document.getElementById("replycontent").value + "\n";
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 
 
+
+
+var contentbefore = '${cafe_board_detail.content }';
+$("#contentbefore2").append(contentbefore);
+  
 
 $(document).on("keyup","#replycontent",function(){
    var content = $("#replycontent").val();   
@@ -208,25 +236,35 @@ function ajaxreplylist(curpagenum){
           }),
                 
           success : function(data){
-             
+                
                  $("#replylist").empty();
                  $("#replylistthis").empty();
-             var rlistcount = "<h5>댓글<a style='color:fda638'>"+data.pagevo.totallistcount+"</a>개</h5>";       
+                 $("#replyform").empty();
+             var rlistcount = "<h5>댓글<a style='color:fda638'>"+data.pagevo.totallistcount+"</a>개</h5><hr>";       
                  $("#replylist").append(rlistcount);
                 
              if(data.rlist.length==0){                
-                    
+                var replyform = '';
+                 replyform +=
+                  "<textarea style='resize:none'cols='90' rows='4' placeholder='상대방을 향한 욕설, 음담패설은 자제해주세요. 댓글 최대 100자'  id='replycontent' maxlength='100' onkeypress='onTestChange();' required></textarea>"+                 
+                  "<br>"+
+                  "<input type='text' size='1' placeholder='0' id='replycount' readonly='readonly' >자"+              
+                  "<input style='position:relative; left:86%;' type='button' class='btn btn-primary' value='등록' onclick='replyinsert();'>";  
+                $("#replyform").append(replyform);  
                 
              }else{             
-                $.each(data.rlist, function(key,value){    
-                  
+                $.each(data.rlist, function(key,value){
+                   
+                   var content = value.content;
+                   content = content.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                   
                    var rlist1 = '';
                    rlist1 +=
                     
                     "<div id='comment"+value.cafe_reply+"' >"+
                     
                        "<div style='font-weight:bold; color:black' id='replywriter"+value.cafe_reply+"' >"+value.writer+"</div>"+
-                       "<div style='color:black' >"+value.content+"</div>"+
+                       "<p style='color:black' >"+content+"</p>"+
                        "<div style='font-size:smell'>"+changeDate(value.regdate)+"</div>"+ 
                        "<input type='button' value='수 정' class='btn btn-primary btnhide"+value.cafe_reply+"' onclick='replyupdate1("+value.cafe_reply+");'/>"+
                        "<input type='button' value='삭 제' class='btn btn-secondary btnhide"+value.cafe_reply+"' onclick='replydelete("+value.cafe_reply+","+data.pagevo.curpagenum+","+data.pagevo.cafe_board_no+");' />"+
@@ -236,16 +274,19 @@ function ajaxreplylist(curpagenum){
                       "</div><hr>"+
                       
                       "<div id='commentupdate"+value.cafe_reply+"' style='display:none'>"+                      
-                         "<div style='font-weight:bold; color:black'>"+value.writer+"</div>"+
-                         "<input type='text' size='80' name='content' value='"+value.content+"' id='updatecontent"+value.cafe_reply+"'/> "+
+                         "<div style='font-weight:bold; color:black'>"+value.writer+"</div>"+                        
+                         "<textarea style='resize:none'cols='90' rows='4' placeholder='상대방을 향한 욕설, 음담패설은 자제해주세요. 댓글 최대 100자'  id='updatecontent"+value.cafe_reply+"' maxlength='100' required>"+value.content+"</textarea>"+
                          "<div style='font-size:smell'>"+changeDate(value.regdate)+"</div>"+   
                          "<input type='button' value='수정완료' class='btn btn-primary' onclick='replyupdate2("+value.cafe_reply+","+data.pagevo.curpagenum+","+data.pagevo.cafe_board_no+");'/>"+
                          "<input type='button' value='수정취소' class='btn btn-secondary' onclick='replyupdatex("+value.cafe_reply+");'/>"+       
                                               
                       "</div>";                 
                        
-                   console.log(rlist1);
+                   
+                   
+                   
                    $("#replylistthis").append(rlist1);
+                   
                    
                    
                    var loginid = $("#loginid").val();
@@ -258,6 +299,14 @@ function ajaxreplylist(curpagenum){
                      $(".btnhide"+value.cafe_reply).show();
                   }
                 })
+                
+                
+                
+                
+                
+                
+                
+                
             /* 페이징  */
                 if(data.rlist.length > 0){
                    
@@ -310,18 +359,18 @@ function ajaxreplylist(curpagenum){
                var searchresultpaging1 = '';
                searchresultpaging1 +=                              
                "<li class='paging'><a href='javascript:PageMove("+data.pagevo.totalpagecount+")'>&nbsp;&nbsp; >> &nbsp;&nbsp; </a> </li></ul>";
-               $("#replypaging").find("ul").append(searchresultpaging1);
-                  
-               
-               console.log(searchresultpaging1);
-                  
-                  
-               
-               
-            } 
+               $("#replypaging").find("ul").append(searchresultpaging1); 
+            
+            }
                 
                 
-                
+               var replyform = '';
+               replyform +=
+                "<textarea style='resize:none'cols='90' rows='4' placeholder='상대방을 향한 욕설, 음담패설은 자제해주세요. 댓글 최대 100자'  id='replycontent' maxlength='100' onkeypress='onTestChange();' required></textarea>"+                 
+                "<br>"+
+                "<input type='text' size='1' placeholder='0' id='replycount' readonly='readonly' >자"+              
+                "<input style='position:relative; left:86%;' type='button' class='btn btn-primary' value='등록' onclick='replyinsert();'>";  
+              $("#replyform").append(replyform);  
                 
                 
                 
@@ -378,10 +427,10 @@ function replyinsert(){
            
             $("#replylistthis").empty();
             var page = data.insertpage;
-            alert(page);
+            //alert(page);
             ajaxreplylist(page);
-            
-            $("#replycontent").val('');
+                     
+           
             
          }else{
             alert("다시 시도 해 주세요.");
@@ -389,14 +438,14 @@ function replyinsert(){
        },
       
        error : function(request,status,error){
-            alert("실패");               
+        //    alert("실패");               
         }       
 });
 
 }
 function replydelete(cafe_reply,curpagenum,cafe_board_no){       
    console.log(cafe_reply);
-   alert(curpagenum);
+   
    
    jQuery.ajax({   
       url : "ajaxreplydelete.do",
@@ -420,7 +469,7 @@ function replydelete(cafe_reply,curpagenum,cafe_board_no){
           
        },
        error : function(request,status,error){
-           alert("실패");
+          // alert("실패");
           
        }
    
@@ -513,7 +562,7 @@ function changeDate(date){
     }
     
            
-    strDate = year+"-"+month+"-"+day+" "+hour+":"+minute
+    strDate = year+"-"+month+"-"+day+" ";
     
     
     return strDate;
