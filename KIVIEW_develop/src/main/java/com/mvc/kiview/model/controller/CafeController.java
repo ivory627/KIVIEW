@@ -86,12 +86,14 @@ public class CafeController {
 
 		List<CafeVo> cafe = biz.cafe_Ulist(member_no);
 		List<CafeMemberVo> member = biz.member_selectAll();
+		List<CafeVo> best = biz.best_cafe();
 
 		CafePageVo pagevo = biz.paging(curpagenum,cafe.size());
 
 	    model.addAttribute("pagevo",pagevo);
 		model.addAttribute("cafe", cafe);
 		model.addAttribute("member",member);
+		model.addAttribute("best",best);
 
 
 

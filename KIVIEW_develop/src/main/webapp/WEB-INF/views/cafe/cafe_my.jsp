@@ -17,7 +17,7 @@
 
 <style type="text/css">
 a {
-	text-decoration: none;
+	color:black; 
 }
 
 li a {
@@ -110,7 +110,7 @@ li a {
 						</h2>
 					
 					<hr>
-					<p>admin 님이 가입한 카페 가입 목록입니다.</p>
+					<p>${login.member_id } 님이 가입한 카페 가입 목록입니다.</p>
 
 					<!-- 여기서부터 반복 -->
 					<c:choose>
@@ -174,16 +174,16 @@ li a {
 										<c:if test="${cafe.admin ne login.member_id }">
 											<c:forEach var="member" items="${member }">
 												<c:if test="${login.member_no == member.member_no && cafe.cafe_no == member.cafe_no }">
-													<br> <input style="position: relative; left: 90%; background-color:black"
+													<input style="position: relative; left: 90%; background-color:black"
 														class="btn btn-secondary" type="button" value="탈퇴"
 														onclick="member_out(${login.member_no },${member.cafe_member_no})" > 
-													<hr> 
+													<hr>  
 												</c:if>
 											</c:forEach> 
 										</c:if>  
 										<c:if test="${cafe.admin eq login.member_id }">
 											
-													<br> <input style="position: relative; left: 90%; background-color:black"
+													<input style="position: relative; left: 90%; background-color:black"
 														class="btn btn-secondary" type="button" value="폐쇄"
 														onclick="cafe_delete(${login.member_no },${cafe.cafe_no})" >
 													<hr> 
