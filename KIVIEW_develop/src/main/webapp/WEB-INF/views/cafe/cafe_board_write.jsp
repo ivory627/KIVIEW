@@ -170,7 +170,7 @@ $(function(){
             if(key.category2==0){
                                 
             $("#boardcategory2").hide();
-            alert("해당 게시판은 말머리가 존재하지 않습니다.");   
+          
             }else{
                
                 $.each(key.category2,function(index,item){               
@@ -188,10 +188,7 @@ $(function(){
    
          },
          error : function(request,status,error){
-            alert("통신 실패");
-            alert(request);
-            alert(status);
-            alert(error);
+           
             
             
          }
@@ -222,14 +219,9 @@ $(function() {
             return;
          }
          
-         var result = confirm("글 작성 하시겠습니까?");
          
-         if(result){
-            alert("글 작성 완료");
-            $("#submitgo").submit();
-         }else{
-            return;
-         }
+         $("#submitgo").submit();
+        
       });
    })
 

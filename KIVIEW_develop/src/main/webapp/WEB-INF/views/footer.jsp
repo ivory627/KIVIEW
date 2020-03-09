@@ -53,10 +53,10 @@
           </div>
            <div class="col-md-6 col-lg-3">
             <div class="ftco-footer-widget mb-5">
-            	<h2 class="ftco-heading-2">KIVIEW가 참고한 사이트</h2>
+            	<h2 class="ftco-heading-2">KIVIEW가 참고한 사이트</h2> 
                 <div class="form-group">
-                  <button onclick = "location.href='https://www.starteacher.co.kr/'" class="form-control submit px-3" style = "cursor:pointer;">별별선생</button><br>
-                  <button onclick = "location.href='https://www.behance.net/'" class="form-control submit px-3" style = "cursor:pointer;">Behance.net</button>
+                  <button style="background-color:#fda638; cursor:pointer;" onclick = "location.href='https://www.starteacher.co.kr/'" class="form-control submit px-3" >별별선생</button><br>
+                  <button style="background-color:#fda638; cursor:pointer;" onclick = "location.href='https://www.behance.net/'" class="form-control submit px-3" >Behance.net</button>
                 </div>
             </div>
           </div>
