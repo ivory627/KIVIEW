@@ -39,10 +39,6 @@ public interface LikeBiz {
 	
 
 
- //즐겨찾기
-   public int selectFavoriteCount(FavoriteVo vo);
-   public int favoriteDelete(FavoriteVo vo);
-   public int favoriteInsert(FavoriteVo vo);
    
    
 }
