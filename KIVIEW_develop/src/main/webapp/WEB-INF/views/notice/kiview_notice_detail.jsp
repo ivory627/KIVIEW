@@ -11,12 +11,17 @@
 <html lang="en">
 <head>
 <title>KIVIEW &mdash; About</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 
 <jsp:include page="../head.jsp"/>
 
 <!-- js -->
 <script type="text/javascript" src = "resources/js/notice-detail.js"></script>
 <script type="text/javascript" src = "resources/js/notice.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+
 
 <style type="text/css">
 
@@ -175,27 +180,57 @@ box-sizing: border-box;
 						<div class="jsx-2334299286 share share--small share--circle">
 							<ul class="jsx-2334299286">
 								<li class="jsx-2334299286">
-								<button tabindex="0"
+								<button tabindex="0" onclick = "sendLink();"
 										class="jsx-2334299286 share-link share-link--kakao" id = "btn2">
-										<span class="jsx-2334299286 icon icon--kakao">
-										<span class="jsx-2334299286 alt-text">카카오톡 공유</span></span>
-									</button>
-								</li>
-								<li class="jsx-2334299286">
-								<button tabindex="0" id = "btn3"
-										class="jsx-2334299286 share-link share-link--facebook">
-										<span class="jsx-2334299286 icon icon--facebook">
-										<span class="jsx-2334299286 alt-text">페이스북 공유</span>
-										</span>
+									<span class="jsx-2334299286 icon icon--kakao">
+									<span class="jsx-2334299286 alt-text">카카오톡 공유</span></span>
 								</button>
+								<script type="text/javascript">
+									Kakao.init('4e09138dcd9cf80d2b1e9eb7ba90aa3b');
+									// // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+									function sendLink() {
+									  Kakao.Link.sendDefault({
+									    objectType: 'feed',
+									    content: {
+									      title: '${noticedetail.notice_title}' ,
+									      description: '#키뷰 #${noticedetail.cat_detail}',
+									      imageUrl: 'https://ifh.cc/g/MReqA.jpg',
+									      link: {
+									        mobileWebUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
+									        webUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
+									      }
+									    },
+									    buttons: [
+									      {
+									        title: '웹으로 보기',
+									        link: {
+									          mobileWebUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
+									          webUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
+									        }
+									      },
+									      {
+									        title: '앱으로 보기',
+									        link: {
+									          mobileWebUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
+									          webUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
+									        }
+									      }
+									    ]
+									  });
+									}
+								</script>
 								</li>
+								
 								<li class="jsx-2334299286">
-								<button tabindex="0" id = "btn4"
-										class="jsx-2334299286 share-link share-link--url">
-										<span class="jsx-2334299286 icon icon--url">
-										<span class="jsx-2334299286 alt-text">페이지 URL 공유</span>
-										</span>
+								<button tabindex="0" id = "btn4" onclick="javascript:CopyUrlToClipboard()"
+								class="jsx-2334299286 share-link share-link--url">
+									<span class="jsx-2334299286 icon icon--url">
+									<span class="jsx-2334299286 alt-text"></span>
+									</span>
 								</button>
+								<input type = "text" id = "ShareUrl" style = "position:absolute;top:-9999em;"
+								value = "http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}"/>
+								&nbsp;<div id="snackbar">클립보드로 복사되었습니다.</div>
 								</li>
 							</ul>
 						</div>

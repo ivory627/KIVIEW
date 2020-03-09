@@ -32,7 +32,7 @@ function ban(){
 } 
 
 function cafechat(){
-	window.open("cafechat.do?member_id=${login.member_id}&member_no=${login.member_no}","_blank","width=900, height=700, scrollbars=yes"); 
+	window.open("cafechat.do?cafe_no=${cafe_list[0].cafe_no}","_blank","width=900, height=740"); 
 	
 }
 

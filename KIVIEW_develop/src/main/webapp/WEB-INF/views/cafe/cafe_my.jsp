@@ -17,7 +17,11 @@
 
 <style type="text/css">
 a {
-	text-decoration: none;
+	color:black; 
+}
+
+li a {
+	color:black;
 }
 
 .intro {
@@ -80,12 +84,12 @@ a {
 			<div
 				class="row no-gutters slider-text align-items-center justify-content-center">
 				<div class="col-md-9 ftco-animate text-center">
-					<h1 class="mb-2 bread">카페 홈</h1>
-					<p class="breadcrumbs">
-						<span class="mr-2"><a href="index.jsp">홈 <i
-								class="ion-ios-arrow-forward"></i></a></span> <span>키뷰카페 <i
-							class="ion-ios-arrow-forward"></i></span>
-					</p>
+					<h1 class="mb-2 bread">키뷰 카페</h1>
+	               <p class="breadcrumbs">
+	                  <span class="mr-2"><a href="index.jsp">홈 <i
+	                        class="ion-ios-arrow-forward"></i></a></span> <span>키뷰카페 <i
+	                     class="ion-ios-arrow-forward"></i></span>
+	               </p>
 				</div>
 			</div>
 		</div>
@@ -99,14 +103,14 @@ a {
 
 				<!-- 카페 홈 소개 -->
 				<div class="col-lg-8 ftco-animate">
-					<a href="cafehome.do">
+					
 						<h2 class="mb-3" style="font-weight: bold; color: #FFDC00;">
 							<span><img src="resources/images/main/chat.png" /></span>&nbsp;&nbsp;
 							<span style="color: #9BDAF2;">Kiview</span> Cafe
 						</h2>
-					</a>
+					
 					<hr>
-					<p>admin 님이 가입한 카페 가입 목록입니다.</p>
+					<p>${login.member_id } 님이 가입한 카페 가입 목록입니다.</p>
 
 					<!-- 여기서부터 반복 -->
 					<c:choose>
@@ -170,16 +174,16 @@ a {
 										<c:if test="${cafe.admin ne login.member_id }">
 											<c:forEach var="member" items="${member }">
 												<c:if test="${login.member_no == member.member_no && cafe.cafe_no == member.cafe_no }">
-													<br> <input style="position: relative; left: 90%; background-color:black"
+													<input style="position: relative; left: 90%; background-color:black"
 														class="btn btn-secondary" type="button" value="탈퇴"
 														onclick="member_out(${login.member_no },${member.cafe_member_no})" > 
-													<hr> 
+													<hr>  
 												</c:if>
 											</c:forEach> 
 										</c:if>  
 										<c:if test="${cafe.admin eq login.member_id }">
 											
-													<br> <input style="position: relative; left: 90%; background-color:black"
+													<input style="position: relative; left: 90%; background-color:black"
 														class="btn btn-secondary" type="button" value="폐쇄"
 														onclick="cafe_delete(${login.member_no },${cafe.cafe_no})" >
 													<hr> 
@@ -255,30 +259,54 @@ a {
 
 
 					<!-- 카페 추천 -->
-					<div class="sidebar-box ftco-animate">
-						<h3>Popular Cafe</h3>
-						<div class="block-21 mb-4 d-flex">
-							<a class="blog-img mr-4"
-								style="background-image: url('resources/images/bg_2.jpg');"></a>
-							<div class="text">
-								<h3 class="heading">
-									<a href="#">Even the all-powerful Pointing has no control
-										about the blind texts</a>
-								</h3>
-								<div class="meta">
-									<div>
-										<a href="#"><span class="icon-calendar"></span> Jan. 27,
-											2019</a>
-									</div>
-									<div>
-										<a href="#"><span class="icon-person"></span> Dave Lewis</a>
-									</div>
-									<div>
-										<a href="#"><span class="icon-chat"></span> 19</a>
-									</div>
-								</div>
-							</div>
-						</div>
+               <div class="sidebar-box ftco-animate">
+
+                  <h3>추천 카페</h3>
+
+                  <c:choose>
+                  	<c:when test="${!empty best }">
+                  		<c:forEach var="best" items="${best }">
+
+		                  <div class="block-21 mb-4 d-flex">
+		                     <a class="blog-img mr-4"
+		                        style="background-image: url('http://localhost:8787/img/${best.thumb }')"></a>
+
+		                     <div class="text">
+		                        <h3 class="heading">
+		                           <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${best.intro }</a>
+		                        </h3>
+		                        <div class="meta">
+
+		                           <div>
+		                              <span class="icon-person">${best.admin }</span>
+		                           </div>
+		                           <div>
+
+		                           		<c:set var="count" value="0"/>
+
+		                           				<c:forEach	var="member" items="${member }">
+		                           					<c:if test="${member.cafe_no == best.cafe_no }">
+		                           						<c:set var="count" value="${count+1 }"/>
+
+		                           					</c:if>
+		                           				</c:forEach>
+
+		                              <span>${count } 명</span>
+
+		                           </div>
+		                        </div>
+		                     </div>
+		                  </div>
+
+                  		</c:forEach>
+                  	</c:when>
+                  	<c:otherwise>
+                  		 <div class="block-21 mb-4 d-flex">
+                  		 	카페가 존재하지 않습니다.
+                  		 </div>
+                  	</c:otherwise>
+
+                  </c:choose>
 						<p class="mb-0">
 							<a href="cafeadmin.do?member_no=${login.member_no }&member_id=${login.member_id }" class="btn btn-secondary"
 								style="width: 300px">카페 개설하기 </a>

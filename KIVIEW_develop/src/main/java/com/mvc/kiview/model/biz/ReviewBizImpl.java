@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.kiview.model.dao.ReviewDao;
+import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.KinderVo;
 import com.mvc.kiview.model.vo.ReviewVo;
 
@@ -17,8 +18,8 @@ public class ReviewBizImpl implements ReviewBiz{
 	private ReviewDao dao;
 	
 	@Override
-	public List<ReviewVo> reviewList() {
-		return dao.reviewList();
+	public List<ReviewVo> reviewList(Criteria cri) {
+		return dao.reviewList(cri);
 	}
 
 	@Override
@@ -58,6 +59,11 @@ public class ReviewBizImpl implements ReviewBiz{
 	public List<ReviewVo> reviewSearch(Map map) {
 		
 		return dao.reviewSearch(map);
+	}
+
+	@Override
+	public int reviewCount(Criteria cri) {
+		return dao.reviewCount(cri);
 	}
 
 }
