@@ -49,10 +49,10 @@
 		WHERE MEMBER_ID = #{member_id} AND MEMBER_EMAIL = #{member_email}
 	</select>
 	
-	<!-- 소셜로그인 이메일 확인 -->
+	<!-- 소셜로그인 이메일아이디 확인 -->
 	<select id="selectEmail" parameterType="String" resultType="memberVo">
 		SELECT * FROM MEMBER
-		WHERE MEMBER_EMAIL = #{snsEmail}
+		WHERE MEMBER_ID = #{snsEmail}
 	</select>
 	
 	<!-- 임시비밀번호 저장 -->

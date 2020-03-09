@@ -63,7 +63,7 @@
 								<div class="jsx-639067573 input">
 									<input autocomplete="new-password"
 										placeholder="아이디를 입력해 주세요" class="jsx-639067573 "
-										name="member_id" id="member_id" onkeydown="idChk_chk()">
+										name="member_id" id="member_id" onkeydown="idChk_chk()" value="${snsEmail }" readonly="readonly">
 									<input type="hidden" id="idChkChk" value="idUnchecked" />
 								</div>
 								<button class="jsx-771227029 btn-id-check" type="button"
@@ -159,7 +159,7 @@
 	<script src="js/signup.min.js"></script>
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" src="resources/js/signup.js?version=1.0"></script> 
+	<script type="text/javascript" src="resources/js/signup_sns.js?version=1.0"></script> 
 
 
 

@@ -284,6 +284,7 @@ public class MemberController {
       String snsEmail = response.getAsJsonObject().get("email").getAsString();
       System.out.println("내가 출력하고 싶은 이메일: " + snsEmail );
       
+      //이메일 중복확인
       vo = biz.selectEmail(snsEmail);
       System.out.println(vo);
       if(vo != null) {
