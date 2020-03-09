@@ -24,69 +24,71 @@ import com.mvc.kiview.model.vo.PageMaker;
 
 @Controller // 인덱스 관련된 컨트롤러
 public class MainController {
-	
-	@Autowired
-	private KinderBiz biz;
-	
-	@Autowired
-	private CafeBiz biz_cafe;
+   
+   @Autowired
+   private KinderBiz biz;
+   
+   @Autowired
+   private CafeBiz biz_cafe;
 
-	@RequestMapping("/index.do")
-	public String index(Model model) {
+   @RequestMapping("/index.do")
+   public String index(Model model) {
 
-		List<CafeMemberVo> member = biz_cafe.member_selectAll();
-		List<CafeVo> best = biz_cafe.best_cafe();
-		
-		model.addAttribute("member", member);
-		model.addAttribute("best",best);
-		
+      List<CafeMemberVo> member = biz_cafe.member_selectAll();
+      List<CafeVo> best = biz_cafe.best_cafe();
+      
+      model.addAttribute("member", member);
+      model.addAttribute("best",best);
+      
 
-		
-		List<KinderVo> kinderlist = biz.KinderListAll();
-		List<KinderVo> kinder_res = new ArrayList<KinderVo>();
-		
-		Collections.shuffle(kinderlist);
-		
-		/*
-		 * for(int i=0; i<4; i++) { kinder_res = (List<KinderVo>)kinderlist.get(i); }
-		 * 
-		 * System.out.println(kinder_res);
-		 */
+      
+      List<KinderVo> kinderlist = biz.bestKinderList();
+      List<KinderVo> kinder_res = new ArrayList<KinderVo>();
+      List<KinderVo> kinderAll = biz.KinderListAll();
+      
+      Collections.shuffle(kinderlist);
+      
+      
+      for(int i=0; i<4; i++) {
+         kinder_res.add(kinderlist.get(i));
+      }
+      
+      model.addAttribute("bestkinder",kinder_res);
+      model.addAttribute("kindercnt",kinderAll.size());
+      
+      return "index";
+   }
+   
+   @RequestMapping("/autosearch.do")
+   @ResponseBody
+   public List<KinderVo> autoSearch(String keyword) {    
+       
+      List<KinderVo> list = biz.KinderList(keyword);
 
-		
-		return "index";
-	}
-	
-	@RequestMapping("/autosearch.do")
-	@ResponseBody
-	public List<KinderVo> autoSearch(String keyword) {    
-	    
-		List<KinderVo> list = biz.KinderList(keyword);
+       return list;
+   }
+   
+   @RequestMapping("/mainsearch.do")
+   public ModelAndView mainSearch(String keyword,Criteria cri,Integer kinder_no) {
+      
+      PageMaker pageMaker = new PageMaker();
+      pageMaker.setCri(cri);
+      
+      ModelAndView mav = new ModelAndView("kinder/kiview_Search_detail");
+      if(keyword!=null ) {
+         mav.addObject("kindervo",biz.Kinderdetail(keyword));         
+         mav.addObject("reviewvo",biz.ReviewList(biz.Kinderdetail(keyword).getKinder_no(),cri));
+         pageMaker.setTotalCount(biz.ReviewCnt(biz.Kinderdetail(keyword).getKinder_no()));
+      }else {
+         mav.addObject("kindervo", biz.Kinderdetail(kinder_no));
+         mav.addObject("reviewvo",biz.ReviewList(kinder_no,cri));
+         pageMaker.setTotalCount(biz.ReviewCnt(kinder_no));
 
-	    return list;
-	}
-	
-	@RequestMapping("/mainsearch.do")
-	public ModelAndView mainSearch(String keyword,Criteria cri,Integer kinder_no) {
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		
-		ModelAndView mav = new ModelAndView("kinder/kiview_Search_detail");
-		if(keyword!=null ) {
-			mav.addObject("kindervo",biz.Kinderdetail(keyword));			
-			mav.addObject("reviewvo",biz.ReviewList(biz.Kinderdetail(keyword).getKinder_no(),cri));
-			pageMaker.setTotalCount(biz.ReviewCnt(biz.Kinderdetail(keyword).getKinder_no()));
-		}else {
-			mav.addObject("kindervo", biz.Kinderdetail(kinder_no));
-			mav.addObject("reviewvo",biz.ReviewList(kinder_no,cri));
-			pageMaker.setTotalCount(biz.ReviewCnt(kinder_no));
-
-		}
-		mav.addObject("pageMaker", pageMaker);
-		
-		return mav;
-	}
-	
+      }
+      mav.addObject("pageMaker", pageMaker);
+      
+      return mav;
+   }
+   
 
 }

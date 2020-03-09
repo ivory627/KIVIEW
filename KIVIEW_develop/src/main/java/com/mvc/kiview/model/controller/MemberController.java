@@ -100,7 +100,7 @@ public class MemberController {
    //회원가입 종류 선택
    @RequestMapping("/kiviewsignupoption.do")
    public String kiview_signupOption(Model model, HttpSession session) throws Exception {
-	   logger.info("signupOption");
+      logger.info("signupOption");
 
       /* 구글,네이버,카카오 code 발행 */
       OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
@@ -177,11 +177,11 @@ public class MemberController {
       logger.info("mypage");
       
       if(session==null) {
-    	  return "member/kiview_login";
+         return "member/kiview_login";
       } else if(session.getAttribute("login") != null) {
-    	  return "member/kiview_mypage"; 
+         return "member/kiview_mypage"; 
       }else {
-    	  return "member/kiview_mypage_sns"; 
+         return "member/kiview_mypage_sns"; 
       }
       
    }
@@ -245,22 +245,22 @@ public class MemberController {
 
    @RequestMapping("/login.do")
    public String initLogin(Model model, HttpSession session) throws Exception {
-	   logger.info("login");
-	   /* 구글,네이버,카카오 code 발행 */
-	   OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-	   String googleAuthurl = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
-	   String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-	   String kakaoAuthUrl = kakaoApi.getAuthorizationUrl(session);
+      logger.info("login");
+      /* 구글,네이버,카카오 code 발행 */
+      OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+      String googleAuthurl = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+      String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+      String kakaoAuthUrl = kakaoApi.getAuthorizationUrl(session);
 
-	   /* 생성한 인증 URL을 View로 전달 */
-	   model.addAttribute("naver_url", naverAuthUrl);
-	   model.addAttribute("google_url", googleAuthurl);
-	   model.addAttribute("kakao_url", kakaoAuthUrl);
+      /* 생성한 인증 URL을 View로 전달 */
+      model.addAttribute("naver_url", naverAuthUrl);
+      model.addAttribute("google_url", googleAuthurl);
+      model.addAttribute("kakao_url", kakaoAuthUrl);
 
-	   System.out.println("model :" + model);
+      System.out.println("model :" + model);
 
-	   /* 생성한 인증 URL을 Model에 담아서 전달 */
-	   return "member/kiview_login";
+      /* 생성한 인증 URL을 Model에 담아서 전달 */
+      return "member/kiview_login";
    }
 
    // 네이버 로그인 성공시 callback호출 메소드 **보충 필요
@@ -288,15 +288,15 @@ public class MemberController {
       vo = biz.selectEmail(snsEmail);
       System.out.println(vo);
       if(vo != null) {
-    	  session.setAttribute("snsLogin", vo);
+         session.setAttribute("snsLogin", vo);
 
           //세션 유지 시간 1시간으로 설정
           session.setMaxInactiveInterval(60*60) ;
           
-    	  return "index";
+         return "index";
       }else {
-    	  model.addAttribute("snsEmail", snsEmail);
-    	  return "member/kiview_signup_sns";
+         model.addAttribute("snsEmail", snsEmail);
+         return "member/kiview_signup_sns";
       }
       
 
@@ -328,15 +328,15 @@ public class MemberController {
       vo = biz.selectEmail(snsEmail);
       System.out.println(vo);
       if(vo != null) {
-    	  session.setAttribute("snsLogin", vo);
+         session.setAttribute("snsLogin", vo);
 
           //세션 유지 시간 1시간으로 설정
           session.setMaxInactiveInterval(60*60) ;
           
-    	  return "index";
+         return "index";
       }else {
-    	  model.addAttribute("snsEmail", snsEmail);
-    	  return "member/kiview_signup_sns";
+         model.addAttribute("snsEmail", snsEmail);
+         return "member/kiview_signup_sns";
       }
 
 
@@ -346,83 +346,83 @@ public class MemberController {
    @RequestMapping(value = "/kiviewfindpwd.do", method = RequestMethod.POST)
    @ResponseBody
    public Map<String, Boolean> findPwd(@RequestBody MemberVo vo) {
-	   logger.info("findPwd");
-	   int res = biz.findPwd(vo);
+      logger.info("findPwd");
+      int res = biz.findPwd(vo);
 
-	   boolean check2 = false;
+      boolean check2 = false;
 
-	   if (res>0) {
-		   check2 = true;
-	   }
+      if (res>0) {
+         check2 = true;
+      }
 
-	   Map<String, Boolean> map = new HashMap<String, Boolean>();
-	   map.put("check2", check2);
+      Map<String, Boolean> map = new HashMap<String, Boolean>();
+      map.put("check2", check2);
 
-	   return map;
+      return map;
    }
    
    
 
-	//비밀번호 찾기 이메일 발송
- 	@RequestMapping(value = "/kiviewsendemail.do", method = RequestMethod.POST)
- 	@ResponseBody
-	public int send_mail(@RequestBody MemberVo vo) throws Exception {
- 		logger.info("sendEmail");
- 		
- 		//임시비밀번호 DB에 저장
- 		String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");	//임시 비밀번호 생성
- 		tmpPwd = tmpPwd.substring(0, 8); //임시비밀번호를 8자리까지 자름
- 		vo.setMember_pwd(passwordEncoder.encode(tmpPwd));	//임시비밀번호 암호화
- 		
- 		System.out.println("암호화 전 임시비밀번호: "+ tmpPwd);
- 		//System.out.println("암호화 후 임시비밀번호: "+ vo.getMember_pwd());
- 		System.out.println("vo: " + vo);
- 		
- 		int res = biz.tmpPwd(vo);	//임시비밀번호  update
-		
- 		// Mail Server 설정
-		String charSet = "utf-8";
-		String hostSMTP = "smtp.naver.com";
-		String hostSMTPid = "pdy2324";
-		String hostSMTPpwd = "Ehdud21170@#";
+   //비밀번호 찾기 이메일 발송
+    @RequestMapping(value = "/kiviewsendemail.do", method = RequestMethod.POST)
+    @ResponseBody
+   public int send_mail(@RequestBody MemberVo vo) throws Exception {
+       logger.info("sendEmail");
+       
+       //임시비밀번호 DB에 저장
+       String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
+       tmpPwd = tmpPwd.substring(0, 8); //임시비밀번호를 8자리까지 자름
+       vo.setMember_pwd(passwordEncoder.encode(tmpPwd));   //임시비밀번호 암호화
+       
+       System.out.println("암호화 전 임시비밀번호: "+ tmpPwd);
+       //System.out.println("암호화 후 임시비밀번호: "+ vo.getMember_pwd());
+       System.out.println("vo: " + vo);
+       
+       int res = biz.tmpPwd(vo);   //임시비밀번호  update
+      
+       // Mail Server 설정
+      String charSet = "utf-8";
+      String hostSMTP = "smtp.naver.com";
+      String hostSMTPid = "pdy2324";
+      String hostSMTPpwd = "Ehdud21170@#";
 
-		// 보내는 사람 EMail, 제목, 내용
-		String fromEmail = "pdy2324@naver.com";
-		String fromName = "Kiview";
-		String subject = "kiview에서 임시비밀번호가 발급되었습니다";
-		String msg = "";
-		
-		msg += "<div align='center' style='border:1px solid black; font-family:verdana'; font-size:20px;>";
-		msg += "<h3 style='color: blue;'>";
-		msg += vo.getMember_id() + "님의 임시 비밀번호는&nbsp;<span style='color: red; font-size:30px'>"+ tmpPwd +"</span>&nbsp;입니다. "
-				+ "<br>로그인 후 비밀번호를 변경하여 사용하세요.</h3></p></div>";
-		
-		// 받는 사람 E-Mail 주소
-		try {
-			String mail = vo.getMember_email();
-	 		System.out.println("mail: " + mail);
-	 		
-			HtmlEmail email = new HtmlEmail();
-			email.setDebug(true);
-			email.setCharset(charSet);
-			email.setSSL(true);
-			email.setHostName(hostSMTP);
-			email.setSmtpPort(587);
+      // 보내는 사람 EMail, 제목, 내용
+      String fromEmail = "pdy2324@naver.com";
+      String fromName = "Kiview";
+      String subject = "kiview에서 임시비밀번호가 발급되었습니다";
+      String msg = "";
+      
+      msg += "<div align='center' style='border:1px solid black; font-family:verdana'; font-size:20px;>";
+      msg += "<h3 style='color: blue;'>";
+      msg += vo.getMember_id() + "님의 임시 비밀번호는&nbsp;<span style='color: red; font-size:30px'>"+ tmpPwd +"</span>&nbsp;입니다. "
+            + "<br>로그인 후 비밀번호를 변경하여 사용하세요.</h3></p></div>";
+      
+      // 받는 사람 E-Mail 주소
+      try {
+         String mail = vo.getMember_email();
+          System.out.println("mail: " + mail);
+          
+         HtmlEmail email = new HtmlEmail();
+         email.setDebug(true);
+         email.setCharset(charSet);
+         email.setSSL(true);
+         email.setHostName(hostSMTP);
+         email.setSmtpPort(587);
 
-			email.setAuthentication(hostSMTPid, hostSMTPpwd);
-			email.setTLS(true);
-			email.addTo(mail, charSet);
-			email.setFrom(fromEmail, fromName, charSet);
-			email.setSubject(subject);
-			email.setHtmlMsg(msg);
-			email.send();
-		} catch (Exception e) {
-			System.out.println("메일발송 실패 : " + e);
-		}
- 		
- 		return res;
- 		
-	}
+         email.setAuthentication(hostSMTPid, hostSMTPpwd);
+         email.setTLS(true);
+         email.addTo(mail, charSet);
+         email.setFrom(fromEmail, fromName, charSet);
+         email.setSubject(subject);
+         email.setHtmlMsg(msg);
+         email.send();
+      } catch (Exception e) {
+         System.out.println("메일발송 실패 : " + e);
+      }
+       
+       return res;
+       
+   }
 
   
    
