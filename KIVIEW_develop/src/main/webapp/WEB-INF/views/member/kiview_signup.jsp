@@ -93,7 +93,7 @@
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
 									<input placeholder="도로명주소"
-										class="jsx-639067573 " name="member_addr" id="member_addr">
+										class="jsx-639067573 " name="member_addr" id="member_addr" readonly="readonly">
 								</div>
 								<button class="jsx-771227029 btn-nickname-check" type="button"
 									style="margin-left: 16px;" onclick="addrPopup()">주소찾기</button>
@@ -104,7 +104,7 @@
 							<div class="jsx-3372927190 input-flex">
 								<div class="jsx-639067573 input">
 									<input placeholder="상세주소"
-										class="jsx-639067573 " name="member_addrDetail" id="member_addrDetail">
+										class="jsx-639067573 " name="member_addrDetail" id="member_addrDetail" readonly="readonly">
 								</div>
 							</div>
 						</label>
