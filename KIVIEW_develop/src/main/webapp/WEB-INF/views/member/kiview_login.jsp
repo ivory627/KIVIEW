@@ -40,8 +40,8 @@
 
          <div class="jsx-1458736361 login-box">
             <a class="jsx-1458736361 mobile-service go-home" href="/">
-            	<img src="https://d1ta1myjmiqbpz.cloudfront.net/static/images/logo/logo_square_gray.png"
-               		alt="Kiview" class="jsx-1458736361">
+               <img src="https://d1ta1myjmiqbpz.cloudfront.net/static/images/logo/logo_square_gray.png"
+                     alt="Kiview" class="jsx-1458736361">
             </a>
             <div class="jsx-1458736361 login-box-wrap">
                <!-- 로고 타이틀 -->
@@ -60,30 +60,30 @@
                   <ul class="jsx-1458736361">
                      <!-- 네이버 계정 로그인 -->
                      <li class="jsx-1458736361">
-	                     <a href="${naver_url }" tabindex="0" class="jsx-1458736361">
-	                     <span class="jsx-1458736361 alt-text">네이버 계정 로그인</span>
-	                     </a>
+                        <a href="${naver_url }" tabindex="0" class="jsx-1458736361">
+                        <span class="jsx-1458736361 alt-text">네이버 계정 로그인</span>
+                        </a>
                      </li>
                      <!-- /네이버 계정 로그인 -->
 
                      <!-- 카카오톡 계정 로그인 -->
                      <li class="jsx-1458736361">
-                     	<a href="${kakao_url }" tabindex="0" class="jsx-1458736361">
-                     	<span class="jsx-1458736361 alt-text">카카오톡 계정 로그인</span>
-                     	</a>
+                        <a href="${kakao_url }" tabindex="0" class="jsx-1458736361">
+                        <span class="jsx-1458736361 alt-text">카카오톡 계정 로그인</span>
+                        </a>
                      </li>
                      <!-- /카카오톡 계정 로그인 -->
 
                      <!-- 구글 계정 로그인 -->
                      <!--  
-                     <li class="jsx-1458736361">	
-						<a href="${google_url }">
-							<img src="resources/images/google.png">
-							<span class="jsx-1458736361 alt-text">구글 계정 로그인</span>
-						</a>
-					 </li>
-					 -->
-					 <!-- /구글 계정 로그인 -->
+                     <li class="jsx-1458736361">   
+                  <a href="${google_url }">
+                     <img src="resources/images/google.png">
+                     <span class="jsx-1458736361 alt-text">구글 계정 로그인</span>
+                  </a>
+                </li>
+                -->
+                <!-- /구글 계정 로그인 -->
 
                   </ul>
                </div>
@@ -208,7 +208,6 @@
 
 </body>
 </html>
-
 
 
 
