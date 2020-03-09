@@ -316,7 +316,7 @@ $(function(){
 
             <li class="nav-item"><a href=" kiviewmypage.do"
                class="nav-link">내 정보</a></li>
-            <li class="nav-item"><a href="kiviewmyactivity.do"
+            <li class="nav-item"><a href="kiviewmyactivity.do?member_id=${login.member_id }"
                class="nav-link">내 활동</a></li>
             
          </ul>
