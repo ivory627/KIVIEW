@@ -176,7 +176,9 @@ public class MemberController {
    public String mypage(HttpSession session) {
       logger.info("mypage");
       
-      if(session.getAttribute("login") != null) {
+      if(session==null) {
+    	  return "member/kiview_login";
+      } else if(session.getAttribute("login") != null) {
     	  return "member/kiview_mypage"; 
       }else {
     	  return "member/kiview_mypage_sns"; 
