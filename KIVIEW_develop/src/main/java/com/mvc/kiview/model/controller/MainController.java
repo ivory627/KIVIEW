@@ -11,8 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mvc.kiview.model.biz.CafeBiz;
 import com.mvc.kiview.model.biz.KinderBiz;
+
+import com.mvc.kiview.model.vo.CafeMemberVo;
+import com.mvc.kiview.model.vo.CafeVo;
+
 import com.mvc.kiview.model.vo.Criteria;
+
 import com.mvc.kiview.model.vo.KinderVo;
 import com.mvc.kiview.model.vo.PageMaker;
 
@@ -21,9 +27,20 @@ public class MainController {
 	
 	@Autowired
 	private KinderBiz biz;
+	
+	@Autowired
+	private CafeBiz biz_cafe;
 
 	@RequestMapping("/index.do")
 	public String index(Model model) {
+
+		List<CafeMemberVo> member = biz_cafe.member_selectAll();
+		List<CafeVo> best = biz_cafe.best_cafe();
+		
+		model.addAttribute("member", member);
+		model.addAttribute("best",best);
+		
+
 		
 		List<KinderVo> kinderlist = biz.KinderListAll();
 		List<KinderVo> kinder_res = new ArrayList<KinderVo>();
@@ -35,6 +52,7 @@ public class MainController {
 		 * 
 		 * System.out.println(kinder_res);
 		 */
+
 		
 		return "index";
 	}

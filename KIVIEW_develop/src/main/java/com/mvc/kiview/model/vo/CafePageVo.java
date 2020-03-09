@@ -101,46 +101,37 @@ public class CafePageVo {
    }
 
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-
-    // 페이지에 보여질 끝 페이지
-   public int getEndpage() {
-      return endpage;
-   }
-   
-   
-   public void setEndpage(int curpagenum, int displaypagenum,int totalpagecount) {
-      if(totalpagecount < 11) {
-         // 총 페이지 수가 10 페이지면, 총 페이지 수 = endpage 수 
-         this.endpage = totalpagecount;
-      }else {
-         // 총 페이지 수가 10페이지 보다 크면,
-         if(curpagenum%displaypagenum==0) {
-            
-            this.endpage=((int)(curpagenum/displaypagenum))*displaypagenum;
-         }else {
-            
-            this.endpage=((int)(curpagenum/displaypagenum)+1)*displaypagenum;
-         }           
-            
-         }
-      }
-     
-   
    // 페이지에 보여질 시작 페이지
    public int getStartpage() {
       return startpage;
    }
 
 
-   public void setStartpage(int endpage,int displaypagenum,int totalpagecount ) {
-      if(totalpagecount < 11) {
-         this.startpage = 1;
-      }else {
-         this.startpage = (endpage-displaypagenum) +1;
-                   
-      }
+   public void setStartpage(int curpagenum,int displaypagenum) {
+      
+      this.startpage = (int)((curpagenum-1)/10)*10+1;
       
    }
+   
+    // 페이지에 보여질 끝 페이지
+   public int getEndpage() {
+      return endpage;
+   }
+   
+   
+   public void setEndpage(int startpage, int displaypagenum,int totalpagecount) {
+     
+      this.endpage = startpage + displaypagenum -1;
+      
+      if(endpage > totalpagecount) {
+         
+         this.endpage = totalpagecount;
+      }
+
+   }
+     
+   
+  
    
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
      

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mvc.kiview.model.dao.CafeDao;
 import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeCategoryVo;
+import com.mvc.kiview.model.vo.CafeChatVo;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.CafePageVo;
@@ -398,22 +399,28 @@ public class CafeBizImpl implements CafeBiz {
 	   }
 	   
 	   @Override
-	   public CafePageVo paging(int curpagenum, int lsitsize) {
-	      CafePageVo page = new CafePageVo();
-	      page.setCurpagenum(curpagenum);
-	      page.setTotallistcount(lsitsize);
-	      page.setPagepercount(10);
-	      page.setDisplaypagenum(10);
-	      page.setTotalpagecount(10, page.getTotallistcount());
-	      page.setEndpage(curpagenum, page.getDisplaypagenum(), page.getTotalpagecount());
-	      page.setStartpage(page.getEndpage(), page.getDisplaypagenum(), page.getTotalpagecount());
-	      page.setRowStart(page.getRowStart());
-	      page.setRowEnd(page.getRowEnd());
-	      page.setPagepre(page.getCurpagenum());
-	      page.setPagenext(page.getCurpagenum(), page.getTotalpagecount());
-	      
-	      return page;
-	   }
+	      public CafePageVo paging(int curpagenum, int lsitsize) {
+	         CafePageVo page = new CafePageVo();
+	         page.setCurpagenum(curpagenum);
+	         page.setTotallistcount(lsitsize);
+	         page.setPagepercount(10);
+	         page.setDisplaypagenum(10);
+	         page.setTotalpagecount(10, page.getTotallistcount());
+	         page.setStartpage(page.getCurpagenum(), page.getDisplaypagenum());
+	         page.setEndpage(page.getStartpage(),page.getDisplaypagenum(), page.getTotalpagecount());
+	         page.setRowStart(page.getRowStart());
+	         page.setRowEnd(page.getRowEnd());
+	         page.setPagepre(page.getCurpagenum());
+	         page.setPagenext(page.getCurpagenum(), page.getTotalpagecount());
+	         
+	         return page;
+	      }
+
+	@Override
+	public List<CafeChatVo> cafe_chat_select(Map parameter) {
+		
+		return dao.cafe_chat_select(parameter);
+	}
 
 	
 	

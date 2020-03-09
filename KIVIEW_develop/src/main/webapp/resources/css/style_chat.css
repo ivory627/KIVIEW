@@ -102,12 +102,9 @@ body {
 	line-height: 1.8;
 	font-weight: 400;
 	color: rgba(0, 0, 0, 0.5);
-	-ms-overflow-style: none;
+	
 }
 
-::-webkit-scrollbar {
-	display: none;
-}
 
 [tabindex="-1"]:focus {
 	outline: 0 !important;
@@ -179,66 +176,6 @@ progress::-moz-progress-bar {
 	height: inherit;
 	z-index: 10;
 }
-
-.keyword-link.jsx-2533767983 {
-    display: flex;
-    max-width: 1008px;
-}
-.keyword-link.jsx-2533767983 h3.jsx-2533767983 {
-    min-width: 94px;
-    font-size: 18px;
-    margin-right: 26px;
-    line-height: 42px;
-    position: relative;
-    left: 24%;
-    top: 115px;
-
-}
-.keyword-link.jsx-2533767983 ul.jsx-2533767983 {
-    display: flex;
-    flex-wrap: wrap;
-    position: relative;
-    left: 30%;
-    top: 130px;
-}
-.searchtitle{
-	position:relative;
-	top: 20px;
-	left: 65%;
-}
-.main-modal-closebtn{
-	position: relative;
-	bottom: 10px;
-    font-size: 2.5rem;
-    cursor: pointer;
-    outline: none;
-}
-/* .keyword-link.jsx-2533767983 ul.jsx-2533767983 li.jsx-2533767983 {
-    height: 42px;
-    border-radius: 21px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgb(223, 223, 223);
-    border-image: initial;
-    margin: 0px 8px 8px 0px;
-} */
-.keyword-link.jsx-2533767983 ul.jsx-2533767983 li.jsx-2533767983 a.jsx-2533767983 {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    height: 100%;
-    padding: 0px 16px;
-    color: #212121;;
-}
-.searchicon{
-	padding-right: 90px;
-	position: relative;
-    left: 68%;
-
-}
-
 
 abbr[title], abbr[data-original-title] {
 	text-decoration: underline;
@@ -396,32 +333,6 @@ button {
 
 #btn1, #btn2, #btn3, #btn4, #btn5{
 	background: #fff;
-}
-#btn2:hover{
-	box-shadow: 1px 1px 10px #ddd;
-}
-#btn3:hover{
-	box-shadow: 1px 1px 10px #ddd;
-}
-#btn4:hover{
-	box-shadow: 1px 1px 10px #ddd;
-}
-#btn2, #btn4{
-	outline:none;
-}
-
-#snackbar{
-  display:inline;
-  font-size:12px;
-  color:whitesmoke;
-  background: #FDA638;
-  text-align:center;
-  width: 200px;
-  padding: 5px;
-  margin:0 auto;
-  opacity:0;
-  transition: 2s opacity; 
-  border-radius: 14px;
 }
 
 button:focus {
@@ -2165,7 +2076,7 @@ pre code {
 	font-weight: 400;
 	line-height: 1.5;
 	color: #495057;
-	background-color: #FDA638;
+	background-color: #fff;
 	background-clip: padding-box;
 	border: 1px solid #ced4da;
 	border-radius: 0.25rem;
@@ -6223,7 +6134,6 @@ button.close {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
-	outline:none;
 }
 
 a.close.disabled {
@@ -11782,16 +11692,13 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 
 .form-control {
 	height: 52px !important;
-	background: #FDA638 !important;
-	color: #fff !important;
+	background: #fff !important;
+	color: #000000 !important;
 	font-size: 18px;
 	border-radius: 0px;
 	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
 	border: 1px solid rgba(0, 0, 0, 0.1);
-}
-.form-control:hover{
-	background-color: #9BDAF2;
 }
 
 .form-control:focus, .form-control:active {
@@ -12496,15 +12403,10 @@ rgba
 }
 
 .ftco-counter .text strong.number {
-	font-weight: 600;
+	font-weight: 500;
 	font-size: 50px;
-	color: #FDA638;
+	color: #1eaaf1;
 	display: block;
-}
-
-#cntfont{
-	font-weight: 600;
-	font-size: 20px;
 }
 
 .ftco-counter .text span {
@@ -14484,7 +14386,6 @@ button.jsx-2334299286 {
     justify-content: center;
     cursor: pointer;
 }
-
 .share--small.jsx-2334299286 .icon.jsx-2334299286 {
     width: 14px;
     height: 14px;

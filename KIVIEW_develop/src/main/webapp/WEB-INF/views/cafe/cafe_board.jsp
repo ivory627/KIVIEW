@@ -21,33 +21,32 @@
 <%@ include file="../head.jsp"%>
 <style type="text/css">
 td{
-	word-break:break-all;
-	text-overflow: ellipsis; /* 위에 설정한 100px 보다 길면 말줄임표처럼 표시합니다. */
-	white-space: nowrap; /* 줄바꿈을 하지 않습니다. */
-	overflow: hidden; /* 내용이 길면 감춤니다 */  
+   word-break:break-all;
+   text-overflow: ellipsis; /* 위에 설정한 100px 보다 길면 말줄임표처럼 표시합니다. */
+   white-space: nowrap; /* 줄바꿈을 하지 않습니다. */
+   overflow: hidden; /* 내용이 길면 감춤니다 */  
 }
 
 .paging{
    
    list-style: none;
    width:100%; 
-	margin:0 auto; 
-	text-align:center;
-	float:center!important; 
-
+   margin:0 auto; 
+   text-align:center;
+   float:center!important; 
 }
 
 .active{
- background-color: lightgray;
-
+ background-color: #9bdaf2;
+ border-radius: 40%; 
 }  
 
 #searchlistpaging{
-	
-	width:100%; 
-	margin:0 auto; 
-	text-align:center;
-	float:center; 
+   
+   width:100%; 
+   margin:0 auto; 
+   text-align:center;
+   float:center; 
 } 
 
 </style>
@@ -66,10 +65,10 @@ td{
          <div
             class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-               <h1 class="mb-2 bread">카페 게시판</h1>
+               <h1 class="mb-2 bread">키뷰 카페</h1>
                <p class="breadcrumbs">
-                  <span class="mr-2"><a href="index.jsp">Home <i
-                        class="ion-ios-arrow-forward"></i></a></span> <span>Blog <i
+                  <span class="mr-2"><a href="index.jsp">홈 <i
+                        class="ion-ios-arrow-forward"></i></a></span> <span>키뷰카페 <i
                      class="ion-ios-arrow-forward"></i></span>
                </p>
             </div>
@@ -202,33 +201,37 @@ td{
                   <table id="searchlisttable" class="table table" style="text-align: center" style="display:none;">
                   </table>
                </div>
-
-
-               
-                  <div align=right>
-                  	<c:choose>
-		               			<c:when test="${menu.authority eq 'N' }">
-			               			<input type="button" value="글작성" class="btn btn-secondary"
-                        onclick="location.href='boardwrite.do?cafe_no=${cafe_list[0].cafe_no}&cafe_menu_no=${cafe_menu_no }'">
-			               
-			              		</c:when>
-			              		<c:when test="${menu.authority eq 'Y' && login.member_id==cafe_list[0].admin}">
-			              			<input type="button" value="글작성" class="btn btn-secondary"
-                        onclick="location.href='boardwrite.do?cafe_no=${cafe_list[0].cafe_no}&cafe_menu_no=${cafe_menu_no }'">
-			              		</c:when>
-			              		<c:otherwise>
-			              		
-			              		</c:otherwise>
-			              	</c:choose>
-                  	
+            
+            <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ검색 결과 페이징 [ajax 페이징] ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
                      
-                  </div>
-               <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ검색 결과 페이징 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-               
                   <div id="searchlistpaging">
                   </div>            
                
                <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ검색 결과 페이징 끝ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+            
+            
+            
+            
+
+               
+                  <div align=right>
+                     <c:choose>
+                              <c:when test="${menu.authority eq 'N' }">
+                                 <input type="button" value="글작성" class="btn btn-secondary"
+                        onclick="location.href='boardwrite.do?cafe_no=${cafe_list[0].cafe_no}&cafe_menu_no=${cafe_menu_no }'">
+                        
+                             </c:when>
+                             <c:when test="${menu.authority eq 'Y' && login.member_id==cafe_list[0].admin}">
+                                <input type="button" value="글작성" class="btn btn-secondary"
+                        onclick="location.href='boardwrite.do?cafe_no=${cafe_list[0].cafe_no}&cafe_menu_no=${cafe_menu_no }'">
+                             </c:when>
+                             <c:otherwise>
+                             
+                             </c:otherwise>
+                          </c:choose>                     
+                     
+                  </div>
+              
 
 
                <div align=center>
@@ -328,7 +331,8 @@ td{
                      $("#searchlisttable").append(slistnodata);
 
                   } else {
-                     alert('${cafe_list[0].cafe_no}')
+                    //출력문 없앰. 
+                     //alert('${cafe_list[0].cafe_no}')
                      $("#seachbeforetable").hide();
                      var tablecolsetting = "<col widtj='10%'><col width='10%'><col width='50%'><col width='20%'><col width='10%'>"
                            + "<tr><th>번 호</th><th>작성자</th><th>제 목</th><th>작성일</th><th>조회수</th></tr>";
@@ -359,7 +363,7 @@ td{
                                     $("#searchlisttable").append(slistdata);                     
                      
                                  })
-                                 
+                     // 검색 결과 페이징 .            
                      if(data.slist.length > 0){   
                         $("#searchlistpaging").empty();
                         var prepage = data.spagevo.curpagenum;
@@ -369,13 +373,13 @@ td{
                            searchresultpaging1 +=                              
                           
                            "<ul class='pagination' >"+
-                           "<li class='paging'><a href='javascript:PageMove2(1)'>&nbsp;&nbsp; << &nbsp;&nbsp; </a> </li>";
+                           "<li ><a href='javascript:PageMove2(1)'>&nbsp;&nbsp; << &nbsp;&nbsp; </a> </li>";
                            $("#searchlistpaging").append(searchresultpaging1);
                            
                         if(data.spagevo.pagepre == true){
                            var searchresultpaging1 = '';
                            searchresultpaging1 +=                           
-                           "<li class='paging'><a href='javascript:PageMove2("+prepage1+")'>&nbsp;&nbsp; < &nbsp;&nbsp;</a></li>";
+                           "<li ><a href='javascript:PageMove2("+prepage1+")'>&nbsp;&nbsp; < &nbsp;&nbsp;</a></li>";
                            $("#searchlistpaging").find("ul").append(searchresultpaging1);
                         }
                         
@@ -387,13 +391,13 @@ td{
                            if(i == data.spagevo.curpagenum){
                               
                               searchresultpaging1 +=
-                              "<li class='active paging' ><a href='javascript:PageMove2("+i+")'>&nbsp;&nbsp;"+i+"&nbsp;&nbsp;</a></li>";
+                              "<li class='active'><a href='javascript:PageMove2("+i+")'>&nbsp;&nbsp;"+i+"&nbsp;&nbsp;</a></li>";
                               $("#searchlistpaging").find("ul").append(searchresultpaging1);
                               
                            }else{
                               
                               searchresultpaging1 +=
-                              "<li class='paging'><a href='javascript:PageMove2("+i+")'>&nbsp;&nbsp;"+i+"&nbsp;&nbsp;</a></li>";
+                              "<li ><a href='javascript:PageMove2("+i+")'>&nbsp;&nbsp;"+i+"&nbsp;&nbsp;</a></li>";
                               $("#searchlistpaging").find("ul").append(searchresultpaging1);
                               
                            }
@@ -403,13 +407,13 @@ td{
                         if(data.spagevo.pagenext == true){
                            var searchresultpaging1 = '';
                            searchresultpaging1 +=
-                              "<li class='paging'><a href='javascript:PageMove2("+nextpage1+")'>&nbsp;&nbsp; > &nbsp;&nbsp;</a></li>";
+                              "<li ><a href='javascript:PageMove2("+nextpage1+")'>&nbsp;&nbsp; > &nbsp;&nbsp;</a></li>";
                            $("#searchlistpaging").find("ul").append(searchresultpaging1);   
                         }
                         
                         var searchresultpaging1 = '';
                         searchresultpaging1 +=                              
-                        "<li class='paging'><a href='javascript:PageMove2("+data.spagevo.totalpagecount+")'>&nbsp;&nbsp; >> &nbsp;&nbsp; </a> </li></ul>";
+                        "<li ><a href='javascript:PageMove2("+data.spagevo.totalpagecount+")'>&nbsp;&nbsp; >> &nbsp;&nbsp; </a> </li></ul>";
                         $("#searchlistpaging").find("ul").append(searchresultpaging1);
                            
                         
@@ -479,8 +483,3 @@ td{
    });
 </script>
 </html>
-
-
-
-
-

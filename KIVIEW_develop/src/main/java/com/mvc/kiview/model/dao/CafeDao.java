@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeCategoryVo;
+import com.mvc.kiview.model.vo.CafeChatVo;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.CafePageVo;
@@ -13,7 +14,7 @@ import com.mvc.kiview.model.vo.CafeVo;
 
 public interface CafeDao {
    String namespace = "cafe."; 
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ카페ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   
    public List<CafeVo> cafe_Ulist(int member_no);
    
    public List<CafeVo> cafe_Alist(String member_id);
@@ -21,15 +22,26 @@ public interface CafeDao {
    public List<CafeVo> cafe_admin(String admin);
    
    public CafeMemberVo cafe_regyn(CafeMemberVo regyn);
+   
+
+   public List<CafeVo> best_cafe();
+
+   public List<CafeVo> cafe_selectAll();
+	
+   public int cafe_delete(int cafe_no);
+	   
+   public int cafe_insert(CafeVo vo);
+	    
+   public int cafe_insert2(CafeMemberVo vo);
+	   
+   public CafeVo cafe_selectone(int cafe_no);
+	   
+   public int cafe_update(CafeVo cafe);
+	
+   public CafeVo cafe_chk(String title);
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   
    
-   public int cafe_delete(int cafe_no);
    
-   public int cafe_insert(CafeVo vo);
-    
-   public int cafe_insert2(CafeMemberVo vo);
-   
-   public CafeVo cafe_selectone(int cafe_no);
    
    public int menu_insert(CafeMenuVo vo);
    
@@ -119,9 +131,7 @@ public interface CafeDao {
 
 	public int category_update_insert(CafeCategoryVo category);
 
-	public int cafe_update(CafeVo cafe);
-
-	public CafeVo cafe_chk(String title);
+	
 	
 	
 	  //------------------------------- 회원관리 --------------------------------
@@ -142,11 +152,10 @@ public interface CafeDao {
 	
 	
 	
-	
+	 //------------------------------- 채팅 -------------------------------
 
-	public List<CafeVo> best_cafe();
 
-	public List<CafeVo> cafe_selectAll();
+	public List<CafeChatVo> cafe_chat_select(Map parameter);
 
 	
 

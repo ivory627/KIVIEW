@@ -11,22 +11,26 @@ $(function() {
 
 //아이디 중복체크
 function signupIdCkBtn(){
-	var member_id = $("#member_id").val().trim();
+	var member_id = $("#member_id").val().trim().toLowerCase();
+	$("#member_id").val(member_id);
 	var idChkVal = {
 		"member_id" : member_id,
 	};
-	var stringVal = member_id, exp = /admin/; 
-	$("#signupIdMsg").show().html("");
+	var stringVal = member_id, exp1 = /admin/, exp2 = /system/ ; 
+	$("#signupIdMsg").show().html(""); 
 	
 	//아이디 정규식
 	var idReg =  /^[a-z]{1}[a-z0-9]{4,19}$/;
     if( !idReg.test( member_id ) ) {
         $("#signupIdMsg").show().css("color","red").html("&nbsp;&nbsp;영소문자로 시작하는 영소문자/숫자 조합, 5~20자리로 입력해주세요");
         return false;
-    } else if( exp.test(stringVal) ){
+    } else if( exp1.test(stringVal) ){
         $("#signupIdMsg").show().css("color","red").html("&nbsp;&nbsp;이용할 수 없는 아이디입니다");
     	return false;
-    } else {
+    } else if( exp2.test(stringVal) ){
+        $("#signupIdMsg").show().css("color","red").html("&nbsp;&nbsp;이용할 수 없는 아이디입니다");
+    	return false;
+    }else {
 		$.ajax({
 			type : "post",
 			url : "kiviewsignupidchk.do",
