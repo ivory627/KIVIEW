@@ -98,7 +98,8 @@ function test(){
                   <form action="cafe_search.do" class="search-form" style="padding: 0px" onsubmit="return false">
                      <div class="form-group"  >
                         <span class="icon icon-search" style="cursor: pointer" onclick="test();"></span>
-                        <input type="text" class="form-control" placeholder="카페명을 입력해주세요." id="cafesearch" onkeypress="if( event.keyCode == 13 ){test();}">
+                        <input type="text"  
+                        class="form-control" placeholder="카페명을 입력해주세요." id="cafesearch" onkeypress="if( event.keyCode == 13 ){test();}">
 
                      </div>
                   </form>

@@ -419,74 +419,74 @@ h3 a{
          </div>
          <div class="row">
          
-         	<c:choose>
-         	<c:when test="${!empty best }">
-         	
-         		<c:forEach var="best" items="${best }">
-         	
-         	
-	            	<div class="col-md-6 col-lg-4 ftco-animate">
-	                        <div class="blog-entry">
-	                           <!-- 썸네일 -->
-	                           <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }"
-	                              class="block-20 d-flex align-items-end"
-	                              style="background-image: url('http://localhost:8787/img/${best.thumb }');">
-	                              <!-- 가입제한 -->
-	                              <div class="meta-date text-center p-2">
-	                                 <span class="mos">
-	                                    <c:if test="${best.restriction eq 'Y'}">
-	                                                     바로가입
-	                                    </c:if>
-	                                    <c:if test="${best.restriction eq 'N'}">
-	                                                      승인후 가입
-	                                    </c:if>
-	
-	                                 </span>
-	                              </div>
-	                           </a>
-	
-	                           <div class="text bg-white p-4">
-	                              <!-- 카페명 -->
-	                              <h3 class="heading">
-	                                 <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${Ulist.title }</a>
-	                              </h3>
-	
-	                              <!-- 카페소개 -->
-	                              <p>${best.intro }</p>
-	                              <div class="d-flex align-items-center mt-4">
-	                                 <p class="mb-0">
-	                                    <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }"
-	                                       class="btn btn-secondary">들어가기 <span
-	                                       class="ion-ios-arrow-round-forward"></span></a>
-	                                 </p>
-	                                 <p class="ml-auto mb-0">
-	                                    <!-- 카페장 -->
-	                                    <a href="#" class="mr-2">${best.admin }</a>
-	                                    <!-- 카페 회원 수 -->
-	                                    <c:set var="count" value="0"/>
-														<c:forEach items="${member }" var="member">
-	
-															<c:if test="${best.cafe_no == member.cafe_no }">
-																<c:set var="count" value="${count+1 }"/>
-	
-															</c:if>
-	
-														</c:forEach>
-	
-	                                    <a href="#" class="meta-chat">${count } 명</a>
-	                                 </p>
-	                              </div>
-	                           </div>
-	                        </div>
-	                        <br>
-	                    
-	                    </div>
-           		</c:forEach>
-           	</c:when>
-           	<c:otherwise>
-           	
-           	</c:otherwise>
-           	
+            <c:choose>
+            <c:when test="${!empty best }">
+            
+               <c:forEach var="best" items="${best }">
+            
+            
+                  <div class="col-md-6 col-lg-4 ftco-animate">
+                           <div class="blog-entry">
+                              <!-- 썸네일 -->
+                              <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }"
+                                 class="block-20 d-flex align-items-end"
+                                 style="background-image: url('http://localhost:8787/img/${best.thumb }');">
+                                 <!-- 가입제한 -->
+                                 <div class="meta-date text-center p-2">
+                                    <span class="mos">
+                                       <c:if test="${best.restriction eq 'Y'}">
+                                                        바로가입
+                                       </c:if>
+                                       <c:if test="${best.restriction eq 'N'}">
+                                                         승인후 가입
+                                       </c:if>
+   
+                                    </span>
+                                 </div>
+                              </a>
+   
+                              <div class="text bg-white p-4">
+                                 <!-- 카페명 -->
+                                 <h3 class="heading">
+                                    <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${Ulist.title }</a>
+                                 </h3>
+   
+                                 <!-- 카페소개 -->
+                                 <p>${best.intro }</p>
+                                 <div class="d-flex align-items-center mt-4">
+                                    <p class="mb-0">
+                                       <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }"
+                                          class="btn btn-secondary">들어가기 <span
+                                          class="ion-ios-arrow-round-forward"></span></a>
+                                    </p>
+                                    <p class="ml-auto mb-0">
+                                       <!-- 카페장 -->
+                                       <a href="#" class="mr-2">${best.admin }</a>
+                                       <!-- 카페 회원 수 -->
+                                       <c:set var="count" value="0"/>
+                                          <c:forEach items="${member }" var="member">
+   
+                                             <c:if test="${best.cafe_no == member.cafe_no }">
+                                                <c:set var="count" value="${count+1 }"/>
+   
+                                             </c:if>
+   
+                                          </c:forEach>
+   
+                                       <a href="#" class="meta-chat">${count } 명</a>
+                                    </p>
+                                 </div>
+                              </div>
+                           </div>
+                           <br>
+                       
+                       </div>
+                 </c:forEach>
+              </c:when>
+              <c:otherwise>
+              
+              </c:otherwise>
+              
             </c:choose>
            
          </div>
