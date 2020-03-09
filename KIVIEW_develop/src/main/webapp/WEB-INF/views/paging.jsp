@@ -1,17 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<% request.setCharacterEncoding("UTF-8");%>
-<% response.setContentType("text/html; charset=UTF-8");%>    
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>KIVIEW_PAGING</title>
-</head>
-<body>
+
 	<div class="jsx-1407906967 board-list-footer">
 		<ul class="jsx-3635512122 pagination pagination--kindergarten" id = "n_paging">
 			<c:if test = "${pageMaker.prev}">
@@ -57,5 +48,3 @@
 			</c:if>
 		</ul>
 	</div>
-</body>
-</html>

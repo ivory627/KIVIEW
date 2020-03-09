@@ -11,9 +11,17 @@
    </insert>
    <!-- 1 : kinder_no / 1 : 유치원 주소 -->
    
+   <!-- **승혜:reviewList 매퍼 수정 -->
    <select id="reviewList" resultType="reviewVo" >
-      SELECT * FROM REVIEW
-      ORDER BY review_no DESC
+     SELECT *
+		FROM (
+		SELECT R.*, 
+		ROW_NUMBER() OVER(ORDER BY REVIEW_NO DESC) AS RNUM
+		FROM REVIEW R
+		) REVIEW
+		WHERE 
+		RNUM BETWEEN #{rowStart} AND #{rowEnd} 
+		ORDER BY REVIEW_NO DESC
    </select>
    
    <insert id="reviewUpdate" parameterType="reviewVo" >
@@ -54,7 +62,10 @@
    ORDER BY REVIEW_NO DESC
    
    </select>
-   
+   <!-- **승혜 리뷰 개수 카운트 매퍼 추가 -->
+   <select id="reviewCount" resultType="int" parameterType="Criteria">
+   		SELECT COUNT(*) FROM REVIEW
+   </select>
      
   </mapper>
   

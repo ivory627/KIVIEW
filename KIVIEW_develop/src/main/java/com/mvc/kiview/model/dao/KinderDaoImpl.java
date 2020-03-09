@@ -3,13 +3,16 @@ package com.mvc.kiview.model.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.KinderVo;
 import com.mvc.kiview.model.vo.ProvinceVo;
+import com.mvc.kiview.model.vo.ReviewVo;
 
 @Repository
 public class KinderDaoImpl implements KinderDao{
@@ -18,10 +21,17 @@ public class KinderDaoImpl implements KinderDao{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<KinderVo> LocalSerach(ProvinceVo vo) {
+	public List<KinderVo> LocalSearch(ProvinceVo vo,Criteria cri) {
 		List<KinderVo> list = new ArrayList<KinderVo>();
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("province", vo.getProvince());
+		map.put("city", vo.getCity());
+		map.put("town", vo.getTown());
+		map.put("rowStart",cri.getRowStart());
+		map.put("rowEnd", cri.getRowEnd());
+		
 		try {
-			list = sqlSession.selectList(namespace+"kinderList",vo);
+			list = sqlSession.selectList(namespace+"kinderList",map);
 		}catch(Exception e) {
 			System.out.println("error:kinder list");
 			e.printStackTrace();
@@ -42,10 +52,14 @@ public class KinderDaoImpl implements KinderDao{
 	}
 
 	@Override
-	public List<KinderVo> NameSearch(String name) {
+	public List<KinderVo> NameSearch(String name,Criteria cri) {
 		List<KinderVo> list = new ArrayList<KinderVo>();
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("name", name);
+		map.put("rowStart",cri.getRowStart());
+		map.put("rowEnd", cri.getRowEnd());
 		try {
-			list = sqlSession.selectList(namespace+"kinderListName",name);
+			list = sqlSession.selectList(namespace+"kinderListName",map);
 		}catch(Exception e) {
 			System.out.println("error:kinder list name");
 			e.printStackTrace();
@@ -148,6 +162,58 @@ public class KinderDaoImpl implements KinderDao{
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	@Override
+	public List<ReviewVo> ReviewList(int kinder_no, Criteria cri) {
+		List<ReviewVo> list = new ArrayList<ReviewVo>();
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("kinder_no", kinder_no);
+		map.put("rowStart",cri.getRowStart());
+		map.put("rowEnd", cri.getRowEnd());
+		try {
+			list = sqlSession.selectList(namespace+"reviewList",map);
+		}catch(Exception e) {
+			System.out.println("error:Review list");
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int ReviewCnt(int kinder_no) {
+		int count = 0;
+
+		try {
+			count = sqlSession.selectOne(namespace + "rlistCount", kinder_no);
+		} catch (Exception e) {
+			System.out.println("error:Review list count");
+			e.printStackTrace();
+		}
+
+		return count;
+	}
+
+	@Override
+	public int LocalSearchCnt(ProvinceVo vo) {
+		int count = 0;
+		try {
+			count = sqlSession.selectOne(namespace+"llistCount",vo);
+		}catch (Exception e) {
+			System.out.println("error:Local kinder list count");
+		}
+		return count;
+	}
+
+	@Override
+	public int NameSearchCnt(String name) {
+		int count = 0;
+		try {
+			count = sqlSession.selectOne(namespace+"nlistCount",name);
+		}catch (Exception e) {
+			System.out.println("error:name kinder list count");
+		}
+		return count;
 	}
 	
 	
