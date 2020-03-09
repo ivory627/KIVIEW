@@ -87,7 +87,7 @@ function login() {
 
 //아이디 찾기
 var searchedId = "";
-function idCk() {
+function idChk() {
 
 	var member_name = $("#idSearch_name").val().trim();
 	var member_email = $('#idSearch_email').val().trim();
@@ -144,5 +144,50 @@ function idUse(){
 	var id = searchedId;
 	$('#member_id').val(id);
 	$('#id01').hide();
+}
+
+//비밀번호 찾기
+function findPwd() {
+
+	var member_id = $("#findPwd_id").val().trim();
+	var member_email = $('#findPwd_email').val().trim();
+	
+	$("#findPwdMsg").hide().html("");
+
+	var findPwdVal = {
+		"member_id" : member_id,
+		"member_email" : member_email
+	};
+
+	if (member_id == null || member_id == "" || member_email == null || member_email == "") {
+		$("#findPwdMsg").show().css("color","red").html("아이디와 이메일을 입력해주세요");
+
+	} else {
+		$.ajax({
+			type : "post",
+			url : "kiviewfindpwd.do",
+			data : JSON.stringify(findPwdVal),
+			contentType : "application/json",
+			dataType : "json",
+			success : function(msg) {
+
+				if (msg.check2 == true) {
+					$("#findPwdMsg").show().css("color","blue").html("이메일로 임시 비밀번호가 발송되었습니다");
+					
+				} else {
+					$("#findPwdMsg").show().css("color","red").html("아이디와 이메일이 일치하지 않습니다");
+					$('#findPwd_id').val("");
+					$('#findPwd_email').val("");
+				}
+			},
+			error : function() {
+				$("#findPwdMsg").show().css("color","red").html("존재하지 않는 회원입니다");
+				$('#findPwd_id').val("");
+				$('#findPwd_email').val("");
+			}
+		});
+
+	}
+
 }
 
