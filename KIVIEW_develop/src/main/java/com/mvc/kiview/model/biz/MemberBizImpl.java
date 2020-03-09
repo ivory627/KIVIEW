@@ -42,4 +42,22 @@ public class MemberBizImpl implements MemberBiz {
 		return dao.deleteMember(vo);
 	}
 
+	@Override
+	public int findPwd(MemberVo vo) {
+		return dao.findPwd(vo);
+	}
+
+	@Override
+	public MemberVo selectEmail(String snsEmail) {
+		return dao.selectEmail(snsEmail);
+	}
+
+	@Override
+	public int tmpPwd(MemberVo vo) {
+		return dao.tmpPwd(vo);
+	}
+	
+
+	
+	
 }

@@ -17,5 +17,11 @@ public interface MemberDao {
 	public int updateMember(MemberVo vo);
 
 	public int deleteMember(MemberVo vo);
+
+	public int findPwd(MemberVo vo);
+
+	public MemberVo selectEmail(String snsEmail);
+
+	public int tmpPwd(MemberVo vo);
 	
 }

@@ -43,6 +43,24 @@
 		WHERE MEMBER_ID = #{member_id} AND MEMBER_PWD = #{member_pwd}
 	</delete>
 	
+	<!-- 비밀번호 변경 -->
+	<select id="findPwd" parameterType="memberVo" resultType="int">
+		SELECT COUNT(*) FROM MEMBER 
+		WHERE MEMBER_ID = #{member_id} AND MEMBER_EMAIL = #{member_email}
+	</select>
+	
+	<!-- 소셜로그인 이메일 확인 -->
+	<select id="selectEmail" parameterType="String" resultType="memberVo">
+		SELECT * FROM MEMBER
+		WHERE MEMBER_EMAIL = #{snsEmail}
+	</select>
+	
+	<!-- 임시비밀번호 저장 -->
+	<update id="tmpPwd" parameterType="memberVo" >
+		UPDATE MEMBER SET
+		MEMBER_PWD = #{member_pwd}
+		WHERE MEMBER_ID = #{member_id}
+	</update>
 	
 </mapper>
 

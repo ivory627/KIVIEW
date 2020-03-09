@@ -28,8 +28,12 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-            <h1 class="mb-2 bread">Our Blog</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="index.jsp">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog <i class="ion-ios-arrow-forward"></i></span></p>
+            <h1 class="mb-2 bread">키뷰 카페</h1>
+               <p class="breadcrumbs">
+                  <span class="mr-2"><a href="index.jsp">홈 <i
+                        class="ion-ios-arrow-forward"></i></a></span> <span>키뷰카페 <i
+                     class="ion-ios-arrow-forward"></i></span>
+               </p>
           </div>
         </div>
       </div>
@@ -84,7 +88,7 @@
                <br>
                <div align="center">
                <input type="submit" value="수 정" class="btn btn-secondary" style="width:20%" id="submitbefore">
-               <input type="button" value="취 소" class="btn btn-primary" style="width:20%" onclick="location.href='boarddetail.do?cafe_no=${cafe_no}&cafe_menu_no=${cafe_menu_no }&cafe_board_no=${cafeboardvo.cafe_board_no }&curpagenum=${curpagenum }'"> 
+               <input type="button" value="취 소" class="btn btn-primary" style="width:20%" onclick="location.href='cafeboarddetail.do?cafe_no=${cafe_no}&cafe_menu_no=${cafe_menu_no }&cafe_board_no=${cafeboardvo.cafe_board_no }&curpagenum=${curpagenum }'"> 
                </div>
                </form>
                

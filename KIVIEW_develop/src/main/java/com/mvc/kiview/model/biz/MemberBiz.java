@@ -16,4 +16,10 @@ public interface MemberBiz {
 
 	public int deleteMember(MemberVo vo);
 
+	public int findPwd(MemberVo vo);
+
+	public MemberVo selectEmail(String snsEmail);
+
+	public int tmpPwd(MemberVo vo);
+
 }

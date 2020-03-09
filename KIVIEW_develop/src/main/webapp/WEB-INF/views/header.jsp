@@ -182,23 +182,24 @@ $(function(){
                href="cafehome.do?member_no=${login.member_no }&member_id=${login.member_id}"
                class="nav-link">키뷰 카페</a></li>
 
-            <li id="my" class="nav-item"><a href="kiviewmypage.do"
-               class="nav-link">마이페이지</a></li>
+            <li id="my" class="nav-item">
+            <a href="kiviewmypage.do" class="nav-link">마이페이지</a>
+            </li>
 
             <!-- 스크립트 조건에 소메뉴를 사라지게 해놔서 c태그로 변경 
-                로그인 되어 있을 때 로그아웃, 안되어있을 때 로그인 뜨도록
-            -->
-            <c:choose>
-               <c:when test="${empty login}">
-                  <li class="nav-item"><a href="login.do"
-                     class="nav-link">로그인</a></li>
-               </c:when>
-               <c:otherwise>
-                  <li class="nav-item"><a href="kiviewlogout.do"
-                     class="nav-link">로그아웃</a></li>
-               </c:otherwise>
-            </c:choose>
-         </ul>
+              	  로그인 되어 있을 때 로그아웃, 안되어있을 때 로그인 뜨도록
+           -->
+			<c:choose>
+				<c:when test="${empty login && empty snsLogin}">
+					<li class="nav-item">
+					<a href="login.do" class="nav-link">로그인</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="nav-item">
+					<a href="kiviewlogout.do" class="nav-link">로그아웃</a></li>
+				</c:otherwise>
+			</c:choose>
+		</ul>
       </div>
    </div>
 </nav>
@@ -253,12 +254,8 @@ $(function(){
 
          <ul class="navbar-nav" style="margin-left: 700px">
             <!-- <ul class="navbar-nav ml-auto" >   -->
-
-
-            <li class="nav-item"><a href="kindersearch.do" class="nav-link">유치원
-                  검색</a></li>
-            <li class="nav-item"><a href="reviewboard.do" class="nav-link">유치원
-                  리뷰</a></li>
+            <li class="nav-item"><a href="kindersearch.do" class="nav-link">유치원 검색</a></li>
+            <li class="nav-item"><a href="reviewboard.do?page=1" class="nav-link">유치원 리뷰</a></li>
          </ul>
       </div>
    </div>
@@ -320,7 +317,7 @@ $(function(){
 
             <li class="nav-item"><a href=" kiviewmypage.do"
                class="nav-link">내 정보</a></li>
-            <li class="nav-item"><a href="kiviewmyactivity.do"
+            <li class="nav-item"><a href="kiviewmyactivity.do?member_id=${login.member_id }"
                class="nav-link">내 활동</a></li>
             
          </ul>
