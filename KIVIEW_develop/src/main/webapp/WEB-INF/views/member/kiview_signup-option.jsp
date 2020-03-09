@@ -1,116 +1,598 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
-<%
-	response.setContentType("text/html; charset=UTF-8");
-%>
+   pageEncoding="UTF-8"%>
+
+<% request.setCharacterEncoding("UTF-8");%>
+<% response.setContentType("text/html; charset=UTF-8");%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>KIVIEW &mdash; Resister_Option</title>
+<title>KIVIEW &mdash; Main</title>
 
-<link rel="stylesheet" href="resources/css/signup-option.css">
-<!-- KIVIEW FAVICON-->
-<link rel="icon" href="resources/images/main/logo01.png"
-	type="image/x-icon">
+<jsp:include page="head.jsp"/>
+
+<style type="text/css">
+
+.modal-content {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 0;
+  border-radius: 0.3rem;
+  outline: 0; }
+.modal-dialog.modal-fullsize {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-content.modal-fullsize {
+  height: auto;
+  min-height: 100%;
+  border-radius: 0;
+}
+h1{
+   font-size: 60px;
+    font-weight: 800;
+}
+
+
+
+</style>
+
+<script>
+      $(function() {    //화면 다 뜨면 시작
+        $("#searchInput").autocomplete({
+            source : function( request, response ) {
+                 $.ajax({
+                        type: "get",
+                        url: "autosearch.do",
+                        dataType: "json",
+                        data: { keyword : request.term },
+                        success: function(data) {
+                            response(
+                                $.map(data, function(item) {
+                                   //console.log(item.name);
+                                    return {
+                                        label: item.name,
+                                        value: item.name
+                                    }
+                                })
+                            );
+                        }
+                   });
+                },    // source 는 자동 완성 대상
+            select : function(event, ui) {    //아이템 선택시
+                console.log(ui);//사용자가 오토컴플릿이 만들어준 목록에서 선택을 하면 반환되는 객체
+                console.log(ui.item.label); 
+                console.log(ui.item.value);
+                
+            },
+            focus : function(event, ui) {    //포커스 가면
+                return false;//한글 에러 잡기용도로 사용됨
+            },
+            minLength: 1,// 최소 글자수
+            autoFocus: true, //첫번째 항목 자동 포커스 기본값 false
+            classes: {
+                "ui-autocomplete": "highlight"
+            },
+            delay: 500,    //검색창에 글자 써지고 나서 autocomplete 창 뜰 때 까지 딜레이 시간(ms)
+//            disabled: true, //자동완성 기능 끄기
+            position: { my : "right top", at: "right bottom" },    //잘 모르겠음
+            close : function(event){    //자동완성창 닫아질때 호출
+                console.log(event);
+            }
+        });
+      
+      //모달위로띄우기
+        $("#myFullsizeModal").on("shown.bs.modal", function() { $("#searchInput").autocomplete("option", "appendTo", "#myFullsizeModal") })
+        
+    });
+
+</script>
+
 </head>
-<body>
 
-	<div id="__next">
-		<div class="jsx-253692965 join-page">
-			<div class="jsx-596849754 join-user-step-one">
-				<!-- 로고 타이틀 -->
-				<div class="jsx-669562709 join-title">
-					<div class="jsx-669562709 join-title-wrap">
-						<a class="jsx-669562709" href="index.do"> 
-						<img src="resources/images/main/login-logo01.png" alt="Kiview로고" class="jsx-669562709">
-						</a>
-						<h2 class="jsx-669562709">
-							<span class="jsx-669562709">Kiview</span>
-							<span class="jsx-669562709">회원가입</span>
-							<span class="jsx-669562709 mobile-service">회원가입</span>
-						</h2>
-					</div>
-					<p class="jsx-669562709">가입방법을 선택해주세요.</p>
-				</div>
-				<!-- /로고 타이틀 -->
 
-				<ul class="jsx-596849754">
-					<!-- 일반 회원가입 -->
-					<li class="jsx-500558648 email">
-						<a href="kiviewsignup.do" tabindex="0" class="jsx-500558648">
-							<div class="jsx-500558648 flex-wrap">
-								<img src="https://d1ta1myjmiqbpz.cloudfront.net/static/images/join_login/img_join_email01.png"
-									alt="" class="jsx-500558648">
-								<h3 class="jsx-500558648">KIVIEW로 회원가입</h3>
-								<p class="jsx-500558648">Kiview 아이디로 가입하기</p>
-							</div>
-						</a>
-					</li>
-					<!-- /일반 회원가입 -->
+<body id = "body">
 
-					<!-- 네이버 회원가입 -->
-					<li class="jsx-500558648 naver">
-						<a href="${naver_url }" tabindex="0" class="jsx-500558648">
-								<div class="jsx-500558648 flex-wrap">
-									<img src="https://d1ta1myjmiqbpz.cloudfront.net/static/images/join_login/img_join_naver01.png"
-										alt="네이버 로고" class="jsx-500558648">
-									<h3 class="jsx-500558648">네이버 간편회원가입</h3>
-									<p class="jsx-500558648">사용하는 네이버 계정으로 가입하기</p>
-									<span class="jsx-500558648 arrow"> </span>
-								</div>
-						</a>
-					</li>
-					<li class="jsx-500558648 kakao">
-						<a href="${kakao_url }" tabindex="0" class="jsx-500558648">
-							<div class="jsx-500558648 flex-wrap">
-								<img src="https://d1ta1myjmiqbpz.cloudfront.net/static/images/join_login/img_join_kakao01.png"
-									alt="카카오톡 로고" class="jsx-500558648">
-								<h3 class="jsx-500558648">카카오톡 간편회원가입</h3>
-								<p class="jsx-500558648">사용하는 카카오톡 계정으로 가입하기</p>
-								<span class="jsx-500558648 arrow"> </span>
-							</div>
-						</a>
-					</li>
-					<!--
-					<li class="jsx-500558648 facebook">
-						<a href="${google_url }" tabindex="0" class="jsx-500558648">
-							<div class="jsx-500558648 flex-wrap">
-								<img src=""
-									alt="페이스북 로고" class="jsx-500558648">
-								<h3 class="jsx-500558648">구글 간편회원가입</h3>
-								<p class="jsx-500558648">사용하는 구글 계정으로 가입하기</p>
-								<span class="jsx-500558648 arrow"></span>
-							</div>
-						</a>
-					</li>
-					  -->
-				</ul>
-				<div class="jsx-596849754 login-link">이미 계정이 있으신가요?
-					<a class="jsx-596849754" href="login.do">로그인</a>
-				</div>
-			</div>
-			<address class="jsx-253692965">Copyright © Kiview Corp. All Rights Reserved.</address>
-		</div>
-		<div class="jsx-2567582721 reviews"></div>
-		<div id="topmost" class="jsx-2567582721"></div>
-	</div>
+   <!-- @@ header 부분 @@ -->
+   <jsp:include page="header.jsp"/>
 
+   <!-- @@ Main 이미지 부분 @@ -->
+   <section class="home-slider owl-carousel">
+      <div class="slider-item" style="background-image: url(resources/images/main/main_07.jpg);">
+         <div class="overlay"></div>
+         <div class="container">
+            <div
+               class="row no-gutters slider-text align-items-center justify-content-center"
+               data-scrollax-parent="true">
+               <div class="col-md-8 text-center ftco-animate">
+                  <h1 class="mb-4">
+                     우리 아이 좋은 유치원 보내기,<span> 어떻게 할까?</span>
+                  </h1>
+                  <p>
+                     <a href="kindersearch.do" class="btn btn-secondary px-4 py-3 mt-3">더보기</a>
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="slider-item" style="background-image: url(resources/images/main/main_06.jpg);">
+         <div class="overlay"></div>
+         <div class="container">
+            <div
+               class="row no-gutters slider-text align-items-center justify-content-center"
+               data-scrollax-parent="true">
+               <div class="col-md-8 text-center ftco-animate">
+                  <h1 class="mb-4">
+                     유치원 리뷰가 궁금하다면?<span> 바로 여기!</span>
+                  </h1>
+                  <p>
+                     <a href="reviewboard.do" class="btn btn-secondary px-4 py-3 mt-3">더보기</a>
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!-- @@ Main 이미지 부분 끝 @@ -->
+   
+   <!-- searchBar -->
+   <div class="jsx-2460799870 bar-layout">
+      <p class="jsx-2460799870">
+         어떤 <span class="jsx-2460799870">유치원</span>을 찾으세요?
+      </p>
+      <div class="jsx-2460799870 search-box">
+      <div class="jsx-2460799870 search-bar">
+         <input
+          type="text" class="search-bar" data-toggle="modal" data-target="#myFullsizeModal"/> 
+         <span><img src="resources/images/main/search02.png"></span>
+      </div>
+   </div>
+   </div>
+   
+   <!-- Fullsize Modal -->
+   <div class="modal fade" id="myFullsizeModal" tabindex="-1" role="dialog" aria-labelledby="myFullsizeModalLabel">
+     <div class="modal-dialog modal-fullsize" role="document">
+       <div class="modal-content modal-fullsize">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true" class = "main-modal-closebtn">&times;</span></button>
+           <h4 class="modal-title" id="myModalLabel"></h4>
+         </div>
+         <div class="modal-body">
+           <div class="jsx-2460799870 bar-layout">
+           <h1>SEARCH</h1>
+         <p class="jsx-2460799870">
+            어떤 <span class="jsx-2460799870">유치원</span>을 찾으세요?
+         </p>
+            <form action="mainsearch.do" method="post" id="searchform">
+         <div class="jsx-2460799870 search-box">
+         <div class="jsx-2460799870 search-bar">
+            <input type="text" id="searchInput" name="keyword" class="search-bar" />
+            <span><a href="javascript:searchform.submit();"><img src="resources/images/main/search02.png"></a></span>
+         </div>
+         </div>
+            </form>
+      </div>
+         <jsp:include page="searchbar.jsp"/>
+         </div>
+       </div>
+     </div>
+   </div>
+
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+
+   <!-- @@ 카운팅 부분  @@ -->
+   <section class="ftco-section ftco-counter img" id="section-counter" 
+   style="background-image: url(resources/images/bg_4.jpg);" data-stellar-background-ratio="0.5">
+       <div class="container">
+          <div class="row justify-content-center mb-5 pb-2">
+          <div class="col-md-8 text-center heading-section heading-section-black ftco-animate">
+            <h2 class="mb-4"><span style = "color:black;">지금</span><span> KIVIEW </span>에서는<br>N개의 리뷰가 작성되고 있습니다.</h2>
+            <p>실시간 작성되고 있는 리뷰와 유치원 소식을 알려드립니다.</p>
+          </div>
+        </div>   
+          <div class="row d-md-flex align-items-center justify-content-center">
+             <div class="col-lg-10">
+                <div class="row d-md-flex align-items-center">
+                <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+                  <div class="block-18">
+                     <div class="icon"><span class="flaticon-doctor"></span></div>
+                    <div class="text">
+                      <strong class="number" data-number="18">0</strong>
+                      <span id = "cntfont">유치원 리뷰</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+                  <div class="block-18">
+                     <div class="icon"><span class="flaticon-doctor"></span></div>
+                    <div class="text">
+                      <strong class="number" data-number="351">0</strong>
+                      <span id = "cntfont">등록된 유치원</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+                  <div class="block-18">
+                     <div class="icon"><span class="flaticon-doctor"></span></div>
+                    <div class="text">
+                      <strong class="number" data-number="564">0</strong>
+                      <span id = "cntfont">카페 개설 수</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+                  <div class="block-18">
+                     <div class="icon"><span class="flaticon-doctor"></span></div>
+                    <div class="text">
+                      <strong class="number" data-number="300">0</strong>
+                      <span id = "cntfont">키뷰 회원 수</span>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                </div>
+              </div>
+          </div>
+    </section>
+   <!-- @@ 카운팅 끝 @@ -->
+
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+
+   <!-- @@ 리뷰 영역 @@ -->
+   <section class="ftco-section testimony-section bg-light">
+      <div class="container">
+         <div class="row justify-content-center mb-5 pb-2">
+            <div class="col-md-8 text-center heading-section ftco-animate">
+               <h2 class="mb-4">
+                  <span>HOT 리뷰</span> TALK TALK!
+               </h2>
+               <p>많은 좋아요 수와 높은 평점을 받은 리뷰만을 모아 보여드립니다.</p>
+            </div>
+         </div>
+         <div class="row ftco-animate justify-content-center">
+            <div class="col-md-12">
+               <div class="carousel-testimony owl-carousel">
+                  <div class="item">
+                     <div class="testimony-wrap d-flex">
+                        <div class="user-img mr-4"
+                           style="background-image: url(resources/images/teacher-1.jpg)"></div>
+                        <div class="text ml-2 bg-light">
+                           <span
+                              class="quote d-flex align-items-center justify-content-center">
+                              <i class="icon-quote-left"></i>
+                           </span>
+                           <p>놀이시설도 훌륭하고, 무엇보다 선생님들의 교육 철학이 마음에 드네요!</p>
+                           <p class="name">지우파파</p>
+                           <span class="position">아빠</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="item">
+                     <div class="testimony-wrap d-flex">
+                        <div class="user-img mr-4"
+                           style="background-image: url(resources/images/teacher-2.jpg)"></div>
+                        <div class="text ml-2 bg-light">
+                           <span
+                              class="quote d-flex align-items-center justify-content-center">
+                              <i class="icon-quote-left"></i>
+                           </span>
+                           <p>아이가 다쳐서 왔어요..교실 내 CCTV가 의무화 되어야 할 것 같네요.</p>
+                           <p class="name">하은맘</p>
+                           <span class="position">엄마</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="item">
+                     <div class="testimony-wrap d-flex">
+                        <div class="user-img mr-4"
+                           style="background-image: url(resources/images/teacher-3.jpg)"></div>
+                        <div class="text ml-2 bg-light">
+                           <span
+                              class="quote d-flex align-items-center justify-content-center">
+                              <i class="icon-quote-left"></i>
+                           </span>
+                           <p>아이가 유치원 급식을 엄청 좋아하네요ㅎㅎ언제나 맛있는 밥 부탁드려요!</p>
+                           <p class="name">도균파파</p>
+                           <span class="position">아빠</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="item">
+                     <div class="testimony-wrap d-flex">
+                        <div class="user-img mr-4"
+                           style="background-image: url(resources/images/teacher-4.jpg)"></div>
+                        <div class="text ml-2 bg-light">
+                           <span
+                              class="quote d-flex align-items-center justify-content-center">
+                              <i class="icon-quote-left"></i>
+                           </span>
+                           <p>아이가 아침마다 통학버스 타는 걸 매우 싫어하는데<br> 부드럽게 잘 데리고 가주셔서 매번 감사해요</p>
+                           <p class="name">우린맘</p>
+                           <span class="position">엄마</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="item">
+                     <div class="testimony-wrap d-flex">
+                        <div class="user-img mr-4"
+                           style="background-image: url(resources/images/teacher-1.jpg)"></div>
+                        <div class="text ml-2 bg-light">
+                           <span
+                              class="quote d-flex align-items-center justify-content-center">
+                              <i class="icon-quote-left"></i>
+                           </span>
+                           <p>햇님반 담임 선생님! 아이들 잘 케어해주셔서 감사하고, <br>안내장도 잘 받아보고 있어요ㅎㅎ</p>
+                           <p class="name">나은파파</p>
+                           <span class="position">아빠</span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!-- @@ 리뷰 끝 @@ -->
+
+
+
+   <!-- @@ 유치원 추천 영역 @@ -->
+   <section class="ftco-section ftco-no-pb">
+      <div class="container">
+         <div class="row justify-content-center mb-5 pb-2">
+            <div class="col-md-8 text-center heading-section ftco-animate">
+               <h2 class="mb-4">
+                  <span>유치원</span> 추천!
+               </h2>
+               <p>부모님들이 원하는 조건에 맞는 유치원을 추천해드립니다.</p>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-md-6 col-lg-3 ftco-animate">
+               <div class="staff">
+                  <div class="img-wrap d-flex align-items-stretch">
+                     <div class="img align-self-stretch"
+                        style="background-image: url(resources/images/main/kiview_01.png);"></div>
+                  </div>
+                  <div class="text pt-3 text-center">
+                     <h3>키뷰 유치원</h3>
+                     <span class="position mb-2">서울시 중구 소재</span>
+                     <div class="faded">
+                        <p>I am an ambitious workaholic, but apart from that, pretty
+                           simple person.</p>
+                        <ul class="ftco-social text-center">
+                           <li class="ftco-animate"><a href="#"><span
+                                 class="icon-twitter"></span></a></li>
+                           <li class="ftco-animate"><a href="#"><span
+                                 class="icon-facebook"></span></a></li>
+                           <li class="ftco-animate"><a href="#"><span
+                                 class="icon-google-plus"></span></a></li>
+                           <li class="ftco-animate"><a href="#"><span
+                                 class="icon-instagram"></span></a></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-6 col-lg-3 ftco-animate">
+               <div class="staff">
+                  <div class="img-wrap d-flex align-items-stretch">
+                     <div class="img align-self-stretch"
+                        style="background-image: url(resources/images/main/kiview_02.png);"></div>
+                  </div>
+                  <div class="text pt-3 text-center">
+                     <h3>남도 유치원</h3>
+                     <span class="position mb-2">부산시 해운대구 소재</span>
+                     <div class="faded">
+                        <p>I am an ambitious workaholic, but apart from that, pretty
+                           simple person.</p>
+                        <ul class="ftco-social text-center">
+                           <li class="ftco-animate">
+                           <a href="#">
+                           <span class="icon-twitter"></span>
+                           </a>
+                           </li>
+                           <li class="ftco-animate">
+                           <a href="#">
+                           <span class="icon-facebook"></span>
+                           </a>
+                           </li>
+                           <li class="ftco-animate">
+                           <a href="#">
+                           <span class="icon-google-plus"></span>
+                           </a>
+                           </li>
+                           <li class="ftco-animate">
+                           <a href="#">
+                           <span class="icon-instagram"></span>
+                           </a>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-6 col-lg-3 ftco-animate">
+               <div class="staff">
+                  <div class="img-wrap d-flex align-items-stretch">
+                     <div class="img align-self-stretch"
+                        style="background-image: url(resources/images/main/kiview_03.png);"></div>
+                  </div>
+                  <div class="text pt-3 text-center">
+                     <h3>KH 유치원</h3>
+                     <span class="position mb-2">대구시 달서구 소재</span>
+                     <div class="faded">
+                        <p>I am an ambitious workaholic, but apart from that, pretty
+                           simple person.</p>
+                        <ul class="ftco-social text-center">
+                           <li class="ftco-animate"><a href="#"><span
+                                 class="icon-twitter"></span></a></li>
+                           <li class="ftco-animate"><a href="#"><span
+                                 class="icon-facebook"></span></a></li>
+                           <li class="ftco-animate"><a href="#"><span
+                                 class="icon-google-plus"></span></a></li>
+                           <li class="ftco-animate"><a href="#"><span
+                                 class="icon-instagram"></span></a></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-6 col-lg-3 ftco-animate">
+               <div class="staff">
+                  <div class="img-wrap d-flex align-items-stretch">
+                     <div class="img align-self-stretch"
+                        style="background-image: url(resources/images/main/kiview_04.png);"></div>
+                  </div>
+                  <div class="text pt-3 text-center">
+                     <h3>자바 유치원</h3>
+                     <span class="position mb-2">용인시 처인구 소재</span>
+                     <div class="faded">
+                        <p>I am an ambitious workaholic, but apart from that, pretty
+                           simple person.</p>
+                        <ul class="ftco-social text-center">
+                           <li class="ftco-animate"><a href="#"><span
+                                 class="icon-twitter"></span></a></li>
+                           <li class="ftco-animate"><a href="#"><span
+                                 class="icon-facebook"></span></a></li>
+                           <li class="ftco-animate"><a href="#"><span
+                                 class="icon-google-plus"></span></a></li>
+                           <li class="ftco-animate"><a href="#"><span
+                                 class="icon-instagram"></span></a></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!-- @@ 끝 @@ -->
+
+
+
+
+
+   <!-- @@ 카페 영역 @@ --> <!--200308-->
+   <section class="ftco-section bg-light">
+      <div class="container">
+         <div class="row justify-content-center mb-5 pb-2">
+            <div class="col-md-8 text-center heading-section ftco-animate">
+               <h2 class="mb-4">
+                  <span>키뷰</span> 카페
+               </h2>
+               <p>키뷰 회원님들의 커뮤니티, 키뷰 카페를 소개해드립니다!</p>
+            </div>
+         </div>
+         <div class="row">
+         
+         	<c:choose>
+         	<c:when test="${!empty best }">
+         	
+         		<c:forEach var="best" items="${best }">
+         	
+         	
+	            	<div class="col-md-6 col-lg-4 ftco-animate">
+	                        <div class="blog-entry">
+	                           <!-- 썸네일 -->
+	                           <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }"
+	                              class="block-20 d-flex align-items-end"
+	                              style="background-image: url('http://localhost:8787/img/${best.thumb }');">
+	                              <!-- 가입제한 -->
+	                              <div class="meta-date text-center p-2">
+	                                 <span class="mos">
+	                                    <c:if test="${best.restriction eq 'Y'}">
+	                                                     바로가입
+	                                    </c:if>
+	                                    <c:if test="${best.restriction eq 'N'}">
+	                                                      승인후 가입
+	                                    </c:if>
+	
+	                                 </span>
+	                              </div>
+	                           </a>
+	
+	                           <div class="text bg-white p-4">
+	                              <!-- 카페명 -->
+	                              <h3 class="heading">
+	                                 <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${Ulist.title }</a>
+	                              </h3>
+	
+	                              <!-- 카페소개 -->
+	                              <p>${best.intro }</p>
+	                              <div class="d-flex align-items-center mt-4">
+	                                 <p class="mb-0">
+	                                    <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }"
+	                                       class="btn btn-secondary">들어가기 <span
+	                                       class="ion-ios-arrow-round-forward"></span></a>
+	                                 </p>
+	                                 <p class="ml-auto mb-0">
+	                                    <!-- 카페장 -->
+	                                    <a href="#" class="mr-2">${best.admin }</a>
+	                                    <!-- 카페 회원 수 -->
+	                                    <c:set var="count" value="0"/>
+														<c:forEach items="${member }" var="member">
+	
+															<c:if test="${best.cafe_no == member.cafe_no }">
+																<c:set var="count" value="${count+1 }"/>
+	
+															</c:if>
+	
+														</c:forEach>
+	
+	                                    <a href="#" class="meta-chat">${count } 명</a>
+	                                 </p>
+	                              </div>
+	                           </div>
+	                        </div>
+	                        <br>
+	                    
+	                    </div>
+           		</c:forEach>
+           	</c:when>
+           	<c:otherwise>
+           	
+           	</c:otherwise>
+           	
+            </c:choose>
+           
+         </div>
+      </div>
+   </section>
+   <!-- @@ 카페 끝 @@ --><!--200308-->
+
+
+   <!-- @@ footer 영역 @@ -->
+   <jsp:include page="footer.jsp"/>
 
 
 
 </body>
 </html>
-
-
-
-
-
-
-

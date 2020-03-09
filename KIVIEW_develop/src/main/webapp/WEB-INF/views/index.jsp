@@ -207,10 +207,12 @@ h1{
    style="background-image: url(resources/images/bg_4.jpg);" data-stellar-background-ratio="0.5">
        <div class="container">
           <div class="row justify-content-center mb-5 pb-2">
+
           <div class="col-md-8 text-center heading-section heading-section-black ftco-animate">
             <h2 class="mb-4"><span style = "color:black;">지금</span><span> KIVIEW </span>에서는<br>N개의 리뷰가 작성되고 있습니다.</h2>
             <p>실시간 작성되고 있는 리뷰와 유치원 소식을 알려드립니다.</p>
           </div>
+
         </div>   
           <div class="row d-md-flex align-items-center justify-content-center">
              <div class="col-lg-10">
@@ -500,6 +502,7 @@ h1{
 
 
 
+
    <!-- @@ 카페 영역 @@ --> <!--200308-->
    <section class="ftco-section bg-light">
       <div class="container">
@@ -591,6 +594,7 @@ h1{
 
    <!-- @@ footer 영역 @@ -->
    <jsp:include page="footer.jsp"/>
+
 
 
 

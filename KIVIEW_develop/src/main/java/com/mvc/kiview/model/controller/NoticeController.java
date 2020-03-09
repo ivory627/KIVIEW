@@ -48,7 +48,6 @@ public class NoticeController {
 	}
 
 	/* 공지사항 selectOne */
-
 	@RequestMapping("/kiviewdetail.do")
 	public String kiview_detail(Model model, int notice_no, Criteria cri) {
 

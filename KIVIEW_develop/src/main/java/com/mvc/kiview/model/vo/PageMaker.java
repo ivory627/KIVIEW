@@ -4,13 +4,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class PageMaker {
 
-	private int totalCount;
-	private int startPage = 1;
-	private int endPage;
-	private boolean prev;
-	private boolean next;
-	private int displayPageNum = 5;
-	private Criteria cri;
+	private int totalCount; //게시물의 총 갯수
+	private int startPage = 1; //시작 페이지 1로 셋팅
+	private int endPage; //마지막 페이지
+	private boolean prev; //이전
+	private boolean next; //다음
+	private int displayPageNum = 5; //보여줄 페이지의 개수 ex) << 1 2 3 4 5 >> 이렇게 5개 보여줌
+	private Criteria cri; //Criteria에서 선언한 값들
 
 	public void setCri(Criteria cri) {
 		this.cri = cri;
@@ -66,19 +66,21 @@ public class PageMaker {
 		// 다음 버튼 생성 여부 = 끝 페이지 번호 * 한 페이지당 보여줄 게시글의 갯수 < 총 게시글의 수 ? true: false
 		next = endPage * cri.getPerPageNum() < totalCount ? true : false;
 	}
-
+	
+	//실질적으로 파라미터로 보내지는 값 셋팅 
 	public String makeQuery(int page) {
+		//ex) kiview/kiviewnotice.do?page=1&perPageNum=10 이렇게 
 		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance().queryParam("page", page)
 				.queryParam("perPageNum", this.cri.getPerPageNum());
 		
 		
-		  //FAQ의 분류 카테고리를 눌렀을 때 ? 
+		//FAQ의 분류 카테고리를 눌렀을 때의 파라미터 
 		if(this.cri.getFaqcatd() != null) {
 		  uriComponentsBuilder.queryParam("faqcatd", this.cri.getFaqcatd()); 
 		  }
 		 
 		
-		// 검색 한 경우
+		//공지사항에서 검색조건 선택한 경우
 		if (this.cri.getSearchType() != null) {
 			uriComponentsBuilder.queryParam("searchType", this.cri.getSearchType()).queryParam("keyword",
 					this.cri.getKeyword());
@@ -92,7 +94,8 @@ public class PageMaker {
 		if(this.cri.getCat_detail() != null) {
 			uriComponentsBuilder.queryParam("catd", this.cri.getCat_detail());
 		}
-
+		
+		//String 값들을 encode/toString해서 return 
 		return uriComponentsBuilder.build().encode().toString();
 	}
 }
