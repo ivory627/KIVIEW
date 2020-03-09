@@ -101,6 +101,43 @@ function LikeBtn(){
 }
 
 /////////////////////////// 지민like 끝 //////////////////////////////
+///////////////////////////지민favorite//////////////////////////////
+var favoriteSubmit = function(kinder_no){
+   if(${login != null}){
+      var member_no = '${login.member_no}';
+      console.log(member_no);
+         $.ajax({
+            url: "favoriteSubmit.do",
+            dataType:"json",
+            type: "post",
+            contentType:"application/json",  
+            data: JSON.stringify({
+               "kinder_no":kinder_no,
+               "member_no":member_no   
+            }),
+            success:function(data){
+               
+               
+               var resultSubmit = data.resultSubmit;
+               var resultMsg = data.resultMsg;
+               if(resultSubmit > 0){
+                   if(resultMsg == "insert"){
+                     $('#favoriteBtn').empty();
+                     $('#favoriteBtn').append('<img src="resources/images/favorite_insert.png" style="float:right;" width="50" height="50"/>')
+                   }else if(resultMsg == "delete"){
+                      $('#favoriteBtn').empty();
+                      $('#favoriteBtn').append('<img src="resources/images/favorite_basic.png" style="float:right;" width="50" height="50"/>')
+                  }
+               }
+               
+            },
+            error : function(request,status,error){
+               console.log("code = "+request.status + "message = " + request.responseText + "error  =   "+ error);
+            }
+      });
+   }
+}
+///////////////////////////지민 favorite 끝//////////////////////////////
 	</script>
   </head>
 <body id = "body">
@@ -130,7 +167,9 @@ function LikeBtn(){
            			 <h2 class="mb-4"><span><img id = "kinder" 
            			 style = "height: 45px; position:relative; bottom: 5px;"
            			 src = "resources/images/main/kindergarden.png"/></span>
-           			 	<span> ${kindervo.name}</span><!-- <span style = "color:#FFDC00;"> 유치원</span> --></h2><br>
+           			 	<span> ${kindervo.name}</span><a id="favoriteBtn" href="#" onclick="favoriteSubmit('${kindervo.kinder_no}')">
+                        <img src="resources/images/favorite_basic.png" style="float:right;" width="50" height="50"/></a>
+                        <!-- <span style = "color:#FFDC00;"> 유치원</span> --></h2><br>
          				<button class="btn btn-secondary px-4 py-3">${kindervo.type} </button>
          				<button class="btn btn-secondary px-4 py-3"><i class="icon icon-map-marker"></i>   ${kindervo.addr2}</button>
          				<c:set var = "sum" value = "0" />

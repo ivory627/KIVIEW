@@ -25,4 +25,26 @@
         WHERE 
            REVIEW_NO = #{review_no}
      </select>
+     
+     <select id="selectFavoriteCount" parameterType="FavoriteVo" resultType="int">
+        SELECT COUNT(*) CNT FROM FAVORITE
+        WHERE KINDER_NO = #{kinder_no} 
+           <if test="member_no != null and member_no != ''">
+           AND MEMBER_NO = #{member_no}
+           </if>
+     </select>
+     
+     
+     <insert id="insertfavorite" parameterType="FavoriteVo">
+        INSERT INTO FAVORITE (FAVORITE_NO, KINDER_NO, MEMBER_NO) 
+        VALUES (FAVORITE_SEQ.NEXTVAL, #{kinder_no}, #{member_no})
+     </insert>
+     
+     
+     <delete id="deletefavorite" parameterType="FavoriteVo">
+        DELETE FROM FAVORITE
+         WHERE
+            KINDER_NO = #{kinder_no}
+            AND MEMBER_NO = #{member_no}
+     </delete>
   </mapper>

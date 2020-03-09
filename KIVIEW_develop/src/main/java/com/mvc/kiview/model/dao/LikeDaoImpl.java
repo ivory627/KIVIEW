@@ -4,6 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mvc.kiview.model.vo.FavoriteVo;
 import com.mvc.kiview.model.vo.LikeVo;
 
 @Repository
@@ -46,9 +47,41 @@ public class LikeDaoImpl implements LikeDao {
       return res;
    }
    
+   @Override
+   public int selectFavoriteCount(FavoriteVo vo) {
+      int resultFavorite = 0;
+      try {
+         resultFavorite = sqlSession.selectOne(namespace + "selectFavoriteCount",vo);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+      return resultFavorite;
+   }
    
-
-
+   @Override
+   public int favoriteInsertCount(FavoriteVo vo) {
+      int res = 0;
+      
+      try {
+      res = sqlSession.insert(namespace + "insertfavorite", vo);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+      return res;
+   }
+   
+   
+   @Override
+   public int favoriteDeleteCount(FavoriteVo vo) {
+      int res = 0;
+      try {
+      res = sqlSession.delete(namespace + "deletefavorite",vo);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+       return res;
+   }
+   
    
 
 }

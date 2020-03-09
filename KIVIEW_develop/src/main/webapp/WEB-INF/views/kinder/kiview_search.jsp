@@ -160,9 +160,12 @@
    	            	//console.log(res);
    	            	
    	            	$("#tbody").empty();
+   	            	$("#n_paging").empty();
+   	            	
    	            	var down = $('#searchres').offset();
    		     	  	$('html').animate( { scrollTop : down.top }, 50 );
-   	            	if(res.length!=0){
+   	            	
+   		     	  	if(res.length!=0){
    	            	
    	            	 $.each(res,function(idx, code){
               	      

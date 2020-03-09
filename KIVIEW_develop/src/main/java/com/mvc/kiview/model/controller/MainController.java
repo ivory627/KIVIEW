@@ -1,9 +1,12 @@
 package com.mvc.kiview.model.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,7 +23,18 @@ public class MainController {
 	private KinderBiz biz;
 
 	@RequestMapping("/index.do")
-	public String index() {
+	public String index(Model model) {
+		
+		List<KinderVo> kinderlist = biz.KinderListAll();
+		List<KinderVo> kinder_res = new ArrayList<KinderVo>();
+		
+		Collections.shuffle(kinderlist);
+		
+		/*
+		 * for(int i=0; i<4; i++) { kinder_res = (List<KinderVo>)kinderlist.get(i); }
+		 * 
+		 * System.out.println(kinder_res);
+		 */
 		
 		return "index";
 	}
