@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeCategoryVo;
+import com.mvc.kiview.model.vo.CafeChatVo;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.CafePageVo;
@@ -36,6 +37,11 @@ public interface CafeBiz {
 	public int cafe_update(CafeVo cafe);
 	
 	public List<CafeVo> cafe_admin(String admin);
+	
+
+	public List<CafeVo> best_cafe();
+
+	public List<CafeVo> cafe_selectAll();
 	
 	
 	
@@ -148,9 +154,8 @@ public interface CafeBiz {
 
 	
 	
-	public List<CafeVo> best_cafe();
 
-	public List<CafeVo> cafe_selectAll();
+	public List<CafeChatVo> cafe_chat_select(Map parameter);
 
 	
 
