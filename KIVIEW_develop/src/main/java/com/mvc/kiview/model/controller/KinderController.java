@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mvc.kiview.model.biz.KinderBiz;
+import com.mvc.kiview.model.biz.ReviewBiz;
+import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.KinderVo;
+import com.mvc.kiview.model.vo.PageMaker;
 import com.mvc.kiview.model.vo.ProvinceVo;
 
 @Controller //검색관련
@@ -34,10 +37,16 @@ public class KinderController {
 	}
 	
 	@RequestMapping("/searchdetail.do")
-	public String searchdetail(Model model, int kinder_no) {
+	public String searchdetail(Model model, int kinder_no , Criteria cri) {
 		logger.info("KINDER SEARCH DETAIL");
 		//System.out.println(kinder_no);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(biz.ReviewCnt(kinder_no));
+
 		model.addAttribute("kindervo",biz.Kinderdetail(kinder_no));
+		model.addAttribute("reviewvo",biz.ReviewList(kinder_no,cri));
+		model.addAttribute("pageMaker", pageMaker);
 		return "kinder/kiview_Search_detail";
 	}
 	
@@ -64,38 +73,51 @@ public class KinderController {
 	}
 	
 	@RequestMapping("/localsearch.do")
-	public ModelAndView localSearch(ProvinceVo vo) {
+	public ModelAndView localSearch(ProvinceVo vo, Criteria cri) {
 		
 		logger.info("LOCAL SEARCH");
 		
 		ModelAndView mav = new ModelAndView("kinder/kiview_search");
 		mav.addObject("sido",biz.ProvinceList());
 		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		
 		if(vo.getTown()==null&&vo.getTown()=="") {
 			vo = new ProvinceVo(vo.getProvince(),vo.getCity());
-			mav.addObject("localvo",biz.LocalSerach(vo));
+			pageMaker.setTotalCount(biz.LocalSearchCnt(vo));
+			mav.addObject("localvo",biz.LocalSearch(vo,cri));
 			mav.addObject("vo",vo);
 			//System.out.println(biz.LocalSerach(vo));
 		}else {
 			vo = new ProvinceVo(vo.getProvince(),vo.getCity(),vo.getTown());
-			mav.addObject("localvo",biz.LocalSerach(vo));
+			pageMaker.setTotalCount(biz.LocalSearchCnt(vo));
+			mav.addObject("localvo",biz.LocalSearch(vo,cri));
 			mav.addObject("vo",vo);
 			//System.out.println(biz.LocalSerach(vo));
 		}
+		
+		mav.addObject("pageMaker", pageMaker);
 		
 		
 		return mav;
 	}
 	
 	@RequestMapping("/namesearch.do")
-	public ModelAndView nameSearch(String name) {
+	public ModelAndView nameSearch(String name, Criteria cri) {
 		
 		logger.info("NAME SEARCH");
 		//System.out.println(name);
 		
 		ModelAndView mav = new ModelAndView("kinder/kiview_search");
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(biz.NameSearchCnt(name));
+		
 		mav.addObject("sido",biz.ProvinceList());
-		mav.addObject("namevo",biz.NameSearch(name));
+		mav.addObject("namevo",biz.NameSearch(name,cri));
+		mav.addObject("name", name);
+		mav.addObject("pageMaker", pageMaker);
 		
 		return mav;
 	}

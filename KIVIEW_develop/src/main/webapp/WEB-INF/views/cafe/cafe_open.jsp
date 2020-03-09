@@ -87,13 +87,11 @@ function check(){
             class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
                
-               <h1 class="mb-2 bread">카페 개설하기</h1>
+               <h1 class="mb-2 bread">키뷰 개설</h1>
                <p class="breadcrumbs">
-                  <span class="mr-2"><a href="index.jsp">홈
-                  <i class="ion-ios-arrow-forward"></i></a></span> 
-                  <span class="mr-2">
-                  <a href="cafe_home.jsp">키뷰카페 <i class="ion-ios-arrow-forward"></i></a></span>
-                  <span>카페 개설하기 <i class="ion-ios-arrow-forward"></i></span>
+                  <span class="mr-2"><a href="index.jsp">홈 <i
+                        class="ion-ios-arrow-forward"></i></a></span> <span>키뷰카페 <i
+                     class="ion-ios-arrow-forward"></i></span>
                </p>
             </div>
          </div>

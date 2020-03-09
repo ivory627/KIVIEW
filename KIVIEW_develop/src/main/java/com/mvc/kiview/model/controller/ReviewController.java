@@ -13,8 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mvc.kiview.model.biz.LikeBiz;
 import com.mvc.kiview.model.biz.ReviewBiz;
+import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.KinderVo;
+import com.mvc.kiview.model.vo.PageMaker;
 import com.mvc.kiview.model.vo.ReviewVo;
 
 @Controller //리뷰관련
@@ -25,53 +28,71 @@ public class ReviewController {
 	@Autowired
 	private ReviewBiz biz;
 	
+	//200305 지민추가
+	@Autowired 
+	private LikeBiz biz_like;
+	
+	/* 승혜 : 페이징 vo 추가 --> CRUD할 때 현재 페이지를 파라미터로 보내줘야 됩니다! */
 	@RequestMapping("/reviewboard.do")
-	public String list(Model model) {
+	public String list(Model model, Criteria cri) {
 		logger.info("ReviewController : REVIEW LIST");
 		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(biz.reviewCount(cri));
 		
-		model.addAttribute("list", biz.reviewList());
-		System.out.println(biz.reviewList());
+		
+		model.addAttribute("list", biz.reviewList(cri));
+		model.addAttribute("pageMaker", pageMaker);
+		
+		//200305 지민추가
+		model.addAttribute("likeAll", biz_like.selectAll());
+	
+		
+		
+		System.out.println(biz.reviewList(cri));
 		return "review/kiview_reviewboard";
 	}
 	
+	/* 이렇게 insert할 때도 현재 page번호를 파라미터로 받아서 보내줘야 합니다! */
 	@RequestMapping("/reviewInsert.do")
-	public String reviewInsert(ReviewVo vo) {
+	public String reviewInsert(ReviewVo vo, int page) {
 		logger.info("ReviewController : INSERT REVIEW");
 		
 		int res = biz.reviewInsert(vo);
 		
 		if(res > 0) {
-			return "redirect:reviewboard.do";
+			return "redirect:reviewboard.do?page="+page;
 		} else {
-			return "redirect:reviewboard.do";
+			return "redirect:reviewboard.do?page="+page;
 		}
 	}
 	
+	/* update, delete도 마찬가지로 페이지번호 파라미터로 받아서 보내주기 */
 	@RequestMapping("/reviewUpdate.do")
-	public String reviewUpdate(ReviewVo vo) {
+	public String reviewUpdate(ReviewVo vo, int page) {
 		logger.info("ReviewController : UPDATE RES");
 		
 		int res = biz.reviewUpdate(vo);
 		
 		if(res > 0) {
-			return "redirect:reviewboard.do";
+			return "redirect:reviewboard.do?page="+page;
 		} else {
-			return "redirect:reviewboard.do";
+			return "redirect:reviewboard.do?page="+page;
 		}
 	}
 	
 	@RequestMapping("/reviewDelete.do")
-	public String reviewDelete(int review_no) {
+	public String reviewDelete(int review_no, int page) {
 		logger.info("ReviewController : DELETE REVIEW");
 		
 		int res = biz.reviewDelete(review_no);
 		
 		if(res > 0) {
-			return "redirect:reviewboard.do";
+			return "redirect:reviewboard.do?page="+page;
 		} else {
 			System.out.println("ReviewController : FAIL ---- DELETE");
-			return "redirect:reviewboard.do";
+			return "redirect:reviewboard.do?page="+page;
 		}
 	}
 	

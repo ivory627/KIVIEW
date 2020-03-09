@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.kiview.model.dao.KinderDao;
+import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.KinderVo;
 import com.mvc.kiview.model.vo.ProvinceVo;
+import com.mvc.kiview.model.vo.ReviewVo;
 
 @Service
 public class KinderBizImpl implements KinderBiz {
@@ -17,9 +19,9 @@ public class KinderBizImpl implements KinderBiz {
 	private KinderDao dao;
 
 	@Override
-	public List<KinderVo> LocalSerach(ProvinceVo vo) {
+	public List<KinderVo> LocalSearch(ProvinceVo vo, Criteria cri) {
 		
-		return dao.LocalSerach(vo);
+		return dao.LocalSearch(vo,cri);
 	}
 
 	@Override
@@ -29,9 +31,9 @@ public class KinderBizImpl implements KinderBiz {
 	}
 
 	@Override
-	public List<KinderVo> NameSearch(String name) {
+	public List<KinderVo> NameSearch(String name, Criteria cri) {
 			
-		return dao.NameSearch(name);
+		return dao.NameSearch(name,cri);
 	}
 
 	@Override
@@ -79,6 +81,26 @@ public class KinderBizImpl implements KinderBiz {
 	@Override
 	public List<KinderVo> mapSearch(HashMap<String, String> map) {
 		return dao.mapSearch(map);
+	}
+
+	@Override
+	public List<ReviewVo> ReviewList(int kinder_no, Criteria cri) {
+		return dao.ReviewList(kinder_no,cri);
+	}
+
+	@Override
+	public int ReviewCnt(int kinder_no) {
+		return dao.ReviewCnt(kinder_no);
+	}
+
+	@Override
+	public int LocalSearchCnt(ProvinceVo vo) {
+		return dao.LocalSearchCnt(vo);
+	}
+
+	@Override
+	public int NameSearchCnt(String name) {
+		return dao.NameSearchCnt(name);
 	}
 
 }
