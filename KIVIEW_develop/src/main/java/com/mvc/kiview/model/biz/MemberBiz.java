@@ -16,4 +16,6 @@ public interface MemberBiz {
 
 	public int deleteMember(MemberVo vo);
 
+	public int findPwd(MemberVo vo);
+
 }
