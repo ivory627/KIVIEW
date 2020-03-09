@@ -38,12 +38,15 @@
      
      
      <insert id="insertfavorite" parameterType="FavoriteVo">
+
      	INSERT INTO FAVORITE (FAVORITE_NO, KINDER_NO, MEMBER_NO) 
      	VALUES (FAVORITE_SEQ.NEXTVAL, #{kinder_no}, #{member_no})
+
      </insert>
      
      
      <delete id="deletefavorite" parameterType="FavoriteVo">
+
      	DELETE FROM FAVORITE
 			WHERE
 				KINDER_NO = #{kinder_no}
@@ -98,4 +101,4 @@
   
   
   
-  
+

@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mvc.kiview.model.biz.CafeBiz;
 import com.mvc.kiview.model.biz.LikeBiz;
+
 import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.CafeVo;
 import com.mvc.kiview.model.vo.FavoriteVo;
 import com.mvc.kiview.model.vo.KinderVo;
+
 import com.mvc.kiview.model.vo.LikeVo;
 import com.mvc.kiview.model.vo.ReviewVo;
 
@@ -33,7 +35,7 @@ public class LikeController {
 	@Autowired
    private LikeBiz biz;
    
-	//좋아요
+
    @RequestMapping(value="/likeSubmit.do", method=RequestMethod.POST)
    public @ResponseBody HashMap<String, Object> likeSubmit(@RequestBody LikeVo vo) {
       HashMap<String, Object> resultMap = new HashMap<String,Object>(); 
@@ -63,6 +65,7 @@ public class LikeController {
       return resultMap;
    }
    
+
    
    //즐겨찾기
    @RequestMapping(value="/favoriteSubmit.do", method=RequestMethod.POST)
@@ -125,6 +128,7 @@ public class LikeController {
       
       return "member/kiview_myactivity";
    }
+
 
    
 }

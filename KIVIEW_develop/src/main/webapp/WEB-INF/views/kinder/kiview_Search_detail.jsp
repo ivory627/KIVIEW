@@ -2,10 +2,12 @@
     pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
+
    
    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
    <%@ taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"%>
    <%@ taglib prefix="fmf" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,6 +16,7 @@
     <jsp:include page="../head.jsp"/>
     <style type="text/css">
     label {
+
    font-weight: bold;
    color: black;
    margin-bottom: 5px;
@@ -22,6 +25,7 @@
    position: relative;
    left: 90%
    }
+
     table{
        color:black;
        text-align:center;
@@ -31,6 +35,9 @@
     }
     td a{
        color:black;
+    }
+    td a{
+    	color:black;
     }
     #box {
     background-color: white;
@@ -42,8 +49,10 @@
     top: 50%;
     left: 58%;
     transform: translate(-50%, -50%);
+
    }
    .content.jsx-2941005022 {
+
     width: 400px;
     display: flex;
     text-align: center;
@@ -57,10 +66,12 @@
     display: flex;
     -webkit-box-pack: center;
     justify-content: center;
+
    }
     </style>
     <script type="text/javascript">
    /////////////////////////// 지민like //////////////////////////////
+
 
 var likeSubmit = function(review_no){
    var member_no = '${login.member_no}';
@@ -97,7 +108,9 @@ var likeSubmit = function(review_no){
    }
    
 function LikeBtn(){
+
    alert('로그인이 필요합니다.');
+
 }
 
 /////////////////////////// 지민like 끝 //////////////////////////////
@@ -138,7 +151,9 @@ var favoriteSubmit = function(kinder_no){
    }
 }
 ///////////////////////////지민 favorite 끝//////////////////////////////
+
    </script>
+
   </head>
 <body id = "body">
 <!-- @@ header 부분 @@ -->
@@ -161,6 +176,7 @@ var favoriteSubmit = function(kinder_no){
      <!-- @@ header 끝 @@ -->
      
      <section class="ftco-section bg-light">
+
          <div class="container">
             <div class="row" id="box">
                   <div style="width:100%;margin:0 auto;" class="col-md-15 heading-section ftco-animate fadeInUp ftco-animated">
@@ -506,6 +522,7 @@ var favoriteSubmit = function(kinder_no){
          </div>
          </div>
       </section>
+
      
       <!-- @@ footer 영역 @@ -->
    <jsp:include page="../footer.jsp"/>

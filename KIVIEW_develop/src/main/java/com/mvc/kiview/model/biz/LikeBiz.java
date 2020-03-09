@@ -1,11 +1,13 @@
 package com.mvc.kiview.model.biz;
 
+
 import java.util.List;
 
 import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.FavoriteVo;
 import com.mvc.kiview.model.vo.KinderVo;
+
 import com.mvc.kiview.model.vo.LikeVo;
 import com.mvc.kiview.model.vo.ReviewVo;
 
@@ -37,6 +39,10 @@ public interface LikeBiz {
 	
 
 
+ //즐겨찾기
+   public int selectFavoriteCount(FavoriteVo vo);
+   public int favoriteDelete(FavoriteVo vo);
+   public int favoriteInsert(FavoriteVo vo);
    
    
 }

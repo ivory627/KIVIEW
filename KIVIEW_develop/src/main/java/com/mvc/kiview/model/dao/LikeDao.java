@@ -6,6 +6,7 @@ import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.FavoriteVo;
 import com.mvc.kiview.model.vo.KinderVo;
+
 import com.mvc.kiview.model.vo.LikeVo;
 import com.mvc.kiview.model.vo.ReviewVo;
 
@@ -37,5 +38,9 @@ public interface LikeDao {
    public List<KinderVo> myFavorite(String member_id);
 
 
+ //즐겨찾기
+   public int selectFavoriteCount(FavoriteVo vo);
+   public int favoriteDeleteCount(FavoriteVo vo);
+   public int favoriteInsertCount(FavoriteVo vo);
    
 }

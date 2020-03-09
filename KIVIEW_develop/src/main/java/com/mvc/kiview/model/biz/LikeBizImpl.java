@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.kiview.model.dao.LikeDao;
+
 import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.FavoriteVo;
@@ -34,7 +35,7 @@ public class LikeBizImpl implements LikeBiz{
       return dao.likeDelete(vo);
    }
    
-   @Override
+
 	public int selectFavoriteCount(FavoriteVo vo) {
 		return dao.selectFavoriteCount(vo);
 	}
@@ -80,7 +81,7 @@ public class LikeBizImpl implements LikeBiz{
 		return dao.myFavorite(member_id);
 	}
 
-	
+
    
 
 }

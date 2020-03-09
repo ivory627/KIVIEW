@@ -11,6 +11,7 @@ import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
 import com.mvc.kiview.model.vo.FavoriteVo;
 import com.mvc.kiview.model.vo.KinderVo;
+
 import com.mvc.kiview.model.vo.LikeVo;
 import com.mvc.kiview.model.vo.ReviewVo;
 
@@ -90,8 +91,7 @@ public class LikeDaoImpl implements LikeDao {
 		}
  		return res;
 	}
-   
-	
+
 	@Override
 	public List<LikeVo> selectAll() {
 		List<LikeVo> res = new ArrayList<LikeVo>();
@@ -121,7 +121,6 @@ public class LikeDaoImpl implements LikeDao {
 	}
 	
 
-	   
    
 
 	@Override

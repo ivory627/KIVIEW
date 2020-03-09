@@ -1,6 +1,7 @@
 package com.mvc.kiview.model.vo;
 
 public class FavoriteVo {
+
 	private String favorite_no;
 	private String kinder_no;
 	private String member_no;
@@ -44,3 +45,4 @@ public class FavoriteVo {
 	
 
 }
+
