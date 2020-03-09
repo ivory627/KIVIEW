@@ -3,10 +3,12 @@ package com.mvc.kiview.model.controller;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.mail.HtmlEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mvc.kiview.model.biz.MemberBiz;
 import com.mvc.kiview.model.vo.KakaoApi;
 import com.mvc.kiview.model.vo.MemberVo;
@@ -168,9 +173,15 @@ public class MemberController {
    //@@ 마이페이지 @@ /////////////////////////////////////////////////////////////////////////
    //마이페이지 - 회원정보
    @RequestMapping("/kiviewmypage.do")
-   public String mypage() {
+   public String mypage(HttpSession session) {
       logger.info("mypage");
-      return "member/kiview_mypage"; 
+      
+      if(session.getAttribute("login") != null) {
+    	  return "member/kiview_mypage"; 
+      }else {
+    	  return "member/kiview_mypage_sns"; 
+      }
+      
    }
    
   
@@ -252,7 +263,7 @@ public class MemberController {
 
    // 네이버 로그인 성공시 callback호출 메소드 **보충 필요
    @RequestMapping(value = "/callback.do")
-   public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
+   public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, MemberVo vo)
          throws IOException {
 
       System.out.println("네이버 callback");
@@ -260,11 +271,32 @@ public class MemberController {
       oauthToken = naverLoginBO.getAccessToken(session, code, state);
       // 로그인 사용자 정보를 읽어온다.
       apiResult = naverLoginBO.getUserProfile(oauthToken);
-      System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
+      //System.out.println(apiResult.toString());
       model.addAttribute("result", apiResult);
-      System.out.println("result" + apiResult);
+      System.out.println("result: " + apiResult);
+      
+      //
+      JsonParser parser = new JsonParser();
+      JsonElement element = parser.parse(apiResult);
+      JsonObject response = element.getAsJsonObject().get("response").getAsJsonObject();
+      String snsEmail = response.getAsJsonObject().get("email").getAsString();
+      System.out.println("내가 출력하고 싶은 이메일: " + snsEmail );
+      
+      vo = biz.selectEmail(snsEmail);
+      System.out.println(vo);
+      if(vo != null) {
+    	  session.setAttribute("snsLogin", vo);
 
-      return "index";
+          //세션 유지 시간 1시간으로 설정
+          session.setMaxInactiveInterval(60*60) ;
+          
+    	  return "index";
+      }else {
+    	  model.addAttribute("snsEmail", snsEmail);
+    	  return "member/kiview_signup_sns";
+      }
+      
+
    }
 
    //구글 로그인 성공시 callback 호출 **보충 필요
@@ -279,7 +311,7 @@ public class MemberController {
 
    //카카오 로그인 성공시 callback 호출
    @RequestMapping("/callback3.do")
-   public String callback3(HttpServletRequest request, @RequestParam("code") String code, HttpSession session) {
+   public String callback3(HttpServletRequest request, @RequestParam("code") String code, HttpSession session, MemberVo vo, Model model) {
 
       System.out.println("카카오 callback");
       String access_Token = kakaoApi.getAccessToken(code);
@@ -287,19 +319,28 @@ public class MemberController {
 
       HashMap<String, Object> userInfo = kakaoApi.getUserInfo(access_Token);
       System.out.println("login Controller : " + userInfo);
+      
+      String snsEmail = (String) userInfo.get("email");
+      
+      vo = biz.selectEmail(snsEmail);
+      System.out.println(vo);
+      if(vo != null) {
+    	  session.setAttribute("snsLogin", vo);
 
-      //클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
-      if (userInfo.get("email") != null) {
-         session.setAttribute("login", userInfo.get("email"));
-         session.setAttribute("access_Token", access_Token);
+          //세션 유지 시간 1시간으로 설정
+          session.setMaxInactiveInterval(60*60) ;
+          
+    	  return "index";
+      }else {
+    	  model.addAttribute("snsEmail", snsEmail);
+    	  return "member/kiview_signup_sns";
       }
 
-      return "index";
 
    }
    
-   //비밀번호찾기
-   @RequestMapping(value = "/kiviewfindPwd.do", method = RequestMethod.POST)
+   //비밀번호찾기 - 아이디/이메일 일치 여부확인
+   @RequestMapping(value = "/kiviewfindpwd.do", method = RequestMethod.POST)
    @ResponseBody
    public Map<String, Boolean> findPwd(@RequestBody MemberVo vo) {
 	   logger.info("findPwd");
@@ -318,46 +359,46 @@ public class MemberController {
    }
    
    
-/*
+
 	//비밀번호 찾기 이메일 발송
- 	@RequestMapping(value = "/kiviewseneemail.do", method = RequestMethod.POST)
- 	logger.info("sendEmail")
-	public void send_mail(MemberVo member, String div) throws Exception {
-		// Mail Server 설정
+ 	@RequestMapping(value = "/kiviewsendemail.do", method = RequestMethod.POST)
+ 	@ResponseBody
+	public int send_mail(@RequestBody MemberVo vo) throws Exception {
+ 		logger.info("sendEmail");
+ 		
+ 		//임시비밀번호 DB에 저장
+ 		String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");	//임시 비밀번호 생성
+ 		tmpPwd = tmpPwd.substring(0, 8); //임시비밀번호를 8자리까지 자름
+ 		vo.setMember_pwd(passwordEncoder.encode(tmpPwd));	//임시비밀번호 암호화
+ 		
+ 		System.out.println("암호화 전 임시비밀번호: "+ tmpPwd);
+ 		//System.out.println("암호화 후 임시비밀번호: "+ vo.getMember_pwd());
+ 		System.out.println("vo: " + vo);
+ 		
+ 		int res = biz.tmpPwd(vo);	//임시비밀번호  update
+		
+ 		// Mail Server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com";
-		String hostSMTPid = "이메일 입력";
-		String hostSMTPpwd = "비밀번호 입력";
+		String hostSMTPid = "pdy2324";
+		String hostSMTPpwd = "Ehdud21170@#";
 
 		// 보내는 사람 EMail, 제목, 내용
-		String fromEmail = "이메일 입력";
-		String fromName = "Spring Homepage";
-		String subject = "";
+		String fromEmail = "pdy2324@naver.com";
+		String fromName = "Kiview";
+		String subject = "kiview에서 임시비밀번호가 발급되었습니다";
 		String msg = "";
-
-		if(div.equals("join")) {
-			// 회원가입 메일 내용
-			subject = "Spring Homepage 회원가입 인증 메일입니다.";
-			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
-			msg += "<h3 style='color: blue;'>";
-			msg += member.getId() + "님 회원가입을 환영합니다.</h3>";
-			msg += "<div style='font-size: 130%'>";
-			msg += "하단의 인증 버튼 클릭 시 정상적으로 회원가입이 완료됩니다.</div><br/>";
-			msg += "<form method='post' action='http://localhost:8081/homepage/member/approval_member.do'>";
-			msg += "<input type='hidden' name='email' value='" + member.getEmail() + "'>";
-			msg += "<input type='hidden' name='approval_key' value='" + member.getApproval_key() + "'>";
-			msg += "<input type='submit' value='인증'></form><br/></div>";
-		}else if(div.equals("find_pw")) {
-			subject = "Spring Homepage 임시 비밀번호 입니다.";
-			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
-			msg += "<h3 style='color: blue;'>";
-			msg += member.getId() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
-			msg += "<p>임시 비밀번호 : ";
-			msg += member.getPw() + "</p></div>";
-		}
+		
+		msg += "<div align='center' style='border:1px solid black; font-family:verdana'; font-size:20px;>";
+		msg += "<h3 style='color: blue;'>";
+		msg += vo.getMember_id() + "님의 임시 비밀번호는&nbsp;<span style='color: red; font-size:30px'>"+ tmpPwd +"</span>&nbsp;입니다. "
+				+ "<br>로그인 후 비밀번호를 변경하여 사용하세요.</h3></p></div>";
+		
 		// 받는 사람 E-Mail 주소
-		String mail = member.getEmail();
 		try {
+			String mail = vo.getMember_email();
+	 		System.out.println("mail: " + mail);
+	 		
 			HtmlEmail email = new HtmlEmail();
 			email.setDebug(true);
 			email.setCharset(charSet);
@@ -375,8 +416,11 @@ public class MemberController {
 		} catch (Exception e) {
 			System.out.println("메일발송 실패 : " + e);
 		}
+ 		
+ 		return res;
+ 		
 	}
-*/
+
   
    
    

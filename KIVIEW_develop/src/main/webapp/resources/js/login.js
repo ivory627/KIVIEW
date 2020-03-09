@@ -172,6 +172,21 @@ function findPwd() {
 			success : function(msg) {
 
 				if (msg.check2 == true) {
+					//이메일발송
+					$.ajax({
+						type : "post",
+						url : "kiviewsendemail.do",
+						data : JSON.stringify(findPwdVal),
+						contentType : "application/json",
+						dataType : "json",
+						success : function(msg) {
+							console.log("메일전송성공");
+						},
+						error : function() {
+							$("#findPwdMsg").show().css("color","blue").html("이메일인증에 실패하였습니다. 다시 시도해주세요");
+						}
+					});
+					//
 					$("#findPwdMsg").show().css("color","blue").html("이메일로 임시 비밀번호가 발송되었습니다");
 					
 				} else {
@@ -188,6 +203,9 @@ function findPwd() {
 		});
 
 	}
+	
+	$("#findPwd_id").val("");
+	$("#findPwd_email").val("");
 
 }
 
