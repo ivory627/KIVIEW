@@ -1,7 +1,7 @@
 ## 📣 KIVIEW 기능 구현 설명<Spring framework final project>
 
 
->SEUNG HYE CHOI - NoticeBoard, Chatbot, UI총괄(BootStrap), index.jsp(Main), SNS Login(Naver, Kakao, Google -> 구현중)
+>SEUNG HYE CHOI - NoticeBoard, Chatbot, UI총괄(BootStrap), index.jsp(Main), SNS Login(Naver, Kakao, Google), SNS Share(kakao)
 
 
 📩 contact - motop68@gmail.com
@@ -48,7 +48,7 @@
   - kiview_notice_update.jsp
     - update, smartEditor2(API)
   - kiview_intro.jsp
-    - view(구현중 - 이미지 제작)
+    - view()
   - kiview_FAQ.jsp // 답글 여부 ajax 완료, 현재 page 나타내기 완료
     - selectList, paging, ajax
   - kiview_faq_write.jsp
