@@ -22,10 +22,93 @@
 <!-- **승혜:reviewboard.css로 임포트 -->
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet" type="text/css" href="resources/css/star.css">
-<link rel="stylesheet" type="text/css" href="resources/css/reviewboard.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/reviewboard.css">
 
 <!-- **승혜:reviewboard.js로 임포트 -->
 <script type="text/javascript" src="resources/js/reviewboard.js"></script>
+<script type="text/javascript">
+
+
+function Searchchk(){
+   if($("#SearchId").find("input[name=keyword]").val()==''){
+      alert("검색어를 입력해 주세요.")
+      return false;
+   }
+}
+
+
+$(function(){
+   $('textarea.content').keyup(function(){
+      bytesHandler(this);
+   });
+});
+
+function getTextLength(str) {
+   var len = 0;
+   for (var i = 0; i < str.length; i++) {
+      if (escape(str.charAt(i)).length == 6) {
+         len++;
+      }
+      len++;
+   }
+   return len;
+}
+
+function bytesHandler(obj){
+   var text = $(obj).val();
+   $('span.bytes').text(getTextLength(text));
+}
+
+///////////////////////////지민like//////////////////////////////
+var likeSubmit = function(review_no){
+	if(${login!=null}){
+		var member_no = '${login.member_no}';
+		console.log(member_no);
+	      $.ajax({
+	         url: "likeSubmit.do",
+	         dataType:"json",
+	         type: "post",
+	         contentType:"application/json",  
+	         data: JSON.stringify({
+	        	 "review_no":review_no,
+	        	 "member_no":member_no		 
+	         }),
+	         success:function(data){
+	        	 
+	            var resultFlag = data.resultFlag;
+	            var resultMsg = data.resultMsg;
+	            if(resultFlag > 0){
+	                if(resultMsg == "insert"){ 
+							$("#likeBtn"+review_no).css("background-color","rgb(63, 96, 204)"); 
+							$("#likeCount"+review_no).css("color","white"); 
+							
+	                	
+	               }else if(resultMsg == "delete"){
+	            	   $("#likeBtn"+review_no).css("background-color","white"); 
+	            	   $("#likeCount"+review_no).css("color","rgb(63, 96, 204)"); 
+	               }
+	            }
+	            
+	            $("#likeCount"+review_no).html(data.reviewCnt);
+	            
+	         },
+	         error : function(request,status,error){
+	        	 console.log("code = "+request.status + "message = " + request.responseText + "error  =   "+ error);
+	         }
+	      });
+		
+	} else {
+		alert("로그인이 필요한 서비스입니다.");
+	}
+	
+	
+   }
+///////////////////////////지민like 끝//////////////////////////////
+
+</script>
+
+	
 
 <style type="text/css">
 
@@ -372,6 +455,7 @@ function NullBtn(){
 					<select name="type">
 						<option value="kinder_name">유치원명</option>
 						<option value="review_writer">작성자</option>
+						<option value="review_title">제　목</option>
 					</select> &nbsp;&nbsp; <input type="text" name="keyword"
 						placeholder="검색어를 입력하세요." style="height: 40px; width: 40%">
 					<input class="btn btn-secondary"
@@ -440,40 +524,47 @@ function NullBtn(){
 								style="width: 25%; margin-right: 30px; border-right: 1px solid lightgray">
 								<label style="font-size: 20px"> ${review.kinder_name} </label>
 								<p style="font-size: 14px;">${review.kinder_addr}</p>
-								
+
 								<!-- **승혜: 별모양 수정  -->
-								<br> <label style="font-size: 18px;">원장/교사</label> 
-									<div class="jsx-2162317864 stars">
-									<span style="font-size: 18px; position: relative; left: 36%; bottom:32px;">
-									<c:forEach begin="1" end="${review.avg_score1}">
-									<div class="jsx-2162317864 star star-2"></div>
-									</c:forEach>
-									</span></div><br> 
-								<label style="font-size: 18px;">교과/수업</label> 
-									<div class="jsx-2162317864 stars">
-									<span style="font-size: 18px; position: relative; left: 36%; bottom:32px;">
-								    <c:forEach begin="1" end="${review.avg_score2}"> 
-								    <div class="jsx-2162317864 star star-2"></div> 
-								    </c:forEach>
-									</span></div> <br> 
-								<label style="font-size: 18px;">시설/청결</label> 
-									<div class="jsx-2162317864 stars">
-									<span style="font-size: 18px; position: relative; left: 36%; bottom:32px;">
-									<c:forEach begin="1" end="${review.avg_score3}">
-									<div class="jsx-2162317864 star star-2"></div>
-									</c:forEach>
-									</span></div> <br>
+								<br> <label style="font-size: 18px;">원장/교사</label>
+								<div class="jsx-2162317864 stars">
+									<span
+										style="font-size: 18px; position: relative; left: 36%; bottom: 32px;">
+										<c:forEach begin="1" end="${review.avg_score1}">
+											<div class="jsx-2162317864 star star-2"></div>
+										</c:forEach>
+									</span>
+								</div> 
+								<br> <label style="font-size: 18px;">교과/수업</label>
+								<div class="jsx-2162317864 stars">
+									<span
+										style="font-size: 18px; position: relative; left: 36%; bottom: 32px;">
+										<c:forEach begin="1" end="${review.avg_score2}">
+											<div class="jsx-2162317864 star star-2"></div>
+										</c:forEach>
+									</span>
+								</div>
+								<br> <label style="font-size: 18px;">시설/청결</label>
+								<div class="jsx-2162317864 stars">
+									<span
+										style="font-size: 18px; position: relative; left: 36%; bottom: 32px;">
+										<c:forEach begin="1" end="${review.avg_score3}">
+											<div class="jsx-2162317864 star star-2"></div>
+										</c:forEach>
+									</span>
+								</div>
+								<br>
 								<!-- **별모양 수정 끝  -->
 								<h3>
 									<c:set var="score"
 										value="${(review.avg_score1+review.avg_score2+review.avg_score3)/3 }" />
-									<label>총점</label>&nbsp;&nbsp;&nbsp;
-									<span><fmt:formatNumber value="${score}" pattern=".00" /></span> / 5.00 <br>
+									<label>총점</label>&nbsp;&nbsp;&nbsp; <span><fmt:formatNumber
+											value="${score}" pattern=".00" /></span> / 5.00 <br>
 								</h3>
 							</div>
 
 
-							<div style="width: 70%">
+							<div style="width: 70%; overflow: auto">
 								<h3>
 									<label>“ ${review.review_title} ”</label>
 								</h3>
@@ -495,48 +586,89 @@ function NullBtn(){
 						<div class="reviewBtn" style="padding: 30px; width: 100%;">
 							<c:if test="${review.review_writer eq login.member_id}">
 								<!-- **승혜: 현재 페이지 번호(param.page)매개변수로 보내기 -->
-								<input class="btn btn-secondary" type="button" value="수정" id = "reviewedit"
+								<input class="btn btn-secondary" type="button" value="수정"
+									id="reviewedit"
 									onclick="update_form(${review.review_no}, ${param.page})">
-								<input class="btn btn-primary" type="button" value="삭제" id = "reviewdel"
+								<input class="btn btn-primary" type="button" value="삭제"
+									id="reviewdel"
 									onclick="reviewDel(${review.review_no}, ${param.page})">
 							</c:if>
-							<c:choose>
-								<c:when test="${!empty login}">
-									<!-- **승혜: 좋아요 버튼 -->
-									<div class="jsx-3279357537 buttons">
-										<button type="button" class="jsx-693606843 button--voteup"
-											type="button" value="좋아요"
-											onclick="likeSubmit('${review.review_no}')">
-											<svg xmlns="http://www.w3.org/2000/svg" width="20"
-												height="20" viewBox="0 0 24 24" fill="none" stroke="#8f8f8f"
-												stroke-width="2" stroke-linecap="round"
-												stroke-linejoin="round"
-												style="position: relative; vertical-align: top;">
-											<path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
-											<!-- ** 요 span부분에 좋아요 갯수 카운팅 한거 넣어주면 될 것 같아요! **-->
-											<span class="jsx-693606843 count">1</span>
-										</button>
-									</div>
+									<c:set var="likeChk" value="0"/>
+									<c:forEach var="like" items="${likeAll }">								
+										<c:if test="${review.review_no==like.review_no}">
+											<c:if test="${like.member_no==login.member_no }">
+												<c:set var="likeChk" value="${likeChk+1 }"/>
+											</c:if>
+										</c:if>
+									</c:forEach>
+									<c:if test="${likeChk>0 }">
+										<!-- **승혜: 좋아요 버튼 -->
+										<div class="jsx-3279357537 buttons">
+											<button type="button" id="likeBtn${review.review_no }" style="background-color:rgb(63, 96, 204)"
+												class="jsx-693606843 button--voteup" type="button"
+												value="좋아요"
+												onclick="likeSubmit('${review.review_no}')">
+												<svg xmlns="http://www.w3.org/2000/svg" width="20"
+													height="20" viewBox="0 0 24 24" fill="none" stroke="#8f8f8f"
+													stroke-width="2" stroke-linecap="round"
+													stroke-linejoin="round"
+													style="position: relative; vertical-align: top;">
+												<path
+														d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+												<!-- ** 요 span부분에 좋아요 갯수 카운팅 한거 넣어주면 될 것 같아요! **-->
+	
+												<!-- 좋아요 수 카운트 -->
+												<c:set var="count" value="0" /> <!-- count란 변수를 선언하겠다. 초기값은 0 -->
+												<c:if test="${!empty likeAll }"> <!-- 좋아요 리스트가 비어있지 않았을때 -->
+													<c:forEach var="likeAll" items="${likeAll }"> <!-- 좋아요 리스트를 반복문으로 실행해라 -->
+														<c:if test="${review.review_no==likeAll.review_no }"> <!-- 단, 리뷰리스트와 좋아요리스트의 리뷰번호가 같은게 있다면 -->
+															<c:set var="count" value="${count+1 }" /> <!-- count변수에 +1을 해주어라 -->
+														</c:if>
+													</c:forEach>
+												</c:if>
+						
+	
+												<span id="likeCount${review.review_no }" style="color:white"
+													class="jsx-693606843 count">${count }</span>
+											</button>
+										</div>
+									</c:if>
+									<c:if test="${likeChk==0 }">
+										<!-- **승혜: 좋아요 버튼 -->
+										<div class="jsx-3279357537 buttons">
+											<button type="button" id="likeBtn${review.review_no }"
+												class="jsx-693606843 button--voteup" type="button"
+												value="좋아요"
+												onclick="likeSubmit('${review.review_no}')">
+												<svg xmlns="http://www.w3.org/2000/svg" width="20"
+													height="20" viewBox="0 0 24 24" fill="none" stroke="#8f8f8f"
+													stroke-width="2" stroke-linecap="round"
+													stroke-linejoin="round"
+													style="position: relative; vertical-align: top;">
+												<path
+														d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+												<!-- ** 요 span부분에 좋아요 갯수 카운팅 한거 넣어주면 될 것 같아요! **-->
+	
+												<!-- 좋아요 수 카운트 -->
+												<c:set var="count" value="0" /> <!-- count란 변수를 선언하겠다. 초기값은 0 -->
+												<c:if test="${!empty likeAll }"> <!-- 좋아요 리스트가 비어있지 않았을때 -->
+													<c:forEach var="likeAll" items="${likeAll }"> <!-- 좋아요 리스트를 반복문으로 실행해라 -->
+														<c:if test="${review.review_no==likeAll.review_no }"> <!-- 단, 리뷰리스트와 좋아요리스트의 리뷰번호가 같은게 있다면 -->
+															<c:set var="count" value="${count+1 }" /> <!-- count변수에 +1을 해주어라 -->
+														</c:if>
+													</c:forEach>
+												</c:if>
+						
+	
+												<span id="likeCount${review.review_no }"
+													class="jsx-693606843 count">${count }</span>
+											</button>
+										</div>
+									</c:if>
+									
 									<hr>
-								</c:when>
-								<c:otherwise>
-									<!-- **승혜: 좋아요 버튼 -->
-									<div class="jsx-3279357537 buttons">
-										<button type="button" class="jsx-693606843 button--voteup"
-											type="button" value="좋아요" onclick="javascript:NullBtn()">
-											<svg xmlns="http://www.w3.org/2000/svg" width="20"
-												height="20" viewBox="0 0 24 24" fill="none" stroke="#8f8f8f"
-												stroke-width="2" stroke-linecap="round"
-												stroke-linejoin="round"
-												style="position: relative; vertical-align: top;">
-											<path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
-											<!-- ** 요 span부분에 좋아요 갯수 카운팅 한거 넣어주면 될 것 같아요! **-->
-											<span class="jsx-693606843 count">1</span>
-										</button>
-									</div>
-									<hr>
-								</c:otherwise>
-							</c:choose>
+								
+								
 						</div>
 					</div>
 
@@ -565,56 +697,52 @@ function NullBtn(){
 
 
 				<!--============ **승혜 페이징** ============= -->
-				
+
 				<%-- <c:if test="${pageMaker.totalCount > 5}"> 
 						요 부분 리뷰 갯수가 총 5개 이상이면 페이지 번호 보이게 설정해주는 부분인데 
 						이렇게 말고 계속 페이지 번호 보여주고싶으면 주석 안풀면 돼요!
 				--%>
-				<div class="jsx-1407906967 board-list-footer" style="position: relative; bottom: 25px;">
+				<div class="jsx-1407906967 board-list-footer"
+					style="position: relative; bottom: 25px;">
 					<ul class="jsx-2419612476 pagination pagination--kindergarten">
 						<c:if test="${pageMaker.prev}">
-						<li class="jsx-3635512122 prev disabled">
-						<a href="${pageMaker.makeQuery(pageMaker.startPage - 1)}"> 
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-							viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
-							stroke-width="2" stroke-linecap="round"
-							stroke-linejoin="round" style="position: relative;">
+							<li class="jsx-3635512122 prev disabled"><a
+								href="${pageMaker.makeQuery(pageMaker.startPage - 1)}"> <svg
+										xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+										viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
+										stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" style="position: relative;">
 							<polyline points="11 17 6 12 11 7"></polyline>
 							<polyline points="18 17 13 12 18 7"></polyline>
 							</svg>
-						</a> 
-						<span class="jsx-3635512122 alt-text">앞으로</span></li>
+							</a> <span class="jsx-3635512122 alt-text">앞으로</span></li>
 						</c:if>
 
 						<c:forEach begin="${pageMaker.startPage}"
 							end="${pageMaker.endPage}" var="idx">
-							<li class="jsx-3635512122 " id="page${idx}">
-						<c:choose>
-							<c:when test="${idx eq param.page}">
-							<a href="${pageMaker.makeQuery(idx)}" class="on"
-								id="pageclick${idx}">${idx}</a>
-							</c:when>
-							<c:otherwise>
-							<a href="${pageMaker.makeQuery(idx)}" class="off"
-								id="pageclick${idx}">${idx}</a>
-							</c:otherwise>
-						</c:choose>
-							</li>
+							<li class="jsx-3635512122 " id="page${idx}"><c:choose>
+									<c:when test="${idx eq param.page}">
+										<a href="${pageMaker.makeQuery(idx)}" class="on"
+											id="pageclick${idx}">${idx}</a>
+									</c:when>
+									<c:otherwise>
+										<a href="${pageMaker.makeQuery(idx)}" class="off"
+											id="pageclick${idx}">${idx}</a>
+									</c:otherwise>
+								</c:choose></li>
 						</c:forEach>
-						
+
 						<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-						<li class="jsx-3635512122 next">
-						<a href="${pageMaker.makeQuery(pageMaker.endPage + 1)}"> 
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-							viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
-							stroke-width="2" stroke-linecap="round"
-							stroke-linejoin="round" style="position: relative;">
+							<li class="jsx-3635512122 next"><a
+								href="${pageMaker.makeQuery(pageMaker.endPage + 1)}"> <svg
+										xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+										viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
+										stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" style="position: relative;">
 							<polyline points="13 17 18 12 13 7"></polyline>
 							<polyline points="6 17 11 12 6 7"></polyline>
-							</svg> 
-						<span class="jsx-3635512122 alt-text">뒤로</span>
-						</a>
-						</li>
+							</svg> <span class="jsx-3635512122 alt-text">뒤로</span>
+							</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -653,15 +781,17 @@ function NullBtn(){
 				<form action="reviewInsert.do" onsubmit="return insertchk()">
 					<div>
 						<label>유치원 명 </label><br> <input type="hidden"
-							name="review_writer" value="${login.member_id}"> 
-							<input type="hidden" name="kinder_no"> 
-							<input type="hidden" name="page" value="${pageMaker.cri.page}"> 
-							<input id="kinder_search" type="text" placeholder="유치원을 검색해 주세요."
-							name="kinder_name" style="width: 50%" minlength="4" maxlength="20" required> <input type="button"
-							onclick="kinder_search2()" value="선택"> 
-							<input style="width: 100%" type="text" name="kinder_addr" placeholder="유치원 주소" readonly> <br> <br> <label>
-							등원시기 </label><br> 
-							<select id="review_year" style="width: 101%; height: 35px;" name="review_year">
+							name="review_writer" value="${login.member_id}"> <input
+							type="hidden" name="kinder_no"> <input type="hidden"
+							name="page" value="${pageMaker.cri.page}"> <input
+							id="kinder_search" type="text" placeholder="유치원을 검색해 주세요."
+							name="kinder_name" style="width: 50%" minlength="4"
+							maxlength="20" required> <input type="button"
+							onclick="kinder_search2()" value="선택"> <input
+							style="width: 100%" type="text" name="kinder_addr"
+							placeholder="유치원 주소" readonly> <br> <br> <label>
+							등원시기 </label><br> <select id="review_year"
+							style="width: 101%; height: 35px;" name="review_year">
 							<option selected="selected">선택</option>
 							<option>2020년</option>
 							<option>2019년</option>
@@ -679,12 +809,10 @@ function NullBtn(){
 							<option>2007년</option>
 							<option>2006년</option>
 							<option>2006년 이전</option>
-						</select> <br> <br> <label>제목 </label><br> 
-						<input type="text" placeholder="제목을 입력하세요" name="review_title"
+						</select> <br> <br> <label>제목 </label><br> <input
+							type="text" placeholder="제목을 입력하세요" name="review_title"
 							style="width: 101%" minlength="4" maxlength="30" required><br>
-						<br> 
-						<label>내용 </label> 
-						<span style="position: relative; left: 85%">0/500자</span><br>
+						<br> <label>내용 </label><span style="position: relative; left: 85%" class="bytes">0</span><br>
 						<textarea style="width: 100%; height: auto; resize: none;"
 							placeholder="200자 이상, 500자 이하의 글자수만 작성이 가능합니다."
 							name="review_content" minlength="200" maxlength="500" required></textarea>
@@ -700,48 +828,44 @@ function NullBtn(){
 							<label>원장/교사</label><br>
 							<div class="input">
 								<input type="radio" name="avg_score1" value="1" id="p1" required>
-								<label for="p1">1</label> 
-								<input type="radio" name="avg_score1" value="2" id="p2" required> 
-								<label for="p2">2</label> 
-								<input type="radio" name="avg_score1" value="3" id="p3" required>
-								<label for="p3">3</label> 
-								<input type="radio" name="avg_score1" value="4" id="p4" required> 
-								<label for="p4">4</label> 
-								<input type="radio" name="avg_score1" value="5" id="p5" required>
+								<label for="p1">1</label> <input type="radio" name="avg_score1"
+									value="2" id="p2" required> <label for="p2">2</label> <input
+									type="radio" name="avg_score1" value="3" id="p3" required>
+								<label for="p3">3</label> <input type="radio" name="avg_score1"
+									value="4" id="p4" required> <label for="p4">4</label> <input
+									type="radio" name="avg_score1" value="5" id="p5" required>
 								<label for="p5">5</label>
 							</div>
 						</div>
-						<br><br>
-						
+						<br> <br>
+
 						<div class="star-input2">
 							<label>교과/수업</label><br>
 							<div class="input2">
-								<input type="radio" name="avg_score2" value="1" id="p12" required> 
-								<label for="p12">1</label> 
-								<input type="radio" name="avg_score2" value="2" id="p22" required>
-								<label for="p22">2</label> 
-								<input type="radio" name="avg_score2" value="3" id="p32" required> 
-								<label for="p32">3</label>
-								<input type="radio" name="avg_score2" value="4" id="p42" required> 
-								<label for="p42">4</label> 
-								<input type="radio" name="avg_score2" value="5" id="p52" required>
+								<input type="radio" name="avg_score2" value="1" id="p12"
+									required> <label for="p12">1</label> <input
+									type="radio" name="avg_score2" value="2" id="p22" required>
+								<label for="p22">2</label> <input type="radio" name="avg_score2"
+									value="3" id="p32" required> <label for="p32">3</label>
+								<input type="radio" name="avg_score2" value="4" id="p42"
+									required> <label for="p42">4</label> <input
+									type="radio" name="avg_score2" value="5" id="p52" required>
 								<label for="p52">5</label>
 							</div>
 						</div>
 						<br> <br>
-						
+
 						<div class="star-input3">
 							<label>시설/청결</label><br>
 							<div class="input3">
-								<input type="radio" name="avg_score3" value="1" id="p13" required> 
-								<label for="p13">1</label> 
-								<input type="radio" name="avg_score3" value="2" id="p23" required>
-								<label for="p23">2</label> 
-								<input type="radio" name="avg_score3" value="3" id="p33" required> 
-								<label for="p33">3</label>
-								<input type="radio" name="avg_score3" value="4" id="p43" required> 
-								<label for="p43">4</label> 
-								<input type="radio" name="avg_score3" value="5" id="p53" required>
+								<input type="radio" name="avg_score3" value="1" id="p13"
+									required> <label for="p13">1</label> <input
+									type="radio" name="avg_score3" value="2" id="p23" required>
+								<label for="p23">2</label> <input type="radio" name="avg_score3"
+									value="3" id="p33" required> <label for="p33">3</label>
+								<input type="radio" name="avg_score3" value="4" id="p43"
+									required> <label for="p43">4</label> <input
+									type="radio" name="avg_score3" value="5" id="p53" required>
 								<label for="p53">5</label>
 							</div>
 						</div>
@@ -750,9 +874,10 @@ function NullBtn(){
 					</div>
 					<div style="position: relative; left: 38%;">
 						<input class="btn btn-secondary" style="width: 15%" type="submit"
-							value="작성"> &nbsp;&nbsp;&nbsp; 
-						<input id="modal-close" class="btn btn-primary" style="width: 15%" type="button"
-							value="취소" onclick="location.href='reviewboard.do?page=${pageMaker.cri.page}'">
+							value="작성"> &nbsp;&nbsp;&nbsp; <input id="modal-close"
+							class="btn btn-primary" style="width: 15%" type="button"
+							value="취소"
+							onclick="location.href='reviewboard.do?page=${pageMaker.cri.page}'">
 					</div>
 				</form>
 			</div>
@@ -782,16 +907,16 @@ function NullBtn(){
 				<br>
 
 				<form id="reviewUpdate" action="reviewUpdate.do" method="get">
-					<input type="hidden" name="review_no"> 
-					<input type="hidden" name="kinder_no">
-					<input type="hidden" name="page" value = "${pageMaker.cri.page}">
+					<input type="hidden" name="review_no"> <input type="hidden"
+						name="kinder_no"> <input type="hidden" name="page"
+						value="${pageMaker.cri.page}">
 					<div>
-						<label>유치원 명 </label><br> 
-						<input type="hidden" name="review_writer"> 
-						<input type="text" placeholder="유치원명을 입력하세요." name="kinder_name" style="width: 101%">
+						<label>유치원 명 </label><br> <input type="hidden"
+							name="review_writer"> <input type="text"
+							placeholder="유치원명을 입력하세요." name="kinder_name" style="width: 101%">
 						<input type="text" name="kinder_addr"> <br> <br>
-						<label> 등원시기 </label><br> 
-						<select id="review_year_update" style="width: 101%; height: 35px;" name="review_year" disabled>
+						<label> 등원시기 </label><br> <select id="review_year_update"
+							style="width: 101%; height: 35px;" name="review_year" disabled>
 							<option selected="selected">선택</option>
 							<option>2020년</option>
 							<option>2019년</option>
@@ -809,11 +934,11 @@ function NullBtn(){
 							<option>2007년</option>
 							<option>2006년</option>
 							<option>2006년 이전</option>
-						</select> <br> <br> <label>제목 </label><br> 
-						<input type="text" name="review_title" style="width: 101%"
+						</select> <br> <br> <label>제목 </label><br> <input
+							type="text" name="review_title" style="width: 101%"
 							placeholder="제목을 입력하세요." minlength="4" maxlength="30" required><br>
-						<br> <label>내용 </label> 
-						<span style="position: relative; left: 85%">0/200자</span><br>
+						<br> <label>내용 </label>
+						<span style="position: relative; left: 85%" class="bytes">0</span><br>
 						<textarea style="width: 100%; height: auto; resize: none;"
 							name="review_content" minlength="200" maxlength="1000" required></textarea>
 						<br> <br>
@@ -828,60 +953,56 @@ function NullBtn(){
 							<label>원장/교사</label><br>
 							<div class="input">
 								<input type="radio" name="avg_score1" value="1" id="p1" disabled>
-								<label for="p1">1</label> 
-								<input type="radio" name="avg_score1" value="2" id="p2" disabled> 
-								<label for="p2">2</label> 
-								<input type="radio" name="avg_score1" value="3" id="p3" disabled>
-								<label for="p3">3</label> 
-								<input type="radio" name="avg_score1" value="4" id="p4" disabled> 
-								<label for="p4">4</label> 
-								<input type="radio" name="avg_score1" value="5" id="p5" disabled>
+								<label for="p1">1</label> <input type="radio" name="avg_score1"
+									value="2" id="p2" disabled> <label for="p2">2</label> <input
+									type="radio" name="avg_score1" value="3" id="p3" disabled>
+								<label for="p3">3</label> <input type="radio" name="avg_score1"
+									value="4" id="p4" disabled> <label for="p4">4</label> <input
+									type="radio" name="avg_score1" value="5" id="p5" disabled>
 								<label for="p5">5</label>
 							</div>
 
 						</div>
-						<br><br>
-						
+						<br> <br>
+
 						<div class="star-input2">
 							<label>교과/수업</label><br>
 							<div class="input2">
-								<input type="radio" name="avg_score2" value="1" id="p12" disabled> 
-								<label for="p12">1</label> 
-								<input type="radio" name="avg_score2" value="2" id="p22" disabled>
-								<label for="p22">2</label> 
-								<input type="radio" name="avg_score2" value="3" id="p32" disabled> 
-								<label for="p32">3</label>
-								<input type="radio" name="avg_score2" value="4" id="p42" disabled> 
-								<label for="p42">4</label> 
-								<input type="radio" name="avg_score2" value="5" id="p52" disabled>
+								<input type="radio" name="avg_score2" value="1" id="p12"
+									disabled> <label for="p12">1</label> <input
+									type="radio" name="avg_score2" value="2" id="p22" disabled>
+								<label for="p22">2</label> <input type="radio" name="avg_score2"
+									value="3" id="p32" disabled> <label for="p32">3</label>
+								<input type="radio" name="avg_score2" value="4" id="p42"
+									disabled> <label for="p42">4</label> <input
+									type="radio" name="avg_score2" value="5" id="p52" disabled>
 								<label for="p52">5</label>
 							</div>
 						</div>
-						<br><br>
-						
+						<br> <br>
+
 						<div class="star-input3">
 							<label>시설/청결</label><br>
 							<div class="input3">
-								<input type="radio" name="avg_score3" value="1" id="p13" disabled> 
-								<label for="p13">1</label> 
-								<input type="radio" name="avg_score3" value="2" id="p23" disabled>
-								<label for="p23">2</label> 
-								<input type="radio" name="avg_score3" value="3" id="p33" disabled> 
-								<label for="p33">3</label>
-								<input type="radio" name="avg_score3" value="4" id="p43" disabled> 
-								<label for="p43">4</label> 
-								<input type="radio" name="avg_score3" value="5" id="p53" disabled>
+								<input type="radio" name="avg_score3" value="1" id="p13"
+									disabled> <label for="p13">1</label> <input
+									type="radio" name="avg_score3" value="2" id="p23" disabled>
+								<label for="p23">2</label> <input type="radio" name="avg_score3"
+									value="3" id="p33" disabled> <label for="p33">3</label>
+								<input type="radio" name="avg_score3" value="4" id="p43"
+									disabled> <label for="p43">4</label> <input
+									type="radio" name="avg_score3" value="5" id="p53" disabled>
 								<label for="p53">5</label>
 							</div>
 						</div>
 						<br> <br> <br>
 					</div>
-					
+
 					<div style="position: relative; left: 38%;">
 						<input class="btn btn-secondary" style="width: 15%" type="submit"
-							value="수정"> &nbsp;&nbsp;&nbsp; 
-						<input id="modal2-close" class="btn btn-primary" 
-							style="width: 15%" type="button" value="취소">
+							value="수정"> &nbsp;&nbsp;&nbsp; <input id="modal2-close"
+							class="btn btn-primary" style="width: 15%" type="button"
+							value="취소">
 					</div>
 				</form>
 			</div>
@@ -889,7 +1010,7 @@ function NullBtn(){
 	</div>
 
 	<!-- @@ footer 영역 @@ -->
-	<jsp:include page="../footer.jsp"/>
+	<jsp:include page="../footer.jsp" />
 
 
 </body>

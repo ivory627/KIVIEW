@@ -2,23 +2,23 @@ package com.mvc.kiview.model.vo;
 
 public class Criteria {
 
-	private int page; // 페이지 번호
-	private int perPageNum; // 한 페이지에 게시글 몇개 보여줄건지
+	private int page; // 페이지 번호 << 1 2 3 4 5 >> 이런식의 페이지 번호 나타내는 것
+	private int perPageNum; // 페이지 갯수 ex)<< 1 2 3 4 5 >> 총 5개의 페이지 
 	private int rowStart; // 한 페이지당 게시글 개수 start
 	private int rowEnd; // 한 페이지당 게시글 개수 end
 	// ----> start + end 합쳐서 한 페이지 당 총 10개 보여주기
 
 	// searchType, keyword, sort, catd 추가
-	private String searchType;
-	private String keyword;
-	private String sort;
-	private String cat_detail;
-	private String faqcatd;
+	private String searchType; //검색타입 ex) 공지사항 - 제목/내용/제목+작성자 등 
+	private String keyword; //검색어 
+	private String sort; //정렬 ex) 공지사항 - 최신순/조회순 정렬
+	private String cat_detail; //카테고리 정렬 ex) 공지사항 - 공지사항/키뷰소식 정렬
+	private String faqcatd; //FAQ 분류 카테고리 ex) FAQ - 전체/리뷰/회원/서비스 나누는 목적 
 
 	// 생성자
 	public Criteria() {
 		this.page = 1; // 첫 페이지 번호 1로 셋팅
-		this.perPageNum = 10; // 게시글 10개로 셋팅
+		this.perPageNum = 10; // 게시글 10개로 셋팅(여기서는 한 페이지당 10개의 게시물을 보여주기 위해 10으로 셋팅함)
 		this.searchType = null;
 		this.keyword = null;
 		this.sort = null;

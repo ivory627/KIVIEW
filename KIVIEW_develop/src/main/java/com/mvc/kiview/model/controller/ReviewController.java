@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mvc.kiview.model.biz.LikeBiz;
 import com.mvc.kiview.model.biz.ReviewBiz;
 import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.KinderVo;
@@ -27,6 +28,10 @@ public class ReviewController {
 	@Autowired
 	private ReviewBiz biz;
 	
+	//200305 지민추가
+	@Autowired 
+	private LikeBiz biz_like;
+	
 	/* 승혜 : 페이징 vo 추가 --> CRUD할 때 현재 페이지를 파라미터로 보내줘야 됩니다! */
 	@RequestMapping("/reviewboard.do")
 	public String list(Model model, Criteria cri) {
@@ -36,8 +41,14 @@ public class ReviewController {
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(biz.reviewCount(cri));
 		
+		
 		model.addAttribute("list", biz.reviewList(cri));
 		model.addAttribute("pageMaker", pageMaker);
+		
+		//200305 지민추가
+		model.addAttribute("likeAll", biz_like.selectAll());
+	
+		
 		
 		System.out.println(biz.reviewList(cri));
 		return "review/kiview_reviewboard";

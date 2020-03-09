@@ -25,3 +25,14 @@ function backlist(pagenum){
 	location.href = "kiviewnotice.do?page="+num;
 	
 }
+
+
+function CopyUrlToClipboard(){
+	var obj = document.getElementById("ShareUrl");
+	obj.select();
+	document.execCommand('copy');
+	
+	 $('#snackbar').css({opacity:1});
+	  setTimeout(function(){
+	 $('#snackbar').css({opacity:0});},2000);
+}
