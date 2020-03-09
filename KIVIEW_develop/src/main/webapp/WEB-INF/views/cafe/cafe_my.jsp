@@ -20,6 +20,10 @@ a {
 	text-decoration: none;
 }
 
+li a {
+	color:black;
+}
+
 .intro {
 	width: 500px; /* 너비는 변경될수 있습니다. */
 	text-overflow: ellipsis; /* 위에 설정한 100px 보다 길면 말줄임표처럼 표시합니다. */
@@ -257,7 +261,7 @@ a {
 					<!-- 카페 추천 -->
                <div class="sidebar-box ftco-animate">
 
-                  <h3>Popular Cafe</h3>
+                  <h3>추천 카페</h3>
 
                   <c:choose>
                   	<c:when test="${!empty best }">
@@ -296,6 +300,11 @@ a {
 
                   		</c:forEach>
                   	</c:when>
+                  	<c:otherwise>
+                  		 <div class="block-21 mb-4 d-flex">
+                  		 	카페가 존재하지 않습니다.
+                  		 </div>
+                  	</c:otherwise>
 
                   </c:choose>
 						<p class="mb-0">

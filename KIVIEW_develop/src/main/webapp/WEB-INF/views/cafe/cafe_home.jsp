@@ -73,23 +73,19 @@ function test(){
                <a href="cafehome.do?member_no=${login.member_no}&member_id=${login.member_id}">
                   <h2 class="mb-3" style="font-weight: bold; color: #FFDC00;">
                      <span><img src="resources/images/main/chat.png" /></span>&nbsp;&nbsp;
-                     <span style="color: #9BDAF2;">Ki
-                     view</span> Cafe
+                     <span style="color: #9BDAF2;">Kiview</span> Cafe
                   </h2>
                </a>
                <hr>
-               <p>키뷰 안에서 카페를 만들고 새로운 커뮤니티를 만들어보세요. 키뷰에서는 누구든지 카페를 개설할 수 있고 키뷰
-                  회원들과 친목을 도모할 수 있습니다.</p>
+               <p></p>
                <p>
                   <img src="resources/images/image_2.jpg" alt="" class="img-fluid">
                </p>
 
-               <p>Quisquam esse aliquam fuga distinctio, quidem delectus
-                  veritatis reiciendis. Nihil explicabo quod, est eos ipsum. Unde
-                  aut non tenetur tempore, nisi culpa voluptate maiores officiis
-                  quis vel ab consectetur suscipit veritatis nulla quos quia
-                  aspernatur perferendis, libero sint. Error, velit, porro. Deserunt
-                  minus, quibusdam iste enim veniam, modi rem maiores.</p>
+               <p>
+           		키뷰 안에서 카페를 만들고 새로운 커뮤니티를 만들어보세요. 키뷰에서는 누구든지 카페를 개설할 수 있고 키뷰
+                  회원들과 친목을 도모할 수 있습니다. 또한, 다른 키뷰인이 만든 카페의 회원이 되어 활동하실 수 있습니다. 키뷰 카페는 여러분들을 위한 공간입니다. 아름다운 키뷰가 되도록 많은 도움 부탁드립니다.  
+               </p>
 
                <br> <br>
             </div>
@@ -113,7 +109,7 @@ function test(){
                <!-- 카페 추천 -->
                <div class="sidebar-box ftco-animate">
 
-                  <h3>Popular Cafe</h3>
+                  <h3>추천 카페</h3>
 
                   <c:choose>
                   	<c:when test="${!empty best }">
@@ -152,6 +148,11 @@ function test(){
 
                   		</c:forEach>
                   	</c:when>
+                  	<c:otherwise>
+                  		 <div class="block-21 mb-4 d-flex">
+                  		 	카페가 존재하지 않습니다.
+                  		 </div>
+                  	</c:otherwise>
 
                   </c:choose>
                   <p class="mb-0">
