@@ -160,7 +160,12 @@
    	            	//console.log(res);
    	            	
    	            	$("#tbody").empty();
-   	            	if(res.length!=0){
+   	            	$("#n_paging").empty();
+   	            	
+   	            	var down = $('#searchres').offset();
+   		     	  	$('html').animate( { scrollTop : down.top }, 50 );
+   	            	
+   		     	  	if(res.length!=0){
    	            	
    	            	 $.each(res,function(idx, code){
               	      
@@ -169,7 +174,7 @@
               	  			$("<td>").append(code.addr2),
               	  			$("<td>").append($("<a href='searchdetail.do?kinder_no="+code.kinder_no+"'>").append(code.name)),
               	  			$("<td>").append(code.type),
-              	  			$("<td>").append("★★★")	
+              	  			$("<td>").append($("<button class='btn btn-primary px-3' onclick='location.href=\"searchdetail.do?kinder_no="+code.kinder_no+"\"'>평점보기</button>"))	
               	  		)
               	  	);	
               	  });    	            		
@@ -303,7 +308,7 @@
 			</div>
 			
 		</section>
-		 <section id="searchres" class="ftco-section bg-light" style="padding: 0.0em 0;">
+		 <section id="searchres" class="ftco-section bg-light"><!-- style="padding: 0.0em 0;" -->
 			<div class="container">
 				<div class="row" id="box">
           			<div style="width:100%;margin:0 auto;" class="col-md-8 text-center heading-section ftco-animate fadeInUp ftco-animated">
@@ -316,7 +321,7 @@
 						     <th style="width:20%">지 역 </th>
 						     <th style="width:50%">유치원명</th>
 						     <th style="width:10%">구분</th>
-						     <th style="width:20%">평점</th>
+						     <th style="width:20%">평점보기</th>
 						   </tr>
 						   </thead>
 						   <tbody id="tbody">
@@ -343,7 +348,7 @@
 						   	 			<td>${vo.addr2 }</td>
 						   	 			<td><a href="searchdetail.do?kinder_no=${vo.kinder_no }">${vo.name }</a></td>
 						   	 			<td>${vo.type }</td>
-						   	 			<td>★★★★</td>
+						   	 			<td><button class="btn btn-primary px-3" onclick="location.href='searchdetail.do?kinder_no=${vo.kinder_no}'">평점보기</button></td>
 						   	 		</tr>
 						   	 	</c:forEach>
 						   	 </c:otherwise>						   
@@ -372,7 +377,7 @@
 						   	 			<td>${vo.addr2 }</td>
 						   	 			<td><a href="searchdetail.do?kinder_no=${vo.kinder_no}">${vo.name }</a></td>
 						   	 			<td>${vo.type }</td>
-						   	 			<td>★★★★</td>
+						   	 			<td><button class="btn btn-primary px-3" onclick="location.href='searchdetail.do?kinder_no=${vo.kinder_no}'">평점보기</button></td>
 						   	 		</tr>
 						   	 	</c:forEach>
 						   	 </c:otherwise>						   
@@ -381,14 +386,119 @@
 						 </tbody>
 					</table>
 					</div>
+					<c:if test="${namevo != null && namevo !='' }">
+					
+					<div class="jsx-1407906967 board-list-footer" style="width:100%">
+					<ul class="jsx-3635512122 pagination pagination--kindergarten" id = "n_paging">
+						
+						<c:if test = "${pageMaker.prev}">
+						<li class="jsx-3635512122 prev disabled" >
+						<a href = "${pageMaker.makeQuery(pageMaker.startPage - 1)}&name=${name}">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+								viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
+								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+								style="position: relative;">
+								<polyline points="11 17 6 12 11 7"></polyline>
+								<polyline points="18 17 13 12 18 7"></polyline></svg> 
+						</a>
+						<span class="jsx-3635512122 alt-text">앞으로</span>
+						</li>
+						</c:if>
+						
+						<c:forEach begin = "${pageMaker.startPage}" end = "${pageMaker.endPage}" var = "idx">
+						<li class="jsx-3635512122 " id = "page${idx}">
+						<c:choose>
+						<c:when test="${idx eq param.page}">
+						<a href = "${pageMaker.makeQuery(idx)}&name=${name}" class = "on" id = "pageclick${idx}">${idx}</a>
+						</c:when>
+						<c:otherwise>
+						<a href = "${pageMaker.makeQuery(idx)}&name=${name}" class = "off" id = "pageclick${idx}">${idx}</a>
+						</c:otherwise>
+						</c:choose>
+						</li>
+						</c:forEach>
+						
+						<c:if test = "${pageMaker.next && pageMaker.endPage > 0}">
+						<li class="jsx-3635512122 next">
+						<a href = "${pageMaker.makeQuery(pageMaker.endPage + 1)}&name=${name}">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+								viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
+								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+								style="position: relative;">
+								<polyline points="13 17 18 12 13 7"></polyline>
+								<polyline points="6 17 11 12 6 7"></polyline>
+						</svg> 
+						<span class="jsx-3635512122 alt-text">뒤로</span>
+						</a>
+						</li>
+						</c:if>
+					</ul>
+
+				</div>
+				
+				</c:if>
+				
+				<c:if test="${localvo != null && localvo !='' }">
+				
+				<div class="jsx-1407906967 board-list-footer" style="width:100%">
+					<ul class="jsx-3635512122 pagination pagination--kindergarten" id = "n_paging">
+						
+						<c:if test = "${pageMaker.prev}">
+						<li class="jsx-3635512122 prev disabled" >
+						<a href = "${pageMaker.makeQuery(pageMaker.startPage - 1)}&province=${vo.province}&city=${vo.city}&town=${vo.town}">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+								viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
+								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+								style="position: relative;">
+								<polyline points="11 17 6 12 11 7"></polyline>
+								<polyline points="18 17 13 12 18 7"></polyline></svg> 
+						</a>
+						<span class="jsx-3635512122 alt-text">앞으로</span>
+						</li>
+						</c:if>
+						
+						<c:forEach begin = "${pageMaker.startPage}" end = "${pageMaker.endPage}" var = "idx">
+						<li class="jsx-3635512122 " id = "page${idx}">
+						<c:choose>
+						<c:when test="${idx eq param.page}">
+						<a href = "${pageMaker.makeQuery(idx)}&province=${vo.province}&city=${vo.city}&town=${vo.town}" class = "on" id = "pageclick${idx}">${idx}</a>
+						</c:when>
+						<c:otherwise>
+						<a href = "${pageMaker.makeQuery(idx)}&province=${vo.province}&city=${vo.city}&town=${vo.town}" class = "off" id = "pageclick${idx}">${idx}</a>
+						</c:otherwise>
+						</c:choose>
+						</li>
+						</c:forEach>
+						
+						<c:if test = "${pageMaker.next && pageMaker.endPage > 0}">
+						<li class="jsx-3635512122 next">
+						<a href = "${pageMaker.makeQuery(pageMaker.endPage + 1)}&province=${vo.province}&city=${vo.city}&town=${vo.town}">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+								viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
+								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+								style="position: relative;">
+								<polyline points="13 17 18 12 13 7"></polyline>
+								<polyline points="6 17 11 12 6 7"></polyline>
+						</svg> 
+						<span class="jsx-3635512122 alt-text">뒤로</span>
+						</a>
+						</li>
+						</c:if>
+					</ul>
+
+				</div>
+				
+				</c:if>
+				
 				</div>
 			</div>
 		</section>
-		<section id="searchresmap" class="ftco-section bg-light" style="padding: 0.0em 0;">
+		
+		<section id="searchresmap" class="ftco-section bg-light"> <!-- style="padding: 0.0em 0;" -->
 			<div class="container">
 				<div class="row" id="box">
           			<div style="width:100%;margin:0 auto;" class="col-md-8 text-center heading-section ftco-animate fadeInUp ftco-animated">
-           			 <h2 class="mb-4"><span>검색 결과</span></h2>
+           			 <h2 class="mb-4"><span>지도 검색 결과</span></h2>
           			</div>
           			<div style="width:100%;margin:0 auto;" class="ftco-animate fadeInUp ftco-animated">
           			<div id="map" style="width:100%;margin:0 auto;height:20%;height:500px;" class="col-md-15 text-center heading-section ftco-animate fadeInUp ftco-animated">
@@ -400,7 +510,7 @@
 		</section>
 		
 		<!-- **20/02/07 검색결과 section footer랑 띄우기** -->
-		<section style = "background:#fafafa;">
+ 		<section style = "background:#fafafa;">
 			<div class="container">
 				<br><br><br><br>
 			</div>

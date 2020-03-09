@@ -43,7 +43,7 @@ function test(){
 function PageMove(page) {
     var curpagenum = page;
     
-    location.href = "cafeguestlist.do?curpagenum=" + page + "&keyword=${keyword}" ;
+    location.href = "cafesearch.do?curpagenum=" + page + "&keyword=${keyword}" ;
  }
 
 </script>
@@ -66,10 +66,10 @@ function PageMove(page) {
          <div
             class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-               <h1 class="mb-2 bread">카페 홈</h1>
+               <h1 class="mb-2 bread">키뷰 검색</h1>
                <p class="breadcrumbs">
-                  <span class="mr-2"><a href="index.jsp">Home <i
-                        class="ion-ios-arrow-forward"></i></a></span> <span>Blog <i
+                  <span class="mr-2"><a href="index.jsp">홈 <i
+                        class="ion-ios-arrow-forward"></i></a></span> <span>키뷰카페 <i
                      class="ion-ios-arrow-forward"></i></span>
                </p>
             </div>
@@ -156,7 +156,7 @@ function PageMove(page) {
                   <div class="text bg-white p-4">
                      <!-- 카페명 -->
                      <h3 class="heading">
-                        <a href="cafe_detail.do?cafe_no=${Slist.cafe_no}&member_no=${login.member_no }">${Slist.title }</a>
+                        <a href="cafedetail.do?cafe_no=${Slist.cafe_no}&member_no=${login.member_no }">${Slist.title }</a>
                      </h3>
 
                      <!-- 카페소개 -->

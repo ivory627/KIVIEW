@@ -254,12 +254,8 @@ $(function(){
 
          <ul class="navbar-nav" style="margin-left: 700px">
             <!-- <ul class="navbar-nav ml-auto" >   -->
-
-
-            <li class="nav-item"><a href="kindersearch.do" class="nav-link">유치원
-                  검색</a></li>
-            <li class="nav-item"><a href="reviewboard.do" class="nav-link">유치원
-                  리뷰</a></li>
+            <li class="nav-item"><a href="kindersearch.do" class="nav-link">유치원 검색</a></li>
+            <li class="nav-item"><a href="reviewboard.do?page=1" class="nav-link">유치원 리뷰</a></li>
          </ul>
       </div>
    </div>
@@ -321,7 +317,7 @@ $(function(){
 
             <li class="nav-item"><a href=" kiviewmypage.do"
                class="nav-link">내 정보</a></li>
-            <li class="nav-item"><a href="kiviewmyactivity.do"
+            <li class="nav-item"><a href="kiviewmyactivity.do?member_id=${login.member_id }"
                class="nav-link">내 활동</a></li>
             
          </ul>

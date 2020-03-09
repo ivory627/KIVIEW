@@ -184,12 +184,7 @@ public class MemberController {
       
    }
    
-   //마이페이지 - 회원활동
-   @RequestMapping("/kiviewmyactivity.do")
-   public String myactivity() {
-      logger.info("myactivity");
-      return "member/kiview_myactivity";
-   }
+  
    
    //회원정보 수정
    @RequestMapping("/kiviewupdate.do")
