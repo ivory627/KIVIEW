@@ -47,6 +47,9 @@ h1{
    font-size: 60px;
     font-weight: 800;
 }
+h3 a{
+     color:black;
+    }
 
 
 
@@ -230,7 +233,7 @@ h1{
                   <div class="block-18">
                      <div class="icon"><span class="flaticon-doctor"></span></div>
                     <div class="text">
-                      <strong class="number" data-number="351">0</strong>
+                      <strong class="number" data-number="${kindercnt }">0</strong>
                       <span id = "cntfont">등록된 유치원</span>
                     </div>
                   </div>
@@ -373,126 +376,26 @@ h1{
                <h2 class="mb-4">
                   <span>유치원</span> 추천!
                </h2>
-               <p>부모님들이 원하는 조건에 맞는 유치원을 추천해드립니다.</p>
+               <p>리뷰가 많은 유치원을 추천해드립니다.</p>
             </div>
          </div>
          <div class="row">
+         <c:forEach items="${bestkinder }" var="bestkinder" varStatus="i">
             <div class="col-md-6 col-lg-3 ftco-animate">
                <div class="staff">
                   <div class="img-wrap d-flex align-items-stretch">
                      <div class="img align-self-stretch"
-                        style="background-image: url(resources/images/main/kiview_01.png);"></div>
+                        style="background-image: url(resources/images/main/kiview_0${i.count}.png);"></div>
                   </div>
                   <div class="text pt-3 text-center">
-                     <h3>키뷰 유치원</h3>
-                     <span class="position mb-2">서울시 중구 소재</span>
+                     <h3><a href="searchdetail.do?kinder_no=${bestkinder.kinder_no}">${bestkinder.name }</a></h3>
+                     <span class="position mb-2">${bestkinder.addr2 }</span>
                      <div class="faded">
-                        <p>I am an ambitious workaholic, but apart from that, pretty
-                           simple person.</p>
-                        <ul class="ftco-social text-center">
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-twitter"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-facebook"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-google-plus"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-instagram"></span></a></li>
-                        </ul>
                      </div>
                   </div>
                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
-               <div class="staff">
-                  <div class="img-wrap d-flex align-items-stretch">
-                     <div class="img align-self-stretch"
-                        style="background-image: url(resources/images/main/kiview_02.png);"></div>
-                  </div>
-                  <div class="text pt-3 text-center">
-                     <h3>남도 유치원</h3>
-                     <span class="position mb-2">부산시 해운대구 소재</span>
-                     <div class="faded">
-                        <p>I am an ambitious workaholic, but apart from that, pretty
-                           simple person.</p>
-                        <ul class="ftco-social text-center">
-                           <li class="ftco-animate">
-                           <a href="#">
-                           <span class="icon-twitter"></span>
-                           </a>
-                           </li>
-                           <li class="ftco-animate">
-                           <a href="#">
-                           <span class="icon-facebook"></span>
-                           </a>
-                           </li>
-                           <li class="ftco-animate">
-                           <a href="#">
-                           <span class="icon-google-plus"></span>
-                           </a>
-                           </li>
-                           <li class="ftco-animate">
-                           <a href="#">
-                           <span class="icon-instagram"></span>
-                           </a>
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
-               <div class="staff">
-                  <div class="img-wrap d-flex align-items-stretch">
-                     <div class="img align-self-stretch"
-                        style="background-image: url(resources/images/main/kiview_03.png);"></div>
-                  </div>
-                  <div class="text pt-3 text-center">
-                     <h3>KH 유치원</h3>
-                     <span class="position mb-2">대구시 달서구 소재</span>
-                     <div class="faded">
-                        <p>I am an ambitious workaholic, but apart from that, pretty
-                           simple person.</p>
-                        <ul class="ftco-social text-center">
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-twitter"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-facebook"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-google-plus"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-instagram"></span></a></li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
-               <div class="staff">
-                  <div class="img-wrap d-flex align-items-stretch">
-                     <div class="img align-self-stretch"
-                        style="background-image: url(resources/images/main/kiview_04.png);"></div>
-                  </div>
-                  <div class="text pt-3 text-center">
-                     <h3>자바 유치원</h3>
-                     <span class="position mb-2">용인시 처인구 소재</span>
-                     <div class="faded">
-                        <p>I am an ambitious workaholic, but apart from that, pretty
-                           simple person.</p>
-                        <ul class="ftco-social text-center">
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-twitter"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-facebook"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-google-plus"></span></a></li>
-                           <li class="ftco-animate"><a href="#"><span
-                                 class="icon-instagram"></span></a></li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
+            </div> 
+         </c:forEach>
          </div>
       </div>
    </section>
@@ -516,74 +419,74 @@ h1{
          </div>
          <div class="row">
          
-         	<c:choose>
-         	<c:when test="${!empty best }">
-         	
-         		<c:forEach var="best" items="${best }">
-         	
-         	
-	            	<div class="col-md-6 col-lg-4 ftco-animate">
-	                        <div class="blog-entry">
-	                           <!-- 썸네일 -->
-	                           <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }"
-	                              class="block-20 d-flex align-items-end"
-	                              style="background-image: url('http://localhost:8787/img/${best.thumb }');">
-	                              <!-- 가입제한 -->
-	                              <div class="meta-date text-center p-2">
-	                                 <span class="mos">
-	                                    <c:if test="${best.restriction eq 'Y'}">
-	                                                     바로가입
-	                                    </c:if>
-	                                    <c:if test="${best.restriction eq 'N'}">
-	                                                      승인후 가입
-	                                    </c:if>
-	
-	                                 </span>
-	                              </div>
-	                           </a>
-	
-	                           <div class="text bg-white p-4">
-	                              <!-- 카페명 -->
-	                              <h3 class="heading">
-	                                 <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${Ulist.title }</a>
-	                              </h3>
-	
-	                              <!-- 카페소개 -->
-	                              <p>${best.intro }</p>
-	                              <div class="d-flex align-items-center mt-4">
-	                                 <p class="mb-0">
-	                                    <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }"
-	                                       class="btn btn-secondary">들어가기 <span
-	                                       class="ion-ios-arrow-round-forward"></span></a>
-	                                 </p>
-	                                 <p class="ml-auto mb-0">
-	                                    <!-- 카페장 -->
-	                                    <a href="#" class="mr-2">${best.admin }</a>
-	                                    <!-- 카페 회원 수 -->
-	                                    <c:set var="count" value="0"/>
-														<c:forEach items="${member }" var="member">
-	
-															<c:if test="${best.cafe_no == member.cafe_no }">
-																<c:set var="count" value="${count+1 }"/>
-	
-															</c:if>
-	
-														</c:forEach>
-	
-	                                    <a href="#" class="meta-chat">${count } 명</a>
-	                                 </p>
-	                              </div>
-	                           </div>
-	                        </div>
-	                        <br>
-	                    
-	                    </div>
-           		</c:forEach>
-           	</c:when>
-           	<c:otherwise>
-           	
-           	</c:otherwise>
-           	
+            <c:choose>
+            <c:when test="${!empty best }">
+            
+               <c:forEach var="best" items="${best }">
+            
+            
+                  <div class="col-md-6 col-lg-4 ftco-animate">
+                           <div class="blog-entry">
+                              <!-- 썸네일 -->
+                              <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }"
+                                 class="block-20 d-flex align-items-end"
+                                 style="background-image: url('http://localhost:8787/img/${best.thumb }');">
+                                 <!-- 가입제한 -->
+                                 <div class="meta-date text-center p-2">
+                                    <span class="mos">
+                                       <c:if test="${best.restriction eq 'Y'}">
+                                                        바로가입
+                                       </c:if>
+                                       <c:if test="${best.restriction eq 'N'}">
+                                                         승인후 가입
+                                       </c:if>
+   
+                                    </span>
+                                 </div>
+                              </a>
+   
+                              <div class="text bg-white p-4">
+                                 <!-- 카페명 -->
+                                 <h3 class="heading">
+                                    <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${Ulist.title }</a>
+                                 </h3>
+   
+                                 <!-- 카페소개 -->
+                                 <p>${best.intro }</p>
+                                 <div class="d-flex align-items-center mt-4">
+                                    <p class="mb-0">
+                                       <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }"
+                                          class="btn btn-secondary">들어가기 <span
+                                          class="ion-ios-arrow-round-forward"></span></a>
+                                    </p>
+                                    <p class="ml-auto mb-0">
+                                       <!-- 카페장 -->
+                                       <a href="#" class="mr-2">${best.admin }</a>
+                                       <!-- 카페 회원 수 -->
+                                       <c:set var="count" value="0"/>
+                                          <c:forEach items="${member }" var="member">
+   
+                                             <c:if test="${best.cafe_no == member.cafe_no }">
+                                                <c:set var="count" value="${count+1 }"/>
+   
+                                             </c:if>
+   
+                                          </c:forEach>
+   
+                                       <a href="#" class="meta-chat">${count } 명</a>
+                                    </p>
+                                 </div>
+                              </div>
+                           </div>
+                           <br>
+                       
+                       </div>
+                 </c:forEach>
+              </c:when>
+              <c:otherwise>
+              
+              </c:otherwise>
+              
             </c:choose>
            
          </div>
