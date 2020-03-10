@@ -103,15 +103,15 @@ public class MemberController {
       logger.info("signupOption");
 
       /* 구글,네이버,카카오 code 발행 */
-      OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-      String googleAuthurl = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+      //OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+      //String googleAuthurl = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
       String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
       String kakaoAuthUrl = kakaoApi.getAuthorizationUrl(session);
 
       /* 생성한 인증 URL을 View로 전달 */
       model.addAttribute("naver_url", naverAuthUrl);
-      model.addAttribute("google_url", googleAuthurl);
       model.addAttribute("kakao_url", kakaoAuthUrl);
+      //model.addAttribute("google_url", googleAuthurl);
 
       System.out.println("model :" + model);
 
@@ -126,7 +126,7 @@ public class MemberController {
       return "member/kiview_signup";
    }
    
-   //회원가입 중복확인
+   //회원가입 아이디 중복확인
    @RequestMapping(value = "/kiviewsignupidchk.do", method = RequestMethod.POST)
    @ResponseBody
    public Map<String, Boolean> kiview_signupIdChk(@RequestBody MemberVo vo) {
@@ -176,12 +176,16 @@ public class MemberController {
    public String mypage(HttpSession session) {
       logger.info("mypage");
       
+      MemberVo sessionVo = (MemberVo)session.getAttribute("login");
+      String getSessionId= sessionVo.getMember_id();
+      System.out.println("session 아이디: " + getSessionId);
+      
       if(session==null) {
          return "member/kiview_login";
-      } else if(session.getAttribute("login") != null) {
-         return "member/kiview_mypage"; 
-      }else {
+      } else if(getSessionId.contains("@")) {
          return "member/kiview_mypage_sns"; 
+      }else {
+         return "member/kiview_mypage"; 
       }
       
    }
@@ -221,11 +225,13 @@ public class MemberController {
    }
    
    //소셜 로그인
-   /* GoogleLogin */
+   /*
+   //GoogleLogin
    @Autowired
    private GoogleConnectionFactory googleConnectionFactory;
    @Autowired
    private OAuth2Parameters googleOAuth2Parameters;
+   */
 
    /* NaverLoginBO */
    private NaverLoginBO naverLoginBO;
@@ -247,15 +253,15 @@ public class MemberController {
    public String initLogin(Model model, HttpSession session) throws Exception {
       logger.info("login");
       /* 구글,네이버,카카오 code 발행 */
-      OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-      String googleAuthurl = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+      //OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+      //String googleAuthurl = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
       String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
       String kakaoAuthUrl = kakaoApi.getAuthorizationUrl(session);
 
       /* 생성한 인증 URL을 View로 전달 */
       model.addAttribute("naver_url", naverAuthUrl);
-      model.addAttribute("google_url", googleAuthurl);
       model.addAttribute("kakao_url", kakaoAuthUrl);
+      //model.addAttribute("google_url", googleAuthurl);
 
       System.out.println("model :" + model);
 
@@ -284,11 +290,11 @@ public class MemberController {
       String snsEmail = response.getAsJsonObject().get("email").getAsString();
       System.out.println("내가 출력하고 싶은 이메일: " + snsEmail );
       
-      //이메일 중복확인
-      vo = biz.selectEmail(snsEmail);
+      //이메일아이디 중복확인
+      vo = biz.selectEmailId(snsEmail);
       System.out.println(vo);
       if(vo != null) {
-         session.setAttribute("snsLogin", vo);
+         session.setAttribute("login", vo);
 
           //세션 유지 시간 1시간으로 설정
           session.setMaxInactiveInterval(60*60) ;
@@ -301,7 +307,8 @@ public class MemberController {
       
 
    }
-
+   
+   /*
    //구글 로그인 성공시 callback 호출 **보충 필요
    @RequestMapping("/callback2.do")
    public String callback2(HttpServletRequest request) {
@@ -311,6 +318,7 @@ public class MemberController {
       return "index";
 
    }
+   */
 
    //카카오 로그인 성공시 callback 호출
    @RequestMapping("/callback3.do")
@@ -325,10 +333,10 @@ public class MemberController {
       
       String snsEmail = (String) userInfo.get("email");
       
-      vo = biz.selectEmail(snsEmail);
+      vo = biz.selectEmailId(snsEmail);
       System.out.println(vo);
       if(vo != null) {
-         session.setAttribute("snsLogin", vo);
+         session.setAttribute("login", vo);
 
           //세션 유지 시간 1시간으로 설정
           session.setMaxInactiveInterval(60*60) ;
@@ -384,7 +392,7 @@ public class MemberController {
       String charSet = "utf-8";
       String hostSMTP = "smtp.naver.com";
       String hostSMTPid = "pdy2324";
-      String hostSMTPpwd = "Ehdud21170@#";
+      String hostSMTPpwd = "Ehdud21170!!";
 
       // 보내는 사람 EMail, 제목, 내용
       String fromEmail = "pdy2324@naver.com";

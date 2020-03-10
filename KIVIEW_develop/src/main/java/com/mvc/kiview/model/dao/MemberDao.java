@@ -20,7 +20,7 @@ public interface MemberDao {
 
 	public int findPwd(MemberVo vo);
 
-	public MemberVo selectEmail(String snsEmail);
+	public MemberVo selectEmailId(String snsEmail);
 
 	public int tmpPwd(MemberVo vo);
 	
