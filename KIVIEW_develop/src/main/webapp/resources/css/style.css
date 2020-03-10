@@ -11783,7 +11783,7 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 .form-control {
 	height: 52px !important;
 	background: white ;
-	color: black !important;
+	color: black;
 	font-size: 18px;
 	border-radius: 0px;
 	-webkit-box-shadow: none !important;
