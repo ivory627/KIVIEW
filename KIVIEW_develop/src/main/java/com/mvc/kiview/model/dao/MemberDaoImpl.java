@@ -105,7 +105,7 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public MemberVo selectEmail(String snsEmail) {
+	public MemberVo selectEmailId(String snsEmail) {
 		//
 		System.out.println(snsEmail);	//삭젝
 		
@@ -132,6 +132,8 @@ public class MemberDaoImpl implements MemberDao{
 		}		
 		return res;
 	}
+
+
 
 }
 

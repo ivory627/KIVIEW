@@ -29,6 +29,7 @@ function signupIdCkBtn(){
        return false;
     } else if( exp2.test(stringVal) ){
         $("#signupIdMsg").show().css("color","red").html("&nbsp;&nbsp;이용할 수 없는 아이디입니다");
+
        return false;
     } else {
       $.ajax({
@@ -48,6 +49,7 @@ function signupIdCkBtn(){
    
    }
    
+
 }
 
 

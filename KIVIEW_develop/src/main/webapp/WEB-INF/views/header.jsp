@@ -181,8 +181,20 @@ $(function(){
             <li id="cafe" class="nav-item"><a
                href="cafehome.do?member_no=${login.member_no }&member_id=${login.member_id}"
                class="nav-link">키뷰 카페</a></li>
-			<li id="my" class="nav-item">
-           			 <a href="kiviewmypage.do" class="nav-link">마이페이지</a></li>
+            
+            <c:choose>
+				<c:when test="${empty login}">
+					<li id="my" class="nav-item">
+           			<a href="login.do" class="nav-link">마이페이지</a></li>
+				</c:when>
+				<c:otherwise>
+					<li id="my" class="nav-item">
+           			<a href="kiviewmypage.do" class="nav-link">마이페이지</a></li>
+				</c:otherwise>
+			</c:choose>
+               
+               
+		
            
             
 
@@ -190,7 +202,7 @@ $(function(){
               	  로그인 되어 있을 때 로그아웃, 안되어있을 때 로그인 뜨도록
            -->
 			<c:choose>
-				<c:when test="${empty login && empty snsLogin}">
+				<c:when test="${empty login}">
 					<li class="nav-item">
 					<a href="login.do" class="nav-link">로그인</a></li>
 				</c:when>

@@ -1,9 +1,17 @@
 
 $(function() {
    $("#mypagePwdMsg").show().html("&nbsp;&nbsp;&nbsp;&nbsp;기존 비밀번호 혹은 변경할 비밀번호를 입력해주세요");
+   
+   //엔터키 막기
+   $('#mypageUpdateForm').keydown(function(key) {
+      if (key.keyCode == 13) {
+         return false;
+      }
+   });
+   
 });
 
-//회원 탈퇴 확인
+//회원 탈퇴 확인 
 function memberDel(){
    
    var result = confirm("회원탈퇴시 회원의 모든 정보가 삭제되며 복구할 수 없습니다. 정말 탈퇴하시겠습니까?")
@@ -18,8 +26,14 @@ function memberDel(){
     
 }
 
+//비밀번호 클릭시 수정 메시지 삭제
+function pwdCkMsgClear(){
+	$('#mypagePwdChkMsg').show().html('');
+}
+
 //회원정보 수정 확인
 function mypageUpdate(){
+
    
    var mypagePwd = $('#mypagePwd').val().trim(); 
    var mypagePwdChk = $('#mypagePwdChk').val().trim(); 
@@ -75,6 +89,7 @@ function mypageUpdate(){
        
        var mypageAddrMsg = $('#mypageAddrMsg').offset();
       $('html').animate({scrollTop : mypageAddrMsg.top}, 200);
+
         
       return false;
     } else if( !(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i).test( mypageEmail ) ) {

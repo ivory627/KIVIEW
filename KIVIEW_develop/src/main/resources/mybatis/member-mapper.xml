@@ -37,6 +37,7 @@
       WHERE MEMBER_ID = #{member_id}
    </update>
 
+
    <!-- 회원 탈퇴 -->
    <delete id="deleteMember" parameterType="memberVo">
       DELETE FROM MEMBER
@@ -61,7 +62,10 @@
       MEMBER_PWD = #{member_pwd}
       WHERE MEMBER_ID = #{member_id}
    </update>
+
+
    
+
 </mapper>
 
 
