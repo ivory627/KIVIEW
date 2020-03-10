@@ -50,24 +50,27 @@ public class MemberController {
    //로그인 ajax
    @RequestMapping(value = "/ajaxlogin.do", method = RequestMethod.POST)
    @ResponseBody
-   public Map<String, Boolean> ajaxLogin(HttpSession session, @RequestBody MemberVo vo) {
+   public Map<String, String> ajaxLogin(HttpSession session, @RequestBody MemberVo vo) {
       logger.info("ajaxLogin");
       MemberVo res = biz.selectOne(vo);
       
-      boolean check = false;
+      String check = null;
       String vopw = vo.getMember_pwd();   //사용자가 입력한 비밀번호
       String respw = res.getMember_pwd();   //db에서 가져온 비밀번호 (암호화된 번호)
       
-      if (passwordEncoder.matches(vopw, respw) ) {
+      if(vo.getMember_id().contains("@")) {
+    	  check = "2";
+    	  
+      } else if (passwordEncoder.matches(vopw, respw) ) {
          session.setAttribute("login", res);
 
          //세션 유지 시간 1시간으로 설정
          session.setMaxInactiveInterval(60*60) ;
 
-         check = true;
+         check = "1";
       }
          
-      Map<String, Boolean> map = new HashMap<String, Boolean>();
+      Map<String, String> map = new HashMap<String, String>();
       map.put("check", check);
 
       return map;
@@ -292,17 +295,39 @@ public class MemberController {
       
       //이메일아이디 중복확인
       vo = biz.selectEmailId(snsEmail);
-      System.out.println(vo);
+      System.out.println("vo: " + vo);
       if(vo != null) {
-         session.setAttribute("login", vo);
+    	  session.setAttribute("login", vo);
 
-          //세션 유지 시간 1시간으로 설정
-          session.setMaxInactiveInterval(60*60) ;
+    	  //세션 유지 시간 1시간으로 설정
+    	  session.setMaxInactiveInterval(60*60) ;
           
          return "index";
       }else {
-         model.addAttribute("snsEmail", snsEmail);
-         return "member/kiview_signup_sns";
+    	  String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
+          tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
+          String PtmpPwd = null;
+          PtmpPwd = passwordEncoder.encode(tmpPwd);   //임시비밀번호 암호화
+         
+          MemberVo snsVo = new MemberVo();
+          snsVo.setMember_id(snsEmail);
+          snsVo.setMember_pwd(PtmpPwd);
+          snsVo.setMember_name("이름을 입력해주세요");
+          snsVo.setMember_addr("주소를 입력해주세요");
+          snsVo.setMember_phone("전화번호를 입력해주세요");
+          snsVo.setMember_email(snsEmail);
+ 
+          System.out.println("snsVo: " + snsVo);
+          
+          biz.signup(snsVo);	//자동 회원가입
+          System.out.println("회원가입 후 snsVo: " + snsVo);
+          
+    	  session.setAttribute("login", snsVo);
+
+    	  //세션 유지 시간 1시간으로 설정
+    	  session.setMaxInactiveInterval(60*60) ;
+          
+    	  return "index";
       }
       
 
@@ -343,8 +368,30 @@ public class MemberController {
           
          return "index";
       }else {
-         model.addAttribute("snsEmail", snsEmail);
-         return "member/kiview_signup_sns";
+    	  String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
+          tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
+          String PtmpPwd = null;
+          PtmpPwd = passwordEncoder.encode(tmpPwd);   //임시비밀번호 암호화
+         
+          MemberVo snsVo = new MemberVo();
+          snsVo.setMember_id(snsEmail);
+          snsVo.setMember_pwd(PtmpPwd);
+          snsVo.setMember_name("이름을 입력해주세요");
+          snsVo.setMember_addr("주소를 입력해주세요");
+          snsVo.setMember_phone("전화번호를 입력해주세요");
+          snsVo.setMember_email(snsEmail);
+ 
+          System.out.println("snsVo: " + snsVo);
+          
+          biz.signup(snsVo);	//자동 회원가입
+          System.out.println("회원가입 후 snsVo: " + snsVo);
+          
+    	  session.setAttribute("login", snsVo);
+
+    	  //세션 유지 시간 1시간으로 설정
+    	  session.setMaxInactiveInterval(60*60) ;
+          
+    	  return "index";
       }
 
 

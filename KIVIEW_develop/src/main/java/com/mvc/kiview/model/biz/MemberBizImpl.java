@@ -56,7 +56,7 @@ public class MemberBizImpl implements MemberBiz {
 	public int tmpPwd(MemberVo vo) {
 		return dao.tmpPwd(vo);
 	}
-	
+
 
 	
 	

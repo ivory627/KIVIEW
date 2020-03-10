@@ -23,5 +23,7 @@ public interface MemberDao {
 	public MemberVo selectEmailId(String snsEmail);
 
 	public int tmpPwd(MemberVo vo);
+
+
 	
 }
