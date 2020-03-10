@@ -163,7 +163,7 @@ $(function(){
 	
 	var now = new Date();
 	
-	var socket = io("http://192.168.130.238:82"); //페이지 로드시 해당 포트로 접속
+	var socket = io("localhost:82"); //페이지 로드시 해당 포트로 접속
 	
 	socket.on('connection', function(data){
 		if(data.type == 'connected'){
