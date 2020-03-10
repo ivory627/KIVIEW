@@ -68,53 +68,92 @@
     justify-content: center;
 
    }
+   
+   #favoriteBtn{
+   	cursor:pointer;
+   }
     </style>
     <script type="text/javascript">
-   /////////////////////////// 지민like //////////////////////////////
-
-
-var likeSubmit = function(review_no){
-   var member_no = '${login.member_no}';
-   console.log(member_no);
-   
-   
-      $.ajax({
-         url: "likeSubmit.do",
-         dataType:"json",
-         type: "post",
-         contentType:"application/json",  
-         data: JSON.stringify({
-            "review_no":review_no,
-            "member_no":member_no       
-         }),
-         success:function(data){
-            
-            var resultFlag = data.resultFlag;
-            var resultMsg = data.resultMsg;
-            if(resultFlag > 0){
-                if(resultMsg == "insert"){
-                  alert("좋아요 목록에 추가되었습니다.");
-               }else if(resultMsg == "delete"){
-                  alert("좋아요 목록에서 삭제되었습니다.");
-               }
-            }
-            
-         },
-         error : function(request,status,error){
-            alert('오류가 발생했습니다. 다시 시도해 주세요.');
-            console.log("code = "+request.status + "message = " + request.responseText + "error  =   "+ error);
-         }
-      });
-   }
-   
-function LikeBtn(){
-
-   alert('로그인이 필요합니다.');
-
+///////////////////////////지민like//////////////////////////////
+    var likeSubmit = function(review_no){
+       if(${login!=null}){
+          var member_no = '${login.member_no}';
+          console.log(member_no);
+             $.ajax({
+                url: "likeSubmit.do",
+                dataType:"json",
+                type: "post",
+                contentType:"application/json",  
+                data: JSON.stringify({
+                   "review_no":review_no,
+                   "member_no":member_no       
+                }),
+                success:function(data){
+                   
+                   var resultFlag = data.resultFlag;
+                   var resultMsg = data.resultMsg;
+                   if(resultFlag > 0){
+                       if(resultMsg == "insert"){ 
+                         $("#likeBtn"+review_no).css("background-color","rgb(63, 96, 204)"); 
+                         $("#likeCount"+review_no).css("color","white"); 
+                         
+                          
+                      }else if(resultMsg == "delete"){
+                         $("#likeBtn"+review_no).css("background-color","white"); 
+                         $("#likeCount"+review_no).css("color","rgb(63, 96, 204)"); 
+                      }
+                   }
+                   
+                   $("#likeCount"+review_no).html(data.reviewCnt);
+                   
+                },
+                error : function(request,status,error){
+                   console.log("code = "+request.status + "message = " + request.responseText + "error  =   "+ error);
+                }
+             });
+          
+       } else {
+          alert("로그인이 필요한 서비스입니다.");
+       }
+       
+       
 }
-
-/////////////////////////// 지민like 끝 //////////////////////////////
+    ///////////////////////////지민like 끝//////////////////////////////
 ///////////////////////////지민favorite//////////////////////////////
+$(function(){
+	if(${login != null}){
+		var data = {"kinder_no":'${kindervo.kinder_no}', "member_no":'${login.member_no}'}
+		
+		$.ajax({
+			url:"selectFavorite.do",
+			type:"post",
+			data: JSON.stringify(data),
+			dataType:"json",
+			contentType:"application/json",
+			success:function(data){
+				
+				if(data.bool == true ){
+					$('#favoriteBtn').empty();
+                    $('#favoriteBtn').append('<img src="resources/images/favorite_insert.png" style="float:right;" width="50" height="50"/>');
+					
+				} else {
+					 $('#favoriteBtn').empty();
+                     $('#favoriteBtn').append('<img src="resources/images/favorite_basic.png" style="float:right;" width="50" height="50"/>')
+				}
+			},
+			error:function(){
+				alert("명령 실행 중 오류"); 
+			}
+			
+		})
+		
+		
+	}
+	
+	
+})
+
+
 var favoriteSubmit = function(kinder_no){
    if(${login != null}){
       var member_no = '${login.member_no}';
@@ -148,6 +187,8 @@ var favoriteSubmit = function(kinder_no){
                console.log("code = "+request.status + "message = " + request.responseText + "error  =   "+ error);
             }
       });
+   } else {
+	   alert("로그인이 필요한 서비스입니다.");
    }
 }
 ///////////////////////////지민 favorite 끝//////////////////////////////
@@ -183,7 +224,8 @@ var favoriteSubmit = function(kinder_no){
                      <h2 class="mb-4"><span><img id = "kinder" 
                      style = "height: 45px; position:relative; bottom: 5px;"
                      src = "resources/images/main/kindergarden.png"/></span>
-                        <span> ${kindervo.name}</span><a id="favoriteBtn" href="#" onclick="favoriteSubmit('${kindervo.kinder_no}')">
+                     
+                        <span> ${kindervo.name}</span><a id="favoriteBtn" onclick="favoriteSubmit('${kindervo.kinder_no}')">
                         <img src="resources/images/favorite_basic.png" style="float:right;" width="50" height="50"/></a>
                         <!-- <span style = "color:#FFDC00;"> 유치원</span> --></h2><br>
                      <button class="btn btn-secondary px-4 py-3">${kindervo.type} </button>

@@ -1,6 +1,7 @@
 package com.mvc.kiview.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
@@ -27,6 +28,7 @@ public interface LikeDao {
   
    //내가 쓴 카페 글
    public List<CafeBoardVo> myBoard(String member_id);
+   public List<CafeBoardVo> myBoard_paging(Map boardMap);
    public List<CafeMenuVo> myMenu();
   
    //나의 즐겨찾기
@@ -34,8 +36,13 @@ public interface LikeDao {
 
 
  //즐겨찾기
-   public int selectFavoriteCount(FavoriteVo vo);
+   
    public int favoriteDeleteCount(FavoriteVo vo);
    public int favoriteInsertCount(FavoriteVo vo);
+
+   //지민 추가
+   
+ public FavoriteVo selectFavorite(FavoriteVo vo);
+
    
 }
