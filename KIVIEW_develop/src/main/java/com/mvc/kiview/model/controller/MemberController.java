@@ -39,7 +39,7 @@ public class MemberController {
 
    private Logger logger = LoggerFactory.getLogger(MemberController.class);
 
-   @Autowired
+   @Autowired 
    private MemberBiz biz;
 
    @Autowired
