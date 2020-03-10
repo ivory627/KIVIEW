@@ -2,6 +2,7 @@ package com.mvc.kiview.model.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import com.mvc.kiview.model.biz.LikeBiz;
 
 import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
+import com.mvc.kiview.model.vo.CafePageVo;
 import com.mvc.kiview.model.vo.CafeVo;
 import com.mvc.kiview.model.vo.FavoriteVo;
 import com.mvc.kiview.model.vo.KinderVo;
@@ -34,6 +36,8 @@ public class LikeController {
    
 	@Autowired
    private LikeBiz biz;
+	
+	
    
 
    @RequestMapping(value="/likeSubmit.do", method=RequestMethod.POST)
@@ -73,23 +77,26 @@ public class LikeController {
 	   HashMap<String, Object> result = new HashMap<String,Object>();
 	   
 	   int resultSubmit = 0;
-	   logger.info("member_no : " + vo.getMember_no() + " , kinder_no : " + vo.getKinder_no());
-	   int favoriteCount = biz.selectFavoriteCount(vo);
-	   logger.info(String.valueOf(favoriteCount));
+	   boolean bool = true;
 	   
-	   if(favoriteCount > 0) {
+	   FavoriteVo favorite = biz.selectFavorite(vo);
+	   
+	   if(favorite == null) {
+		   bool = false;
+	   }
+	   
+	   
+	   
+	   
+	   if(bool) {
 		   resultSubmit = biz.favoriteDelete(vo);
 		   result.put("resultMsg","delete");
-		   System.out.println(favoriteCount);
+		   
 	   } else {
 		   resultSubmit = biz.favoriteInsert(vo);
 		   result.put("resultMsg","insert");
-		   System.out.println(favoriteCount);
+		  
 	   }
-	   result.put("kinderCnt",biz.selectFavoriteCount(vo));
-	   System.out.println("KinderCnt22 : " + biz.selectFavoriteCount(vo));
-	   
-	   
 	   result.put("resultSubmit", resultSubmit);
 	   
 	   return result;
@@ -118,8 +125,7 @@ public class LikeController {
 	  
 	  List<CafeMenuVo> menu = biz.myMenu();
 	  model.addAttribute("menu",menu);
-	  System.out.println(menu);
-	  System.out.println(board);
+	  
 	  
 	  
 	  //나의 즐겨찾기
@@ -128,6 +134,62 @@ public class LikeController {
       
       return "member/kiview_myactivity";
    }
+   
+   //지민 추가
+   @RequestMapping("/selectFavorite.do")
+   @ResponseBody
+   public Map selectfavorite(Model model, @RequestBody FavoriteVo vo) {
+	  
+	   HashMap map = new HashMap();
+	   boolean bool = true;
+	   
+	   FavoriteVo favorite = biz.selectFavorite(vo);
+	   
+	   if(favorite == null) {
+		   bool = false;
+	   }
+	   
+	   map.put("bool", bool);
+	   
+	   return map;
+   }
+   
+   
+   @RequestMapping("/selectmyboard.do")
+   public String selectmyboard(Model model, String member_id, int curpagenum) {
+	   
+	   
+	   CafePageVo pagevo = biz_cafe.paging(curpagenum, biz.myBoard(member_id).size());
+	   model.addAttribute("pagevo",pagevo);
+	   
+	   Map boardMap = new HashMap();
+	   boardMap.put("member_id", member_id);
+	   boardMap.put("rowStart",pagevo.getRowStart());
+	   boardMap.put("rowEnd", pagevo.getRowEnd());
+	   
+	   List<CafeBoardVo> board = biz.myBoard_paging(boardMap);
+	   model.addAttribute("size", biz.myBoard(member_id).size());
+	   model.addAttribute("board",board);
+	   
+	   List<CafeVo> cafe = biz_cafe.cafe_selectAll();
+	   model.addAttribute("cafe",cafe);
+		  
+	   List<CafeMenuVo> menu = biz.myMenu();
+	   model.addAttribute("menu",menu);
+	   
+	   
+	return "member/kiview_cafe_more";
+   }
+   
+   @RequestMapping("selectmyfavorite.do")
+   public String selectmyfavotire(Model model, String member_id) {
+	   List<KinderVo> favorite = biz.myFavorite(member_id);
+	   model.addAttribute("favorite", favorite);
+	   
+	   return "member/kiview_favorite_more";
+   }
+   
+  
 
 
    
