@@ -312,7 +312,7 @@ public class MemberController {
           MemberVo snsVo = new MemberVo();
           snsVo.setMember_id(snsEmail);
           snsVo.setMember_pwd(PtmpPwd);
-          snsVo.setMember_name("이름을 입력해주세요");
+          snsVo.setMember_name("소셜로그인가입자");
           snsVo.setMember_addr("주소를 입력해주세요");
           snsVo.setMember_phone("전화번호를 입력해주세요");
           snsVo.setMember_email(snsEmail);
