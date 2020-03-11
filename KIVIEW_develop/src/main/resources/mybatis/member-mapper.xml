@@ -62,7 +62,11 @@
       MEMBER_PWD = #{member_pwd}
       WHERE MEMBER_ID = #{member_id}
    </update>
-
+   
+   <!-- 메인 페이지  멤버 수  -->
+   <select id="membercount" resultType="int">
+   	  SELECT COUNT(*) FROM MEMBER
+   </select>
 
    
 

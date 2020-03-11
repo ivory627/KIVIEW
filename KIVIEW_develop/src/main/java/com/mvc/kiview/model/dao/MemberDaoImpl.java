@@ -133,6 +133,20 @@ public class MemberDaoImpl implements MemberDao{
 		return res;
 	}
 
+	@Override
+	public int membercount() {
+		
+		int res = 0;	
+
+		try {
+			res = sqlSession.selectOne(namespace + "membercount");
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("[error] : membercount");
+		}		
+		return res;
+	}
+
 
 
 }

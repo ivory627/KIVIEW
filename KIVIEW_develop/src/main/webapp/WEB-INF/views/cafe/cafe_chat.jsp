@@ -92,7 +92,7 @@ label{
 
 
 </style>
-<script src="http://localhost:82/socket.io/socket.io.js"></script>
+<script src="http://192.168.130.219:82/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
 <script type="text/javascript">

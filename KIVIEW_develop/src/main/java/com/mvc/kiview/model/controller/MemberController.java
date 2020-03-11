@@ -438,13 +438,13 @@ public class MemberController {
        // Mail Server 설정
       String charSet = "utf-8";
       String hostSMTP = "smtp.naver.com";
-      String hostSMTPid = "pdy2324";
-      String hostSMTPpwd = "Ehdud21170!!";
+      String hostSMTPid = "kiview_kiki";
+      String hostSMTPpwd = "navKiview2020!";
 
       // 보내는 사람 EMail, 제목, 내용
-      String fromEmail = "pdy2324@naver.com";
+      String fromEmail = "kiview_kiki@naver.com";
       String fromName = "Kiview";
-      String subject = "kiview에서 임시비밀번호가 발급되었습니다";
+      String subject = "Kiview에서 임시비밀번호가 발급되었습니다";
       String msg = "";
       
       msg += "<div align='center' style='border:1px solid black; font-family:verdana'; font-size:20px;>";
