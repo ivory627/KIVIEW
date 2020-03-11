@@ -119,8 +119,8 @@ var likeSubmit = function(review_no){
    <jsp:include page="../header.jsp" />
 
    <section class="hero-wrap hero-wrap-2"
-      style="background-image: url('resources/images/bg_2.jpg');">
-      <div class="overlay"></div>
+      style="background-image: url('resources/images/main/review_img03.png');">
+     <!--  <div class="overlay"></div> -->
       <div class="container">
          <div
             class="row no-gutters slider-text align-items-center justify-content-center">
