@@ -39,7 +39,7 @@ public class KinderController {
 	@RequestMapping("/searchdetail.do")
 	public String searchdetail(Model model, int kinder_no , Criteria cri) {
 		logger.info("KINDER SEARCH DETAIL");
-		//System.out.println(kinder_no);
+		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(biz.ReviewCnt(kinder_no));

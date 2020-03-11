@@ -113,7 +113,7 @@ var likeSubmit = function(review_no){
 
 </head>
 
-<body id="body">
+<body>
 
    <!-- header 부분 -->
    <jsp:include page="../header.jsp" />
@@ -670,7 +670,7 @@ var likeSubmit = function(review_no){
             </form>
          </div>
       </div>
-   </div>
+   </div> 
 
    <!-- @@ footer 영역 @@ -->
    <jsp:include page="../footer.jsp" />
