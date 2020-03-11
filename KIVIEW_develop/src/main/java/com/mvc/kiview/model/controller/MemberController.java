@@ -302,7 +302,7 @@ public class MemberController {
     	  //세션 유지 시간 1시간으로 설정
     	  session.setMaxInactiveInterval(60*60) ;
           
-         return "index";
+         return "member/kiview_snsLoginRes";
       }else {
     	  String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
           tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
@@ -327,7 +327,7 @@ public class MemberController {
     	  //세션 유지 시간 1시간으로 설정
     	  session.setMaxInactiveInterval(60*60) ;
           
-    	  return "index";
+    	  return "member/kiview_snsSignupRes";
       }
       
 
@@ -366,7 +366,7 @@ public class MemberController {
           //세션 유지 시간 1시간으로 설정
           session.setMaxInactiveInterval(60*60) ;
           
-         return "index";
+         return "member/kiview_snsLoginRes";
       }else {
     	  String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
           tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
@@ -391,7 +391,7 @@ public class MemberController {
     	  //세션 유지 시간 1시간으로 설정
     	  session.setMaxInactiveInterval(60*60) ;
           
-    	  return "index";
+    	  return "member/kiview_snsSignupRes";
       }
 
 
