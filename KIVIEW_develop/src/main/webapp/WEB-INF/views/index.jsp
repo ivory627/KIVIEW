@@ -242,7 +242,7 @@ h3 a{
                   <div class="block-18">
                      <div class="icon"><span class="flaticon-doctor"></span></div>
                     <div class="text">
-                      <strong class="number" data-number="564">0</strong>
+                      <strong class="number" data-number="${cafecount }">0</strong>
                       <span id = "cntfont">카페 개설 수</span>
                     </div>
                   </div>
@@ -251,7 +251,7 @@ h3 a{
                   <div class="block-18">
                      <div class="icon"><span class="flaticon-doctor"></span></div>
                     <div class="text">
-                      <strong class="number" data-number="300">0</strong>
+                      <strong class="number" data-number="${membercount }">0</strong>
                       <span id = "cntfont">키뷰 회원 수</span>
                     </div>
                   </div>

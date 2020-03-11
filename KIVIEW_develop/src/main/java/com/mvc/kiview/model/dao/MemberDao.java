@@ -24,6 +24,8 @@ public interface MemberDao {
 
 	public int tmpPwd(MemberVo vo);
 
+	public int membercount();
+
 
 	
 }
