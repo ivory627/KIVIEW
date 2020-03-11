@@ -182,9 +182,20 @@ public class LikeController {
    }
    
    @RequestMapping("selectmyfavorite.do")
-   public String selectmyfavotire(Model model, String member_id) {
-	   List<KinderVo> favorite = biz.myFavorite(member_id);
-	   model.addAttribute("favorite", favorite);
+   public String selectmyfavotire(Model model, String member_id, int curpagenum) {
+	   //List<KinderVo> favorite = biz.myFavorite(member_id);
+	   CafePageVo pagevo = biz_cafe.paging(curpagenum, biz.myFavorite(member_id).size());
+	   model.addAttribute("pagevo",pagevo);
+	   
+	   Map FavoriteMap = new HashMap();
+	   FavoriteMap.put("member_id", member_id);
+	   FavoriteMap.put("rowStart", pagevo.getRowStart());
+	   FavoriteMap.put("rowEnd", pagevo.getRowEnd());
+	   
+	   List<KinderVo> favorite = biz.myFavorite_paging(FavoriteMap);
+	   model.addAttribute("size", biz.myFavorite(member_id).size());
+	   model.addAttribute("favorite",favorite);
+	  
 	   
 	   return "member/kiview_favorite_more";
    }

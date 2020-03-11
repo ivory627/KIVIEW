@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mvc.kiview.model.biz.KinderBiz;
+import com.mvc.kiview.model.biz.LikeBiz;
 import com.mvc.kiview.model.biz.ReviewBiz;
 import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.KinderVo;
@@ -27,6 +28,9 @@ public class KinderController {
 	
 	@Autowired
 	private KinderBiz biz;
+	
+	@Autowired
+	private LikeBiz biz_like;
 	
 	@RequestMapping("/kindersearch.do")
 	public String kindersearch(Model model) {
@@ -47,6 +51,8 @@ public class KinderController {
 		model.addAttribute("kindervo",biz.Kinderdetail(kinder_no));
 		model.addAttribute("reviewvo",biz.ReviewList(kinder_no,cri));
 		model.addAttribute("pageMaker", pageMaker);
+		
+		model.addAttribute("likeAll", biz_like.selectAll());
 		return "kinder/kiview_Search_detail";
 	}
 	

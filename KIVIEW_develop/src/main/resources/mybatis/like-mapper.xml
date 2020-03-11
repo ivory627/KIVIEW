@@ -106,6 +106,20 @@
      	AND M.MEMBER_ID = #{member_id}
      </select>
      
+     <select id="myFavorite_paging" parameterType="Map" resultType="KinderVo">
+     	SELECT * 
+     	FROM 
+     	(
+     	SELECT K.*, ROW_NUMBER() OVER (ORDER BY F.FAVORITE_NO DESC) AS RNUM 
+     	FROM FAVORITE F, KINDER K, MEMBER M
+     	WHERE F.KINDER_NO = K.KINDER_NO
+     	AND F.MEMBER_NO = M.MEMBER_NO 
+     	AND M.MEMBER_ID = #{member_id} 
+     	)
+     	
+     	WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+     </select>
+     
     
      
      

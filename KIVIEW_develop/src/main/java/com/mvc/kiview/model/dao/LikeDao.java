@@ -33,6 +33,7 @@ public interface LikeDao {
   
    //나의 즐겨찾기
    public List<KinderVo> myFavorite(String member_id);
+   public List<KinderVo> myFavorite_paging(Map favoriteMap);
 
 
  //즐겨찾기
@@ -43,6 +44,7 @@ public interface LikeDao {
    //지민 추가
    
  public FavoriteVo selectFavorite(FavoriteVo vo);
+
 
    
 }
