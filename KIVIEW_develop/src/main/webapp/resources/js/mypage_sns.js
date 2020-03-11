@@ -1,13 +1,21 @@
 
 $(function() {
-   $("#mypagePwdMsg").show().html("&nbsp;&nbsp;&nbsp;&nbsp;기존 비밀번호 혹은 변경할 비밀번호를 입력해주세요");
-   
    //엔터키 막기
    $('#mypageUpdateForm').keydown(function(key) {
       if (key.keyCode == 13) {
          return false;
       }
    });
+   
+   
+   //sns 랜덤 비밀번호 생성
+   var str = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+   var randomPwd = '';
+   for (var i=0; i<15; i++) {
+   var rnum = Math.floor(Math.random() * str.length);
+   randomPwd += str.substring(rnum,rnum+1);
+   }
+   $('#mypagePwd').val(randomPwd);
    
 });
 
@@ -26,35 +34,18 @@ function memberDel(){
     
 }
 
-//비밀번호 클릭시 수정 메시지 삭제
-function pwdCkMsgClear(){
-	$('#mypagePwdChkMsg').show().html('');
-}
-
 //회원정보 수정 확인
 function mypageUpdate(){
-
    
-   var mypagePwd = $('#mypagePwd').val().trim(); 
-   var mypagePwdChk = $('#mypagePwdChk').val().trim(); 
    var mypageAddr = $('#mypageAddr').val(); 
    var mypagePhone = $('#mypagePhone').val().trim(); 
    var mypageEmail = $('#mypageEmail').val().trim();
 
-   $('#mypagePwdMsg').show().html('');
-   $('#mypagePwdChkMsg').show().html('');
    $('#mypageAddrMsg').show().html('');
    $('#mypagePhoneMsg').show().html('');
    $('#mypageEmailMsg').show().html('');
    
-   if( mypagePwd == null || mypagePwd =="" || mypagePwdChk == null || mypagePwdChk =="" ){
-      $('#mypagePwdMsg').show().html('&nbsp;&nbsp;&nbsp;&nbsp;비밀번호를 입력해주세요');
-      
-      var member_id = $('#member_id').offset();
-      $('html').animate({scrollTop : member_id.top}, 400);
-      
-      return false;
-   } else if( mypagePhone == null || mypagePhone =="" ){
+   if( mypagePhone == null || mypagePhone =="" ){
 	      $('#mypagePhoneMsg').show().html('&nbsp;&nbsp;&nbsp;&nbsp;전화번호를 입력해주세요');
 
 	      var mypageAddrMsg = $('#mypageAddrMsg').offset();
@@ -66,20 +57,6 @@ function mypageUpdate(){
 
       var mypagePhoneMsg = $('#mypagePhoneMsg').offset();
       $('html').animate({scrollTop : mypagePhoneMsg.top}, 400);
-      
-      return false;
-   } else if( mypagePwd != mypagePwdChk ){
-      $('#mypagePwdChkMsg').show().html('&nbsp;&nbsp;&nbsp;&nbsp;비밀번호가 일치하지 않습니다');
-      
-      var member_id = $('#member_id').offset();
-      $('html').animate({scrollTop : member_id.top}, 400);
-      
-      return false;
-   } else if (!/^.*(?=^.{4,19}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(mypagePwd)) {
-      $("#mypagePwdMsg").show().html("&nbsp;&nbsp;영문(소/대문자 구분), 숫자, 특수문자를 포함 5~20자리로 입력해주세요");
-      
-      var member_id = $('#member_id').offset();
-      $('html').animate({scrollTop : member_id.top}, 400);
       
       return false;
    } else if( !/^[0-9]*$/.test( mypagePhone ) ) {

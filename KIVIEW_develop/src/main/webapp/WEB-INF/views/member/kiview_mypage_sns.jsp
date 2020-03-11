@@ -84,9 +84,6 @@ label {
 					<p style="font-size: 13px;">회원정보는 개인정보처리방침에 따라 안전하게 보호되며, 동의없이
 						공개 또는 제 3자에게 제공되지 않습니다.</p>
 					<form method="post" action="kiviewdelete.do" id="deleteform">
-						<label>이 름</label><br>
-						<input type="text" value="${login.member_name}" readonly="readonly"
-							style="width: 80%" readonly id="member_name"> <br> <br>
 						<label>아이디</label><br>
 						<input type="text" value="${login.member_id}" readonly="readonly"
 							style="width: 80%" readonly id="member_id"> <br> <br>
@@ -104,13 +101,7 @@ label {
   
 					<form method="post" action="kiviewupdate.do" id="mypageUpdateForm">
 						<input type="hidden" name="member_id" value="${login.member_id}">
-						<br>
-						<label>비밀번호</label><span class="mypageUpdateMsg" id="mypagePwdMsg" style="color: red;"></span><br>
-						<input type="password" name="member_pwd" placeholder="비밀번호" style="width: 80%" id="mypagePwd">
-						<br><br>
-						<label>비밀번호 확인</label><span class="mypageUpdateMsg" id="mypagePwdChkMsg" style="color: red;"></span><br>
-						<input type="password" placeholder="비밀번호 확인" style="width: 80%" id="mypagePwdChk" onkeyup="pwdCkMsgClear()" >
-						<br><br>
+		                <input type="hidden" name="member_pwd" id="mypagePwd">
 						<label>주소</label><span class="mypageUpdateMsg" id="mypageAddrMsg" style="color: red;"></span><br>
 						<input type="text" value="${login.member_addr}" name="member_addr" style="width: 65%" id="mypageAddr">
 						<input type="button" class="btn btn-primary" value="주소 검색" onclick="addrPopup()">
@@ -138,7 +129,7 @@ label {
 
 
 	<!-- @@ script 영역 @@ -->
-	<script type="text/javascript" src="resources/js/mypage.js?version=1.0"></script>
+	<script type="text/javascript" src="resources/js/mypage_sns.js?version=1.0"></script>
 
 
 

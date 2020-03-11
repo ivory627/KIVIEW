@@ -39,7 +39,7 @@ public class MemberController {
 
    private Logger logger = LoggerFactory.getLogger(MemberController.class);
 
-   @Autowired
+   @Autowired 
    private MemberBiz biz;
 
    @Autowired
@@ -302,7 +302,7 @@ public class MemberController {
     	  //세션 유지 시간 1시간으로 설정
     	  session.setMaxInactiveInterval(60*60) ;
           
-         return "index";
+         return "member/kiview_snsLoginRes";
       }else {
     	  String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
           tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
@@ -312,7 +312,7 @@ public class MemberController {
           MemberVo snsVo = new MemberVo();
           snsVo.setMember_id(snsEmail);
           snsVo.setMember_pwd(PtmpPwd);
-          snsVo.setMember_name("이름을 입력해주세요");
+          snsVo.setMember_name("소셜로그인가입자");
           snsVo.setMember_addr("주소를 입력해주세요");
           snsVo.setMember_phone("전화번호를 입력해주세요");
           snsVo.setMember_email(snsEmail);
@@ -327,7 +327,7 @@ public class MemberController {
     	  //세션 유지 시간 1시간으로 설정
     	  session.setMaxInactiveInterval(60*60) ;
           
-    	  return "index";
+    	  return "member/kiview_snsSignupRes";
       }
       
 
@@ -366,7 +366,7 @@ public class MemberController {
           //세션 유지 시간 1시간으로 설정
           session.setMaxInactiveInterval(60*60) ;
           
-         return "index";
+         return "member/kiview_snsLoginRes";
       }else {
     	  String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
           tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
@@ -391,7 +391,7 @@ public class MemberController {
     	  //세션 유지 시간 1시간으로 설정
     	  session.setMaxInactiveInterval(60*60) ;
           
-    	  return "index";
+    	  return "member/kiview_snsSignupRes";
       }
 
 
