@@ -59,8 +59,8 @@ public class MemberController {
       String respw = res.getMember_pwd();   //db에서 가져온 비밀번호 (암호화된 번호)
       
       if(vo.getMember_id().contains("@")) {
-    	  check = "2";
-    	  
+         check = "2";
+         
       } else if (passwordEncoder.matches(vopw, respw) ) {
          session.setAttribute("login", res);
 
@@ -297,14 +297,14 @@ public class MemberController {
       vo = biz.selectEmailId(snsEmail);
       System.out.println("vo: " + vo);
       if(vo != null) {
-    	  session.setAttribute("login", vo);
+         session.setAttribute("login", vo);
 
-    	  //세션 유지 시간 1시간으로 설정
-    	  session.setMaxInactiveInterval(60*60) ;
+         //세션 유지 시간 1시간으로 설정
+         session.setMaxInactiveInterval(60*60) ;
           
          return "member/kiview_snsLoginRes";
       }else {
-    	  String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
+         String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
           tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
           String PtmpPwd = null;
           PtmpPwd = passwordEncoder.encode(tmpPwd);   //임시비밀번호 암호화
@@ -319,15 +319,15 @@ public class MemberController {
  
           System.out.println("snsVo: " + snsVo);
           
-          biz.signup(snsVo);	//자동 회원가입
+          biz.signup(snsVo);   //자동 회원가입
           System.out.println("회원가입 후 snsVo: " + snsVo);
           
-    	  session.setAttribute("login", snsVo);
+         session.setAttribute("login", snsVo);
 
-    	  //세션 유지 시간 1시간으로 설정
-    	  session.setMaxInactiveInterval(60*60) ;
+         //세션 유지 시간 1시간으로 설정
+         session.setMaxInactiveInterval(60*60) ;
           
-    	  return "member/kiview_snsSignupRes";
+         return "member/kiview_snsSignupRes";
       }
       
 
@@ -368,7 +368,7 @@ public class MemberController {
           
          return "member/kiview_snsLoginRes";
       }else {
-    	  String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
+         String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
           tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
           String PtmpPwd = null;
           PtmpPwd = passwordEncoder.encode(tmpPwd);   //임시비밀번호 암호화
@@ -383,15 +383,15 @@ public class MemberController {
  
           System.out.println("snsVo: " + snsVo);
           
-          biz.signup(snsVo);	//자동 회원가입
+          biz.signup(snsVo);   //자동 회원가입
           System.out.println("회원가입 후 snsVo: " + snsVo);
           
-    	  session.setAttribute("login", snsVo);
+         session.setAttribute("login", snsVo);
 
-    	  //세션 유지 시간 1시간으로 설정
-    	  session.setMaxInactiveInterval(60*60) ;
+         //세션 유지 시간 1시간으로 설정
+         session.setMaxInactiveInterval(60*60) ;
           
-    	  return "member/kiview_snsSignupRes";
+         return "member/kiview_snsSignupRes";
       }
 
 
@@ -438,20 +438,20 @@ public class MemberController {
        // Mail Server 설정
       String charSet = "utf-8";
       String hostSMTP = "smtp.naver.com";
-      String hostSMTPid = "kiview_kiki";
-      String hostSMTPpwd = "navKiview2020!";
+      String hostSMTPid = "pdy2324";
+      String hostSMTPpwd = "Ehdud21170!!";
 
       // 보내는 사람 EMail, 제목, 내용
-      String fromEmail = "kiview_kiki@naver.com";
+      String fromEmail = "pdy2324@naver.com";
       String fromName = "Kiview";
-      String subject = "Kiview에서 임시비밀번호가 발급되었습니다";
+      String subject = "kiview에서 임시비밀번호가 발급되었습니다";
       String msg = "";
       
       msg += "<div align='center' style='border:1px solid black; font-family:verdana'; font-size:20px;>";
       msg += "<h3 style='color: blue;'>";
       msg += vo.getMember_id() + "님의 임시 비밀번호는&nbsp;<span style='color: red; font-size:30px'>"+ tmpPwd +"</span>&nbsp;입니다. "
             + "<br>로그인 후 비밀번호를 변경하여 사용하세요.</h3></p></div>";
-      
+       
       // 받는 사람 E-Mail 주소
       try {
          String mail = vo.getMember_email();
