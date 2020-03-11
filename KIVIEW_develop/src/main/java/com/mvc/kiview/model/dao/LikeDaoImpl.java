@@ -203,6 +203,19 @@ public class LikeDaoImpl implements LikeDao {
 		return res;
 	}
 
+	@Override
+	public List<KinderVo> myFavorite_paging(Map favoriteMap) {
+		List<KinderVo> res = null;
+		try { 
+			res = sqlSession.selectList(namespace+"myFavorite_paging", favoriteMap);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("myFavorite_paging 오류");
+		}
+		return res;
+	}
+
 	
 
 	

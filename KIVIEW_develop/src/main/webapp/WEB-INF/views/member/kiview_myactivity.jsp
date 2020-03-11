@@ -206,7 +206,7 @@ a:hover{
 					</c:choose>	
 					
 					</table>
-					<a href='selectmyfavorite.do?member_id=${login.member_id }' style="position:relative; left:90%;  color:gray"><u>더 보기</u></a>
+					<a href='selectmyfavorite.do?member_id=${login.member_id }&curpagenum=1' style="position:relative; left:90%;  color:gray"><u>더 보기</u></a>
 				</div>
 				
 				

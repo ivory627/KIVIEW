@@ -19,6 +19,11 @@
 
 <%@ include file="../head.jsp"%>
 <style>
+
+#myactivity{
+	color:black;
+	font-weight:bold;
+}
 input[type=text] {
 	border-top: 0px;
 	border-left: 0px;
@@ -51,9 +56,13 @@ a:hover{
 
 </style>
 <script type="text/javascript">
-
-
-
+	function PageMove(page) {
+	    var curpagenum = page;
+	   
+	    
+	    location.href = 'selectmyfavorite.do?member_id=${login.member_id }&curpagenum='+page;
+	 }
+	 
 </script>
 
 </head>
@@ -100,7 +109,7 @@ a:hover{
 					
 					
 					<br><br><br> 
-					<label>즐겨찾기</label>&nbsp;&nbsp;<span>총 <span style="color:orange">${fn:length(favorite) }</span>개의 즐겨찾기가 검색되었습니다.</span><br>  
+					<label>즐겨찾기</label>&nbsp;&nbsp;<span>총 <span style="color:orange">${size}</span>개의 즐겨찾기가 검색되었습니다.</span><br>  
 					<col width="20%"> 
 					<col width="60%">  
 					<col width="20%"> 
@@ -122,6 +131,42 @@ a:hover{
 					</c:choose>	
 					
 					</table>
+					
+					<div id="paging">
+			  
+	        		 <c:if test="${pagevo.totallistcount ne '0' }">
+	                    
+	                        <ul class="pagination pull-right">
+	                           <li><a href="javascript:PageMove(1)"> &nbsp;&nbsp;<< &nbsp;&nbsp; </a> </li>
+	                           <c:if test="${pagevo.pagepre eq true }">
+	                              <li><a
+	                                 href="javascript:PageMove(${pagevo.curpagenum-1 })">&nbsp;&nbsp; < &nbsp;&nbsp;</a></li>
+	                           </c:if>
+	                           
+	                           <c:forEach var="i" begin="${pagevo.startpage }" end="${pagevo.endpage }">
+	                              <c:choose>
+	                                 <c:when test="${i eq pagevo.curpagenum }">
+	                                    <li class="active"><a href="javascript:PageMove(${i})">&nbsp;&nbsp;${i}&nbsp;&nbsp;</a></li>
+	                                 </c:when>
+	                                 <c:otherwise>
+	                                    <li><a href="javascript:PageMove(${i})">&nbsp;&nbsp;${i}&nbsp;&nbsp;</a></li>
+	                                 </c:otherwise>
+	                              </c:choose>
+	                           </c:forEach>
+	                           <c:if test="${pagevo.pagenext eq true }">
+	                              <li><a
+	                                 href="javascript:PageMove(${pagevo.curpagenum+1 })">&nbsp;&nbsp; >&nbsp;&nbsp;</a></li>
+	                           </c:if>
+	                           <li><a
+	                              href="javascript:PageMove(${pagevo.totalpagecount})"> &nbsp;&nbsp;>>&nbsp;&nbsp; </a></li>
+	                        </ul>
+	
+	
+	 
+	                      
+	                  </c:if>
+         
+         		</div>
 				</div>
 				
 				
@@ -131,121 +176,7 @@ a:hover{
 
 			</div>
 		
-		<div id="myModal" class="modal">
-
-		<!-- Modal content -->
-		<div class="modal-content" style="padding: 40px;">
-			<span style="width: 5%;" class="close">&times;</span>
-
-			<div>
-				<h3>
-					<b>유치원 리뷰수정</b>
-				</h3>
-				<h6 style="width: 100%">키뷰는 평가자의 익명성을 보장하며 평가내역에 어떠한 개인정보도 노출되지
-					않음을 약속드립니다.</h6>
-				<br>
-
-				<form id="reviewUpdate" action="reviewUpdate.do" method="get">
-					<input type="hidden" name="review_no"> <input type="hidden"
-						name="kinder_no">
-					<div>
-						<label>유치원 명 </label><br> <input type="hidden"
-							name="review_writer"> <input type="text"
-							placeholder="유치원명을 입력하세요." name="kinder_name" style="width: 101%">
-						<input type="text" name="kinder_addr"> <br> <br>
-						<label> 등원시기 </label><br> <select id="review_year_update"
-							style="width: 101%; height: 35px;" name="review_year" disabled>
-							<option selected="selected">선택</option>
-							<option>2020년</option>
-							<option>2019년</option>
-							<option>2018년</option>
-							<option>2017년</option>
-							<option>2016년</option>
-							<option>2015년</option>
-							<option>2014년</option>
-							<option>2013년</option>
-							<option>2012년</option>
-							<option>2011년</option>
-							<option>2010년</option>
-							<option>2009년</option>
-							<option>2008년</option>
-							<option>2007년</option>
-							<option>2006년</option>
-							<option>2006년 이전</option>
-						</select> <br> <br> <label>제목 </label><br> <input
-							type="text" name="review_title" style="width: 101%"
-							placeholder="제목을 입력하세요." minlength="4" maxlength="30" required><br>
-						<br> <label>내용 </label> <span
-							style="position: relative; left: 85%">0/200자</span><br>
-						<textarea style="width: 100%; height: auto; resize: none;"
-							name="review_content" minlength="200" maxlength="1000" required></textarea>
-						<br> <br>
-					</div>
-					<br>
-
-					<div>
-						<div class="star-input">
-							<h4>
-								<b>평점</b>
-							</h4>
-							<label>원장/교사</label><br>
-							<div class="input">
-								<input type="radio" name="avg_score1" value="1" id="p1" disabled>
-								<label for="p1">1</label> <input type="radio" name="avg_score1"
-									value="2" id="p2" disabled> <label for="p2">2</label> <input
-									type="radio" name="avg_score1" value="3" id="p3" disabled>
-								<label for="p3">3</label> <input type="radio" name="avg_score1"
-									value="4" id="p4" disabled> <label for="p4">4</label> <input
-									type="radio" name="avg_score1" value="5" id="p5" disabled>
-								<label for="p5">5</label>
-							</div>
-
-						</div>
-						<br> <br>
-
-						<div class="star-input2">
-							<label>교과/수업</label><br>
-							<div class="input2">
-								<input type="radio" name="avg_score2" value="1" id="p12"
-									disabled> <label for="p12">1</label> <input
-									type="radio" name="avg_score2" value="2" id="p22" disabled>
-								<label for="p22">2</label> <input type="radio" name="avg_score2"
-									value="3" id="p32" disabled> <label for="p32">3</label>
-								<input type="radio" name="avg_score2" value="4" id="p42"
-									disabled> <label for="p42">4</label> <input
-									type="radio" name="avg_score2" value="5" id="p52" disabled>
-								<label for="p52">5</label>
-							</div>
-						</div>
-						<br> <br>
-
-						<div class="star-input3">
-							<label>시설/청결</label><br>
-							<div class="input3">
-								<input type="radio" name="avg_score3" value="1" id="p13"
-									disabled> <label for="p13">1</label> <input
-									type="radio" name="avg_score3" value="2" id="p23" disabled>
-								<label for="p23">2</label> <input type="radio" name="avg_score3"
-									value="3" id="p33" disabled> <label for="p33">3</label>
-								<input type="radio" name="avg_score3" value="4" id="p43"
-									disabled> <label for="p43">4</label> <input
-									type="radio" name="avg_score3" value="5" id="p53" disabled>
-								<label for="p53">5</label>
-							</div>
-						</div>
-						<br> <br> <br>
-					</div>
-
-					<div style="position: relative; left: 38%;">
-						<input class="btn btn-secondary" style="width: 15%" type="submit"
-							value="수정"> &nbsp;&nbsp;&nbsp; <input id="modal-close"
-							class="btn btn-primary" style="width: 15%" type="button"
-							value="취소">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+		
 
 
 

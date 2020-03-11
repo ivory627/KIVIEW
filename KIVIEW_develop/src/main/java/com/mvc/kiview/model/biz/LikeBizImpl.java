@@ -95,6 +95,12 @@ public class LikeBizImpl implements LikeBiz{
 		return dao.selectFavorite(vo);
 	}
 
+	@Override
+	public List<KinderVo> myFavorite_paging(Map favoriteMap) {
+		
+		return dao.myFavorite_paging(favoriteMap);
+	}
+
 	
 
 	
