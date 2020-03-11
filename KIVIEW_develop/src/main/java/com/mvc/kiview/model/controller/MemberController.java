@@ -451,7 +451,7 @@ public class MemberController {
       msg += "<h3 style='color: blue;'>";
       msg += vo.getMember_id() + "님의 임시 비밀번호는&nbsp;<span style='color: red; font-size:30px'>"+ tmpPwd +"</span>&nbsp;입니다. "
             + "<br>로그인 후 비밀번호를 변경하여 사용하세요.</h3></p></div>";
-      
+       
       // 받는 사람 E-Mail 주소
       try {
          String mail = vo.getMember_email();
