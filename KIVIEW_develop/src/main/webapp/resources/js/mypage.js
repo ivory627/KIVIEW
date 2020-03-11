@@ -56,13 +56,6 @@ function mypageUpdate(){
       $('html').animate({scrollTop : member_id.top}, 400);
       
       return false;
-   } else if( mypagePhone == null || mypagePhone =="" ){
-      $('#mypagePhoneMsg').show().html('&nbsp;&nbsp;&nbsp;&nbsp;전화번호를 입력해주세요');
-
-      var mypageAddrMsg = $('#mypageAddrMsg').offset();
-      $('html').animate({scrollTop : mypageAddrMsg.top}, 400);
-      
-      return false;
    } else if( mypageEmail== null || mypageEmail =="" ){
       $('#mypageEmailMsg').show().html('&nbsp;&nbsp;&nbsp;&nbsp;이메일를 입력해주세요');
 

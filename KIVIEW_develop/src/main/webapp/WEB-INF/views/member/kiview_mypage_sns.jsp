@@ -104,12 +104,6 @@ label {
   
 					<form method="post" action="kiviewupdate.do" id="mypageUpdateForm">
 						<input type="hidden" name="member_id" value="${login.member_id}">
-						<br>
-						<label>비밀번호</label><span class="mypageUpdateMsg" id="mypagePwdMsg" style="color: red;"></span><br>
-						<input type="password" name="member_pwd" placeholder="비밀번호" style="width: 80%" id="mypagePwd">
-						<br><br>
-						<label>비밀번호 확인</label><span class="mypageUpdateMsg" id="mypagePwdChkMsg" style="color: red;"></span><br>
-						<input type="password" placeholder="비밀번호 확인" style="width: 80%" id="mypagePwdChk" onkeyup="pwdCkMsgClear()" >
 						<br><br>
 						<label>주소</label><span class="mypageUpdateMsg" id="mypageAddrMsg" style="color: red;"></span><br>
 						<input type="text" value="${login.member_addr}" name="member_addr" style="width: 65%" id="mypageAddr">

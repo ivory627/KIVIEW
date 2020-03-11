@@ -96,13 +96,7 @@ function signupChk(){
       $('html').animate({scrollTop : signupIdMsg.top}, 200);
       
       return false;
-   } 
-   //전화번호 null 확인
-   else if(member_phone==null || member_phone==""){
-      $("#signupPhoneMsg").show().css('color', 'red').html("&nbsp;&nbsp;전화번호를 작성해주세요");
-
-      return false;
-   } 
+   }
    //전화번호 정규식
    else if( !(/^[0-9]*$/).test( member_phone ) ) {    
        $("#signupPhoneMsg").show().css('color', 'red').html("&nbsp;&nbsp;숫자만 입력해주세요&nbsp;&nbsp;ex)01011112222");
