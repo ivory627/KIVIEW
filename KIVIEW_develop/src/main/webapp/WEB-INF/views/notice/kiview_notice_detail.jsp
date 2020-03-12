@@ -196,23 +196,23 @@ box-sizing: border-box;
 									      description: '#키뷰 #${noticedetail.cat_detail}',
 									      imageUrl: 'https://ifh.cc/g/MReqA.jpg',
 									      link: {
-									        mobileWebUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
-									        webUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
+									        mobileWebUrl: 'http://18.223.58.91:8080/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
+									        webUrl: 'http://18.223.58.91:8080/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
 									      }
 									    },
 									    buttons: [
 									      {
 									        title: '웹으로 보기',
 									        link: {
-									          mobileWebUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
-									          webUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
+									          mobileWebUrl: 'http://18.223.58.91:8080/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
+									          webUrl: 'http://18.223.58.91:8080/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
 									        }
 									      },
 									      {
 									        title: '앱으로 보기',
 									        link: {
-									          mobileWebUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
-									          webUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
+									          mobileWebUrl: 'http://18.223.58.91:8080/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
+									          webUrl: 'http://18.223.58.91:8080/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
 									        }
 									      }
 									    ]
