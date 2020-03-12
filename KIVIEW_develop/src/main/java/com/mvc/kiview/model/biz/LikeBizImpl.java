@@ -1,6 +1,7 @@
 package com.mvc.kiview.model.biz;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,9 +37,7 @@ public class LikeBizImpl implements LikeBiz{
    }
    
 
-	public int selectFavoriteCount(FavoriteVo vo) {
-		return dao.selectFavoriteCount(vo);
-	}
+	
 	
 	@Override
 	public int favoriteDelete(FavoriteVo vo) {
@@ -70,16 +69,42 @@ public class LikeBizImpl implements LikeBiz{
 	public List<CafeBoardVo> myBoard(String member_id) {
 		return dao.myBoard(member_id);
 	}
+	
+	@Override
+	public List<CafeBoardVo> myBoard_paging(Map boardMap) {
+		
+		return dao.myBoard_paging(boardMap);
+	}
+	
+	
 
 	@Override
 	public List<CafeMenuVo> myMenu() {
 		return dao.myMenu();
 	}
+	
 
 	@Override
 	public List<KinderVo> myFavorite(String member_id) {
 		return dao.myFavorite(member_id);
 	}
+
+	@Override
+	public FavoriteVo selectFavorite(FavoriteVo vo) {
+		
+		return dao.selectFavorite(vo);
+	}
+
+	@Override
+	public List<KinderVo> myFavorite_paging(Map favoriteMap) {
+		
+		return dao.myFavorite_paging(favoriteMap);
+	}
+
+	
+
+	
+
 
 
    

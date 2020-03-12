@@ -48,15 +48,21 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public MemberVo selectEmail(String snsEmail) {
-		return dao.selectEmail(snsEmail);
+	public MemberVo selectEmailId(String snsEmail) {
+		return dao.selectEmailId(snsEmail);
 	}
 
 	@Override
 	public int tmpPwd(MemberVo vo) {
 		return dao.tmpPwd(vo);
 	}
-	
+
+	@Override
+	public int membercount() {
+		
+		return dao.membercount();
+	}
+
 
 	
 	

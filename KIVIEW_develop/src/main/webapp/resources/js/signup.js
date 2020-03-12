@@ -29,6 +29,7 @@ function signupIdCkBtn(){
        return false;
     } else if( exp2.test(stringVal) ){
         $("#signupIdMsg").show().css("color","red").html("&nbsp;&nbsp;이용할 수 없는 아이디입니다");
+
        return false;
     } else {
       $.ajax({
@@ -48,6 +49,7 @@ function signupIdCkBtn(){
    
    }
    
+
 }
 
 
@@ -94,7 +96,7 @@ function signupChk(){
       $('html').animate({scrollTop : signupIdMsg.top}, 200);
       
       return false;
-   } 
+   }
    //전화번호 null 확인
    else if(member_phone==null || member_phone==""){
       $("#signupPhoneMsg").show().css('color', 'red').html("&nbsp;&nbsp;전화번호를 작성해주세요");

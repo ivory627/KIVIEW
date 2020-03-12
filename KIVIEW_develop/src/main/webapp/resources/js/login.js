@@ -65,8 +65,12 @@ function login() {
          dataType : "json",
          success : function(msg) {
 
-            if (msg.check == true) {
-               location.href = "index.do";
+            if (msg.check == "1") {
+            	location.href = "index.do";
+            } else if(msg.check == "2"){
+            	$('#loginIdChk').hide();
+            	$('#loginPwdChk').hide();
+            	$("#loginChk").show().html("네이버/카카오톡 로그인은 위의 네이버/카카오톡 버튼을 이용해주세요");
             } else {
                $('#loginIdChk').hide();
                $('#loginPwdChk').hide();
