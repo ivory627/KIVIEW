@@ -28,6 +28,11 @@ label {
    font-weight: bold;
 }
 
+#mypage{
+	color:black;
+	font-weight:bold;
+}
+
 .mypageUpdateMsg{
    color:red;
    font-size:15px;
@@ -39,13 +44,14 @@ label {
 </head>
 <body id="body">
 
+
    <!-- @@ header 부분 @@ -->
    <%@ include file="../header.jsp"%>
 
    <!-- header 밑 이미지 -->
    <section class="hero-wrap hero-wrap-2"
-      style="background-image: url('images/bg_2.jpg');">
-      <div class="overlay"></div>
+      style="background-image: url('resources/images/main/mypage_img02.png');">
+      <!-- <div class="overlay"></div> -->
       <div class="container">
          <div
             class="row no-gutters slider-text align-items-center justify-content-center">
@@ -67,21 +73,7 @@ label {
       <div class="container">
          <div class="row" style="width: 100%">
             <!-- 사이드 메뉴 -->
-            <div class="col-lg-3 ftco-animate"
-               style="height: 300px; margin-right: 20px; padding: 30px; 
-               background-color: white; border: 1px solid lightgray;" class="myside";>
-
-               <h2>
-                  <b>마이페이지</b>
-               </h2>
-               <br>
-               <label><a href="kiviewmypage.do">내 정보</a></label>
-               <hr style="margin: 0px;">
-               <br>
-               <label><a style="color: black" href="kiviewmyactivity.do">내 활동</a></label>
-               <hr style="margin: 0px">
-
-            </div>
+            <%@include file="kiview_my_sidebar.jsp" %>
 
             <!-- 마이페이지  -->
 
@@ -90,8 +82,7 @@ label {
                <h2>
                   <b>내 정보</b>
                </h2>
-               <p style="font-size: 13px;">회원정보는 개인정보처리방침에 따라 안전하게 보호되며, 동의없이
-                  공개 또는 제 3자에게 제공되지 않습니다.</p>
+               <p style="font-size: 13px;">회원정보는 개인정보처리방침에 따라 안전하게 보호되며, 동의없이 공개 또는 제 3자에게 제공되지 않습니다.</p>
                <form method="post" action="kiviewdelete.do" id="deleteform">
                   <label>이 름</label><br>
                   <input type="text" value="${login.member_name}" readonly="readonly"
@@ -103,6 +94,7 @@ label {
                      style="position: relative; left: 35%; width: 30%" value="회원 탈퇴">
                </form>
             </div>
+
  
             <div class="col-lg-8 ftco-animate"
                style="padding: 40px; background-color: white; border: 1px solid lightgray; margin-top: 30px; margin-left: 318px">
@@ -111,6 +103,7 @@ label {
                </h2>
                <p style="font-size: 13px;">회원정보는 개인정보처리방침에 따라 안전하게 보호되며, 동의없이 공개 또는 제 3자에게 제공되지 않습니다.</p>
   
+
                <form method="post" action="kiviewupdate.do" id="mypageUpdateForm">
                   <input type="hidden" name="member_id" value="${login.member_id}">
                   <br>
@@ -118,7 +111,7 @@ label {
                   <input type="password" name="member_pwd" placeholder="비밀번호" style="width: 80%" id="mypagePwd">
                   <br><br>
                   <label>비밀번호 확인</label><span class="mypageUpdateMsg" id="mypagePwdChkMsg" style="color: red;"></span><br>
-                  <input type="password" placeholder="비밀번호 확인" style="width: 80%" id="mypagePwdChk">
+                  <input type="password" placeholder="비밀번호 확인" style="width: 80%" id="mypagePwdChk"  onkeyup="pwdCkMsgClear()" >
                   <br><br>
                   <label>주소</label><span class="mypageUpdateMsg" id="mypageAddrMsg" style="color: red;"></span><br>
                   <input type="text" value="${login.member_addr}" name="member_addr" style="width: 65%" id="mypageAddr">
@@ -137,6 +130,7 @@ label {
             </div>
 
          </div>
+
  
       </div>
 

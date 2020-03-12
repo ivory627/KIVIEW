@@ -113,14 +113,14 @@ var likeSubmit = function(review_no){
 
 </head>
 
-<body id="body">
+<body>
 
    <!-- header 부분 -->
    <jsp:include page="../header.jsp" />
 
    <section class="hero-wrap hero-wrap-2"
-      style="background-image: url('resources/images/bg_2.jpg');">
-      <div class="overlay"></div>
+      style="background-image: url('resources/images/main/review_img03.png');">
+     <!--  <div class="overlay"></div> -->
       <div class="container">
          <div
             class="row no-gutters slider-text align-items-center justify-content-center">
@@ -670,7 +670,7 @@ var likeSubmit = function(review_no){
             </form>
          </div>
       </div>
-   </div>
+   </div> 
 
    <!-- @@ footer 영역 @@ -->
    <jsp:include page="../footer.jsp" />

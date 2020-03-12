@@ -23,8 +23,24 @@
    }
    .reviewBtn input {
    position: relative;
-   left: 90%
+   left: 80%;
+   
    }
+
+.buttons.jsx-3279357537 {
+    float: right;
+    position: relative;
+    bottom: 40px;
+}
+.buttons.jsx-3279357537 .button--voteup {
+    margin-left: 8px;
+}
+
+.buttons.jsx-3279357537 button {
+    float: left;
+}
+
+
 
     table{
        color:black;
@@ -68,53 +84,93 @@
     justify-content: center;
 
    }
+   
+   #favoriteBtn{
+   	cursor:pointer;
+   }
     </style>
-    <script type="text/javascript">
-   /////////////////////////// 지민like //////////////////////////////
-
-
+<script type="text/javascript">
+ ///////////////////////////지민like//////////////////////////////
 var likeSubmit = function(review_no){
-   var member_no = '${login.member_no}';
-   console.log(member_no);
-   
-   
-      $.ajax({
-         url: "likeSubmit.do",
-         dataType:"json",
-         type: "post",
-         contentType:"application/json",  
-         data: JSON.stringify({
-            "review_no":review_no,
-            "member_no":member_no       
-         }),
-         success:function(data){
-            
-            var resultFlag = data.resultFlag;
-            var resultMsg = data.resultMsg;
-            if(resultFlag > 0){
-                if(resultMsg == "insert"){
-                  alert("좋아요 목록에 추가되었습니다.");
-               }else if(resultMsg == "delete"){
-                  alert("좋아요 목록에서 삭제되었습니다.");
+   if(${login!=null}){
+      var member_no = '${login.member_no}';
+      console.log(member_no);
+         $.ajax({
+            url: "likeSubmit.do",
+            dataType:"json",
+            type: "post",
+            contentType:"application/json",  
+            data: JSON.stringify({
+               "review_no":review_no,
+               "member_no":member_no       
+            }),
+            success:function(data){
+               
+               var resultFlag = data.resultFlag;
+               var resultMsg = data.resultMsg;
+               if(resultFlag > 0){
+                   if(resultMsg == "insert"){ 
+                     $("#likeBtn"+review_no).css("background-color","rgb(63, 96, 204)"); 
+                     $("#likeCount"+review_no).css("color","white"); 
+                     
+                      
+                  }else if(resultMsg == "delete"){
+                     $("#likeBtn"+review_no).css("background-color","white"); 
+                     $("#likeCount"+review_no).css("color","rgb(63, 96, 204)"); 
+                  }
                }
+               
+               $("#likeCount"+review_no).html(data.reviewCnt);
+               
+            },
+            error : function(request,status,error){
+               console.log("code = "+request.status + "message = " + request.responseText + "error  =   "+ error);
             }
-            
-         },
-         error : function(request,status,error){
-            alert('오류가 발생했습니다. 다시 시도해 주세요.');
-            console.log("code = "+request.status + "message = " + request.responseText + "error  =   "+ error);
-         }
-      });
+         });
+      
+   } else {
+      alert("로그인이 필요한 서비스입니다.");
    }
    
-function LikeBtn(){
+   
+   }
+///////////////////////////지민like 끝//////////////////////////////
 
-   alert('로그인이 필요합니다.');
-
-}
-
-/////////////////////////// 지민like 끝 //////////////////////////////
 ///////////////////////////지민favorite//////////////////////////////
+$(function(){
+	if(${login != null}){
+		var data = {"kinder_no":'${kindervo.kinder_no}', "member_no":'${login.member_no}'}
+		
+		$.ajax({
+			url:"selectFavorite.do",
+			type:"post",
+			data: JSON.stringify(data),
+			dataType:"json",
+			contentType:"application/json",
+			success:function(data){
+				
+				if(data.bool == true ){
+					$('#favoriteBtn').empty();
+                    $('#favoriteBtn').append('<img src="resources/images/favorite_insert.png" style="float:right;" width="50" height="50"/>');
+					
+				} else {
+					 $('#favoriteBtn').empty();
+                     $('#favoriteBtn').append('<img src="resources/images/favorite_basic.png" style="float:right;" width="50" height="50"/>')
+				}
+			},
+			error:function(){
+				alert("명령 실행 중 오류"); 
+			}
+			
+		})
+		
+		
+	}
+	
+	
+})
+
+
 var favoriteSubmit = function(kinder_no){
    if(${login != null}){
       var member_no = '${login.member_no}';
@@ -148,6 +204,8 @@ var favoriteSubmit = function(kinder_no){
                console.log("code = "+request.status + "message = " + request.responseText + "error  =   "+ error);
             }
       });
+   } else {
+	   alert("로그인이 필요한 서비스입니다.");
    }
 }
 ///////////////////////////지민 favorite 끝//////////////////////////////
@@ -160,8 +218,8 @@ var favoriteSubmit = function(kinder_no){
      <%@ include file = "../header.jsp" %>
     
      <!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
-    <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">
-      <div class="overlay"></div>
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('resources/images/main/board_img02.png');">
+      <!-- <div class="overlay" style = "background:#fff;"></div> -->
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
@@ -183,7 +241,8 @@ var favoriteSubmit = function(kinder_no){
                      <h2 class="mb-4"><span><img id = "kinder" 
                      style = "height: 45px; position:relative; bottom: 5px;"
                      src = "resources/images/main/kindergarden.png"/></span>
-                        <span> ${kindervo.name}</span><a id="favoriteBtn" href="#" onclick="favoriteSubmit('${kindervo.kinder_no}')">
+                     
+                        <span> ${kindervo.name}</span><a id="favoriteBtn" onclick="favoriteSubmit('${kindervo.kinder_no}')">
                         <img src="resources/images/favorite_basic.png" style="float:right;" width="50" height="50"/></a>
                         <!-- <span style = "color:#FFDC00;"> 유치원</span> --></h2><br>
                      <button class="btn btn-secondary px-4 py-3">${kindervo.type} </button>
@@ -448,19 +507,85 @@ var favoriteSubmit = function(kinder_no){
                   </div>
                </div>
 
-               <div class="reviewBtn" style="padding: 30px; width: 100%;">
-               <%-- <c:if test="${review.review_writer eq login.member_id}">
-                  <input class="btn btn-secondary" type="button" value="수정" onclick="update_form(${review.review_no})">
-                  <input class="btn btn-primary" type="button" value="삭제" onclick="location.href='reviewDelete.do?review_no=${review.review_no}'">
-               </c:if> --%>
-               <c:if test="${login.member_id!=null }">
-                  <input class="btn btn-primary" type="button" value="좋아요" onclick="likeSubmit('${review.review_no}')">
-               </c:if>
-               <c:if test="${login.member_id==null }">
-                  <input class="btn btn-primary" type="button" value="좋아요" onclick="javascript:LikeBtn()">
-               </c:if>
-                  <hr>
-               </div>
+                       <div class="reviewBtn" style="padding: 30px; width: 100%; ">
+	                     
+                           <c:set var="likeChk" value="0"/>
+                           <c:forEach var="like" items="${likeAll }">                        
+                              <c:if test="${review.review_no==like.review_no}">
+                                 <c:if test="${like.member_no==login.member_no }">
+                                    <c:set var="likeChk" value="${likeChk+1 }"/>
+                                 </c:if>
+                              </c:if>
+                           </c:forEach>
+                           <c:if test="${likeChk>0 }">
+                              <!-- **승혜: 좋아요 버튼 -->
+                              <div class="jsx-3279357537 buttons" >
+                                 <button type="button" id="likeBtn${review.review_no }" style="background-color:rgb(63, 96, 204)"
+                                    class="jsx-693606843 button--voteup" type="button"
+                                    value="좋아요"
+                                    onclick="likeSubmit('${review.review_no}')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                       height="20" viewBox="0 0 24 24" fill="none" stroke="#8f8f8f"
+                                       stroke-width="2" stroke-linecap="round"
+                                       stroke-linejoin="round"
+                                       style="position: relative; vertical-align: top;">
+                                    <path
+                                          d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                                    <!-- ** 요 span부분에 좋아요 갯수 카운팅 한거 넣어주면 될 것 같아요! **-->
+   
+                                    <!-- 좋아요 수 카운트 -->
+                                    <c:set var="count" value="0" /> <!-- count란 변수를 선언하겠다. 초기값은 0 -->
+                                    <c:if test="${!empty likeAll }"> <!-- 좋아요 리스트가 비어있지 않았을때 -->
+                                       <c:forEach var="likeAll" items="${likeAll }"> <!-- 좋아요 리스트를 반복문으로 실행해라 -->
+                                          <c:if test="${review.review_no==likeAll.review_no }"> <!-- 단, 리뷰리스트와 좋아요리스트의 리뷰번호가 같은게 있다면 -->
+                                             <c:set var="count" value="${count+1 }" /> <!-- count변수에 +1을 해주어라 -->
+                                          </c:if>
+                                       </c:forEach>
+                                    </c:if>
+                  
+   
+                                    <span id="likeCount${review.review_no }" style="color:white"
+                                       class="jsx-693606843 count">${count }</span>
+                                 </button>
+                              </div>
+                           </c:if>
+                           <c:if test="${likeChk==0 }">
+                              <!-- **승혜: 좋아요 버튼 -->
+                              <div class="jsx-3279357537 buttons">
+                                 <button type="button" id="likeBtn${review.review_no }"
+                                    class="jsx-693606843 button--voteup" type="button"
+                                    value="좋아요"
+                                    onclick="likeSubmit('${review.review_no}')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                       height="20" viewBox="0 0 24 24" fill="none" stroke="#8f8f8f"
+                                       stroke-width="2" stroke-linecap="round"
+                                       stroke-linejoin="round"
+                                       style="position: relative; vertical-align: top;">
+                                    <path
+                                          d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                                    <!-- ** 요 span부분에 좋아요 갯수 카운팅 한거 넣어주면 될 것 같아요! **-->
+   
+                                    <!-- 좋아요 수 카운트 -->
+                                    <c:set var="count" value="0" /> <!-- count란 변수를 선언하겠다. 초기값은 0 -->
+                                    <c:if test="${!empty likeAll }"> <!-- 좋아요 리스트가 비어있지 않았을때 -->
+                                       <c:forEach var="likeAll" items="${likeAll }"> <!-- 좋아요 리스트를 반복문으로 실행해라 -->
+                                          <c:if test="${review.review_no==likeAll.review_no }"> <!-- 단, 리뷰리스트와 좋아요리스트의 리뷰번호가 같은게 있다면 -->
+                                             <c:set var="count" value="${count+1 }" /> <!-- count변수에 +1을 해주어라 -->
+                                          </c:if>
+                                       </c:forEach>
+                                    </c:if>
+                  
+   
+                                    <span id="likeCount${review.review_no }"
+                                       class="jsx-693606843 count">${count }</span>
+                                 </button>
+                              </div>
+                           </c:if>
+                           
+                           <hr>
+                        
+                        
+                  </div>
                
 
             <!-- </div> -->

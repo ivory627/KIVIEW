@@ -45,15 +45,15 @@ function test(){
 
    <!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
    <section class="hero-wrap hero-wrap-2"
-      style="background-image: url('resources/images/bg_2.jpg');">
-      <div class="overlay"></div>
+      style="background-image: url('resources/images/main/board_img03.png');">
+      <!-- <div class="overlay"></div> -->
       <div class="container">
          <div
             class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
                <h1 class="mb-2 bread">키뷰 홈</h1>
                <p class="breadcrumbs">
-                  <span class="mr-2"><a href="index.jsp">홈 <i
+                  <span class="mr-2"><a href="index.do">홈 <i
                         class="ion-ios-arrow-forward"></i></a></span> <span>키뷰카페 <i
                      class="ion-ios-arrow-forward"></i></span>
                </p>
@@ -79,7 +79,7 @@ function test(){
                <hr>
                <p></p>
                <p>
-                  <img src="resources/images/image_2.jpg" alt="" class="img-fluid">
+                  <img src="resources/images/main/cafe_img01.jpg" alt="" class="img-fluid">
                </p>
 
                <p>

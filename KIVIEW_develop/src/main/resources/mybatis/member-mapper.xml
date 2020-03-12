@@ -37,6 +37,7 @@
       WHERE MEMBER_ID = #{member_id}
    </update>
 
+
    <!-- 회원 탈퇴 -->
    <delete id="deleteMember" parameterType="memberVo">
       DELETE FROM MEMBER
@@ -62,6 +63,13 @@
       WHERE MEMBER_ID = #{member_id}
    </update>
    
+   <!-- 메인 페이지  멤버 수  -->
+   <select id="membercount" resultType="int">
+   	  SELECT COUNT(*) FROM MEMBER
+   </select>
+
+   
+
 </mapper>
 
 

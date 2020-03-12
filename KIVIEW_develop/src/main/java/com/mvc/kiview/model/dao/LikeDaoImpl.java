@@ -2,6 +2,7 @@ package com.mvc.kiview.model.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,16 +58,7 @@ public class LikeDaoImpl implements LikeDao {
 	}
 
 	
-	@Override
-	public int selectFavoriteCount(FavoriteVo vo) {
-		int resultFavorite = 0;
-		try {
-			resultFavorite = sqlSession.selectOne(namespace + "selectFavoriteCount",vo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return resultFavorite;
-	}
+	
 	
 	@Override
 	public int favoriteInsertCount(FavoriteVo vo) {
@@ -152,6 +144,21 @@ public class LikeDaoImpl implements LikeDao {
 		
 		return res;
 	}
+	
+	@Override
+	public List<CafeBoardVo> myBoard_paging(Map boardMap) {
+		List<CafeBoardVo> res = null;
+		
+		try {
+			res = sqlSession.selectList(namespace + "myBoard_paging", boardMap);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		
+		return res;
+	}
 
 	@Override
 	public List<CafeMenuVo> myMenu() {
@@ -181,6 +188,39 @@ public class LikeDaoImpl implements LikeDao {
 		return res;
 	}
 
+	
+
+	@Override
+	public FavoriteVo selectFavorite(FavoriteVo vo) {
+		FavoriteVo res = null;
+		
+		try {
+			res = sqlSession.selectOne(namespace + "selectFavorite", vo);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	
+		return res;
+	}
+
+	@Override
+	public List<KinderVo> myFavorite_paging(Map favoriteMap) {
+		List<KinderVo> res = null;
+		try { 
+			res = sqlSession.selectList(namespace+"myFavorite_paging", favoriteMap);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("myFavorite_paging 오류");
+		}
+		return res;
+	}
+
+	
+
+	
+
+	
 
 	
 

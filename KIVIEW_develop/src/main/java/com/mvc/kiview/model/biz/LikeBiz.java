@@ -2,6 +2,7 @@ package com.mvc.kiview.model.biz;
 
 
 import java.util.List;
+import java.util.Map;
 
 import com.mvc.kiview.model.vo.CafeBoardVo;
 import com.mvc.kiview.model.vo.CafeMenuVo;
@@ -19,7 +20,7 @@ public interface LikeBiz {
    public int likeDelete(LikeVo vo);
    
    //즐겨찾기
-   public int selectFavoriteCount(FavoriteVo vo);
+   
    public int favoriteDelete(FavoriteVo vo);
    public int favoriteInsert(FavoriteVo vo);
    
@@ -32,10 +33,16 @@ public interface LikeBiz {
    
    //내가 쓴 카페 글
    public List<CafeBoardVo> myBoard(String member_id);
+   public List<CafeBoardVo> myBoard_paging(Map boardMap);
    public List<CafeMenuVo> myMenu();
    
    //나의 즐겨찾기
    public List<KinderVo> myFavorite(String member_id);
+   public List<KinderVo> myFavorite_paging(Map favoriteMap);
+   
+   //지민 추가
+   public FavoriteVo selectFavorite(FavoriteVo vo);
+
 	
 
 
