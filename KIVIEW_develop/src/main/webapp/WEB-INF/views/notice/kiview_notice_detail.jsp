@@ -186,7 +186,7 @@ box-sizing: border-box;
 									<span class="jsx-2334299286 alt-text">카카오톡 공유</span></span>
 								</button>
 								<script type="text/javascript">
-									Kakao.init(' 4e09138dcd9cf80d2b1e9eb7ba90aa3b');
+									Kakao.init('d29d48414026a38f5c8a4f4b7265d21f');
 									// // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
 									function sendLink() {
 									  Kakao.Link.sendDefault({
