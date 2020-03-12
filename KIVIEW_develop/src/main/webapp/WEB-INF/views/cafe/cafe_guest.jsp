@@ -29,13 +29,23 @@ textarea {
 	cursor : pointer;
 }
 
-#paging{    
+#paging{ 
 	
-	width:40%;   
+  	text-align:center!important;
+  	width:100%;
+	margin-top:15px;  
 	margin:0 auto; 
-	text-align:center; 
-	float:center;
-	margin-top:15px;     
+	
+}
+
+#paging ul{
+	
+	display:inline-block!important;
+
+}
+
+#paging li {
+	display:inline-block!important;
 }
 
 
