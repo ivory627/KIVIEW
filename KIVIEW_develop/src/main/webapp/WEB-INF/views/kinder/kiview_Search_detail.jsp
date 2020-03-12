@@ -299,6 +299,14 @@ var favoriteSubmit = function(kinder_no){
                       </tr>
                     </tbody>
                   </table>
+                  <c:choose>
+                  <c:when test="${empty reviewvo}">
+                  <p>총 0명이 평가하였습니다.</p>
+                  </c:when>
+                  <c:otherwise>
+                  <p>총 ${cnt }명이 평가하였습니다.</p>
+                  </c:otherwise>
+                  </c:choose>
                   </div>
                   </div>
                    </div>

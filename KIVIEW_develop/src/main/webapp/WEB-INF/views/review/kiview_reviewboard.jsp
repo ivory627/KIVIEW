@@ -31,7 +31,7 @@
 
 
 function Searchchk(){
-   if($("#SearchId").find("input[name=keyword]").val()==''){
+   if($("#SearchId").val()==''){
       alert("검색어를 입력해 주세요.")
       return false;
    }
@@ -151,12 +151,12 @@ var likeSubmit = function(review_no){
             </h1>
             <br>
             <!-- 검색 기능 -->
-            <form action="reviewsearch.do">
+            <form action="reviewsearch.do" onsubmit="return Searchchk()">
                <select name="type">
                   <option value="kinder_name">유치원명</option>
                   <option value="review_writer">작성자</option>
                   <option value="review_title">제　목</option>
-               </select> &nbsp;&nbsp; <input type="text" name="keyword"
+               </select> &nbsp;&nbsp; <input type="text" name="keyword" id="SearchId"
                   placeholder="검색어를 입력하세요." style="height: 40px; width: 40%">
                <input class="btn btn-secondary"
                   style="width: 10%; border-radius: 0px" type="submit" value="검색">
