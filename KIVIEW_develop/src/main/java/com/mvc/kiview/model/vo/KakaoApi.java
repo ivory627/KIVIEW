@@ -18,7 +18,7 @@ import com.google.gson.JsonParser;
 public class KakaoApi {
 
    private final static String K_CLIENT_ID = "10d50d06d39d7605f9e31a59fd8724ae";
-   private final static String K_REDIRECT_URI = "http://18.223.58.91:8080/KIVIEW_develop/callback.do";
+   private final static String K_REDIRECT_URI = "http://18.223.58.91:8080/KIVIEW_develop/callback3.do";
                                                 
    public String getAuthorizationUrl(HttpSession session) { 
       String kakaoUrl = "https://kauth.kakao.com/oauth/authorize?" + 
