@@ -46,18 +46,30 @@ td{
 	display:inline-block!important;
 }
 
+#searchlistpaging{ 
+	
+  	text-align:center!important;
+  	width:100%;
+	margin-top:15px;  
+	margin:0 auto; 
+	
+}
+
+#searchlistpaging ul{
+	
+	display:inline-block!important;
+
+}
+
+#searchlistpaging li { 
+	display:inline-block!important;
+}
+
 .active{
  background-color: #9bdaf2;
  border-radius: 40%; 
 }  
 
-#searchlistpaging{
-   
-   width:100%; 
-   margin:0 auto; 
-   text-align:center;
-   float:center; 
-} 
 
 </style>
 </head>
@@ -155,7 +167,7 @@ td{
                                           
                                     </a>
                                  </td>
-                                 <td><fmf:formatDate value='${boardlist.regdate}' pattern='yyyy-MM-dd' /></td>
+                                 <td><fmf:formatDate value='${boardlist.regdate}' pattern='yyyy-MM-dd HH:mm' /></td>
                                  <td>${boardlist.hit }</td>
                               </tr>
                            </c:forEach>
@@ -331,7 +343,7 @@ td{
 
                      var slistnodata = '';
 
-                     slistnodata += "<col widtj='10%'><col width='10%'><col width='50%'><col width='20%'><col width='10%'>"
+                     slistnodata += "<col width='10%'><col width='10%'><col width='50%'><col width='20%'><col width='10%'>"
                            + "<tr><th>번 호</th><th>작성자</th><th>제 목</th><th>작성일</th><th>조회수</th></tr>"
                            + "<tr>"
                            + "<td colspan='5' ><p>검색된 결과가 없습니다.</p></td>"
@@ -344,10 +356,10 @@ td{
                     //출력문 없앰. 
                      //alert('${cafe_list[0].cafe_no}')
                      $("#seachbeforetable").hide();
-                     var tablecolsetting = "<col widtj='10%'><col width='10%'><col width='50%'><col width='20%'><col width='10%'>"
+                     var tablecolsetting = "<col width='10%'><col width='10%'><col width='50%'><col width='20%'><col width='10%'>"
                            + "<tr><th>번 호</th><th>작성자</th><th>제 목</th><th>작성일</th><th>조회수</th></tr>";
                      $("#searchlisttable").append(tablecolsetting);
-
+ 
                      $.each(data.slist,function(key, value) {
                                     var category = value.category;
                                     var title = value.title;
@@ -382,12 +394,12 @@ td{
                         var searchresultpaging1 = '';
                            searchresultpaging1 +=                              
                           
-                           "<ul class='pagination' >"+
+                           "<ul class='pagination pull-right' >"+
                            "<li ><a href='javascript:PageMove2(1)'>&nbsp;&nbsp; << &nbsp;&nbsp; </a> </li>";
                            $("#searchlistpaging").append(searchresultpaging1);
                            
                         if(data.spagevo.pagepre == true){
-                           var searchresultpaging1 = '';
+                           var searchresultpaging1 = ''; 
                            searchresultpaging1 +=                           
                            "<li ><a href='javascript:PageMove2("+prepage1+")'>&nbsp;&nbsp; < &nbsp;&nbsp;</a></li>";
                            $("#searchlistpaging").find("ul").append(searchresultpaging1);

@@ -9,6 +9,7 @@ import com.mvc.kiview.model.vo.ProvinceVo;
 import com.mvc.kiview.model.vo.ReviewVo;
 
 public interface KinderDao {
+
    String namespace = "kinder.";
    
    public List<KinderVo> LocalSearch(ProvinceVo vo, Criteria cri);
@@ -28,3 +29,4 @@ public interface KinderDao {
    public int NameSearchCnt(String name);
    public List<KinderVo> bestKinderList();
 }
+
