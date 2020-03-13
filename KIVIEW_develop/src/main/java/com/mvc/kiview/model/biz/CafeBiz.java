@@ -157,6 +157,8 @@ public interface CafeBiz {
 
 	public List<CafeChatVo> cafe_chat_select(Map parameter);
 
+	public int cafe_chat_insert(CafeChatVo vo);
+
 	
 
 	

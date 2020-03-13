@@ -1273,5 +1273,20 @@ public class CafeController {
 		   
 		   
 	   }
+	   
+	   @RequestMapping("/cafechatinsert.do")
+	   @ResponseBody
+	   public Map cafe_chat_insert(@RequestBody CafeChatVo vo) {
+		   int res = biz.cafe_chat_insert(vo);
+		   
+		   
+		   Map map = new HashMap();
+			map.put("res", res);
+			   
+			   
+		   
+		   
+		   return map;
+	   }
 
 }
