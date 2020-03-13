@@ -422,6 +422,12 @@ public class CafeBizImpl implements CafeBiz {
 		return dao.cafe_chat_select(parameter);
 	}
 
+	@Override
+	public int cafe_chat_insert(CafeChatVo vo) {
+		
+		return dao.cafe_chat_insert(vo);
+	}
+
 	
 	
 
