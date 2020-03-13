@@ -200,14 +200,14 @@ $(function(){
 	
 	socket.on('disconnect', function(data){
 		writeMsg('system','SYSTEM',data.msg,changeDate(now));
-		insertMsg('${cafe.cafe_no}','${login.member_no}','SYSTEM',daga.msg);
+		insertMsg('${cafe.cafe_no}','${login.member_no}','SYSTEM',data.msg);
 		count++;
 	})
 
 	
 	socket.on('system',function(data){
 		writeMsg('system','SYSTEM',data.msg,changeDate(now));
-		insertMsg('${cafe.cafe_no}','${login.member_no}','SYSTEM',daga.msg);
+		insertMsg('${cafe.cafe_no}','${login.member_no}','SYSTEM',data.msg);
 		count++;
 	})
 	

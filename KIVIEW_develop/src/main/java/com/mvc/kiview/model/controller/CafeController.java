@@ -762,7 +762,7 @@ public class CafeController {
 
 		} else {
 
-			String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
+			String path = "/home/ubuntu/app/upload";
 			File bg_delete = new File(path+"/"+bg_name);
 
 			bg_delete.delete();
