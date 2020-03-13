@@ -672,7 +672,7 @@ public class CafeController {
 			inputStream2 = background.getInputStream();
 
 			// 경로 설정
-			String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
+			String path = "/home/ubuntu/app/upload";
 			System.out.println("업로드 될 실제 경로 : " + path);
 
 			// 파일경로 존재확인
