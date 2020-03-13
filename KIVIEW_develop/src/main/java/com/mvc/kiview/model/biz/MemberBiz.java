@@ -22,5 +22,7 @@ public interface MemberBiz {
 
 	public int tmpPwd(MemberVo vo);
 
+	public int membercount();
 
+	
 }

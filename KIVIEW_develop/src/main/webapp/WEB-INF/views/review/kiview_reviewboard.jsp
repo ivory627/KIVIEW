@@ -31,7 +31,7 @@
 
 
 function Searchchk(){
-   if($("#SearchId").find("input[name=keyword]").val()==''){
+   if($("#SearchId").val()==''){
       alert("검색어를 입력해 주세요.")
       return false;
    }
@@ -113,14 +113,14 @@ var likeSubmit = function(review_no){
 
 </head>
 
-<body id="body">
+<body>
 
    <!-- header 부분 -->
    <jsp:include page="../header.jsp" />
 
    <section class="hero-wrap hero-wrap-2"
-      style="background-image: url('resources/images/bg_2.jpg');">
-      <div class="overlay"></div>
+      style="background-image: url('resources/images/main/review_img03.png');">
+     <!--  <div class="overlay"></div> -->
       <div class="container">
          <div
             class="row no-gutters slider-text align-items-center justify-content-center">
@@ -151,12 +151,12 @@ var likeSubmit = function(review_no){
             </h1>
             <br>
             <!-- 검색 기능 -->
-            <form action="reviewsearch.do">
+            <form action="reviewsearch.do" onsubmit="return Searchchk()">
                <select name="type">
                   <option value="kinder_name">유치원명</option>
                   <option value="review_writer">작성자</option>
                   <option value="review_title">제　목</option>
-               </select> &nbsp;&nbsp; <input type="text" name="keyword"
+               </select> &nbsp;&nbsp; <input type="text" name="keyword" id="SearchId"
                   placeholder="검색어를 입력하세요." style="height: 40px; width: 40%">
                <input class="btn btn-secondary"
                   style="width: 10%; border-radius: 0px" type="submit" value="검색">
@@ -670,7 +670,7 @@ var likeSubmit = function(review_no){
             </form>
          </div>
       </div>
-   </div>
+   </div> 
 
    <!-- @@ footer 영역 @@ -->
    <jsp:include page="../footer.jsp" />

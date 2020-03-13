@@ -186,7 +186,7 @@ box-sizing: border-box;
 									<span class="jsx-2334299286 alt-text">카카오톡 공유</span></span>
 								</button>
 								<script type="text/javascript">
-									Kakao.init('4e09138dcd9cf80d2b1e9eb7ba90aa3b');
+									Kakao.init('d29d48414026a38f5c8a4f4b7265d21f');
 									// // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
 									function sendLink() {
 									  Kakao.Link.sendDefault({
@@ -196,23 +196,23 @@ box-sizing: border-box;
 									      description: '#키뷰 #${noticedetail.cat_detail}',
 									      imageUrl: 'https://ifh.cc/g/MReqA.jpg',
 									      link: {
-									        mobileWebUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
-									        webUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
+									        mobileWebUrl: 'http://18.223.58.91:8080/KIVIEW_develop/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
+									        webUrl: 'http://18.223.58.91:8080/KIVIEW_develop/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
 									      }
 									    },
 									    buttons: [
 									      {
 									        title: '웹으로 보기',
 									        link: {
-									          mobileWebUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
-									          webUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
+									          mobileWebUrl: 'http://18.223.58.91:8080/KIVIEW_develop/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
+									          webUrl: 'http://18.223.58.91:8080/KIVIEW_develop/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
 									        }
 									      },
 									      {
 									        title: '앱으로 보기',
 									        link: {
-									          mobileWebUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
-									          webUrl: 'http://localhost:8787/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
+									          mobileWebUrl: 'http://18.223.58.91:8080/KIVIEW_develop/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
+									          webUrl: 'http://18.223.58.91:8080/KIVIEW_develop/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
 									        }
 									      }
 									    ]

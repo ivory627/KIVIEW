@@ -40,7 +40,7 @@
 					</div>
 				</div>
 				<p class="jsx-3372927190 sub-title" id="signupInfo">
-					Kiview에서 활동하실 아이디와 비밀번호,<br class="jsx-3372927190">주소 등의 기본정보를
+					Kiview에서 활동하실 아이디와 비밀번호,<br class="jsx-3372927190">이메일 등의 기본정보를
 					생성합니다.
 				</p>
 				<form class="jsx-3372927190" action="kiviewsignupres.do" name="signupForm" id="signupForm" onsubmit="return signupChk()">

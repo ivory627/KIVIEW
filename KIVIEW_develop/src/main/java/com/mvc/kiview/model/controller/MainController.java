@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mvc.kiview.model.biz.CafeBiz;
 import com.mvc.kiview.model.biz.KinderBiz;
-
+import com.mvc.kiview.model.biz.MemberBiz;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeVo;
 
@@ -24,7 +24,10 @@ import com.mvc.kiview.model.vo.PageMaker;
 
 @Controller // 인덱스 관련된 컨트롤러
 public class MainController {
-   
+	
+   @Autowired
+   private MemberBiz mbiz;
+	
    @Autowired
    private KinderBiz biz;
    
@@ -36,10 +39,16 @@ public class MainController {
 
       List<CafeMemberVo> member = biz_cafe.member_selectAll();
       List<CafeVo> best = biz_cafe.best_cafe();
+      List<CafeVo> cafealllist = biz_cafe.cafe_selectAll();
+      int cafecount =cafealllist.size();
+      int membercount = mbiz.membercount();
+      
       
       model.addAttribute("member", member);
       model.addAttribute("best",best);
-      
+
+      model.addAttribute("cafecount",cafecount);
+      model.addAttribute("membercount",membercount);
 
       
       List<KinderVo> kinderlist = biz.bestKinderList();

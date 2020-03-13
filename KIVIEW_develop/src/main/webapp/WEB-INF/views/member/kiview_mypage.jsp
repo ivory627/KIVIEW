@@ -28,6 +28,11 @@ label {
    font-weight: bold;
 }
 
+#mypage{
+	color:black;
+	font-weight:bold;
+}
+
 .mypageUpdateMsg{
    color:red;
    font-size:15px;
@@ -45,8 +50,8 @@ label {
 
    <!-- header 밑 이미지 -->
    <section class="hero-wrap hero-wrap-2"
-      style="background-image: url('images/bg_2.jpg');">
-      <div class="overlay"></div>
+      style="background-image: url('resources/images/main/mypage_img02.png');">
+      <!-- <div class="overlay"></div> -->
       <div class="container">
          <div
             class="row no-gutters slider-text align-items-center justify-content-center">
@@ -68,21 +73,7 @@ label {
       <div class="container">
          <div class="row" style="width: 100%">
             <!-- 사이드 메뉴 -->
-            <div class="col-lg-3 ftco-animate"
-               style="height: 300px; margin-right: 20px; padding: 30px; 
-               background-color: white; border: 1px solid lightgray;" class="myside";>
-
-               <h2>
-                  <b>마이페이지</b>
-               </h2>
-               <br>
-               <label><a href="kiviewmypage.do">내 정보</a></label>
-               <hr style="margin: 0px;">
-               <br>
-               <label><a style="color: black" href="kiviewmyactivity.do">내 활동</a></label>
-               <hr style="margin: 0px">
-
-            </div>
+            <%@include file="kiview_my_sidebar.jsp" %>
 
             <!-- 마이페이지  -->
 

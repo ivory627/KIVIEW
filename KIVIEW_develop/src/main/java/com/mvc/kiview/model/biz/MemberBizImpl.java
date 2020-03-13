@@ -57,6 +57,12 @@ public class MemberBizImpl implements MemberBiz {
 		return dao.tmpPwd(vo);
 	}
 
+	@Override
+	public int membercount() {
+		
+		return dao.membercount();
+	}
+
 
 	
 	

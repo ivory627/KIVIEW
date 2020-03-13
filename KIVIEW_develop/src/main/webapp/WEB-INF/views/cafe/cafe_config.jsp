@@ -622,8 +622,8 @@ td{
 
 	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('resources/images/bg_2.jpg');">
-		<div class="overlay"></div>
+		style="background-image: url('resources/images/main/board_img03.png');">
+		<!-- <div class="overlay"></div> -->
 		<div class="container">
 			<div
 				class="row no-gutters slider-text align-items-center justify-content-center">

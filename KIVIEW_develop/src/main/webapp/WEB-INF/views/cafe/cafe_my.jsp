@@ -31,13 +31,23 @@ li a {
 	overflow: hidden; /* 내용이 길면 감춤니다 */
 }
 
-#paging{    
+#paging{ 
 	
-	width:100%;   
-	margin:0 auto; 
-	text-align:center; 
-	float:center!impotant;
+  	text-align:center!important;
+  	width:100%;
 	margin-top:15px;  
+	margin:0 auto; 
+	
+}
+
+#paging ul{
+	
+	display:inline-block!important;
+
+}
+
+#paging li {
+	display:inline-block!important;
 }
 </style>
 
@@ -78,8 +88,8 @@ li a {
 
 	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('resources/images/bg_2.jpg');">
-		<div class="overlay"></div>
+		style="background-image: url('resources/images/main/board_img03.png');">
+		<!-- <div class="overlay"></div> -->
 		<div class="container">
 			<div
 				class="row no-gutters slider-text align-items-center justify-content-center">

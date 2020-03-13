@@ -92,7 +92,7 @@ label{
 
 
 </style>
-<script src="http://localhost:82/socket.io/socket.io.js"></script>
+<script src="http://18.223.58.91:9000/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
 <script type="text/javascript">
@@ -163,7 +163,7 @@ $(function(){
 	
 	var now = new Date();
 	
-	var socket = io("localhost:82"); //페이지 로드시 해당 포트로 접속
+	var socket = io("18.223.58.91:9000"); //페이지 로드시 해당 포트로 접속
 	
 	socket.on('connection', function(data){
 		if(data.type == 'connected'){
