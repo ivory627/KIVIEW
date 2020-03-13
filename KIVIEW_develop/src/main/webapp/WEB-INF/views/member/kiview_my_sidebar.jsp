@@ -54,14 +54,27 @@ a:hover{
 	text-decoration:underline;
 }
 
-#paging{    
+#paging{ 
 	
-	width:100%;   
-	margin:0 auto; 
-	text-align:center; 
-	float:center!impotant;
+  	text-align:center!important;
+  	width:100%;
 	margin-top:15px;  
+	margin:0 auto; 
+	
 }
+
+#paging ul{
+	
+	display:inline-block!important;
+
+}
+
+#paging li {
+	display:inline-block!important;
+}
+
+
+
 
 
 

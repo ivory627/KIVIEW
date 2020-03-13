@@ -75,12 +75,14 @@
      </select>
      
      <select id="myBoard_paging" parameterType="Map" resultType="CafeBoardVo">
+ 
+     	
      	SELECT *
-        FROM(
-            SELECT CR.*,
-            ROW_NUMBER() OVER(ORDER BY CAFE_BOARD_NO DESC) AS RNUM
-            FROM CAFE_BOARD CR WHERE WRITER=#{member_id}
-         ) CAFE_BOARD
+      	FROM (
+      		SELECT CB.*,         
+          	ROW_NUMBER() OVER(ORDER BY CB.CAFE_BOARD_NO DESC) AS RNUM
+     		FROM CAFE_BOARD CB WHERE CB.CAFE_MENU_NO IN (SELECT CM.CAFE_MENU_NO FROM CAFE_MENU CM WHERE CONCEPT='table') AND CB.WRITER =#{member_id}
+     		) CAFE_BOARD      
      	WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
      	
      	 
@@ -104,6 +106,20 @@
      	WHERE F.KINDER_NO = K.KINDER_NO
      	AND F.MEMBER_NO = M.MEMBER_NO 
      	AND M.MEMBER_ID = #{member_id}
+     </select>
+     
+     <select id="myFavorite_paging" parameterType="Map" resultType="KinderVo">
+     	SELECT * 
+     	FROM 
+     	(
+     	SELECT K.*, ROW_NUMBER() OVER (ORDER BY F.FAVORITE_NO DESC) AS RNUM 
+     	FROM FAVORITE F, KINDER K, MEMBER M
+     	WHERE F.KINDER_NO = K.KINDER_NO
+     	AND F.MEMBER_NO = M.MEMBER_NO 
+     	AND M.MEMBER_ID = #{member_id} 
+     	)
+     	
+     	WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
      </select>
      
     

@@ -79,8 +79,8 @@ a:hover{
 
 	<!-- @@ <h1 class = "mb-2 bread"> sub title 이 부분 우선 header에서 따로 빼놨어요!!! </h1> @@ -->
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('images/bg_2.jpg');">
-		<div class="overlay"></div>
+		style="background-image: url('resources/images/main/mypage_img02.png');">
+		<!-- <div class="overlay"></div> -->
 		<div class="container">
 			<div
 				class="row no-gutters slider-text align-items-center justify-content-center">
@@ -206,7 +206,7 @@ a:hover{
 					</c:choose>	
 					
 					</table>
-					<a href='selectmyfavorite.do?member_id=${login.member_id }' style="position:relative; left:90%;  color:gray"><u>더 보기</u></a>
+					<a href='selectmyfavorite.do?member_id=${login.member_id }&curpagenum=1' style="position:relative; left:90%;  color:gray"><u>더 보기</u></a>
 				</div>
 				
 				
