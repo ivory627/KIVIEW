@@ -430,7 +430,7 @@ h3 a{
                               <!-- 썸네일 -->
                               <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }"
                                  class="block-20 d-flex align-items-end"
-                                 style="background-image: url('http://localhost:8787/img/${best.thumb }');">
+                                 style="background-image: url('resources/upload/${best.thumb }');">
                                  <!-- 가입제한 -->
                                  <div class="meta-date text-center p-2">
                                     <span class="mos">
