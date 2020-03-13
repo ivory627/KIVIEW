@@ -68,19 +68,22 @@
 
      <select id="myBoard" parameterType="String" resultType="CafeBoardVo">
      	SELECT *
-     	FROM CAFE_BOARD
-     	WHERE WRITER=#{member_id}
-
-
+      	FROM (
+      		SELECT CB.*,
+          	ROW_NUMBER() OVER(ORDER BY CB.CAFE_BOARD_NO DESC) AS RNUM
+     		FROM CAFE_BOARD CB WHERE CB.CAFE_MENU_NO IN (SELECT CM.CAFE_MENU_NO FROM CAFE_MENU CM WHERE CONCEPT='table') AND CB.WRITER =#{member_id}
+     		) CAFE_BOARD
      </select>
 
      <select id="myBoard_paging" parameterType="Map" resultType="CafeBoardVo">
+
+
      	SELECT *
-        FROM(
-            SELECT CR.*,
-            ROW_NUMBER() OVER(ORDER BY CAFE_BOARD_NO DESC) AS RNUM
-            FROM CAFE_BOARD CR WHERE WRITER=#{member_id}
-         ) CAFE_BOARD
+      	FROM (
+      		SELECT CB.*,
+          	ROW_NUMBER() OVER(ORDER BY CB.CAFE_BOARD_NO DESC) AS RNUM
+     		FROM CAFE_BOARD CB WHERE CB.CAFE_MENU_NO IN (SELECT CM.CAFE_MENU_NO FROM CAFE_MENU CM WHERE CONCEPT='table') AND CB.WRITER =#{member_id}
+     		) CAFE_BOARD
      	WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
 
 

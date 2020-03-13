@@ -27,13 +27,23 @@ td{
    overflow: hidden; /* 내용이 길면 감춤니다 */  
 }
 
-.paging{
-   
-   list-style: none;
-   width:100%; 
-   margin:0 auto; 
-   text-align:center;
-   float:center!important; 
+.paging{ 
+	
+  	text-align:center!important;
+  	width:100%;
+	margin-top:15px;  
+	margin:0 auto; 
+	
+}
+
+.paging ul{
+	
+	display:inline-block!important;
+
+}
+
+.paging li {
+	display:inline-block!important;
 }
 
 .active{

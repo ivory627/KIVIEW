@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmf" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -204,7 +205,8 @@
 							<div class="jsx-2214240288 col-nickname" style="max-width: 100px;">
 							${n_list.notice_writer}</div>
 							<div class="jsx-2214240288 col-created" style="max-width: 100px;">
-							${n_list.notice_date}</div>
+							${n_list.notice_date}
+							</div>
 							<div class="jsx-2214240288 read_count hide-on-mobile"
 								style="max-width: 60px;">${n_list.notice_hit}</div>
 							<div class="jsx-2214240288 read_count hide-on-desktop"
