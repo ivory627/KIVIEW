@@ -222,7 +222,4 @@ public class LikeDaoImpl implements LikeDao {
 
 	
 
-	
-
-	
 }

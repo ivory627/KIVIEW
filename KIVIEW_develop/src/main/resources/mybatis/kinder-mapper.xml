@@ -3,13 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kinder">
+
    <!-- 법정동 -->
    <resultMap type="ProvinceVo" id="ProvinceMap">
       <result property="province" column="PROVINCE" />
       <result property="city" column="CITY" />
       <result property="town" column="TOWN" />
    </resultMap>
-   
+
    <!-- 유치원 -->
    <resultMap type="KinderVo" id="KinderMap">
       <result property="kinder_no" column="KINDER_NO"/>
@@ -30,20 +31,20 @@
       <result property="meal_yn" column="MEAL_YN"/>
       <result property="cctv_yn" column="CCTV_YN"/>
    </resultMap>
-   
+
    <!-- 도/시  -->
    <select id="provinceList" resultMap="ProvinceMap">
       SELECT DISTINCT PROVINCE
       FROM PROVINCE ORDER BY PROVINCE
    </select>
-   
+
    <!-- 도/시 선택시 시/군/구  -->
    <select id="cityList" parameterType="String" resultMap="ProvinceMap">
       SELECT DISTINCT CITY FROM PROVINCE
       WHERE PROVINCE LIKE '%${province}%'
       ORDER BY CITY
    </select>
-   
+
    <!-- 시/군/구 선택시 읍/면/동  -->
    <!-- 세종시는 시/군/구가 없으므로 예외처리 -->
    <select id="townList" parameterType="String" resultMap="ProvinceMap">
@@ -58,12 +59,12 @@
       </choose>
       ORDER BY TOWN
    </select>
-   
+
    <!-- 지역 select box 유치원 검색  -->
    <select id="kinderList" parameterType="HashMap" resultMap="KinderMap">
       SELECT *
       FROM (
-      SELECT K.*, 
+      SELECT K.*,
       ROW_NUMBER() OVER(ORDER BY NAME) AS RNUM
       FROM KINDER K
       WHERE 1=1
@@ -80,12 +81,12 @@
       RNUM BETWEEN #{rowStart} AND #{rowEnd}
       ORDER BY NAME
    </select>
-   
+
    <!-- 유치원 이름 검색  -->
    <select id="kinderListName" parameterType="HashMap" resultMap="KinderMap">
       SELECT *
       FROM (
-      SELECT K.*, 
+      SELECT K.*,
       ROW_NUMBER() OVER(ORDER BY NAME) AS RNUM
       FROM KINDER K
       WHERE NAME LIKE '%${name}%'
@@ -94,7 +95,7 @@
       RNUM BETWEEN #{rowStart} AND #{rowEnd}
       ORDER BY NAME
    </select>
-   
+
    <!-- 타입 선택  -->
    <select id="kinderListType" parameterType="HashMap" resultMap="KinderMap">
       SELECT * FROM KINDER WHERE 1=1
@@ -109,7 +110,7 @@
             </if>
             <if test='type.equals("private")'>
                AND TYPE LIKE '%사립%'
-            </if>            
+            </if>
          </when>
          <otherwise>
             AND (ADDR2 LIKE '%${province}%${city}%')
@@ -125,51 +126,51 @@
          </otherwise>
       </choose>
    </select>
-   
+
    <!-- 유치원 selectOne  -->
    <select id="kinderDetail" parameterType="int" resultType="KinderVo">
       SELECT * FROM KINDER WHERE KINDER_NO = #{kinder_no}
    </select>
-   
+
    <!-- 유치원 이름 중복시 1개만 출력  -->
    <select id="kinderDetail2" parameterType="String" resultType="KinderVo">
       SELECT * FROM KINDER WHERE NAME LIKE '%${name}%' AND ROWNUM = 1
    </select>
-   
+
    <!-- 유치원 메인 검색 자동완성  -->
    <select id="kinderListKeyword" parameterType="String" resultMap="KinderMap">
       <![CDATA[ SELECT DISTINCT NAME FROM KINDER WHERE NAME LIKE '%${name}%' AND ROWNUM <= 15 ]]>
    </select>
-   
+
    <!-- 유치원 전체 리스트  -->
    <select id="kinderListAll" resultMap="KinderMap">
       SELECT * FROM KINDER
    </select>
-   
+
    <!-- 유치원 카카오지도에 뿌리기 -->
    <select id="kinderListMap" parameterType="HashMap" resultMap="KinderMap">
       SELECT * FROM KINDER WHERE ADDR2 LIKE '%${province}%${citytown}%'
    </select>
-   
+
    <!-- 해당 유치원 리뷰리스트  -->
    <select id="reviewList" parameterType="HashMap" resultType="reviewVo">
       SELECT *
       FROM (
-      SELECT R.*, 
+      SELECT R.*,
       ROW_NUMBER() OVER(ORDER BY KINDER_NO DESC) AS RNUM
       FROM REVIEW R
       WHERE KINDER_NO = #{kinder_no}
       ) REVIEW
-      WHERE 
+      WHERE
       RNUM BETWEEN #{rowStart} AND #{rowEnd}
       ORDER BY REVIEW_NO
    </select>
-   
+
    <!-- 해당 유치원 리뷰 카운트 -->
    <select id="rlistCount" parameterType="int" resultType="int">
       SELECT COUNT(*) FROM REVIEW WHERE KINDER_NO = #{kinder_no}
    </select>
-   
+
    <!-- 지역 검색 유치원 카운트 -->
    <select id="llistCount" parameterType="ProvinceVo" resultType="int">
       SELECT COUNT(*) FROM KINDER WHERE 1=1
@@ -182,12 +183,12 @@
          </otherwise>
       </choose>
    </select>
-   
+
    <!-- 이름 검색 유치원 카운트 -->
    <select id="nlistCount" parameterType="String" resultType="int">
       SELECT COUNT(*) FROM KINDER WHERE NAME LIKE '%${name}%'
    </select>
-   
+
    <!-- 베스트 유치원 10개  -->
    <select id="bestKinderList" resultType="kinderVo">
       <![CDATA[ SELECT * FROM(
