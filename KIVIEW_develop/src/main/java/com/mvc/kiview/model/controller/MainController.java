@@ -46,6 +46,7 @@ public class MainController {
       
       model.addAttribute("member", member);
       model.addAttribute("best",best);
+
       model.addAttribute("cafecount",cafecount);
       model.addAttribute("membercount",membercount);
 
