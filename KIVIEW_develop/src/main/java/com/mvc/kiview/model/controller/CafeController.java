@@ -672,7 +672,7 @@ public class CafeController {
 			inputStream2 = background.getInputStream();
 
 			// 경로 설정
-			String path = "/home/ubuntu/app/upload";
+			String path = "/resources/upload";
 			System.out.println("업로드 될 실제 경로 : " + path);
 
 			// 파일경로 존재확인
@@ -762,7 +762,7 @@ public class CafeController {
 
 		} else {
 
-			String path = "/home/ubuntu/app/upload";
+			String path = "/resources/upload";
 			File bg_delete = new File(path+"/"+bg_name);
 
 			bg_delete.delete();
