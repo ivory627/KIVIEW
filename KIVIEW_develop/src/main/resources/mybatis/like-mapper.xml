@@ -52,7 +52,7 @@
      <select id="selectAll" resultType="LikeVo">
         SELECT * FROM LIKETABLE
      </select>
-
+ 
      <select id="selectMy" parameterType="int" resultType="LikeVo">
         SELECT *
         FROM LIKETABLE
@@ -122,6 +122,10 @@
      	WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
      </select>
 
+	<select id="mainReview" parameterType="String" resultType="ReviewVo">
+		SELECT * FROM REVIEW 
+		WHERE ROWNUM BETWEEN 1 AND 5
+	</select>
 
 
 

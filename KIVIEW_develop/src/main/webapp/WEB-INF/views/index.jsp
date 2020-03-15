@@ -284,7 +284,10 @@ h3 a{
          <div class="row ftco-animate justify-content-center">
             <div class="col-md-12">
                <div class="carousel-testimony owl-carousel">
+                  
+                  
                   <div class="item">
+                    <c:forEach items="${reviewlist }" var="reviewlist">
                      <div class="testimony-wrap d-flex">
                         <div class="user-img mr-4"
                            style="background-image: url(resources/images/teacher-1.jpg)"></div>
@@ -293,72 +296,15 @@ h3 a{
                               class="quote d-flex align-items-center justify-content-center">
                               <i class="icon-quote-left"></i>
                            </span>
-                           <p>놀이시설도 훌륭하고, 무엇보다 선생님들의 교육 철학이 마음에 드네요!</p>
-                           <p class="name">지우파파</p>
-                           <span class="position">아빠</span>
+                           <p><a href="index.do?"/></p>
+                           <p class="name"></p>
+                           <span class="position"></span>
                         </div>
                      </div>
+		            </c:forEach>
                   </div>
-                  <div class="item">
-                     <div class="testimony-wrap d-flex">
-                        <div class="user-img mr-4"
-                           style="background-image: url(resources/images/teacher-2.jpg)"></div>
-                        <div class="text ml-2 bg-light">
-                           <span
-                              class="quote d-flex align-items-center justify-content-center">
-                              <i class="icon-quote-left"></i>
-                           </span>
-                           <p>아이가 다쳐서 왔어요..교실 내 CCTV가 의무화 되어야 할 것 같네요.</p>
-                           <p class="name">하은맘</p>
-                           <span class="position">엄마</span>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="item">
-                     <div class="testimony-wrap d-flex">
-                        <div class="user-img mr-4"
-                           style="background-image: url(resources/images/teacher-3.jpg)"></div>
-                        <div class="text ml-2 bg-light">
-                           <span
-                              class="quote d-flex align-items-center justify-content-center">
-                              <i class="icon-quote-left"></i>
-                           </span>
-                           <p>아이가 유치원 급식을 엄청 좋아하네요ㅎㅎ언제나 맛있는 밥 부탁드려요!</p>
-                           <p class="name">도균파파</p>
-                           <span class="position">아빠</span>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="item">
-                     <div class="testimony-wrap d-flex">
-                        <div class="user-img mr-4"
-                           style="background-image: url(resources/images/teacher-4.jpg)"></div>
-                        <div class="text ml-2 bg-light">
-                           <span
-                              class="quote d-flex align-items-center justify-content-center">
-                              <i class="icon-quote-left"></i>
-                           </span>
-                           <p>아이가 아침마다 통학버스 타는 걸 매우 싫어하는데<br> 부드럽게 잘 데리고 가주셔서 매번 감사해요</p>
-                           <p class="name">우린맘</p>
-                           <span class="position">엄마</span>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="item">
-                     <div class="testimony-wrap d-flex">
-                        <div class="user-img mr-4"
-                           style="background-image: url(resources/images/teacher-1.jpg)"></div>
-                        <div class="text ml-2 bg-light">
-                           <span
-                              class="quote d-flex align-items-center justify-content-center">
-                              <i class="icon-quote-left"></i>
-                           </span>
-                           <p>햇님반 담임 선생님! 아이들 잘 케어해주셔서 감사하고, <br>안내장도 잘 받아보고 있어요ㅎㅎ</p>
-                           <p class="name">나은파파</p>
-                           <span class="position">아빠</span>
-                        </div>
-                     </div>
-                  </div>
+                  
+                  
                </div>
             </div>
          </div>
