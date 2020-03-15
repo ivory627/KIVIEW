@@ -236,7 +236,7 @@ public class CafeController {
 
 					inputStream = thumb.getInputStream();
 
-					String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
+					String path = request.getSession().getServletContext().getRealPath("/resources/upload");
 					System.out.println("업로드 될 실제 경로 : " + path);
 
 					File storage = new File(path);
@@ -277,7 +277,7 @@ public class CafeController {
 
 					inputStream = background.getInputStream();
 
-					String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
+					String path = request.getSession().getServletContext().getRealPath("/resources/upload");
 					System.out.println("업로드 될 실제 경로 : " + path);
 
 					File storage = new File(path);
@@ -672,7 +672,7 @@ public class CafeController {
 			inputStream2 = background.getInputStream();
 
 			// 경로 설정
-			String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
+			String path = request.getSession().getServletContext().getRealPath("/resources/upload");
 			System.out.println("업로드 될 실제 경로 : " + path);
 
 			// 파일경로 존재확인
@@ -762,7 +762,7 @@ public class CafeController {
 
 		} else {
 
-			String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
+			String path = request.getSession().getServletContext().getRealPath("/resources/upload");
 			File bg_delete = new File(path+"/"+bg_name);
 
 			bg_delete.delete();
@@ -1272,6 +1272,21 @@ public class CafeController {
 		   return map;
 		   
 		   
+	   }
+	   
+	   @RequestMapping("/cafechatinsert.do")
+	   @ResponseBody
+	   public Map cafe_chat_insert(@RequestBody CafeChatVo vo) {
+		   int res = biz.cafe_chat_insert(vo);
+		   
+		   
+		   Map map = new HashMap();
+			map.put("res", res);
+			   
+			   
+		   
+		   
+		   return map;
 	   }
 
 }

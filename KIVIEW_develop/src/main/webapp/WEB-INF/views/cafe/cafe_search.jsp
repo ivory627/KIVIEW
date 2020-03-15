@@ -140,7 +140,7 @@ function PageMove(page) {
                <div class="blog-entry">
                   <!-- 썸네일 -->
                   <a href="cafedetail.do?cafe_no=${Slist.cafe_no }&member_no=${login.member_no }" class="block-20 d-flex align-items-end"
-                     style="background-image: url('http://localhost:8787/img/${Slist.thumb }');"> <!-- 가입제한 -->
+                     style="background-image: url('resources/upload/${Slist.thumb }');"> <!-- 가입제한 -->
                      <div class="meta-date text-center p-2">
                         <span class="mos"> 
                                     <c:if test="${Slist.restriction eq 'Y'}">                           

@@ -200,12 +200,14 @@ $(function(){
 	
 	socket.on('disconnect', function(data){
 		writeMsg('system','SYSTEM',data.msg,changeDate(now));
+		insertMsg('${cafe.cafe_no}','${login.member_no}','system',data.msg);
 		count++;
 	})
 
 	
 	socket.on('system',function(data){
 		writeMsg('system','SYSTEM',data.msg,changeDate(now));
+		insertMsg('${cafe.cafe_no}','${login.member_no}','system',data.msg);
 		count++;
 	})
 	
@@ -218,11 +220,13 @@ $(function(){
 			
 		})
 		
+		insertMsg('${cafe.cafe_no}','${login.member_no}',data.member_id,data.msg)
 		count++;
 	})
 	
 	socket.on("me",function(data){
 		writeMsg('me', data.member_id, data.msg, data.time);
+		insertMsg('${cafe.cafe_no}','${login.member_no}',data.member_id,data.msg);
 			
 	})
 	
@@ -305,6 +309,20 @@ $(function(){
 		
 		$(".chat_body").scrollTop($(document).height()+700);
 		
+		
+	}
+	
+	function insertMsg(cafe_no, member_no, writer, msg){
+		var data = {"cafe_no":cafe_no, "member_no":member_no, "writer":writer, "msg":msg  }
+		
+		$.ajax({
+			type:"post",
+			data: JSON.stringify(data),
+			dataType:"json",
+			url:"cafechatinsert.do",
+			contentType:"application/json"
+			
+		})
 		
 	}
 	

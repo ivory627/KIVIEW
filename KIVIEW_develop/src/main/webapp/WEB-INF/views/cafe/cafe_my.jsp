@@ -279,7 +279,7 @@ li a {
 
 		                  <div class="block-21 mb-4 d-flex">
 		                     <a class="blog-img mr-4"
-		                        style="background-image: url('http://localhost:8787/img/${best.thumb }')"></a>
+		                        style="background-image: url('resources/upload/${best.thumb }')"></a>
 
 		                     <div class="text">
 		                        <h3 class="heading">
