@@ -13,12 +13,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mvc.kiview.model.biz.CafeBiz;
 import com.mvc.kiview.model.biz.KinderBiz;
+import com.mvc.kiview.model.biz.LikeBiz;
 import com.mvc.kiview.model.biz.MemberBiz;
 import com.mvc.kiview.model.biz.ReviewBiz;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeVo;
 import com.mvc.kiview.model.vo.Criteria;
 import com.mvc.kiview.model.vo.KinderVo;
+import com.mvc.kiview.model.vo.LikeVo;
 import com.mvc.kiview.model.vo.PageMaker;
 import com.mvc.kiview.model.vo.ReviewVo;
 
@@ -35,7 +37,10 @@ public class MainController {
    private CafeBiz biz_cafe;
    
    @Autowired
-   private ReviewBiz review;
+   private LikeBiz biz_like;
+   
+   @Autowired
+   private ReviewBiz biz_review;
    
  
    
@@ -73,8 +78,12 @@ public class MainController {
       model.addAttribute("bestkinder",kinder_res);
       model.addAttribute("kindercnt",kinderAll.size());
       
-      List<ReviewVo> reviewlist = review.mainReview();
-      model.addAttribute("reviewlist",reviewlist);
+      List<ReviewVo> review = biz_like.bestReview();
+      List<LikeVo> like = biz_like.selectAll();
+      model.addAttribute("review",review);
+      model.addAttribute("reviewcnt",biz_like.bestReview().size());
+      model.addAttribute("like", like);
+      
       
       
       

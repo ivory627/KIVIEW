@@ -29,12 +29,25 @@
 
 
 
-#replypaging {
-   width:100%;
-   margin:0 auto; 
-   text-align:center;
-   float:center; 
+
+#replypaging{ 
+	
+  	text-align:center!important;
+  	width:100%;
+	margin-top:15px;  
+	margin:0 auto; 
+	
 }
+
+#replypaging ul{
+	
+	display:inline-block!important;
+
+}
+
+#replypaging li {
+	display:inline-block!important;
+} 
 
 </style>
   </head>
@@ -77,7 +90,7 @@
             
             <div id="home" class="col-lg-8 ftco-animate" style="padding:25px; margin-left:0px; background-color:white; border:1px solid lightgray; "> 
                <h2 class="mb-3"><b>#글 상세보기 </b></h2>
-               <hr>
+              <br>
                               
                
                      <c:choose>
@@ -89,28 +102,28 @@
                      </c:otherwise>
                    </c:choose>
                  <br>     
-                  <input type="text" value="${cafe_board_detail.title }" name="title" size="70" readonly><br>
+                  <input type="text" value="${cafe_board_detail.title }" name="title" size="65" readonly>
                   
                    
                
-               <div align="right">${cafe_board_detail.writer}  &nbsp;|&nbsp;  <fmf:formatDate value='${cafe_board_detail.regdate}' pattern='yyyy-MM-dd'/> &nbsp;|&nbsp; 조회수  ${cafe_board_detail.hit }</div> 
-               <br><br>
+               <span style="float:right">${cafe_board_detail.writer}  &nbsp;|&nbsp;  <fmf:formatDate value='${cafe_board_detail.regdate}' pattern='yyyy-MM-dd'/> &nbsp;|&nbsp; 조회수  ${cafe_board_detail.hit }</span> 
+               <br><br> 
                
  <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ20.03.02 수정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡhr 추가 위아래 추가ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
                                  
                   <div style=" overflow-y:auto; width:93%; ">
-                      <div  id="contentbefore2"></div> 
+                      <div id="contentbefore2"></div>  
                   </div>
-                  <hr>
+                   
  <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->                  
                <br>
               
-               <div align="right" style="margin-right:60px; margin-top:10px">
+               <div style="float:right; margin-right:0px; margin-top:10px"> 
                <c:if test="${cafe_board_detail.writer eq login.member_id || cafe_list[0].admin eq login.member_id  }">
-                  <input type="button" onclick="location.href='cafeboardupdateform.do?cafe_board_no=${cafe_board_detail.cafe_board_no}&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }&curpagenum=${curpagenum }'" value="수 정" class="btn btn-primary" style="width:10%">
-                  <input type="button" value="삭 제" class="btn btn-secondary" style="width:10%" onclick="location.href='cafeboarddelete.do?cafe_board_no=${cafe_board_detail.cafe_board_no}&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }&curpagenum=${curpagenum }'">
+                  <input type="button" onclick="location.href='cafeboardupdateform.do?cafe_board_no=${cafe_board_detail.cafe_board_no}&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }&curpagenum=${curpagenum }'" value="수 정" class="btn btn-primary">
+                  <input type="button" value="삭 제" class="btn btn-secondary"  onclick="location.href='cafeboarddelete.do?cafe_board_no=${cafe_board_detail.cafe_board_no}&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }&curpagenum=${curpagenum }'">
                </c:if>
-               <input type="button" value="목 록" class="btn btn-primary" style="width:10%" onclick="location.href='cafeboardlist.do?&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }&curpagenum=${curpagenum }'"> 
+               <input type="button" value="목 록" class="btn btn-primary"  onclick="location.href='cafeboardlist.do?&cafe_menu_no=${cafe_menu_no}&cafe_no=${cafe_list[0].cafe_no }&curpagenum=${curpagenum }'"> 
                </div>
                
                

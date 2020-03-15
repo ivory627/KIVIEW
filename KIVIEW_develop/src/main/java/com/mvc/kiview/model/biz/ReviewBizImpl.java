@@ -66,9 +66,6 @@ public class ReviewBizImpl implements ReviewBiz{
 		return dao.reviewCount(cri);
 	}
 
-	@Override
-	public List<ReviewVo> mainReview() {
-		return dao.mainReview();
-	}
+	
 
 }

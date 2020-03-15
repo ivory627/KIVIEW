@@ -122,9 +122,8 @@
      	WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
      </select>
 
-	<select id="mainReview" parameterType="String" resultType="ReviewVo">
+	<select id="bestReview" resultType="ReviewVo">
 		SELECT * FROM REVIEW 
-		WHERE ROWNUM BETWEEN 1 AND 5
 	</select>
 
 

@@ -148,21 +148,7 @@ public class ReviewDaoImpl implements ReviewDao {
 		return count;
 	}
 
-	@Override
-	public List<ReviewVo> mainReview() {
-		
-		List<ReviewVo> mainlist = new ArrayList<ReviewVo>();
-
-		try {
-			mainlist = sqlSession.selectList(namespace + "mainReview");
-		} catch (Exception e) {
-			System.out.println("error : mainreview list");
-			e.printStackTrace();
-		}
-
-		return mainlist;
-
-	}
+	
 
 	
 }
