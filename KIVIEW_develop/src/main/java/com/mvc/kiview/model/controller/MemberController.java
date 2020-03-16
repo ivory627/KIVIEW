@@ -288,7 +288,6 @@ public class MemberController {
       String[] arr = referer.split("/");
       arrLast = arr[arr.length-1];	//필드에 선언해둔 String 변수에 담음
       System.out.println("마지막 인텍스: " + arrLast);
-      model.addAttribute("arrLast", arrLast);
 
       /* 생성한 인증 URL을 Model에 담아서 전달 */
       return "member/kiview_login";
