@@ -325,16 +325,25 @@ public class MemberController {
          //세션 유지 시간 1시간으로 설정
          session.setMaxInactiveInterval(60*60) ;
         
+         
          if( arrLast.contains("review") ) {
-        	return "redirect:"+arrLast;
-        	 //return arrLast;
+        	 model.addAttribute("arrLast", arrLast);
+        	 //return "redirect:"+arrLast;
+        
          } else if( arrLast.contains("cafe") ){
-        	 
-        	 return "redirect:cafehome.do?member_no=" + vo.getMember_no() + "&member_id=" + vo.getMember_id();
-         } else {
-        	  	
-        	 return "member/kiview_snsLoginRes";
-         }        
+        	 model.addAttribute("arrLast", "cafehome.do?");
+        	 //return "redirect:cafehome.do?member_no=" + vo.getMember_no() + "&member_id=" + vo.getMember_id();
+         } 
+         
+//         else {
+//        	 
+//        	 return "member/kiview_snsLoginRes";
+//         }        
+//         
+         
+        
+         
+         return "member/kiview_snsLoginRes";
         
       }else {
          String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
@@ -400,12 +409,23 @@ public class MemberController {
           session.setMaxInactiveInterval(60*60) ;
           
           if( arrLast.contains("review") ) {
-         	 return "redirect:"+arrLast;
+         	 model.addAttribute("arrLast", arrLast);
+         	 //return "redirect:"+arrLast;
+         
           } else if( arrLast.contains("cafe") ){
-         	 return "redirect:cafehome.do?member_no=" + vo.getMember_no() + "&member_id=" + vo.getMember_id();
-          } else {
-         	 return "member/kiview_snsLoginRes";
-          }
+         	 model.addAttribute("arrLast", "cafehome.do?");
+         	 //return "redirect:cafehome.do?member_no=" + vo.getMember_no() + "&member_id=" + vo.getMember_id();
+          } 
+          
+//          else {
+//         	 
+//         	 return "member/kiview_snsLoginRes";
+//          }        
+//          
+          
+         
+          
+          return "member/kiview_snsLoginRes";
           
       }else {
          String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
