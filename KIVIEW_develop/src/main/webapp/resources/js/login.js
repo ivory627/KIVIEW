@@ -37,12 +37,10 @@ $(function() {
 function login() {
    var member_id = $("#member_id").val().trim();
    var member_pwd = $('#member_pwd').val().trim();
-   var arrLast = $('#arrLast').val();
 
    var loginVal = {
       "member_id" : member_id,
-      "member_pwd" : member_pwd,
-      "arrLast" : arrLast
+      "member_pwd" : member_pwd
    };
 
    if (member_id == null || member_id == "") {

@@ -90,7 +90,6 @@
 
                <!-- 로그인 -->
                <form class="jsx-1458736361">
-               	  <input type="hidden" id="arrLast" value="${arrLast }">
                   <div class="jsx-1458736361 username">
                      <label class="jsx-3712571264 "> 
                      <span class="jsx-3712571264">아이디&nbsp;</span>&nbsp;&nbsp;
