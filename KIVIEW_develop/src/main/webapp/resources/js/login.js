@@ -37,10 +37,12 @@ $(function() {
 function login() {
    var member_id = $("#member_id").val().trim();
    var member_pwd = $('#member_pwd').val().trim();
+   var arrLast = $('#arrLast').val();
 
    var loginVal = {
       "member_id" : member_id,
-      "member_pwd" : member_pwd
+      "member_pwd" : member_pwd,
+      "arrLast" : arrLast
    };
 
    if (member_id == null || member_id == "") {
@@ -66,7 +68,11 @@ function login() {
          success : function(msg) {
 
             if (msg.check == "1") {
-            	location.href = "index.do";
+            	if(msg.arrLast == null){
+            		location.href = "index.do";
+            	} else {
+            		location.href = msg.arrLast;
+            	}
             } else if(msg.check == "2"){
             	$('#loginIdChk').hide();
             	$('#loginPwdChk').hide();
