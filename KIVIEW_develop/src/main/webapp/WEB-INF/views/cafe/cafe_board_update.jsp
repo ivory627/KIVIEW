@@ -113,7 +113,7 @@ $(window).load(function(){
         data:{"no": no},        
         dataType:"json",
         success:function(key){
-           alert("통신성공!");
+           
            console.log("size"+key.category2);
            
            if(key.category2.length==0 || key.category2.length==null){
@@ -133,7 +133,7 @@ $(window).load(function(){
            }
         },    
          error : function(request,status,error){
-           alert("통신 실패");
+          
            alert(request);
            alert(status);
            alert(error);

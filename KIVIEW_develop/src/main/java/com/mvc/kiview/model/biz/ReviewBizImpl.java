@@ -66,4 +66,6 @@ public class ReviewBizImpl implements ReviewBiz{
 		return dao.reviewCount(cri);
 	}
 
+	
+
 }

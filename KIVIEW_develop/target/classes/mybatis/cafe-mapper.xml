@@ -435,6 +435,11 @@
          WHERE RNUM BETWEEN #{start} AND #{last}
      </select>
      
+     <insert id="cafe_chat_insert" parameterType="CafeChatVo">
+     	INSERT INTO CAFE_CHAT
+     	VALUES(CAFE_CHAT_SEQ.NEXTVAL, #{cafe_no}, #{member_no}, #{writer}, #{msg}, SYSDATE)
+     
+     </insert>
   
   </mapper>
   

@@ -101,6 +101,12 @@ public class LikeBizImpl implements LikeBiz{
 		return dao.myFavorite_paging(favoriteMap);
 	}
 
+	@Override
+	public List<ReviewVo> bestReview() {
+		
+		return dao.bestReview();
+	}
+
 	
 
 	

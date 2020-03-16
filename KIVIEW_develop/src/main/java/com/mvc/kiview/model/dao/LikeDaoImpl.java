@@ -216,6 +216,19 @@ public class LikeDaoImpl implements LikeDao {
 		return res;
 	}
 
+	@Override
+	public List<ReviewVo> bestReview() {
+		List<ReviewVo> res = null;
+		try { 
+			res = sqlSession.selectList(namespace+"bestReview");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("bestReview 오류");
+		}
+		return res;
+	}
+
 	
 
 	

@@ -13,14 +13,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mvc.kiview.model.biz.CafeBiz;
 import com.mvc.kiview.model.biz.KinderBiz;
+import com.mvc.kiview.model.biz.LikeBiz;
 import com.mvc.kiview.model.biz.MemberBiz;
+import com.mvc.kiview.model.biz.ReviewBiz;
 import com.mvc.kiview.model.vo.CafeMemberVo;
 import com.mvc.kiview.model.vo.CafeVo;
-
 import com.mvc.kiview.model.vo.Criteria;
-
 import com.mvc.kiview.model.vo.KinderVo;
+import com.mvc.kiview.model.vo.LikeVo;
 import com.mvc.kiview.model.vo.PageMaker;
+import com.mvc.kiview.model.vo.ReviewVo;
 
 @Controller // 인덱스 관련된 컨트롤러
 public class MainController {
@@ -33,6 +35,17 @@ public class MainController {
    
    @Autowired
    private CafeBiz biz_cafe;
+   
+   @Autowired
+   private LikeBiz biz_like;
+   
+   @Autowired
+   private ReviewBiz biz_review;
+   
+ 
+   
+   
+   
 
    @RequestMapping("/index.do")
    public String index(Model model) {
@@ -49,7 +62,7 @@ public class MainController {
 
       model.addAttribute("cafecount",cafecount);
       model.addAttribute("membercount",membercount);
-
+      
       
       List<KinderVo> kinderlist = biz.bestKinderList();
       List<KinderVo> kinder_res = new ArrayList<KinderVo>();
@@ -64,6 +77,17 @@ public class MainController {
       
       model.addAttribute("bestkinder",kinder_res);
       model.addAttribute("kindercnt",kinderAll.size());
+      
+      List<ReviewVo> review = biz_like.bestReview();
+      List<LikeVo> like = biz_like.selectAll();
+      model.addAttribute("review",review);
+      model.addAttribute("reviewcnt",biz_like.bestReview().size());
+      model.addAttribute("like", like);
+      
+      
+      
+      
+      
       
       return "index";
    }
@@ -98,6 +122,9 @@ public class MainController {
       
       return mav;
    }
+
+   
+	   
    
 
 }

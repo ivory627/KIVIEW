@@ -44,6 +44,7 @@ public interface LikeDao {
    //지민 추가
    
  public FavoriteVo selectFavorite(FavoriteVo vo);
+public List<ReviewVo> bestReview();
 
 
    

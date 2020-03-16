@@ -22,8 +22,7 @@
 	<resources location="/se2/" mapping="/se2/**"/>
 	<!--========================================-->
 	
-	<!-- 이미지 불러오기 경로 -->
-	<resources mapping="/img/**" location="C:\workspace\finalproject\.metadata\.plugins\org.eclipse.wst.server.core\tmp2\wtpwebapps\KIVIEW_develop\storage\" />
+	
 
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
