@@ -1,11 +1,13 @@
 package com.mvc.kiview.model.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.mail.HtmlEmail;
@@ -322,15 +324,18 @@ public class MemberController {
 
          //세션 유지 시간 1시간으로 설정
          session.setMaxInactiveInterval(60*60) ;
-         
+        
          if( arrLast.contains("review") ) {
-        	 return arrLast;
+        	return "redirect:"+arrLast;
+        	 //return arrLast;
          } else if( arrLast.contains("cafe") ){
-        	 return "cafehome.do?member_no=" + vo.getMember_no() + "&member_id=" + vo.getMember_id();
+        	 
+        	 return "redirect:cafehome.do?member_no=" + vo.getMember_no() + "&member_id=" + vo.getMember_id();
          } else {
+        	  	
         	 return "member/kiview_snsLoginRes";
-         }
-          
+         }        
+        
       }else {
          String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
           tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
@@ -395,9 +400,9 @@ public class MemberController {
           session.setMaxInactiveInterval(60*60) ;
           
           if( arrLast.contains("review") ) {
-         	 return arrLast;
+         	 return "redirect:"+arrLast;
           } else if( arrLast.contains("cafe") ){
-         	 return "cafehome.do?member_no=" + vo.getMember_no() + "&member_id=" + vo.getMember_id();
+         	 return "redirect:cafehome.do?member_no=" + vo.getMember_no() + "&member_id=" + vo.getMember_id();
           } else {
          	 return "member/kiview_snsLoginRes";
           }

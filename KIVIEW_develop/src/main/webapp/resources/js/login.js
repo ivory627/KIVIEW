@@ -64,11 +64,13 @@ function login() {
          contentType : "application/json",
          dataType : "json",
          success : function(msg) {
+        	
 
             if (msg.check == "1") {
             	if(msg.arrLast == null){
             		location.href = "index.do";
             	} else {
+            		
             		location.href = msg.arrLast;
             	}
             } else if(msg.check == "2"){
