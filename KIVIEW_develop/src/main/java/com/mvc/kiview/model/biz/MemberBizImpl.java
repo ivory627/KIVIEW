@@ -63,6 +63,12 @@ public class MemberBizImpl implements MemberBiz {
 		return dao.membercount();
 	}
 
+	@Override
+	public MemberVo chkEmail(String email) {
+	
+		return dao.chkEmail(email);
+	}
+
 
 	
 	

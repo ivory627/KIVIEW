@@ -84,11 +84,21 @@ public class CafeController {
 	@RequestMapping("cafemy.do")
 	public String cafe_my(Model model, int member_no, int curpagenum) {
 
-		List<CafeVo> cafe = biz.cafe_Ulist(member_no);
+		
+		
+		
+		List<CafeVo> size = biz.cafe_Ulist(member_no);
+		CafePageVo pagevo = biz.paging(curpagenum,size.size());
+		
+		Map map = new HashMap();
+		map.put("member_no", member_no);
+		map.put("rowStart", pagevo.getRowStart());
+		map.put("rowEnd",pagevo.getRowEnd());
+		
+		
+		List<CafeVo> cafe = biz.cafe_my(map);
 		List<CafeMemberVo> member = biz.member_selectAll();
 		List<CafeVo> best = biz.best_cafe();
-
-		CafePageVo pagevo = biz.paging(curpagenum,cafe.size());
 
 	    model.addAttribute("pagevo",pagevo);
 		model.addAttribute("cafe", cafe);

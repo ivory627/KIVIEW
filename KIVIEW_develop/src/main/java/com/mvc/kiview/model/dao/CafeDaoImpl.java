@@ -814,6 +814,19 @@ public class CafeDaoImpl implements CafeDao {
 	      return res;
 	}
 
+	@Override
+	public List<CafeVo> cafe_my(Map map) {
+		List<CafeVo> res = null;
+	       try {
+	            res = sqlSession.selectList(namespace+"cafe_my",map);
+	         }catch(Exception e) {
+	            e.printStackTrace();
+	            System.out.println("cafe_my 오류");
+	         }
+	      
+	      return res;
+	}
+
 	
 
 }

@@ -111,7 +111,7 @@ public class MemberController {
    public String kiview_logout(HttpSession session) {
       logger.info("loginout");
       session.invalidate(); 
-      return "index";
+      return "redirect:index.do";
    }
 
    //@@ 회원가입 @@ /////////////////////////////////////////////////////////////////////////
@@ -318,6 +318,7 @@ public class MemberController {
       
       //이메일아이디 중복확인
       vo = biz.selectEmailId(snsEmail);
+      MemberVo vo2 = biz.chkEmail(snsEmail);
       System.out.println("vo: " + vo);
       if(vo != null) {
          session.setAttribute("login", vo);
@@ -332,16 +333,7 @@ public class MemberController {
         
          } else if( arrLast.contains("cafe") ){
         	 model.addAttribute("arrLast", "cafehome.do?");
-        	 //return "redirect:cafehome.do?member_no=" + vo.getMember_no() + "&member_id=" + vo.getMember_id();
          } 
-         
-//         else {
-//        	 
-//        	 return "member/kiview_snsLoginRes";
-//         }        
-//         
-         
-        
          
          return "member/kiview_snsLoginRes";
         
@@ -538,7 +530,26 @@ public class MemberController {
        return res;
        
    }
-
+    
+    
+    @RequestMapping("chkemail.do")
+    @ResponseBody
+    public Map chkEmail(String email) {
+    	MemberVo member = biz.chkEmail(email);
+    	boolean bool = true;
+    	if(member==null) {
+    		bool = false;
+    	} else {
+    		bool= true;
+    	}
+    	
+    	Map map = new HashMap();
+    	map.put("bool",bool);
+    	
+    	return map;
+    	
+    	
+    }
   
    
    
