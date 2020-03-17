@@ -9,6 +9,7 @@ import com.mvc.kiview.model.vo.ProvinceVo;
 import com.mvc.kiview.model.vo.ReviewVo;
 
 public interface KinderBiz {
+
    public List<KinderVo> LocalSearch(ProvinceVo vo, Criteria cri);
    public List<KinderVo> TypeSearch(HashMap<String, String> map);
    public List<KinderVo> NameSearch(String name, Criteria cri);

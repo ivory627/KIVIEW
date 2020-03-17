@@ -68,7 +68,12 @@
    	  SELECT COUNT(*) FROM MEMBER
    </select>
 
+	<!-- 이메일 중복 -->
+   <select id="chkEmail" parameterType="String" resultType="memberVo">
+   	SELECT * FROM MEMBER
+   	WHERE MEMBER_EMAIL = #{email}
    
+   </select>
 
 </mapper>
 

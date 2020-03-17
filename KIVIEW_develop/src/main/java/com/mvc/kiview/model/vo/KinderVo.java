@@ -3,6 +3,7 @@ package com.mvc.kiview.model.vo;
 import java.util.Date;
 
 public class KinderVo {
+
    private int kinder_no;
    private String name;
    private String type;
@@ -209,3 +210,4 @@ public class KinderVo {
    
    
 }
+

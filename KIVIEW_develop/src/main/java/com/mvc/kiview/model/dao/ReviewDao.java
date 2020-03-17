@@ -19,4 +19,6 @@ public interface ReviewDao {
 	public List<KinderVo> kinderSearch(String keyword); //유치원 검색(insert 안)
 	public KinderVo kinderSearch2(String kinder_name);
 	public int reviewCount(Criteria cri); //리뷰 갯수 카운트 **승혜
+	
+	
 }

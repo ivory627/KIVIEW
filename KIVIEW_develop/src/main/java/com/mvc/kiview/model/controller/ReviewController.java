@@ -22,6 +22,7 @@ import com.mvc.kiview.model.vo.ReviewVo;
 
 @Controller //리뷰관련
 public class ReviewController {
+
    
    private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
    
@@ -147,7 +148,6 @@ public class ReviewController {
       
       return "review/kiview_reviewboard";
    }
-   
-   
+
 
 }

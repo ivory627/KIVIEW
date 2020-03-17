@@ -800,6 +800,33 @@ public class CafeDaoImpl implements CafeDao {
 	      return res;
 	}
 
+	@Override
+	public int cafe_chat_insert(CafeChatVo vo) {
+		int res = 0;
+	      
+	      try { 
+	         res = sqlSession.insert(namespace+"cafe_chat_insert", vo);
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	         System.out.println("cafe_chat_insert 오류");
+	      }
+	      
+	      return res;
+	}
+
+	@Override
+	public List<CafeVo> cafe_my(Map map) {
+		List<CafeVo> res = null;
+	       try {
+	            res = sqlSession.selectList(namespace+"cafe_my",map);
+	         }catch(Exception e) {
+	            e.printStackTrace();
+	            System.out.println("cafe_my 오류");
+	         }
+	      
+	      return res;
+	}
+
 	
 
 }

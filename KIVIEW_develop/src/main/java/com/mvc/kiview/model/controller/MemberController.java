@@ -1,11 +1,13 @@
 package com.mvc.kiview.model.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.mail.HtmlEmail;
@@ -45,6 +47,8 @@ public class MemberController {
    @Autowired
    BCryptPasswordEncoder passwordEncoder;
    
+   private String arrLast = null;
+   
    
    //@@ 로그인 @@ /////////////////////////////////////////////////////////////////////////
    //로그인 ajax
@@ -52,11 +56,14 @@ public class MemberController {
    @ResponseBody
    public Map<String, String> ajaxLogin(HttpSession session, @RequestBody MemberVo vo) {
       logger.info("ajaxLogin");
+      System.out.println(vo);
       MemberVo res = biz.selectOne(vo);
       
       String check = null;
       String vopw = vo.getMember_pwd();   //사용자가 입력한 비밀번호
       String respw = res.getMember_pwd();   //db에서 가져온 비밀번호 (암호화된 번호)
+      
+      Map<String, String> map = new HashMap<String, String>();
       
       if(vo.getMember_id().contains("@")) {
          check = "2";
@@ -66,11 +73,19 @@ public class MemberController {
 
          //세션 유지 시간 1시간으로 설정
          session.setMaxInactiveInterval(60*60) ;
+         
+         //이전 페이지로 이동
+         if( arrLast.contains("review") ) {
+        	 map.put("arrLast", arrLast);
+         } else if( arrLast.contains("cafe") ){
+        	 map.put("arrLast", "cafehome.do?member_no=" + res.getMember_no() + "&member_id=" + res.getMember_id() );
+         } else {
+        	 map.put("arrLast", null);
+         }
 
          check = "1";
       }
          
-      Map<String, String> map = new HashMap<String, String>();
       map.put("check", check);
 
       return map;
@@ -96,7 +111,7 @@ public class MemberController {
    public String kiview_logout(HttpSession session) {
       logger.info("loginout");
       session.invalidate(); 
-      return "index";
+      return "redirect:index.do";
    }
 
    //@@ 회원가입 @@ /////////////////////////////////////////////////////////////////////////
@@ -205,7 +220,7 @@ public class MemberController {
       //세션에 수정된 로그인정보 담기
       MemberVo res2 = biz.selectOne(vo);
       
-      System.out.println("수정된 멤버객체: "+res2);   //삭제
+      System.out.println("수정된 멤버객체: "+res2);
        
       //session.invalidate();
       session.setAttribute("login", res2);
@@ -253,7 +268,7 @@ public class MemberController {
    }
 
    @RequestMapping("/login.do")
-   public String initLogin(Model model, HttpSession session) throws Exception {
+   public String initLogin(Model model, HttpSession session, HttpServletRequest request) throws Exception {
       logger.info("login");
       /* 구글,네이버,카카오 code 발행 */
       //OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
@@ -267,6 +282,14 @@ public class MemberController {
       //model.addAttribute("google_url", googleAuthurl);
 
       System.out.println("model :" + model);
+      
+      //이전 페이지 주소 저장
+      String referer = request.getHeader("Referer");
+      request.getSession().setAttribute("redirectURI", referer);
+      System.out.println("이전페이지 주소: "+referer);
+      String[] arr = referer.split("/");
+      arrLast = arr[arr.length-1];	//필드에 선언해둔 String 변수에 담음
+      System.out.println("마지막 인텍스: " + arrLast);
 
       /* 생성한 인증 URL을 Model에 담아서 전달 */
       return "member/kiview_login";
@@ -286,7 +309,7 @@ public class MemberController {
       model.addAttribute("result", apiResult);
       System.out.println("result: " + apiResult);
       
-      //
+      //이메일 가져오기
       JsonParser parser = new JsonParser();
       JsonElement element = parser.parse(apiResult);
       JsonObject response = element.getAsJsonObject().get("response").getAsJsonObject();
@@ -295,14 +318,25 @@ public class MemberController {
       
       //이메일아이디 중복확인
       vo = biz.selectEmailId(snsEmail);
+      MemberVo vo2 = biz.chkEmail(snsEmail);
       System.out.println("vo: " + vo);
       if(vo != null) {
          session.setAttribute("login", vo);
 
          //세션 유지 시간 1시간으로 설정
          session.setMaxInactiveInterval(60*60) ;
-          
+        
+         
+         if( arrLast.contains("review") ) {
+        	 model.addAttribute("arrLast", arrLast);
+        	 //return "redirect:"+arrLast;
+        
+         } else if( arrLast.contains("cafe") ){
+        	 model.addAttribute("arrLast", "cafehome.do?");
+         } 
+         
          return "member/kiview_snsLoginRes";
+        
       }else {
          String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
           tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
@@ -366,7 +400,25 @@ public class MemberController {
           //세션 유지 시간 1시간으로 설정
           session.setMaxInactiveInterval(60*60) ;
           
-         return "member/kiview_snsLoginRes";
+          if( arrLast.contains("review") ) {
+         	 model.addAttribute("arrLast", arrLast);
+         	 //return "redirect:"+arrLast;
+         
+          } else if( arrLast.contains("cafe") ){
+         	 model.addAttribute("arrLast", "cafehome.do?");
+         	 //return "redirect:cafehome.do?member_no=" + vo.getMember_no() + "&member_id=" + vo.getMember_id();
+          } 
+          
+//          else {
+//         	 
+//         	 return "member/kiview_snsLoginRes";
+//          }        
+//          
+          
+         
+          
+          return "member/kiview_snsLoginRes";
+          
       }else {
          String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
           tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
@@ -478,7 +530,26 @@ public class MemberController {
        return res;
        
    }
-
+    
+    
+    @RequestMapping("chkemail.do")
+    @ResponseBody
+    public Map chkEmail(String email) {
+    	MemberVo member = biz.chkEmail(email);
+    	boolean bool = true;
+    	if(member==null) {
+    		bool = false;
+    	} else {
+    		bool= true;
+    	}
+    	
+    	Map map = new HashMap();
+    	map.put("bool",bool);
+    	
+    	return map;
+    	
+    	
+    }
   
    
    

@@ -142,7 +142,7 @@ li a {
 										<div style="width: 25%; margin-right: 30px;">
 											<a href="cafedetail.do?cafe_no=${cafe.cafe_no }&member_no=${login.member_no}"> <span><img
 													style="width: 80%; height: 100%"
-													src='http://localhost:8787/img/${cafe.thumb }' /></span></a>
+													src='resources/upload/${cafe.thumb }' /></span></a>
 
 
 
@@ -279,7 +279,7 @@ li a {
 
 		                  <div class="block-21 mb-4 d-flex">
 		                     <a class="blog-img mr-4"
-		                        style="background-image: url('http://localhost:8787/img/${best.thumb }')"></a>
+		                        style="background-image: url('resources/upload/${best.thumb }')"></a>
 
 		                     <div class="text">
 		                        <h3 class="heading">

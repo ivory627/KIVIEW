@@ -26,6 +26,8 @@ public interface MemberDao {
 
 	public int membercount();
 
+	public MemberVo chkEmail(String email);
+
 
 	
 }

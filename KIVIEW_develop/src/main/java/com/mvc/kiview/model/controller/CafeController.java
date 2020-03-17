@@ -84,11 +84,21 @@ public class CafeController {
 	@RequestMapping("cafemy.do")
 	public String cafe_my(Model model, int member_no, int curpagenum) {
 
-		List<CafeVo> cafe = biz.cafe_Ulist(member_no);
+		
+		
+		
+		List<CafeVo> size = biz.cafe_Ulist(member_no);
+		CafePageVo pagevo = biz.paging(curpagenum,size.size());
+		
+		Map map = new HashMap();
+		map.put("member_no", member_no);
+		map.put("rowStart", pagevo.getRowStart());
+		map.put("rowEnd",pagevo.getRowEnd());
+		
+		
+		List<CafeVo> cafe = biz.cafe_my(map);
 		List<CafeMemberVo> member = biz.member_selectAll();
 		List<CafeVo> best = biz.best_cafe();
-
-		CafePageVo pagevo = biz.paging(curpagenum,cafe.size());
 
 	    model.addAttribute("pagevo",pagevo);
 		model.addAttribute("cafe", cafe);
@@ -236,7 +246,7 @@ public class CafeController {
 
 					inputStream = thumb.getInputStream();
 
-					String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
+					String path = request.getSession().getServletContext().getRealPath("/resources/upload");
 					System.out.println("업로드 될 실제 경로 : " + path);
 
 					File storage = new File(path);
@@ -277,7 +287,7 @@ public class CafeController {
 
 					inputStream = background.getInputStream();
 
-					String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
+					String path = request.getSession().getServletContext().getRealPath("/resources/upload");
 					System.out.println("업로드 될 실제 경로 : " + path);
 
 					File storage = new File(path);
@@ -672,7 +682,7 @@ public class CafeController {
 			inputStream2 = background.getInputStream();
 
 			// 경로 설정
-			String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
+			String path = request.getSession().getServletContext().getRealPath("/resources/upload");
 			System.out.println("업로드 될 실제 경로 : " + path);
 
 			// 파일경로 존재확인
@@ -762,7 +772,7 @@ public class CafeController {
 
 		} else {
 
-			String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
+			String path = request.getSession().getServletContext().getRealPath("/resources/upload");
 			File bg_delete = new File(path+"/"+bg_name);
 
 			bg_delete.delete();
@@ -1272,6 +1282,21 @@ public class CafeController {
 		   return map;
 		   
 		   
+	   }
+	   
+	   @RequestMapping("/cafechatinsert.do")
+	   @ResponseBody
+	   public Map cafe_chat_insert(@RequestBody CafeChatVo vo) {
+		   int res = biz.cafe_chat_insert(vo);
+		   
+		   
+		   Map map = new HashMap();
+			map.put("res", res);
+			   
+			   
+		   
+		   
+		   return map;
 	   }
 
 }

@@ -44,10 +44,14 @@
         WHERE ADMIN =#{member_id }
      </select>
    
-   	<select id="cafe_my" parameterType="String" resultType="CafeVo">
+   	<select id="cafe_my" parameterType="Map" resultType="CafeVo">
         SELECT *
-        FROM CAFE
-        WHERE ADMIN LIKE #{admin}
+        FROM (SELECT CF.*,  ROW_NUMBER() OVER (ORDER BY CAFE_NO) AS RNUM 
+        FROM CAFE CF WHERE CAFE_NO IN (SELECT CAFE_NO FROM CAFE_MEMBER WHERE MEMBER_NO = #{member_no} AND (SIGNYN = 'Y' OR SIGNYN='A') ) ) CAFE
+        WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+        
+       
+        
      
      </select>
      
@@ -435,6 +439,11 @@
          WHERE RNUM BETWEEN #{start} AND #{last}
      </select>
      
+     <insert id="cafe_chat_insert" parameterType="CafeChatVo">
+     	INSERT INTO CAFE_CHAT
+     	VALUES(CAFE_CHAT_SEQ.NEXTVAL, #{cafe_no}, #{member_no}, #{writer}, #{msg}, SYSDATE)
+     
+     </insert>
   
   </mapper>
   
