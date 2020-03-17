@@ -19,6 +19,10 @@
 
 <title>KIVIEW &mdash;리뷰게시판</title>
 
+<!-- 스위트얼럿(얼럿창 변경하는  js 코드) -->
+<!-- swal("타이틀", "텍스트", "아이콘(info/success/warning/error 중 택1)" 형태로 바꿔서 얼럿 대신 사용하면 됨 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <!-- **승혜:reviewboard.css로 임포트 -->
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet" type="text/css" href="resources/css/star.css">
@@ -27,12 +31,13 @@
 
 <!-- **승혜:reviewboard.js로 임포트 -->
 <script type="text/javascript" src="resources/js/reviewboard.js"></script>
+
+
 <script type="text/javascript">
-
-
 function Searchchk(){
-   if($("#SearchId").val()==''){
-      alert("검색어를 입력해 주세요.")
+	if($("#SearchId").val()==''){
+      //alert("검색어를 입력해 주세요.")
+      swal("NO KEWORD", "검색어를 입력해 주세요.", "warning")
       return false;
    }
 }
@@ -56,10 +61,6 @@ function getTextLength(str) {
    return len;
 }
 
-function bytesHandler(obj){
-   var text = $(obj).val();
-   $('span.bytes').text(getTextLength(text));
-}
 
 ///////////////////////////지민like//////////////////////////////
 var likeSubmit = function(review_no){
@@ -156,8 +157,10 @@ var likeSubmit = function(review_no){
                   <option value="kinder_name">유치원명</option>
                   <option value="review_writer">작성자</option>
                   <option value="review_title">제　목</option>
-               </select> &nbsp;&nbsp; <input type="text" name="keyword" id="SearchId"
-                  placeholder="검색어를 입력하세요." style="height: 40px; width: 40%">
+
+               </select> &nbsp;&nbsp;
+               <input type="text" name="keyword"
+                  id="SearchId" placeholder="검색어를 입력하세요." style="height: 40px; width: 40%">
                <input class="btn btn-secondary"
                   style="width: 10%; border-radius: 0px" type="submit" value="검색">
                <br>
@@ -477,8 +480,8 @@ var likeSubmit = function(review_no){
                      style="width: 101%" minlength="4" maxlength="30" required><br>
                   <br> <label>내용 </label><span style="position: relative; left: 85%" class="bytes">0</span><br>
                   <textarea class="content" style="width: 100%; height: auto; resize: none;"
-                     placeholder="200자 이상, 500자 이하의 글자수만 작성이 가능합니다."
-                     name="review_content" minlength="200" maxlength="500" required></textarea>
+                     placeholder="100자 이상, 500자 이하의 글자수만 작성이 가능합니다."
+                     name="review_content" minlength="100" maxlength="500" required></textarea>
                   <br> <br>
                </div>
                <br>
@@ -603,7 +606,7 @@ var likeSubmit = function(review_no){
                   <br> <label>내용 </label>
                   <span style="position: relative; left: 85%" class="bytes">0</span><br>
                   <textarea style="width: 100%; height: auto; resize: none;"
-                     name="review_content" minlength="200" maxlength="1000" required></textarea>
+                     name="review_content" minlength="100" maxlength="500" required></textarea>
                   <br> <br>
                </div>
                <br>
