@@ -157,7 +157,7 @@ var likeSubmit = function(review_no){
             </h1>
             <br>
             <!-- 검색 기능 -->
-            <form action="reviewsearch.do" onsubmit="return Searchchk()">
+            <form action="reviewsearch.do" method = "post" onsubmit="return Searchchk()">
                <select name="type">
                   <option value="kinder_name">유치원명</option>
                   <option value="review_writer">작성자</option>
