@@ -402,20 +402,10 @@ public class MemberController {
           
           if( arrLast.contains("review") ) {
          	 model.addAttribute("arrLast", arrLast);
-         	 //return "redirect:"+arrLast;
-         
+         	 
           } else if( arrLast.contains("cafe") ){
          	 model.addAttribute("arrLast", "cafehome.do?");
-         	 //return "redirect:cafehome.do?member_no=" + vo.getMember_no() + "&member_id=" + vo.getMember_id();
           } 
-          
-//          else {
-//         	 
-//         	 return "member/kiview_snsLoginRes";
-//          }        
-//          
-          
-         
           
           return "member/kiview_snsLoginRes";
           
