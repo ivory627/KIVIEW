@@ -111,7 +111,7 @@ public class MemberController {
    public String kiview_logout(HttpSession session) {
       logger.info("loginout");
       session.invalidate(); 
-      return "index";
+      return "redirect:index.do";
    }
 
    //@@ 회원가입 @@ /////////////////////////////////////////////////////////////////////////
