@@ -137,16 +137,11 @@ public class ReviewController {
    @RequestMapping("/reviewsearch.do")
    public String reviewSearch(String keyword, Model model, Criteria cri){
       
-//	   Map map = new HashMap();
-//	   map.put("type", type);
-//	   map.put("keyword",keyword); 
-	  
 	  logger.info("REVIEW SEARCH");
 	   
       PageMaker pageMaker = new PageMaker();
       pageMaker.setCri(cri);
       pageMaker.setTotalCount(biz.reviewCount(cri));
-      System.out.println("controller reviewcount : " + pageMaker.getTotalCount());
       
       List<ReviewVo> list = biz.reviewSearch(cri); 
       model.addAttribute("list",list);
