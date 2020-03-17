@@ -159,6 +159,8 @@ public interface CafeBiz {
 
 	public int cafe_chat_insert(CafeChatVo vo);
 
+	public List<CafeVo> cafe_my(Map map);
+
 	
 
 	

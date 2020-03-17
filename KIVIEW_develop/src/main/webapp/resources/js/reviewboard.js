@@ -1,4 +1,4 @@
-   $(function() {
+$(function() {
       $("#myBtn").on("click", function() {
          //modal.style.display = "block";
          $("#myModal").show();
@@ -8,7 +8,6 @@
       /* $("#myBtn2").on("click", function() {
          //modal.style.display = "block";
          $("#myModal2").show();
-
       }) */
 
       $("#modal-close").on("click", function() {

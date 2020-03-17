@@ -93,6 +93,7 @@ label{
 
 </style>
 <script src="http://18.223.58.91:9000/socket.io/socket.io.js"></script>
+<script src="localhost:9000/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
 <script type="text/javascript">
@@ -163,7 +164,8 @@ $(function(){
 	
 	var now = new Date();
 	
-	var socket = io("18.223.58.91:9000"); //페이지 로드시 해당 포트로 접속
+	//var socket = io("18.223.58.91:9000"); //페이지 로드시 해당 포트로 접속
+	var socket = io("localhost:9000"); //페이지 로드시 해당 포트로 접속
 	
 	socket.on('connection', function(data){
 		if(data.type == 'connected'){
@@ -184,10 +186,10 @@ $(function(){
       
       $("#usercount").empty();
       $("#userlist").empty();
-      $("#usercount").append("현재 채팅인원   : "+data.updateusercount+" 명");      
+      $("#usercount").append("현재 채팅인원   : "+data.chatlist.length+" 명");      
       
-      for(var i=0; i< data.updateuserlist.length ;i++){
-         $("#userlist").append("<li>"+data.updateuserlist[i]+"</li>");
+      for(var i=0; i< data.chatlist.length ;i++){
+         $("#userlist").append("<li>"+data.chatlist[i]+"</li>");
       }         
    })
    
