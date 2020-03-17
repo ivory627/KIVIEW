@@ -24,5 +24,7 @@ public interface MemberBiz {
 
 	public int membercount();
 
+	public MemberVo chkEmail(String email);
+
 	
 }

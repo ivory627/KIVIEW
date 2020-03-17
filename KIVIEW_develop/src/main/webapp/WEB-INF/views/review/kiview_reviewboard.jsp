@@ -61,6 +61,11 @@ function getTextLength(str) {
    return len;
 }
 
+function bytesHandler(obj){
+	   var text = $(obj).val();
+	   $('span.bytes').text(getTextLength(text));
+	}
+
 
 ///////////////////////////지민like//////////////////////////////
 var likeSubmit = function(review_no){

@@ -147,6 +147,19 @@ public class MemberDaoImpl implements MemberDao{
 		return res;
 	}
 
+	@Override
+	public MemberVo chkEmail(String email) {
+		MemberVo res = null;
+				
+		try {
+			res = sqlSession.selectOne(namespace+"chkEmail",email);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("[error] : chkEmail");
+		}
+		return res;
+	}
+
 
 
 }
