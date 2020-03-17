@@ -142,7 +142,7 @@ li a {
 										<div style="width: 25%; margin-right: 30px;">
 											<a href="cafedetail.do?cafe_no=${cafe.cafe_no }&member_no=${login.member_no}"> <span><img
 													style="width: 80%; height: 100%"
-													src='http://localhost:8787/img/${cafe.thumb }' /></span></a>
+													src='resources/upload/${cafe.thumb }' /></span></a>
 
 
 
