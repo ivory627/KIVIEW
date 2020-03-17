@@ -123,8 +123,8 @@
      </select>
 
 	<select id="bestReview" resultType="ReviewVo">
-		SELECT R.*,
-      (SELECT COUNT(*) FROM REVIEW WHERE REVIEW_NO = R.REVIEW_NO) AS LIKECOUNT   
+		 SELECT R.*,
+      (SELECT COUNT(*) FROM LIKETABLE WHERE REVIEW_NO = R.REVIEW_NO) AS LIKECOUNT   
       FROM REVIEW R
       ORDER BY LIKECOUNT DESC
 	</select>
