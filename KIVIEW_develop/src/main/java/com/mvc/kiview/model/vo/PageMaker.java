@@ -73,6 +73,11 @@ public class PageMaker {
 		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance().queryParam("page", page)
 				.queryParam("perPageNum", this.cri.getPerPageNum());
 		
+		//review search type 
+		if(this.cri.getType() != null) {
+			uriComponentsBuilder.queryParam("type", this.cri.getType()).queryParam("keyword", 
+					this.cri.getKeyword());
+		}
 		
 		//FAQ의 분류 카테고리를 눌렀을 때의 파라미터 
 		if(this.cri.getFaqcatd() != null) {

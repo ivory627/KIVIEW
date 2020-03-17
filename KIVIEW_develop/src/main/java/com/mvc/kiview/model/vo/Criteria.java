@@ -3,17 +3,18 @@ package com.mvc.kiview.model.vo;
 public class Criteria {
 
 	private int page; // 페이지 번호 << 1 2 3 4 5 >> 이런식의 페이지 번호 나타내는 것
-	private int perPageNum; // 페이지 갯수 ex)<< 1 2 3 4 5 >> 총 5개의 페이지 
+	private int perPageNum; // 페이지 갯수 ex)<< 1 2 3 4 5 >> 총 5개의 페이지
 	private int rowStart; // 한 페이지당 게시글 개수 start
 	private int rowEnd; // 한 페이지당 게시글 개수 end
 	// ----> start + end 합쳐서 한 페이지 당 총 10개 보여주기
 
 	// searchType, keyword, sort, catd 추가
-	private String searchType; //검색타입 ex) 공지사항 - 제목/내용/제목+작성자 등 
-	private String keyword; //검색어 
-	private String sort; //정렬 ex) 공지사항 - 최신순/조회순 정렬
-	private String cat_detail; //카테고리 정렬 ex) 공지사항 - 공지사항/키뷰소식 정렬
-	private String faqcatd; //FAQ 분류 카테고리 ex) FAQ - 전체/리뷰/회원/서비스 나누는 목적 
+	private String searchType; // 검색타입 ex) 공지사항 - 제목/내용/제목+작성자 등
+	private String keyword; // 검색어
+	private String sort; // 정렬 ex) 공지사항 - 최신순/조회순 정렬
+	private String cat_detail; // 카테고리 정렬 ex) 공지사항 - 공지사항/키뷰소식 정렬
+	private String faqcatd; // FAQ 분류 카테고리 ex) FAQ - 전체/리뷰/회원/서비스 나누는 목적
+	private String type; // review search type
 
 	// 생성자
 	public Criteria() {
@@ -24,6 +25,7 @@ public class Criteria {
 		this.sort = null;
 		this.cat_detail = null;
 		this.faqcatd = null;
+		this.type = null;
 	}
 
 	public void setPage(int page) {
@@ -58,11 +60,17 @@ public class Criteria {
 	public void setSort(String sort) {
 		this.sort = sort;
 	}
+
 	public void setCat_detail(String cat_detail) {
 		this.cat_detail = cat_detail;
 	}
+
 	public void setFaqcatd(String faqcatd) {
 		this.faqcatd = faqcatd;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getSearchType() {
@@ -76,13 +84,17 @@ public class Criteria {
 	public String getSort() {
 		return sort;
 	}
-	
+
 	public String getCat_detail() {
 		return cat_detail;
 	}
-	
+
 	public String getFaqcatd() {
 		return faqcatd;
+	}
+
+	public String getType() {
+		return type;
 	}
 
 	public int getPage() {

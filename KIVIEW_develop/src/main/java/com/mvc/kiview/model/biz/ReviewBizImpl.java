@@ -56,9 +56,9 @@ public class ReviewBizImpl implements ReviewBiz{
 	}
 
 	@Override
-	public List<ReviewVo> reviewSearch(Map map) {
+	public List<ReviewVo> reviewSearch(Criteria cri) {
 		
-		return dao.reviewSearch(map);
+		return dao.reviewSearch(cri);
 	}
 
 	@Override
