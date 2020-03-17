@@ -469,7 +469,7 @@ td{
    function changeDate(date) {
       date = new Date(parseInt(date));
       year = date.getFullYear();
-      month = date.getMonth();
+      month = date.getMonth()+1;
       day = date.getDate();
       hour = date.getHours();
       minute = date.getMinutes();
