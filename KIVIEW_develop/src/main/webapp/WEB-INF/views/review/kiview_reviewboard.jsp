@@ -119,7 +119,7 @@ var likeSubmit = function(review_no){
 
 </head>
 
-<body>
+<body id = "body">
 
    <!-- header 부분 -->
    <jsp:include page="../header.jsp" />
@@ -135,7 +135,7 @@ var likeSubmit = function(review_no){
                <p class="breadcrumbs">
                   <span class="mr-2"><a href="index.do">홈 <i
                         class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a
-                     href="kiview_reviewboard.jsp">리뷰 게시판 <i
+                     href="reviewboard.do?page=1">리뷰 게시판 <i
                         class="ion-ios-arrow-forward"></i></a></span>
                </p>
             </div>
@@ -166,6 +166,8 @@ var likeSubmit = function(review_no){
                </select> &nbsp;&nbsp;
                <input type="text" name="keyword"
                   id="SearchId" placeholder="검색어를 입력하세요." style="height: 40px; width: 40%">
+               <input type = "hidden" name = "page" value = "${pageMaker.cri.page}"/>   
+               <input type = "hidden" name = "perPageNum" value = "${pageMaker.cri.perPageNum}"/>   
                <input class="btn btn-secondary"
                   style="width: 10%; border-radius: 0px" type="submit" value="검색">
                <br>
@@ -174,10 +176,10 @@ var likeSubmit = function(review_no){
          </div>
          <div class="ftco-animate" style="margin: 40px; margin-bottom: 0px;">
             <c:choose>
-               <c:when test="${keyword != null && keyword!=''}">
+               <c:when test="${keyword != null && keyword != ''}">
                   <h2>
                      <label><span style="color: #fda638">${keyword}</span>에 대한
-                        <span style="color: #fda638">${fn:length(list)} </span>건의 리뷰가
+                        <span style="color: #fda638">${pageMaker.totalCount} </span>건의 리뷰가
                         검색되었습니다.</label>
                   </h2>
                </c:when>
@@ -377,7 +379,7 @@ var likeSubmit = function(review_no){
                style="position: relative; bottom: 25px;">
                <ul class="jsx-2419612476 pagination pagination--kindergarten">
                   <c:if test="${pageMaker.prev}">
-                     <li class="jsx-3635512122 prev disabled"><a
+                     <li class="jsx-2419612476 prev disabled"><a
                         href="${pageMaker.makeQuery(pageMaker.startPage - 1)}"> <svg
                               xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                               viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
@@ -386,12 +388,13 @@ var likeSubmit = function(review_no){
                      <polyline points="11 17 6 12 11 7"></polyline>
                      <polyline points="18 17 13 12 18 7"></polyline>
                      </svg>
-                     </a> <span class="jsx-3635512122 alt-text">앞으로</span></li>
+                     </a> <span class="jsx-2419612476 alt-text">앞으로</span></li>
                   </c:if>
 
                   <c:forEach begin="${pageMaker.startPage}"
                      end="${pageMaker.endPage}" var="idx">
-                     <li class="jsx-3635512122 " id="page${idx}"><c:choose>
+                     <li class="jsx-2419612476 " id="pageidx">
+                       <c:choose>
                            <c:when test="${idx eq param.page}">
                               <a href="${pageMaker.makeQuery(idx)}" class="on"
                                  id="pageclick${idx}">${idx}</a>
@@ -404,7 +407,7 @@ var likeSubmit = function(review_no){
                   </c:forEach>
 
                   <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-                     <li class="jsx-3635512122 next"><a
+                     <li class="jsx-2419612476 next"><a
                         href="${pageMaker.makeQuery(pageMaker.endPage + 1)}"> <svg
                               xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                               viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
@@ -412,7 +415,7 @@ var likeSubmit = function(review_no){
                               stroke-linejoin="round" style="position: relative;">
                      <polyline points="13 17 18 12 13 7"></polyline>
                      <polyline points="6 17 11 12 6 7"></polyline>
-                     </svg> <span class="jsx-3635512122 alt-text">뒤로</span>
+                     </svg> <span class="jsx-2419612476 alt-text">뒤로</span>
                      </a></li>
                   </c:if>
                </ul>

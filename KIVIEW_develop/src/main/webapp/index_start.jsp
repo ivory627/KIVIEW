@@ -10,8 +10,8 @@
 
 window.onload = function(){ 
 	
-	
 	location.href="index.do";
+	
 }
  
 </script>

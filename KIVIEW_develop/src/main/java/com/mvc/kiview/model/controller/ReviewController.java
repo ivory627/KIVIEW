@@ -135,16 +135,24 @@ public class ReviewController {
    }
    
    @RequestMapping("/reviewsearch.do")
-   public String reviewSearch(@Param("value=type") String type, @Param("value=keyword") String keyword, Model model){
-      Map map = new HashMap();
-      map.put("type", type);
-      map.put("keyword",keyword);
+   public String reviewSearch(String keyword, Model model, Criteria cri){
       
+//	   Map map = new HashMap();
+//	   map.put("type", type);
+//	   map.put("keyword",keyword); 
+	  
+	  logger.info("REVIEW SEARCH");
+	   
+      PageMaker pageMaker = new PageMaker();
+      pageMaker.setCri(cri);
+      pageMaker.setTotalCount(biz.reviewCount(cri));
+      System.out.println("controller reviewcount : " + pageMaker.getTotalCount());
       
-      List<ReviewVo> list = biz.reviewSearch(map); 
+      List<ReviewVo> list = biz.reviewSearch(cri); 
       model.addAttribute("list",list);
-      model.addAttribute("keyword", keyword);
+      model.addAttribute("keyword",keyword);
       model.addAttribute("likeAll", biz_like.selectAll());
+      model.addAttribute("pageMaker", pageMaker);
       
       return "review/kiview_reviewboard";
    }

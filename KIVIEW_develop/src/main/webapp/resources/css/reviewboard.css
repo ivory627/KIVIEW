@@ -141,6 +141,7 @@ button.jsx-2939968563 {
     min-width: 120px;
     height: 42px;
     line-height: 40px;
+    outline: none;
     background-color: rgba(0, 0, 0, 0);
     color: rgb(33, 33, 33);
     padding: 0px;
@@ -157,6 +158,7 @@ button.jsx-749773549 {
     min-width: 120px;
     height: 42px;
     line-height: 40px;
+    outline: none;
     background-color: rgb(255, 157, 31);
     color: rgb(255, 255, 255);
     padding: 0px;
@@ -171,6 +173,7 @@ button.jsx-749773549 {
     float: right;
     position: relative;
     bottom: 40px;
+    outline: none;
 }
 .buttons.jsx-3279357537 .button--voteup {
     margin-left: 8px;
@@ -188,6 +191,7 @@ button.jsx-693606843 {
     border-image: initial;
     border-radius: 21px;
     padding: 0px 20px;
+    outline: none;
 }
 svg[Attributes Style] {
     width: 20;
@@ -206,27 +210,38 @@ svg:not(:root) {
     margin-left: 8px;
 }
 .pagination.jsx-2419612476 {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
+    box-sizing: border-box;
+    outline: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    color: #212121;
+    vertical-align: baseline;
+    list-style: none;
     display: flex;
     -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center;
     height: 36px;
-    position: relative;
+    margin-top: 32px;
     top: 20px;
     left: 3%;
 }
 .pagination.jsx-2419612476 li.jsx-2419612476 {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
+    list-style: none;
+    box-sizing: border-box;
+    outline: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
     display: flex;
-    -webkit-align-items: center;
     -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
     margin: auto 14px;
     font-size: 14px;
@@ -237,7 +252,7 @@ a.on {
     color: rgb(231, 108, 7);
 }
 a.off{
-	color: #0000;
+	color: black;
 }
 .star-2.jsx-2162317864 {
     background-image: url(https://d1ta1myjmiqbpz.cloudfront.net/static/images/teacher_page/icon_page_star01_on.png);
