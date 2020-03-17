@@ -326,13 +326,22 @@ $(function(){
          <ul class="navbar-nav" style="margin-left: 850px">
             <!-- <ul class="navbar-nav ml-auto" >   -->
 
+				<c:choose>
+					<c:when test="${empty login}">
+						<li class="nav-item">
+						<a href="login.do" class="nav-link">내 정보</a></li>
+						<li class="nav-item">
+						<a href="login.do" class="nav-link">내 활동</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="nav-item">
+						<a href=" kiviewmypage.do" class="nav-link">내 정보</a></li>
+						<li class="nav-item">
+						<a href="kiviewmyactivity.do?member_id=${login.member_id }" class="nav-link">내 활동</a></li>
+					</c:otherwise>
+				</c:choose>
 
-            <li class="nav-item"><a href=" kiviewmypage.do"
-               class="nav-link">내 정보</a></li>
-            <li class="nav-item"><a href="kiviewmyactivity.do?member_id=${login.member_id }"
-               class="nav-link">내 활동</a></li>
-            
-         </ul>
+			</ul>
       </div>
    </div>
 </nav>

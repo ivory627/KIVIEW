@@ -224,7 +224,7 @@ h3 a{
                   <div class="block-18">
                      <div class="icon"><span class="flaticon-doctor"></span></div>
                     <div class="text">
-                      <strong class="number" data-number="18">0</strong>
+                      <strong class="number" data-number="${reviewcnt }">0</strong>
                       <span id = "cntfont">유치원 리뷰</span>
                     </div>
                   </div>
@@ -278,87 +278,65 @@ h3 a{
                <h2 class="mb-4">
                   <span>HOT 리뷰</span> TALK TALK!
                </h2>
-               <p>많은 좋아요 수와 높은 평점을 받은 리뷰만을 모아 보여드립니다.</p>
+               <p>가장 많은 공감을 얻은 리뷰만을 모아 보여드립니다.</p>
             </div>
          </div>
          <div class="row ftco-animate justify-content-center">
             <div class="col-md-12">
                <div class="carousel-testimony owl-carousel">
-                  <div class="item">
-                     <div class="testimony-wrap d-flex">
-                        <div class="user-img mr-4"
-                           style="background-image: url(resources/images/teacher-1.jpg)"></div>
-                        <div class="text ml-2 bg-light">
-                           <span
-                              class="quote d-flex align-items-center justify-content-center">
-                              <i class="icon-quote-left"></i>
-                           </span>
-                           <p>놀이시설도 훌륭하고, 무엇보다 선생님들의 교육 철학이 마음에 드네요!</p>
-                           <p class="name">지우파파</p>
-                           <span class="position">아빠</span>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="item">
-                     <div class="testimony-wrap d-flex">
-                        <div class="user-img mr-4"
-                           style="background-image: url(resources/images/teacher-2.jpg)"></div>
-                        <div class="text ml-2 bg-light">
-                           <span
-                              class="quote d-flex align-items-center justify-content-center">
-                              <i class="icon-quote-left"></i>
-                           </span>
-                           <p>아이가 다쳐서 왔어요..교실 내 CCTV가 의무화 되어야 할 것 같네요.</p>
-                           <p class="name">하은맘</p>
-                           <span class="position">엄마</span>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="item">
-                     <div class="testimony-wrap d-flex">
-                        <div class="user-img mr-4"
-                           style="background-image: url(resources/images/teacher-3.jpg)"></div>
-                        <div class="text ml-2 bg-light">
-                           <span
-                              class="quote d-flex align-items-center justify-content-center">
-                              <i class="icon-quote-left"></i>
-                           </span>
-                           <p>아이가 유치원 급식을 엄청 좋아하네요ㅎㅎ언제나 맛있는 밥 부탁드려요!</p>
-                           <p class="name">도균파파</p>
-                           <span class="position">아빠</span>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="item">
-                     <div class="testimony-wrap d-flex">
-                        <div class="user-img mr-4"
-                           style="background-image: url(resources/images/teacher-4.jpg)"></div>
-                        <div class="text ml-2 bg-light">
-                           <span
-                              class="quote d-flex align-items-center justify-content-center">
-                              <i class="icon-quote-left"></i>
-                           </span>
-                           <p>아이가 아침마다 통학버스 타는 걸 매우 싫어하는데<br> 부드럽게 잘 데리고 가주셔서 매번 감사해요</p>
-                           <p class="name">우린맘</p>
-                           <span class="position">엄마</span>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="item">
-                     <div class="testimony-wrap d-flex">
-                        <div class="user-img mr-4"
-                           style="background-image: url(resources/images/teacher-1.jpg)"></div>
-                        <div class="text ml-2 bg-light">
-                           <span
-                              class="quote d-flex align-items-center justify-content-center">
-                              <i class="icon-quote-left"></i>
-                           </span>
-                           <p>햇님반 담임 선생님! 아이들 잘 케어해주셔서 감사하고, <br>안내장도 잘 받아보고 있어요ㅎㅎ</p>
-                           <p class="name">나은파파</p>
-                           <span class="position">아빠</span>
-                        </div>
-                     </div>
-                  </div>
+                  
+                  <c:choose>
+                  	
+                  		<c:when test="${empty review }">
+                  			작성된 리뷰가 없습니다.
+                  		</c:when>
+                  		<c:otherwise>
+                  			
+                  			<c:forEach items="${review }" var="review" begin="0" end="4"> 
+                  				<c:set var="likecnt" value="0"/> 
+                  				<c:forEach items="${like }" var="like">
+                  					<c:if test="${review.review_no == like.review_no }">
+                  						<c:set var="likecnt" value="${likecnt+1 }"/>
+                  					</c:if>
+                  				</c:forEach>
+			                  <div class="item">   
+			                     <div class="testimony-wrap d-flex">
+			                     
+			                        <div class="user-img mr-4"
+			                           style="background-image: url(resources/images/teacher-1.jpg)"></div>
+			                        <div class="text ml-2 bg-light">
+			                           <span
+			                              class="quote d-flex align-items-center justify-content-center">
+			                              <i class="icon-quote-left"></i>
+			                           </span>  
+			                           <label style="font-weight:bold">${review.review_title }</label>
+			                           <p>${review.review_content }</p> 
+			                           <p class="name">${review.review_writer }</p>
+			                           <span class="position">${review.kinder_name }</span><br>
+										
+										<!-- 좋아요 -->                  
+			                           <div class="jsx-3279357537 buttons" style="float:right">
+		                                 <button type="button"  
+		                                    class="jsx-693606843 button--voteup" type="button" value="좋아요">
+		                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
+		                                       height="20" viewBox="0 0 24 24" fill="none" stroke="#8f8f8f"
+		                                       stroke-width="2" stroke-linecap="round"
+		                                       stroke-linejoin="round"
+		                                       style="position: relative; vertical-align: top;">
+		                                    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+		
+		                                    <span class="jsx-693606843 count">${likecnt }</span>
+		                                 </button>
+                              			</div>
+			                        </div>
+			                     </div>
+			                  </div> 
+			                  </c:forEach>
+                  		</c:otherwise>
+                  	
+                  </c:choose>
+                  
+                  
                </div>
             </div>
          </div>
@@ -430,7 +408,7 @@ h3 a{
                               <!-- 썸네일 -->
                               <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }"
                                  class="block-20 d-flex align-items-end"
-                                 style="background-image: url('http://localhost:8787/img/${best.thumb }');">
+                                 style="background-image: url('resources/upload/${best.thumb }');">
                                  <!-- 가입제한 -->
                                  <div class="meta-date text-center p-2">
                                     <span class="mos">

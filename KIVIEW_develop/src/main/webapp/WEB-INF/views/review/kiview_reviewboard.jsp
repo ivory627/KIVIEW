@@ -157,6 +157,7 @@ var likeSubmit = function(review_no){
                   <option value="kinder_name">유치원명</option>
                   <option value="review_writer">작성자</option>
                   <option value="review_title">제　목</option>
+
                </select> &nbsp;&nbsp;
                <input type="text" name="keyword"
                   id="SearchId" placeholder="검색어를 입력하세요." style="height: 40px; width: 40%">

@@ -73,7 +73,7 @@
                <hr>
 
                <p > 
-                  <img src="http://localhost:8787/img/${cafe_list[0].background }" 
+                  <img src="resources/upload/${cafe_list[0].background }" 
                   style="heigth:50%; width:50%; position:relative; left:25%"
                   class="img-fluid">
                </p>

@@ -31,13 +31,23 @@ li a {
 	overflow: hidden; /* 내용이 길면 감춤니다 */
 }
 
-#paging{    
+#paging{ 
 	
-	width:100%;   
-	margin:0 auto; 
-	text-align:center; 
-	float:center!impotant;
+  	text-align:center!important;
+  	width:100%;
 	margin-top:15px;  
+	margin:0 auto; 
+	
+}
+
+#paging ul{
+	
+	display:inline-block!important;
+
+}
+
+#paging li {
+	display:inline-block!important;
 }
 </style>
 
@@ -269,7 +279,7 @@ li a {
 
 		                  <div class="block-21 mb-4 d-flex">
 		                     <a class="blog-img mr-4"
-		                        style="background-image: url('http://localhost:8787/img/${best.thumb }')"></a>
+		                        style="background-image: url('resources/upload/${best.thumb }')"></a>
 
 		                     <div class="text">
 		                        <h3 class="heading">

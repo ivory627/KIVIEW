@@ -118,7 +118,7 @@ function test(){
 
 		                  <div class="block-21 mb-4 d-flex">
 		                     <a class="blog-img mr-4"
-		                        style="background-image: url('http://localhost:8787/img/${best.thumb }')"></a>
+		                        style="background-image: url('resources/upload/${best.thumb }')"></a>
 
 		                     <div class="text">
 		                        <h3 class="heading">
@@ -199,7 +199,7 @@ function test(){
                            <!-- 썸네일 -->
                            <a href="cafedetail.do?cafe_no=${Ulist.cafe_no }&member_no=${login.member_no }"
                               class="block-20 d-flex align-items-end"
-                              style="background-image: url('http://localhost:8787/img/${Ulist.thumb }');">
+                              style="background-image: url('resources/upload/${Ulist.thumb }');">
                               <!-- 가입제한 -->
                               <div class="meta-date text-center p-2">
                                  <span class="mos">
@@ -311,7 +311,7 @@ function test(){
                               <!-- 썸네일 -->
                               <a href="cafedetail.do?cafe_no=${Alist.cafe_no }&member_no=${login.member_no }"
                                  class="block-20 d-flex align-items-end"
-                                 style="background-image: url('http://localhost:8787/img/${Alist.thumb }');">
+                                 style="background-image: url('resources/upload/${Alist.thumb }');">
                                  <!-- 가입제한 -->
                                  <div class="meta-date text-center p-2">
                                     <span class="mos">
