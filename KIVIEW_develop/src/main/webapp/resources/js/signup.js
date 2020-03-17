@@ -178,7 +178,6 @@ function email_chk(){
 		dataType:"json",
 		
 		success:function(msg){
-			alert("msg : "+msg.bool)
 			if(msg.bool==false){
 				
 				submit = true;

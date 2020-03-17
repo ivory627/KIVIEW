@@ -318,8 +318,6 @@ public class MemberController {
       
       //이메일아이디 중복확인
       vo = biz.selectEmailId(snsEmail);
-      MemberVo vo2 = biz.chkEmail(snsEmail);
-      System.out.println("vo: " + vo);
       if(vo != null) {
          session.setAttribute("login", vo);
 
@@ -346,7 +344,7 @@ public class MemberController {
           MemberVo snsVo = new MemberVo();
           snsVo.setMember_id(snsEmail);
           snsVo.setMember_pwd(PtmpPwd);
-          snsVo.setMember_name("소셜로그인가입자");
+          snsVo.setMember_name("네이버로그인가입자");
           snsVo.setMember_addr("주소를 입력해주세요");
           snsVo.setMember_phone("전화번호를 입력해주세요");
           snsVo.setMember_email(snsEmail);
@@ -354,7 +352,6 @@ public class MemberController {
           System.out.println("snsVo: " + snsVo);
           
           biz.signup(snsVo);   //자동 회원가입
-          System.out.println("회원가입 후 snsVo: " + snsVo);
           
          session.setAttribute("login", snsVo);
 
@@ -393,7 +390,6 @@ public class MemberController {
       String snsEmail = (String) userInfo.get("email");
       
       vo = biz.selectEmailId(snsEmail);
-      System.out.println(vo);
       if(vo != null) {
          session.setAttribute("login", vo);
 
@@ -418,7 +414,7 @@ public class MemberController {
           MemberVo snsVo = new MemberVo();
           snsVo.setMember_id(snsEmail);
           snsVo.setMember_pwd(PtmpPwd);
-          snsVo.setMember_name("이름을 입력해주세요");
+          snsVo.setMember_name("카카오로그인가입자");
           snsVo.setMember_addr("주소를 입력해주세요");
           snsVo.setMember_phone("전화번호를 입력해주세요");
           snsVo.setMember_email(snsEmail);
