@@ -1,13 +1,11 @@
 package com.mvc.kiview.model.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.mail.HtmlEmail;
@@ -15,10 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.social.google.connect.GoogleConnectionFactory;
-import org.springframework.social.oauth2.GrantType;
-import org.springframework.social.oauth2.OAuth2Operations;
-import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -98,7 +92,7 @@ public class MemberController {
       logger.info("idSearch");
       MemberVo res = biz.idSearch(vo);
 
-      System.out.println(res.getMember_name() + "/" + res.getMember_email() + "/" + res.getMember_id()); // 수정
+      System.out.println(res.getMember_name() + "/" + res.getMember_email() + "/" + res.getMember_id());
 
       Map<String, MemberVo> map = new HashMap<String, MemberVo>();
       map.put("idSearch", res);
@@ -120,16 +114,13 @@ public class MemberController {
    public String kiview_signupOption(Model model, HttpSession session) throws Exception {
       logger.info("signupOption");
 
-      /* 구글,네이버,카카오 code 발행 */
-      //OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-      //String googleAuthurl = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+      /* 네이버,카카오 code 발행 */
       String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
       String kakaoAuthUrl = kakaoApi.getAuthorizationUrl(session);
 
       /* 생성한 인증 URL을 View로 전달 */
       model.addAttribute("naver_url", naverAuthUrl);
       model.addAttribute("kakao_url", kakaoAuthUrl);
-      //model.addAttribute("google_url", googleAuthurl);
 
       System.out.println("model :" + model);
 
@@ -243,14 +234,6 @@ public class MemberController {
    }
    
    //소셜 로그인
-   /*
-   //GoogleLogin
-   @Autowired
-   private GoogleConnectionFactory googleConnectionFactory;
-   @Autowired
-   private OAuth2Parameters googleOAuth2Parameters;
-   */
-
    /* NaverLoginBO */
    private NaverLoginBO naverLoginBO;
    private String apiResult = null;
@@ -270,16 +253,13 @@ public class MemberController {
    @RequestMapping("/login.do")
    public String initLogin(Model model, HttpSession session, HttpServletRequest request) throws Exception {
       logger.info("login");
-      /* 구글,네이버,카카오 code 발행 */
-      //OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-      //String googleAuthurl = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+      /* 네이버,카카오 code 발행 */
       String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
       String kakaoAuthUrl = kakaoApi.getAuthorizationUrl(session);
 
       /* 생성한 인증 URL을 View로 전달 */
       model.addAttribute("naver_url", naverAuthUrl);
       model.addAttribute("kakao_url", kakaoAuthUrl);
-      //model.addAttribute("google_url", googleAuthurl);
 
       System.out.println("model :" + model);
       
@@ -305,7 +285,6 @@ public class MemberController {
       oauthToken = naverLoginBO.getAccessToken(session, code, state);
       // 로그인 사용자 정보를 읽어온다.
       apiResult = naverLoginBO.getUserProfile(oauthToken);
-      //System.out.println(apiResult.toString());
       model.addAttribute("result", apiResult);
       System.out.println("result: " + apiResult);
       
@@ -318,7 +297,8 @@ public class MemberController {
       
       //이메일아이디 중복확인
       vo = biz.selectEmailId(snsEmail);
-      if(vo != null) {
+      
+      if(vo.getMember_name() == "네이버로그인가입자") {
          session.setAttribute("login", vo);
 
          //세션 유지 시간 1시간으로 설정
@@ -327,7 +307,6 @@ public class MemberController {
          
          if( arrLast.contains("review") ) {
         	 model.addAttribute("arrLast", arrLast);
-        	 //return "redirect:"+arrLast;
         
          } else if( arrLast.contains("cafe") ){
         	 model.addAttribute("arrLast", "cafehome.do?");
@@ -363,18 +342,6 @@ public class MemberController {
       
 
    }
-   
-   /*
-   //구글 로그인 성공시 callback 호출 **보충 필요
-   @RequestMapping("/callback2.do")
-   public String callback2(HttpServletRequest request) {
-
-      System.out.println("구글 callback");
-
-      return "index";
-
-   }
-   */
 
    //카카오 로그인 성공시 callback 호출
    @RequestMapping("/callback3.do")
@@ -390,7 +357,7 @@ public class MemberController {
       String snsEmail = (String) userInfo.get("email");
       
       vo = biz.selectEmailId(snsEmail);
-      if(vo != null) {
+      if(vo.getMember_name() == "카카오로그인가입자") {
          session.setAttribute("login", vo);
 
           //세션 유지 시간 1시간으로 설정
@@ -468,7 +435,6 @@ public class MemberController {
        vo.setMember_pwd(passwordEncoder.encode(tmpPwd));   //임시비밀번호 암호화
        
        System.out.println("암호화 전 임시비밀번호: "+ tmpPwd);
-       //System.out.println("암호화 후 임시비밀번호: "+ vo.getMember_pwd());
        System.out.println("vo: " + vo);
        
        int res = biz.tmpPwd(vo);   //임시비밀번호  update
