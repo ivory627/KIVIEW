@@ -105,7 +105,7 @@ $(function(){
 </div>
 <div id="frogue-container" class="position-right-bottom"
       data-chatbot="1d82e168-7048-41c1-b3e1-3ce0bc07c366"
-      data-user="${login.member_id}" data-init-key="value" style = "right:85px; bottom:90px"
+      data-user="사용자ID" data-init-key="value" style = "right:85px; bottom:90px"
       ></div>
 <script>
 (function(d, s, id){
