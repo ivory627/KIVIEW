@@ -134,9 +134,9 @@ var likeSubmit = function(review_no){
                <h1 class="mb-2 bread">리뷰 게시판</h1>
                <p class="breadcrumbs">
                   <span class="mr-2"><a href="index.do">홈 <i
-                        class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a
-                     href="reviewboard.do?page=1">리뷰 게시판 <i
-                        class="ion-ios-arrow-forward"></i></a></span>
+                        class="ion-ios-arrow-forward"></i></a></span> 
+                        <span class="mr-2">
+                        	리뷰 게시판 <i class="ion-ios-arrow-forward"></i></span>
                </p>
             </div>
          </div>
