@@ -263,7 +263,7 @@ var likeSubmit = function(review_no){
                            <label>“ ${review.review_title} ”</label>
                         </h3>
                         <p class="subheading">
-                           <span id="writer"> ${review.review_writer} </span> | <span>${review.review_year}</span>
+                           <span id="writer"> ${fn:substring(review.review_writer,0,3)} <c:forEach begin="0" end="5">*</c:forEach> </span> | <span>${review.review_year}</span>
                            | <span><fmf:formatDate value="${review.review_date}"
                                  pattern='yyyy-MM-dd HH:mm' /> </span>
                         </p>
@@ -448,8 +448,7 @@ var likeSubmit = function(review_no){
             <h3>
                <b>유치원 리뷰쓰기</b>
             </h3>
-            <h6 style="width: 100%">키뷰는 평가자의 익명성을 보장하며 평가내역에 어떠한 개인정보도 노출되지
-               않음을 약속드립니다.</h6>
+            <h6 style="width: 100%">키뷰는 평가자의 익명을 보장하고 어떠한 개인정보도 노출되지 않음을 약속드립니다.</h6>
             <br>
 
             <form action="reviewInsert.do" onsubmit="return insertchk()">
@@ -576,8 +575,7 @@ var likeSubmit = function(review_no){
             <h3>
                <b>유치원 리뷰수정</b>
             </h3>
-            <h6 style="width: 100%">키뷰는 평가자의 익명성을 보장하며 평가내역에 어떠한 개인정보도 노출되지
-               않음을 약속드립니다.</h6>
+            <h6 style="width: 100%">키뷰는 평가자의 익명을 보장하고 어떠한 개인정보도 노출되지 않음을 약속드립니다.</h6>
             <br>
 
             <form id="reviewUpdate" action="reviewUpdate.do" method="get">

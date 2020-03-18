@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>KIVIEW &mdash; Blog</title>
+    <title>KIVIEW &mdash; 카페</title>
     
     <%@ include file = "../head.jsp" %>
 <style type="text/css">
@@ -53,6 +53,14 @@ textarea {
 
 </style>
 <script type="text/javascript">
+function reply_chk(no){
+	if($("#reply_text"+no).val().length<4){
+		alert("최소 4글자 이상 입력해주세요.")
+		return false;
+	}
+	
+	return true;
+}
 function PageMove(page) {
     var curpagenum = page;
     var cafe_no = '${cafe_list[0].cafe_no }';
@@ -509,7 +517,7 @@ function show(cafe_board_no){
                		<!-- 댓글 작성 -->
 	               <div style="width:80%; border:0px solid lightgray"> 
 	               	<br>
-		               <form id="reply_data${guest.cafe_board_no }">
+		               <form id="reply_data${guest.cafe_board_no }" onsubmit="return reply_chk(${guest.cafe_board_no})">
 		               		<input type="hidden" name="cafe_board_no" value="${guest.cafe_board_no }">
 		               		<input type="hidden" name="writer" value="${login.member_id}">
 			               <label style="font-weight:bold; color:black">${login.member_id }</label> 
