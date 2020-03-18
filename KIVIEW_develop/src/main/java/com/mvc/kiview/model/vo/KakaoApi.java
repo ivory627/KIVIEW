@@ -17,8 +17,8 @@ import com.google.gson.JsonParser;
 
 public class KakaoApi {
 
-   private final static String K_CLIENT_ID = "178bdb10ab63eac64af068a63537b041";
-   private final static String K_REDIRECT_URI = "http://www.kiview.net:8080/KIVIEW_develop/callback3.do";
+   private final static String K_CLIENT_ID = "1fb5dd516d93974aad8984794ddac7a0";
+   private final static String K_REDIRECT_URI = "http://www.kiview.net/KIVIEW_develop/callback3.do";
                                                 
    public String getAuthorizationUrl(HttpSession session) { 
       String kakaoUrl = "https://kauth.kakao.com/oauth/authorize?" + 
@@ -45,8 +45,8 @@ public class KakaoApi {
          BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
          StringBuilder sb = new StringBuilder();
          sb.append("grant_type=authorization_code");
-         sb.append("&client_id=178bdb10ab63eac64af068a63537b041");
-         sb.append("&redirect_uri=http://www.kiview.net:8080/KIVIEW_develop/callback3.do");
+         sb.append("&client_id=1fb5dd516d93974aad8984794ddac7a0");
+         sb.append("&redirect_uri=http://http://www.kiview.net/KIVIEW_develop/callback3.do");
          sb.append("&code=" + authorize_code);
          bw.write(sb.toString());
          bw.flush();
