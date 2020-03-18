@@ -275,7 +275,7 @@ public class MemberController {
       return "member/kiview_login";
    }
 
-   // 네이버 로그인 성공시 callback호출 메소드 **보충 필요
+   // 네이버 로그인 성공시 callback호출 메소드 
    @RequestMapping(value = "/callback.do")
    public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, MemberVo vo)
          throws IOException {
@@ -299,7 +299,8 @@ public class MemberController {
       vo = biz.selectEmailId(snsEmail);
       String NavName = vo.getMember_name();
       
-      if( NavName == "네이버로그인가입자") {
+      //네이버로그인 가입자라면 자동 로그인
+      if( vo != null && NavName == "네이버로그인가입자" ) {
          session.setAttribute("login", vo);
 
          //세션 유지 시간 1시간으로 설정
@@ -315,8 +316,10 @@ public class MemberController {
          
          return "member/kiview_snsLoginRes";
         
-      }else {
-         String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
+      } 
+      //네이버로그인 미가입자라면 자동 회원가입
+      else {
+          String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
           tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
           String PtmpPwd = null;
           PtmpPwd = passwordEncoder.encode(tmpPwd);   //임시비밀번호 암호화
@@ -339,7 +342,7 @@ public class MemberController {
          session.setMaxInactiveInterval(60*60) ;
           
          return "member/kiview_snsSignupRes";
-      }
+      } 
       
 
    }
@@ -360,48 +363,50 @@ public class MemberController {
       vo = biz.selectEmailId(snsEmail);
       String kaName = vo.getMember_name();
       
-      if( kaName == "카카오로그인가입자") {
-         session.setAttribute("login", vo);
+      //카카오로그인 가입자라면 자동로그인
+      if( vo != null && kaName == "카카오로그인가입자") {
+    	  session.setAttribute("login", vo);
 
-          //세션 유지 시간 1시간으로 설정
-          session.setMaxInactiveInterval(60*60) ;
-          
-          if( arrLast.contains("review") ) {
-         	 model.addAttribute("arrLast", arrLast);
-         	 
-          } else if( arrLast.contains("cafe") ){
-         	 model.addAttribute("arrLast", "cafehome.do?");
-          } 
-          
-          return "member/kiview_snsLoginRes";
-          
-      }else {
-         String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
-          tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
-          String PtmpPwd = null;
-          PtmpPwd = passwordEncoder.encode(tmpPwd);   //임시비밀번호 암호화
-         
-          MemberVo snsVo = new MemberVo();
-          snsVo.setMember_id(snsEmail);
-          snsVo.setMember_pwd(PtmpPwd);
-          snsVo.setMember_name("카카오로그인가입자");
-          snsVo.setMember_addr("주소를 입력해주세요");
-          snsVo.setMember_phone("전화번호를 입력해주세요");
-          snsVo.setMember_email(snsEmail);
- 
-          System.out.println("snsVo: " + snsVo);
-          
-          biz.signup(snsVo);   //자동 회원가입
-          System.out.println("회원가입 후 snsVo: " + snsVo);
-          
-         session.setAttribute("login", snsVo);
+    	  //세션 유지 시간 1시간으로 설정
+    	  session.setMaxInactiveInterval(60*60) ;
 
-         //세션 유지 시간 1시간으로 설정
-         session.setMaxInactiveInterval(60*60) ;
-          
-         return "member/kiview_snsSignupRes";
-      }
+    	  if( arrLast.contains("review") ) {
+    		  model.addAttribute("arrLast", arrLast);
 
+    	  } else if( arrLast.contains("cafe") ){
+    		  model.addAttribute("arrLast", "cafehome.do?");
+    	  } 
+
+    	  return "member/kiview_snsLoginRes";
+
+      } 
+      //카카오로그인 미가입자라면 자동 회원가입
+      else {
+    	  String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
+    	  tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
+    	  String PtmpPwd = null;
+    	  PtmpPwd = passwordEncoder.encode(tmpPwd);   //임시비밀번호 암호화
+
+    	  MemberVo snsVo = new MemberVo();
+    	  snsVo.setMember_id(snsEmail);
+    	  snsVo.setMember_pwd(PtmpPwd);
+    	  snsVo.setMember_name("카카오로그인가입자");
+    	  snsVo.setMember_addr("주소를 입력해주세요");
+    	  snsVo.setMember_phone("전화번호를 입력해주세요");
+    	  snsVo.setMember_email(snsEmail);
+
+    	  System.out.println("snsVo: " + snsVo);
+
+    	  biz.signup(snsVo);   //자동 회원가입
+    	  System.out.println("회원가입 후 snsVo: " + snsVo);
+
+    	  session.setAttribute("login", snsVo);
+
+    	  //세션 유지 시간 1시간으로 설정
+    	  session.setMaxInactiveInterval(60*60) ;
+
+    	  return "member/kiview_snsSignupRes";
+      } 
 
    }
    
