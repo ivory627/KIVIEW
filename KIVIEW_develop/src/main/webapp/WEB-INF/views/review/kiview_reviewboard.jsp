@@ -448,7 +448,7 @@ var likeSubmit = function(review_no){
             <h3>
                <b>유치원 리뷰쓰기</b>
             </h3>
-            <h6 style="width: 100%">키뷰는 평가자의 어떠한 개인정보도 노출되지 않음을 약속드립니다.</h6>
+            <h6 style="width: 100%">키뷰는 평가자의 익명을 보장하고 어떠한 개인정보도 노출되지 않음을 약속드립니다.</h6>
             <br>
 
             <form action="reviewInsert.do" onsubmit="return insertchk()">
@@ -575,7 +575,7 @@ var likeSubmit = function(review_no){
             <h3>
                <b>유치원 리뷰수정</b>
             </h3>
-            <h6 style="width: 100%">키뷰는 평가자의 어떠한 개인정보도 노출되지 않음을 약속드립니다.</h6>
+            <h6 style="width: 100%">키뷰는 평가자의 익명을 보장하고 어떠한 개인정보도 노출되지 않음을 약속드립니다.</h6>
             <br>
 
             <form id="reviewUpdate" action="reviewUpdate.do" method="get">
