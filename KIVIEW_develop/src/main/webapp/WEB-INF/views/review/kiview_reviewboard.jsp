@@ -263,7 +263,7 @@ var likeSubmit = function(review_no){
                            <label>“ ${review.review_title} ”</label>
                         </h3>
                         <p class="subheading">
-                           <span id="writer"> ${review.review_writer} </span> | <span>${review.review_year}</span>
+                           <span id="writer"> ${fn:substring(review.review_writer,0,3)} <c:forEach begin="0" end="5">*</c:forEach> </span> | <span>${review.review_year}</span>
                            | <span><fmf:formatDate value="${review.review_date}"
                                  pattern='yyyy-MM-dd HH:mm' /> </span>
                         </p>

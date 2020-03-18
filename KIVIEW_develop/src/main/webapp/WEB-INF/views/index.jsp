@@ -5,6 +5,7 @@
 <% response.setContentType("text/html; charset=UTF-8");%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -311,7 +312,7 @@ h3 a{
 			                           </span>  
 			                           <label style="font-weight:bold">${review.review_title }</label>
 			                           <p>${review.review_content }</p> 
-			                           <p class="name">${review.review_writer }</p>
+			                           <p class="name">${fn:substring(review.review_writer,0,3)} <c:forEach begin="0" end="5">*</c:forEach></p>
 			                           <span class="position">${review.kinder_name }</span><br>
 										
 										<!-- 좋아요 -->                  
