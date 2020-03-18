@@ -170,6 +170,13 @@ function show(cafe_board_no){
  function reply_write(cafe_board_no){
 	 var form = $("#reply_data"+cafe_board_no);
 	 var formdata = form.serialize();
+	 
+	 if($("#reply_text"+cafe_board_no).val().length<4){
+			alert("최소 4글자 이상 입력해주세요.")
+			
+	} else {
+		
+		
  
 	 $.ajax({
 		 type:"post",
@@ -236,6 +243,8 @@ function show(cafe_board_no){
 		 }
 		 
 	 })
+	 
+	}
  }
  
  function reply_delete(cafe_board_no, cafe_reply){
@@ -517,7 +526,7 @@ function show(cafe_board_no){
                		<!-- 댓글 작성 -->
 	               <div style="width:80%; border:0px solid lightgray"> 
 	               	<br>
-		               <form id="reply_data${guest.cafe_board_no }" onsubmit="return reply_chk(${guest.cafe_board_no})">
+		               <form id="reply_data${guest.cafe_board_no }">
 		               		<input type="hidden" name="cafe_board_no" value="${guest.cafe_board_no }">
 		               		<input type="hidden" name="writer" value="${login.member_id}">
 			               <label style="font-weight:bold; color:black">${login.member_id }</label> 
