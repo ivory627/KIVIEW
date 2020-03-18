@@ -17,7 +17,7 @@
             	<div class="block-23 mb-3">
 	              <ul>
 	                <li><span class="icon icon-map-marker"></span><span class="text">서울 강남구 테헤란로14길 6 남도빌딩</span></li>
-	                <li><span class="icon icon-phone"></span><span class="text">02-7979-4242</span></li>
+	                <li><span class="icon icon-phone"></span><span class="text">실제 운영되지 않는 사이트입니다.</span></li>
 	                <li><span class="icon icon-envelope"></span><span class="text">kiview@kiview.com</span></li>
 	              </ul>
 	            </div>
