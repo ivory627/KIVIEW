@@ -25,7 +25,7 @@ public class NaverLoginBO {
 	private final static String CLIENT_ID = "Ewm38RKkMno5QTDGZTG9"; // 네이버API Client ID 대니
 	//private final static String CLIENT_SECRET = "pi6ghsKbU2";
 	private final static String CLIENT_SECRET = "dGTuKeh0Pt";
-	private final static String REDIRECT_URI = "http://18.223.58.91:8080/KIVIEW_develop/callback.do";
+	private final static String REDIRECT_URI = "http://www.kiview.net:8080/KIVIEW_develop/callback.do";
 	private final static String SESSION_STATE = "oauth_state";
 	/* 프로필 조회 API URL */
 	private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";/// Api 종류 기본 !!
