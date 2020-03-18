@@ -16,7 +16,7 @@
 <html lang="en">
 <head>
 
-<title>KIVIEW &mdash; Cafe Home</title>
+<title>KIVIEW &mdash; 카페 홈</title>
 
 <%@ include file="../head.jsp"%>
 
