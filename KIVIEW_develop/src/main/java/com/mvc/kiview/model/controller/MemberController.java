@@ -297,8 +297,9 @@ public class MemberController {
       
       //이메일아이디 중복확인
       vo = biz.selectEmailId(snsEmail);
+      String NavName = vo.getMember_name();
       
-      if(vo.getMember_name() == "네이버로그인가입자") {
+      if( NavName == "네이버로그인가입자") {
          session.setAttribute("login", vo);
 
          //세션 유지 시간 1시간으로 설정
@@ -357,7 +358,9 @@ public class MemberController {
       String snsEmail = (String) userInfo.get("email");
       
       vo = biz.selectEmailId(snsEmail);
-      if(vo.getMember_name() == "카카오로그인가입자") {
+      String kaName = vo.getMember_name();
+      
+      if( kaName == "카카오로그인가입자") {
          session.setAttribute("login", vo);
 
           //세션 유지 시간 1시간으로 설정
