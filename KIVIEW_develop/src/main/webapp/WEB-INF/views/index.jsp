@@ -304,7 +304,7 @@ h3 a{
 			                     <div class="testimony-wrap d-flex">
 			                     
 			                        <div class="user-img mr-4"
-			                           style="background-image: url(resources/images/teacher-1.jpg)"></div>
+			                           style="background-image: url(resources/images/main/review_img01.png)"></div>
 			                        <div class="text ml-2 bg-light">
 			                           <span
 			                              class="quote d-flex align-items-center justify-content-center">
