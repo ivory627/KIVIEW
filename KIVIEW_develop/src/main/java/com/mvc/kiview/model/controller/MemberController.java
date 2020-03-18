@@ -70,11 +70,11 @@ public class MemberController {
          
          //이전 페이지로 이동
          if( arrLast.contains("review") ) {
-        	 map.put("arrLast", arrLast);
+            map.put("arrLast", arrLast);
          } else if( arrLast.contains("cafe") ){
-        	 map.put("arrLast", "cafehome.do?member_no=" + res.getMember_no() + "&member_id=" + res.getMember_id() );
+            map.put("arrLast", "cafehome.do?member_no=" + res.getMember_no() + "&member_id=" + res.getMember_id() );
          } else {
-        	 map.put("arrLast", null);
+            map.put("arrLast", null);
          }
 
          check = "1";
@@ -268,7 +268,7 @@ public class MemberController {
       request.getSession().setAttribute("redirectURI", referer);
       System.out.println("이전페이지 주소: "+referer);
       String[] arr = referer.split("/");
-      arrLast = arr[arr.length-1];	//필드에 선언해둔 String 변수에 담음
+      arrLast = arr[arr.length-1];   //필드에 선언해둔 String 변수에 담음
       System.out.println("마지막 인텍스: " + arrLast);
 
       /* 생성한 인증 URL을 Model에 담아서 전달 */
@@ -297,8 +297,9 @@ public class MemberController {
       
       //이메일아이디 중복확인
       vo = biz.selectEmailId(snsEmail);
+      String NavName = vo.getMember_name();
       
-      if(vo.getMember_name() == "네이버로그인가입자") {
+      if( NavName == "네이버로그인가입자") {
          session.setAttribute("login", vo);
 
          //세션 유지 시간 1시간으로 설정
@@ -306,10 +307,10 @@ public class MemberController {
         
          
          if( arrLast.contains("review") ) {
-        	 model.addAttribute("arrLast", arrLast);
+            model.addAttribute("arrLast", arrLast);
         
          } else if( arrLast.contains("cafe") ){
-        	 model.addAttribute("arrLast", "cafehome.do?");
+            model.addAttribute("arrLast", "cafehome.do?");
          } 
          
          return "member/kiview_snsLoginRes";
@@ -357,17 +358,19 @@ public class MemberController {
       String snsEmail = (String) userInfo.get("email");
       
       vo = biz.selectEmailId(snsEmail);
-      if(vo.getMember_name() == "카카오로그인가입자") {
+      String kaName = vo.getMember_name();
+      
+      if( kaName == "카카오로그인가입자") {
          session.setAttribute("login", vo);
 
           //세션 유지 시간 1시간으로 설정
           session.setMaxInactiveInterval(60*60) ;
           
           if( arrLast.contains("review") ) {
-         	 model.addAttribute("arrLast", arrLast);
-         	 
+             model.addAttribute("arrLast", arrLast);
+             
           } else if( arrLast.contains("cafe") ){
-         	 model.addAttribute("arrLast", "cafehome.do?");
+             model.addAttribute("arrLast", "cafehome.do?");
           } 
           
           return "member/kiview_snsLoginRes";
@@ -487,20 +490,20 @@ public class MemberController {
     @RequestMapping("chkemail.do")
     @ResponseBody
     public Map chkEmail(String email) {
-    	MemberVo member = biz.chkEmail(email);
-    	boolean bool = true;
-    	if(member==null) {
-    		bool = false;
-    	} else {
-    		bool= true;
-    	}
-    	
-    	Map map = new HashMap();
-    	map.put("bool",bool);
-    	
-    	return map;
-    	
-    	
+       MemberVo member = biz.chkEmail(email);
+       boolean bool = true;
+       if(member==null) {
+          bool = false;
+       } else {
+          bool= true;
+       }
+       
+       Map map = new HashMap();
+       map.put("bool",bool);
+       
+       return map;
+       
+       
     }
   
    

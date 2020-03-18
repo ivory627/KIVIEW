@@ -26,9 +26,9 @@ $(function() {
       
       $("#kinder_search").on("keyup", function(){
          $("#myModal").find($("input[name=kinder_addr]")).val("");
-         var search = []
+         
          if($(this).val().length>1){
-          
+        	 var search = []
             $.ajax({
                type:"post",
                url:"searchkinder.do",
