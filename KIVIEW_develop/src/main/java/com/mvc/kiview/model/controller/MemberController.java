@@ -299,22 +299,20 @@ public class MemberController {
       vo = biz.selectEmailId(snsEmail);
       
       //네이버로그인 가입자라면 자동 로그인
-      if( vo != null && vo.getMember_name() == "네이버로그인가입자" ) {
-         session.setAttribute("login", vo);
+      if( vo != null ) {
+		  session.setAttribute("login", vo);
 
-         //세션 유지 시간 1시간으로 설정
-         session.setMaxInactiveInterval(60*60) ;
-        
-         
-         if( arrLast.contains("review") ) {
-            model.addAttribute("arrLast", arrLast);
-        
-         } else if( arrLast.contains("cafe") ){
-            model.addAttribute("arrLast", "cafehome.do?");
-         } 
-         
-         return "member/kiview_snsLoginRes";
-        
+		  //세션 유지 시간 1시간으로 설정
+		  session.setMaxInactiveInterval(60*60) ;
+
+		  if( arrLast.contains("review") ) {
+			  model.addAttribute("arrLast", arrLast);
+
+		  } else if( arrLast.contains("cafe") ){
+			  model.addAttribute("arrLast", "cafehome.do?");
+		  } 
+
+		  return "member/kiview_snsLoginRes";
       } 
       //네이버로그인 미가입자라면 자동 회원가입
       else {
@@ -362,7 +360,7 @@ public class MemberController {
       vo = biz.selectEmailId(snsEmail);
       
       //카카오로그인 가입자라면 자동로그인
-      if( vo != null && vo.getMember_name() == "카카오로그인가입자") {
+      if( vo != null ) {
 
          session.setAttribute("login", vo);
 
