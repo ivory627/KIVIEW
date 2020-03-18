@@ -98,13 +98,12 @@
      </select>
      
      <select id="best_cafe" resultType="CafeVo">
-     	SELECT *
-		FROM(
+     	SELECT * 
+		FROM (      
 		SELECT C.*,
-      	(SELECT COUNT(*) FROM CAFE_MEMBER WHERE CAFE_NO = C.CAFE_NO) AS MEMBERCOUNT,
-      	ROW_NUMBER() OVER(ORDER BY 'MEMBERCOUNT' DESC) AS RNUM
-      	FROM CAFE C)
-		CAFE WHERE RNUM BETWEEN 1 AND 3
+     	(SELECT COUNT(*) FROM CAFE_MEMBER WHERE CAFE_NO = C.CAFE_NO) AS G         
+		FROM CAFE C ORDER BY G DESC)
+		CAFE WHERE ROWNUM BETWEEN 1 AND 3
      </select>
 
      

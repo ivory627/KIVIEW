@@ -37,7 +37,7 @@
 				<div class="col-md-9 ftco-animate text-center">
 					<h1 class="mb-2 bread">공지사항 글쓰기</h1>
 					<p class="breadcrumbs">
-						<span class="mr-2"> <a href="index.jsp">홈 <i
+						<span class="mr-2"> <a href="index.do">홈 <i
 								class="ion-ios-arrow-forward" style="color: #fff;"></i></a>
 						</span> <span>키뷰안내 <i class="ion-ios-arrow-forward"
 							style="color: #fff;"></i></span> <span>&nbsp;공지사항</span>

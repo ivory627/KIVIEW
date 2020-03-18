@@ -70,11 +70,11 @@ public class MemberController {
          
          //이전 페이지로 이동
          if( arrLast.contains("review") ) {
-        	 map.put("arrLast", arrLast);
+            map.put("arrLast", arrLast);
          } else if( arrLast.contains("cafe") ){
-        	 map.put("arrLast", "cafehome.do?member_no=" + res.getMember_no() + "&member_id=" + res.getMember_id() );
+            map.put("arrLast", "cafehome.do?member_no=" + res.getMember_no() + "&member_id=" + res.getMember_id() );
          } else {
-        	 map.put("arrLast", null);
+            map.put("arrLast", null);
          }
 
          check = "1";
@@ -268,7 +268,7 @@ public class MemberController {
       request.getSession().setAttribute("redirectURI", referer);
       System.out.println("이전페이지 주소: "+referer);
       String[] arr = referer.split("/");
-      arrLast = arr[arr.length-1];	//필드에 선언해둔 String 변수에 담음
+      arrLast = arr[arr.length-1];   //필드에 선언해둔 String 변수에 담음
       System.out.println("마지막 인텍스: " + arrLast);
 
       /* 생성한 인증 URL을 Model에 담아서 전달 */
@@ -307,10 +307,10 @@ public class MemberController {
         
          
          if( arrLast.contains("review") ) {
-        	 model.addAttribute("arrLast", arrLast);
+            model.addAttribute("arrLast", arrLast);
         
          } else if( arrLast.contains("cafe") ){
-        	 model.addAttribute("arrLast", "cafehome.do?");
+            model.addAttribute("arrLast", "cafehome.do?");
          } 
          
          return "member/kiview_snsLoginRes";
@@ -363,47 +363,49 @@ public class MemberController {
       
       //카카오로그인 가입자라면 자동로그인
       if( vo != null && vo.getMember_name() == "카카오로그인가입자") {
-    	  session.setAttribute("login", vo);
 
-    	  //세션 유지 시간 1시간으로 설정
-    	  session.setMaxInactiveInterval(60*60) ;
+         session.setAttribute("login", vo);
 
-    	  if( arrLast.contains("review") ) {
-    		  model.addAttribute("arrLast", arrLast);
+         //세션 유지 시간 1시간으로 설정
+         session.setMaxInactiveInterval(60*60) ;
 
-    	  } else if( arrLast.contains("cafe") ){
-    		  model.addAttribute("arrLast", "cafehome.do?");
-    	  } 
+         if( arrLast.contains("review") ) {
+            model.addAttribute("arrLast", arrLast);
 
-    	  return "member/kiview_snsLoginRes";
+         } else if( arrLast.contains("cafe") ){
+            model.addAttribute("arrLast", "cafehome.do?");
+         } 
+
+         return "member/kiview_snsLoginRes";
 
       } 
       //카카오로그인 미가입자라면 자동 회원가입
       else {
-    	  String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
-    	  tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
-    	  String PtmpPwd = null;
-    	  PtmpPwd = passwordEncoder.encode(tmpPwd);   //임시비밀번호 암호화
+         String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
+         tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
+         String PtmpPwd = null;
+         PtmpPwd = passwordEncoder.encode(tmpPwd);   //임시비밀번호 암호화
 
-    	  MemberVo snsVo = new MemberVo();
-    	  snsVo.setMember_id(snsEmail);
-    	  snsVo.setMember_pwd(PtmpPwd);
-    	  snsVo.setMember_name("카카오로그인가입자");
-    	  snsVo.setMember_addr("주소를 입력해주세요");
-    	  snsVo.setMember_phone("전화번호를 입력해주세요");
-    	  snsVo.setMember_email(snsEmail);
+         MemberVo snsVo = new MemberVo();
+         snsVo.setMember_id(snsEmail);
+         snsVo.setMember_pwd(PtmpPwd);
+         snsVo.setMember_name("카카오로그인가입자");
+         snsVo.setMember_addr("주소를 입력해주세요");
+         snsVo.setMember_phone("전화번호를 입력해주세요");
+         snsVo.setMember_email(snsEmail);
 
-    	  System.out.println("snsVo: " + snsVo);
+         System.out.println("snsVo: " + snsVo);
 
-    	  biz.signup(snsVo);   //자동 회원가입
-    	  System.out.println("회원가입 후 snsVo: " + snsVo);
+         biz.signup(snsVo);   //자동 회원가입
+         System.out.println("회원가입 후 snsVo: " + snsVo);
 
-    	  session.setAttribute("login", snsVo);
+         session.setAttribute("login", snsVo);
 
-    	  //세션 유지 시간 1시간으로 설정
-    	  session.setMaxInactiveInterval(60*60) ;
+         //세션 유지 시간 1시간으로 설정
+         session.setMaxInactiveInterval(60*60) ;
 
-    	  return "member/kiview_snsSignupRes";
+         return "member/kiview_snsSignupRes";
+
       } 
 
    }
@@ -493,20 +495,20 @@ public class MemberController {
     @RequestMapping("chkemail.do")
     @ResponseBody
     public Map chkEmail(String email) {
-    	MemberVo member = biz.chkEmail(email);
-    	boolean bool = true;
-    	if(member==null) {
-    		bool = false;
-    	} else {
-    		bool= true;
-    	}
-    	
-    	Map map = new HashMap();
-    	map.put("bool",bool);
-    	
-    	return map;
-    	
-    	
+       MemberVo member = biz.chkEmail(email);
+       boolean bool = true;
+       if(member==null) {
+          bool = false;
+       } else {
+          bool= true;
+       }
+       
+       Map map = new HashMap();
+       map.put("bool",bool);
+       
+       return map;
+       
+       
     }
   
    

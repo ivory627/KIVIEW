@@ -121,7 +121,7 @@ function viewMap(province,citytown){
 					var positions = [];
 					 $.each(res,function(idx, code){
 						 positions.push({
-							 content:'<div style="width: max-content;"><a href="searchdetail.do?kinder_no='+code.kinder_no+'" target="_blank">'+code.name+'</a></div>', 
+							 content:'<div style="width: max-content;"><a href="searchdetail.do?kinder_no='+code.kinder_no+'&page=1" target="_blank">'+code.name+'</a></div>', 
 						     latlng: new kakao.maps.LatLng(code.longitude, code.latitude)
 						 })
 				 	  });

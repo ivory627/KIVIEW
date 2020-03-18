@@ -172,9 +172,9 @@
               	     $("#tbody").append(
               	  		$("<tr>").append(
               	  			$("<td>").append(code.addr2),
-              	  			$("<td>").append($("<a href='searchdetail.do?kinder_no="+code.kinder_no+"'>").append(code.name)),
+              	  			$("<td>").append($("<a href='searchdetail.do?kinder_no="+code.kinder_no+"&page=1'>").append(code.name)),
               	  			$("<td>").append(code.type),
-              	  			$("<td>").append($("<button class='btn btn-primary px-3' onclick='location.href=\"searchdetail.do?kinder_no="+code.kinder_no+"\"'>평점보기</button>"))	
+              	  			$("<td>").append($("<button class='btn btn-primary px-3' onclick='location.href=\"searchdetail.do?kinder_no="+code.kinder_no+"&page=1\"'>평점보기</button>"))	
               	  		)
               	  	);	
               	  });    	            		
@@ -273,6 +273,7 @@
           				<div style="padding: 20px;width: max-content;">
           				<h4><b>지역</b></h4>
           				<form id="localForm" action="localsearch.do" method="post" class="appointment-form ftco-animate fadeInUp ftco-animated">
+	    				<input type = "hidden" name = "page" value = "${pageMaker.cri.page}"/>
 	    				<select id="sido" name="province" class="form-control-sm" style="overflow:scroll">
           					<option value="">시/도</option>
           					<c:forEach items="${sido}" var="sido">
@@ -346,9 +347,9 @@
 						   	 	<c:forEach items="${localvo }" var="vo">
 						   	 		<tr>
 						   	 			<td>${vo.addr2 }</td>
-						   	 			<td><a href="searchdetail.do?kinder_no=${vo.kinder_no }">${vo.name }</a></td>
+						   	 			<td><a href="searchdetail.do?kinder_no=${vo.kinder_no }&page=1">${vo.name }</a></td>
 						   	 			<td>${vo.type }</td>
-						   	 			<td><button class="btn btn-primary px-3" onclick="location.href='searchdetail.do?kinder_no=${vo.kinder_no}'">평점보기</button></td>
+						   	 			<td><button class="btn btn-primary px-3" onclick="location.href='searchdetail.do?kinder_no=${vo.kinder_no}&page=1'">평점보기</button></td>
 						   	 		</tr>
 						   	 	</c:forEach>
 						   	 </c:otherwise>						   
@@ -375,9 +376,9 @@
 						   	 	<c:forEach items="${namevo }" var="vo">
 						   	 		<tr>
 						   	 			<td>${vo.addr2 }</td>
-						   	 			<td><a href="searchdetail.do?kinder_no=${vo.kinder_no}">${vo.name }</a></td>
+						   	 			<td><a href="searchdetail.do?kinder_no=${vo.kinder_no}&page=1">${vo.name }</a></td>
 						   	 			<td>${vo.type }</td>
-						   	 			<td><button class="btn btn-primary px-3" onclick="location.href='searchdetail.do?kinder_no=${vo.kinder_no}'">평점보기</button></td>
+						   	 			<td><button class="btn btn-primary px-3" onclick="location.href='searchdetail.do?kinder_no=${vo.kinder_no}&page=1'">평점보기</button></td>
 						   	 		</tr>
 						   	 	</c:forEach>
 						   	 </c:otherwise>						   
