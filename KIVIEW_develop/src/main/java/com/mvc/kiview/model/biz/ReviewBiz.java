@@ -12,7 +12,7 @@ public interface ReviewBiz {
 	public int reviewInsert(ReviewVo vo); //게시글 쓰기
 	public int reviewUpdate(ReviewVo vo); //게시글 수정
 	public int reviewDelete(int review_no); //게시글 삭제
-	public List<ReviewVo> reviewSearch(Map map); //검색 
+	public List<ReviewVo> reviewSearch(Criteria cri); //검색 
 	public ReviewVo reviewSelect(int review_no);
 	public List<KinderVo> kinderSearch(String keyword); //유치원 검색(insert안)
 	public KinderVo kinderSearch2(String kinder_name);

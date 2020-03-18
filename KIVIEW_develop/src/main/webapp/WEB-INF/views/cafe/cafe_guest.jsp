@@ -196,7 +196,7 @@ function show(cafe_board_no){
 					if(value.writer=='${login.member_id}' || '${cafe_list[0].admin}' == '${login.member_id}'){
 							
 
-						var button=	"<span style='position:relative; color:#fda638; left:88%; cursor:pointer'onclick='reply_delete("+value.cafe_board_no+","+value.cafe_reply+")'>x</span>"
+						var button=	"<span style='position:absolute; color:#fda638; left:95%; cursor:pointer'onclick='reply_delete("+value.cafe_board_no+","+value.cafe_reply+")'>x</span>"
 
 					 
 					 }
@@ -267,7 +267,7 @@ function show(cafe_board_no){
 							 
 							if(value.writer=='${login.member_id}' || '${cafe_list[0].admin}' == '${login.member_id}'){
 	
-								var button=	"<span style='position:relative; color:#fda638; left:88%; cursor:pointer'onclick='reply_delete("+value.cafe_board_no+","+value.cafe_reply+")'>x</span>"
+								var button=	"<span style='position:absolute; color:#fda638; left:95%; cursor:pointer'onclick='reply_delete("+value.cafe_board_no+","+value.cafe_reply+")'>x</span>"
 						 
 							 }
 						 			 
@@ -308,7 +308,7 @@ function show(cafe_board_no){
  function changeDate(date){
 	    date = new Date(parseInt(date));
 	    year = date.getFullYear();
-	    month = date.getMonth();
+	    month = date.getMonth()+1;
 	    day = date.getDate();
 	    hour = date.getHours();
 	    minute = date.getMinutes();
@@ -493,7 +493,7 @@ function show(cafe_board_no){
 					                  <div style=" font-weight:bold; color:black">${reply.writer  }
 					                  
 					                  <c:if test='${cafe_list[0].admin eq login.member_id || guest.writer eq login.member_id}'>
-					                  <span style="position:relative; color:#fda638; left:88%; cursor:pointer" onclick="reply_delete(${reply.cafe_board_no},${reply.cafe_reply})">x</span>
+					                  <span style="position:absolute; color:#fda638; left:95%; cursor:pointer" onclick="reply_delete(${reply.cafe_board_no},${reply.cafe_reply})">x</span>
 					                  </c:if>
 					                  
 					                  </div>

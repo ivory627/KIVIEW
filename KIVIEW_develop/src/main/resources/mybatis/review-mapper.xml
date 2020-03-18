@@ -55,16 +55,37 @@
    WHERE NAME = #{kinder_name}
    </select>
    
-   <select id="reviewSearch" parameterType="Map" resultType="reviewVo">
-   SELECT *
-   FROM REVIEW
-   WHERE ${type} LIKE '%' || #{keyword} || '%'
-   ORDER BY REVIEW_NO DESC
-   
+   <select id="reviewSearch" parameterType="Criteria" resultType="reviewVo">
+	   SELECT *
+		FROM (
+		SELECT R.*, 
+		ROW_NUMBER() OVER(ORDER BY REVIEW_NO DESC) AS RNUM
+		FROM REVIEW R 
+		<include refid="typelist"/>
+		) REVIEW
+		WHERE 
+		RNUM BETWEEN #{rowStart} AND #{rowEnd} 
+		ORDER BY REVIEW_NO DESC
    </select>
+   
+   <sql id="typelist">
+		<if test = "keyword != null and keyword != ''">
+			<if test="type == 'kinder_name'.toString()">
+				WHERE KINDER_NAME LIKE '%' || #{keyword} || '%'
+			</if>
+			<if test="type == 'review_writer'.toString()">
+				WHERE REVIEW_WRITER LIKE '%' || #{keyword} || '%'
+			</if>
+			<if test="type == 'review_title'.toString()">
+				WHERE REVIEW_TITLE LIKE '%' || #{keyword} || '%'
+			</if>
+		</if>
+	</sql>
+   
    <!-- **승혜 리뷰 개수 카운트 매퍼 추가 -->
    <select id="reviewCount" resultType="int" parameterType="Criteria">
    		SELECT COUNT(*) FROM REVIEW
+   		<include refid="typelist"/> 
    </select>
      
   </mapper>

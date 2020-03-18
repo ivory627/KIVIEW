@@ -212,7 +212,7 @@ h3 a{
           <div class="row justify-content-center mb-5 pb-2">
 
           <div class="col-md-8 text-center heading-section heading-section-black ftco-animate">
-            <h2 class="mb-4"><span style = "color:black;">지금</span><span> KIVIEW </span>에서는<br>N개의 리뷰가 작성되고 있습니다.</h2>
+            <h2 class="mb-4"><span style = "color:black;">지금</span><span> KIVIEW </span>에서는<br>${reviewcnt }개의 리뷰가 작성되고 있습니다.</h2>
             <p>실시간 작성되고 있는 리뷰와 유치원 소식을 알려드립니다.</p>
           </div>
 

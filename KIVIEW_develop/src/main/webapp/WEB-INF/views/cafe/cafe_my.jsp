@@ -54,7 +54,7 @@ li a {
 <script type="text/javascript">
 	function test() {
 		var keyword = $('#cafesearch').val().trim();
-		location.href = "cafesearch.do?keyword=" + keyword;
+		location.href = "cafesearch.do?curpagenum=1&keyword=" + keyword;
 	}
 	
 	function member_out(member_no, cafe_member_no){
