@@ -119,10 +119,10 @@ public class CafeController {
 		PrintWriter out = response.getWriter();
 
 		if(res>0) {
-			out.print("<script> alert('카페를 탈퇴하였습니다.'); location.href='cafemy.do?member_no=" + member_no
+			out.print("<script> alert('카페를 탈퇴하였습니다.'); location.href='cafemy.do?curpagenum=1&member_no=" + member_no
 			+ "'</script>");
 		} else {
-			out.print("<script> alert('명령 실행 중 오류.'); location.href='cafemy.do?member_no=" + member_no
+			out.print("<script> alert('명령 실행 중 오류.'); location.href='cafemy.do?curpagenum=1&member_no=" + member_no
 					+ "'</script>");
 			}
 
