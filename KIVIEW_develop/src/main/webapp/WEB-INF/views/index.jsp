@@ -432,17 +432,13 @@ h3 a{
                               <div class="text bg-white p-4">
                                  <!-- 카페명 -->
                                  <h3 class="heading">
-                                    <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${Ulist.title }</a>
+                                    <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${best.title }</a>
                                  </h3>
    
                                  <!-- 카페소개 -->
                                  <p>${best.intro }</p>
                                  <div class="d-flex align-items-center mt-4">
-                                    <p class="mb-0">
-                                       <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }"
-                                          class="btn btn-secondary">들어가기 <span
-                                          class="ion-ios-arrow-round-forward"></span></a>
-                                    </p>
+                                    
                                     <p class="ml-auto mb-0">
                                        <!-- 카페장 -->
                                        <a href="#" class="mr-2">${best.admin }</a>

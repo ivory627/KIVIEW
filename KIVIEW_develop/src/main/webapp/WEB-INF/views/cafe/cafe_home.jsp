@@ -122,7 +122,7 @@ function test(){
 
 		                     <div class="text">
 		                        <h3 class="heading">
-		                           <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${best.intro }</a>
+		                           <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${best.title }</a>
 		                        </h3>
 		                        <div class="meta">
 
@@ -221,7 +221,7 @@ function test(){
                               </h3>
 
                               <!-- 카페소개 -->
-                              <p>${list.intro }</p>
+                              <p>${Ulist.intro }</p>
                               <div class="d-flex align-items-center mt-4">
                                  
                                  <p class="ml-auto mb-0">
