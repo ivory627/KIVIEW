@@ -196,23 +196,23 @@ box-sizing: border-box;
 									      description: '#키뷰 #${noticedetail.cat_detail}',
 									      imageUrl: 'https://ifh.cc/g/MReqA.jpg',
 									      link: {
-									        mobileWebUrl: 'http://www.kiview.net/KIVIEW_develop/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
-									        webUrl: 'http://www.kiview.net/KIVIEW_develop/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
+									        mobileWebUrl: 'http://www.kiview.net/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
+									        webUrl: 'http://www.kiview.net/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
 									      }
 									    },
 									    buttons: [
 									      {
 									        title: '웹으로 보기',
 									        link: {
-									          mobileWebUrl: 'http://www.kiview.net/KIVIEW_develop/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
-									          webUrl: 'http://www.kiview.net/KIVIEW_develop/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
+									          mobileWebUrl: 'http://www.kiview.net/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
+									          webUrl: 'http://www.kiview.net/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
 									        }
 									      },
 									      {
 									        title: '앱으로 보기',
 									        link: {
-									          mobileWebUrl: 'http://www.kiview.net/KIVIEW_develop/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
-									          webUrl: 'http://www.kiview.net/KIVIEW_develop/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
+									          mobileWebUrl: 'http://www.kiview.net/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}',
+									          webUrl: 'http://www.kiview.net/kiview/kiviewdetail.do?notice_no=${noticedetail.notice_no}&page=${param.page}'
 									        }
 									      }
 									    ]
