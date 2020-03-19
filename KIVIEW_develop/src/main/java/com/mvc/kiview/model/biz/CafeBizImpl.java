@@ -422,9 +422,9 @@ public class CafeBizImpl implements CafeBiz {
 	      CafePageVo page = new CafePageVo();
 	        page.setCurpagenum(curpagenum);
 	        page.setTotallistcount(size);
-	        page.setPagepercount(10);
+	        page.setPagepercount(9);
 	        page.setDisplaypagenum(10);
-	        page.setTotalpagecount(10, page.getTotallistcount());
+	        page.setTotalpagecount(9, page.getTotallistcount());
 	        page.setStartpage(page.getCurpagenum(), page.getDisplaypagenum());
 	        page.setEndpage(page.getStartpage(),page.getDisplaypagenum(), page.getTotalpagecount());
 	        page.setRowStart(page.getRowStart());
