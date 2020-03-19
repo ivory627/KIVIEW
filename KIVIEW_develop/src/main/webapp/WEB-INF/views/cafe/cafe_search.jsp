@@ -20,7 +20,7 @@
 <%@ include file="../head.jsp"%>
 <style type="text/css">
 a {
-   text-decoration: none;
+	color:black; 
 }
 
 
