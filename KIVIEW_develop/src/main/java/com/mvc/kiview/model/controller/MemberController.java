@@ -299,7 +299,7 @@ public class MemberController {
       vo = biz.selectEmailId(snsEmail);
       
       //네이버로그인 가입자라면 자동 로그인
-      if( vo != null ) {
+      if( vo != null && vo.getMember_name().equals("네이버로그인가입자") ) {
         session.setAttribute("login", vo);
 
         //세션 유지 시간 1시간으로 설정
@@ -331,14 +331,20 @@ public class MemberController {
  
           System.out.println("snsVo: " + snsVo);
           
-          biz.signup(snsVo);   //자동 회원가입
-          
-         session.setAttribute("login", snsVo);
+          int signupRes = biz.signup(snsVo);   //자동 회원가입
+          if(signupRes>0) {
+             System.out.println("회원가입 후 snsVo: " + snsVo);
+             session.setAttribute("login", snsVo);
 
-         //세션 유지 시간 1시간으로 설정
-         session.setMaxInactiveInterval(60*60) ;
-          
-         return "member/kiview_snsSignupRes";
+             //세션 유지 시간 1시간으로 설정
+             session.setMaxInactiveInterval(60*60) ;
+
+             return "member/kiview_snsSignupRes";
+          } else {
+             System.out.println("회원가입 실패");
+             return "member/kiview_login";
+          }
+
       } 
       
 
@@ -360,7 +366,7 @@ public class MemberController {
       vo = biz.selectEmailId(snsEmail);
       
       //카카오로그인 가입자라면 자동로그인
-      if( vo != null ) {
+      if( vo != null && vo.getMember_name().equals("카카오로그인가입자") ) {
 
          session.setAttribute("login", vo);
 
@@ -392,17 +398,20 @@ public class MemberController {
          snsVo.setMember_phone("전화번호를 입력해주세요");
          snsVo.setMember_email(snsEmail);
 
-         System.out.println("snsVo: " + snsVo);
+         int signupRes = biz.signup(snsVo);   //자동 회원가입
+         if(signupRes>0) {
+            System.out.println("회원가입 후 snsVo: " + snsVo);
+            session.setAttribute("login", snsVo);
 
-         biz.signup(snsVo);   //자동 회원가입
-         System.out.println("회원가입 후 snsVo: " + snsVo);
+            //세션 유지 시간 1시간으로 설정
+            session.setMaxInactiveInterval(60*60) ;
 
-         session.setAttribute("login", snsVo);
+            return "member/kiview_snsSignupRes";
+         } else {
+            System.out.println("회원가입 실패");
+            return "member/kiview_login";
+         }
 
-         //세션 유지 시간 1시간으로 설정
-         session.setMaxInactiveInterval(60*60) ;
-
-         return "member/kiview_snsSignupRes";
 
       } 
 
