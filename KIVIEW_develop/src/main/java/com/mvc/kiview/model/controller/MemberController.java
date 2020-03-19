@@ -2,6 +2,7 @@ package com.mvc.kiview.model.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -504,7 +505,7 @@ public class MemberController {
     @RequestMapping("chkemail.do")
     @ResponseBody
     public Map chkEmail(String email) {
-       MemberVo member = biz.chkEmail(email);
+    	List<MemberVo> member = biz.chkEmail(email);
        boolean bool = true;
        if(member==null) {
           bool = false;
