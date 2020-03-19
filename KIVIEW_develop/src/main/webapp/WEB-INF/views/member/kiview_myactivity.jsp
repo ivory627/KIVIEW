@@ -87,7 +87,7 @@ a:hover{
 				<div class="col-md-9 ftco-animate text-center">
 					<h1 class="mb-2 bread">내 활동</h1>
 					<p class="breadcrumbs">
-						<span class="mr-2"><a href="index.jsp">홈 
+						<span class="mr-2"><a href="index.do">홈 
 						<i class="ion-ios-arrow-forward"></i></a></span> 
 						<span>마이페이지 <i class="ion-ios-arrow-forward"></i></span>
 						<span>내 활동 <i class="ion-ios-arrow-forward"></i></span>

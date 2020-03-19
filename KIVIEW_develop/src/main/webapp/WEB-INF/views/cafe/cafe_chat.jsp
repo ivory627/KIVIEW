@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>KIVIEW &mdash; 채팅방</title>
 <style type="text/css">
 
 .chat_member{
@@ -164,6 +164,7 @@ $(function(){
 	var now = new Date();
 	
 	var socket = io("18.223.58.91:9000"); //페이지 로드시 해당 포트로 접속
+	//var socket = io("localhost:9000"); //페이지 로드시 해당 포트로 접속
 	
 	socket.on('connection', function(data){
 		if(data.type == 'connected'){
@@ -184,10 +185,10 @@ $(function(){
       
       $("#usercount").empty();
       $("#userlist").empty();
-      $("#usercount").append("현재 채팅인원   : "+data.updateusercount+" 명");      
+      $("#usercount").append("현재 채팅인원   : "+data.chatlist.length+" 명");      
       
-      for(var i=0; i< data.updateuserlist.length ;i++){
-         $("#userlist").append("<li>"+data.updateuserlist[i]+"</li>");
+      for(var i=0; i< data.chatlist.length ;i++){
+         $("#userlist").append("<li>"+data.chatlist[i]+"</li>");
       }         
    })
    
@@ -329,7 +330,7 @@ $(function(){
 	function changeDate(date){
 		
 	    year = date.getFullYear();
-	    month = date.getMonth();
+	    month = date.getMonth()+1;
 	    day = date.getDate();
 	    hour = date.getHours();
 	    minute = date.getMinutes();
@@ -362,7 +363,7 @@ $(function(){
 	function changeFullDate(date){
 	    date = new Date(parseInt(date));
 	    year = date.getFullYear();
-	    month = date.getMonth();
+	    month = date.getMonth()+1;
 	    day = date.getDate();
 	    hour = date.getHours();
 	    minute = date.getMinutes();

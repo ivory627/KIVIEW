@@ -428,6 +428,12 @@ public class CafeBizImpl implements CafeBiz {
 		return dao.cafe_chat_insert(vo);
 	}
 
+	@Override
+	public List<CafeVo> cafe_my(Map map) {
+		
+		return dao.cafe_my(map);
+	}
+
 	
 	
 

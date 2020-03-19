@@ -1,4 +1,4 @@
-   $(function() {
+$(function() {
       $("#myBtn").on("click", function() {
          //modal.style.display = "block";
          $("#myModal").show();
@@ -8,7 +8,6 @@
       /* $("#myBtn2").on("click", function() {
          //modal.style.display = "block";
          $("#myModal2").show();
-
       }) */
 
       $("#modal-close").on("click", function() {
@@ -27,8 +26,9 @@
       
       $("#kinder_search").on("keyup", function(){
          $("#myModal").find($("input[name=kinder_addr]")).val("");
+         
          if($(this).val().length>1){
-            var search = []
+        	 var search = []
             $.ajax({
                type:"post",
                url:"searchkinder.do",

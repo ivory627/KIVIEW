@@ -70,6 +70,9 @@ function signupChk(){
    $("#signupPhoneMsg").hide().html('');
    $("#signupEmailMsg").hide().html('');
    
+   
+   var chk = email_chk();
+   
    //이름 null 확인
    if(member_name==null || member_name==""){
       $("#signupNameMsg").show().css('color', 'red').html("&nbsp;&nbsp;이름을 작성해주세요");
@@ -110,6 +113,12 @@ function signupChk(){
        return false;
     } 
    //이메일 null 확인
+   else if(member_addr==null || member_addr==""){
+      $("#signupAddrMsg").show().css('color', 'red').html("&nbsp;&nbsp;주소을 작성해주세요");
+      
+      return false;
+   }
+   //이메일 null 확인
    else if(member_email==null || member_email==""){
       $("#signupEmailMsg").show().css('color', 'red').html("&nbsp;&nbsp;이메일을 작성해주세요");
       
@@ -127,7 +136,15 @@ function signupChk(){
       $('html').animate({scrollTop : signupNameMsg.top}, 200);
       
       return false;
-   } 
+   }
+   
+   //이메일 중복체크
+   else if(chk==false){
+	   
+	   $("#signupEmailMsg").show().css('color', 'red').html("&nbsp;&nbsp;사용할 수 없는 이메일입니다");
+	   return false;
+   }
+   
    //정상 작성시
    else {    
       //도로명주소+상세주소
@@ -147,6 +164,34 @@ function idChk_chk(){
    $('#idChkChk').val("idUnchecked");
    $("#signupIdMsg").show().css('color', 'red').html("&nbsp;&nbsp;중복확인을 해주세요");
    
+}
+
+//이메일 중복확인
+function email_chk(){
+	var email = $("#member_email").val();
+	var submit = false;
+	$.ajax({
+		type:"post",
+		url:"chkemail.do",
+		async : false,
+		data: {"email":email},
+		dataType:"json",
+		
+		success:function(msg){
+			if(msg.bool==false){
+				
+				submit = true;
+			} else {
+				submit = false;				
+			}
+			
+		}, error:function(){
+			alert("에러")
+		}
+	})
+	
+	
+	return submit;
 }
 
 //비밀번호 확인

@@ -105,7 +105,7 @@ $(function(){
 </div>
 <div id="frogue-container" class="position-right-bottom"
       data-chatbot="1d82e168-7048-41c1-b3e1-3ce0bc07c366"
-      data-user="${login.member_id}" data-init-key="value" style = "right:85px; bottom:90px"
+      data-user="사용자ID" data-init-key="value" style = "right:85px; bottom:90px"
       ></div>
 <script>
 (function(d, s, id){
@@ -125,21 +125,24 @@ $(function(){
          class="row no-gutters d-flex align-items-start align-items-center px-3 px-md-0">
          <div class="col-lg-12 d-block">
             <div class="row d-flex">
-               <div class="col-md-5 pr-4 d-flex topper align-items-center">
+               <div class="col-md-5 pr-4 d-flex topper align-items-center"
+               style="position:relative; left: 3%">
                   <div
                      class="icon bg-fifth mr-2 d-flex justify-content-center align-items-center">
                      <span class="icon-map"></span>
                   </div>
                   <span class="text">서울 강남구 테헤란로14길 6 남도빌딩</span>
                </div>
-               <div class="col-md pr-4 d-flex topper align-items-center">
+               <div class="col-md pr-4 d-flex topper align-items-center"
+               style="position:relative; left: 1%">
                   <div
                      class="icon bg-secondary mr-2 d-flex justify-content-center align-items-center">
                      <span class="icon-paper-plane"></span>
                   </div>
-                  <span class="text">kiview@kiview.com</span>
+                  <span class="text">(실제 운영되지 않는 사이트입니다.)</span>
                </div>
-               <div class="col-md pr-4 d-flex topper align-items-center">
+               <div class="col-md pr-4 d-flex topper align-items-center"
+               style="position:relative; left: 5%">
                   <div
                      class="icon bg-tertiary mr-2 d-flex justify-content-center align-items-center">
                      <span class="icon-phone2"></span>
@@ -326,13 +329,22 @@ $(function(){
          <ul class="navbar-nav" style="margin-left: 850px">
             <!-- <ul class="navbar-nav ml-auto" >   -->
 
+				<c:choose>
+					<c:when test="${empty login}">
+						<li class="nav-item">
+						<a href="login.do" class="nav-link">내 정보</a></li>
+						<li class="nav-item">
+						<a href="login.do" class="nav-link">내 활동</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="nav-item">
+						<a href=" kiviewmypage.do" class="nav-link">내 정보</a></li>
+						<li class="nav-item">
+						<a href="kiviewmyactivity.do?member_id=${login.member_id }" class="nav-link">내 활동</a></li>
+					</c:otherwise>
+				</c:choose>
 
-            <li class="nav-item"><a href=" kiviewmypage.do"
-               class="nav-link">내 정보</a></li>
-            <li class="nav-item"><a href="kiviewmyactivity.do?member_id=${login.member_id }"
-               class="nav-link">내 활동</a></li>
-            
-         </ul>
+			</ul>
       </div>
    </div>
 </nav>

@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
 
-<title>KIVIEW &mdash; Cafe Home</title>
+<title>KIVIEW &mdash; 카페 관리</title>
 
 <%@ include file="../head.jsp"%>
 
@@ -54,7 +54,7 @@ li a {
 <script type="text/javascript">
 	function test() {
 		var keyword = $('#cafesearch').val().trim();
-		location.href = "cafesearch.do?keyword=" + keyword;
+		location.href = "cafesearch.do?curpagenum=1&keyword=" + keyword;
 	}
 	
 	function member_out(member_no, cafe_member_no){
@@ -142,7 +142,7 @@ li a {
 										<div style="width: 25%; margin-right: 30px;">
 											<a href="cafedetail.do?cafe_no=${cafe.cafe_no }&member_no=${login.member_no}"> <span><img
 													style="width: 80%; height: 100%"
-													src='http://localhost:8787/img/${cafe.thumb }' /></span></a>
+													src='resources/upload/${cafe.thumb }' /></span></a>
 
 
 

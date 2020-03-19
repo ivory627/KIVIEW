@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>KIVIEW &mdash; Blog</title>
+    <title>KIVIEW &mdash; 카페</title>
     
     <%@ include file = "../head.jsp" %>
     
@@ -82,7 +82,7 @@
                
                <br>               
                <label>제 목</label><br>
-                  <input type="text" id="title" placeholder="제목을 입력하세요." name="title" size="70" minlength="4" maxlength="30" required>
+                  <input type="text" id="title" placeholder="제목을 입력하세요." name="title" size="70" minlength="4" maxlength="20" required>
                   <br><br>
                <label>내 용</label><br>              
                   

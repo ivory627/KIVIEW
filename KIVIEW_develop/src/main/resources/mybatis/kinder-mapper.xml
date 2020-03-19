@@ -194,7 +194,7 @@
       <![CDATA[ SELECT * FROM(
        SELECT K.*,(SELECT COUNT(*) FROM REVIEW WHERE KINDER_NO = K.KINDER_NO) AS RC
        FROM KINDER K ORDER BY RC DESC)
-       KINDER WHERE ROWNUM <= 10 ]]>
+       KINDER WHERE ROWNUM <= 4 ]]>
    </select>
 
 </mapper>

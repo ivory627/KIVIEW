@@ -5,6 +5,7 @@
 <% response.setContentType("text/html; charset=UTF-8");%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -212,7 +213,7 @@ h3 a{
           <div class="row justify-content-center mb-5 pb-2">
 
           <div class="col-md-8 text-center heading-section heading-section-black ftco-animate">
-            <h2 class="mb-4"><span style = "color:black;">지금</span><span> KIVIEW </span>에서는<br>N개의 리뷰가 작성되고 있습니다.</h2>
+            <h2 class="mb-4"><span style = "color:black;">지금</span><span> KIVIEW </span>에서는<br>${reviewcnt }개의 리뷰가 작성되고 있습니다.</h2>
             <p>실시간 작성되고 있는 리뷰와 유치원 소식을 알려드립니다.</p>
           </div>
 
@@ -303,7 +304,7 @@ h3 a{
 			                     <div class="testimony-wrap d-flex">
 			                     
 			                        <div class="user-img mr-4"
-			                           style="background-image: url(resources/images/teacher-1.jpg)"></div>
+			                           style="background-image: url(resources/images/main/review_img01.png)"></div>
 			                        <div class="text ml-2 bg-light">
 			                           <span
 			                              class="quote d-flex align-items-center justify-content-center">
@@ -311,7 +312,7 @@ h3 a{
 			                           </span>  
 			                           <label style="font-weight:bold">${review.review_title }</label>
 			                           <p>${review.review_content }</p> 
-			                           <p class="name">${review.review_writer }</p>
+			                           <p class="name">${fn:substring(review.review_writer,0,3)} <c:forEach begin="0" end="5">*</c:forEach></p>
 			                           <span class="position">${review.kinder_name }</span><br>
 										
 										<!-- 좋아요 -->                  

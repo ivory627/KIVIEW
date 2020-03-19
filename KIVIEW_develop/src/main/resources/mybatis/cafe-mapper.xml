@@ -44,10 +44,14 @@
         WHERE ADMIN =#{member_id }
      </select>
    
-   	<select id="cafe_my" parameterType="String" resultType="CafeVo">
+   	<select id="cafe_my" parameterType="Map" resultType="CafeVo">
         SELECT *
-        FROM CAFE
-        WHERE ADMIN LIKE #{admin}
+        FROM (SELECT CF.*,  ROW_NUMBER() OVER (ORDER BY CAFE_NO) AS RNUM 
+        FROM CAFE CF WHERE CAFE_NO IN (SELECT CAFE_NO FROM CAFE_MEMBER WHERE MEMBER_NO = #{member_no} AND (SIGNYN = 'Y' OR SIGNYN='A') ) ) CAFE
+        WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+        
+       
+        
      
      </select>
      
@@ -94,13 +98,12 @@
      </select>
      
      <select id="best_cafe" resultType="CafeVo">
-     	SELECT *
-		FROM(
+     	SELECT * 
+		FROM (      
 		SELECT C.*,
-      	(SELECT COUNT(*) FROM CAFE_MEMBER WHERE CAFE_NO = C.CAFE_NO) AS MEMBERCOUNT,
-      	ROW_NUMBER() OVER(ORDER BY 'MEMBERCOUNT' DESC) AS RNUM
-      	FROM CAFE C)
-		CAFE WHERE RNUM BETWEEN 1 AND 3
+     	(SELECT COUNT(*) FROM CAFE_MEMBER WHERE CAFE_NO = C.CAFE_NO) AS G         
+		FROM CAFE C ORDER BY G DESC)
+		CAFE WHERE ROWNUM BETWEEN 1 AND 3
      </select>
 
      

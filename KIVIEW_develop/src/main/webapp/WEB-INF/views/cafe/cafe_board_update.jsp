@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>KIVIEW &mdash; Blog</title>
+    <title>KIVIEW &mdash; 카페</title>
     
     <%@ include file = "../head.jsp" %>
     
@@ -79,7 +79,7 @@
                   &nbsp;&nbsp;&nbsp; || 조회수 : ${cafeboardvo.hit }
                   <br>
                <label>제 목</label><br>
-                  <input type="text" id="title"value="${cafeboardvo.title }" name="title" size="70" required="required">
+                  <input type="text" id="title"value="${cafeboardvo.title }" name="title" size="70" required="required" minlength="4" maxlength="20">
                   <br><br>
                <label>내 용</label><br>
                   <textarea name="content" id="smartEditor" rows="10" cols="100" >${cafeboardvo.content }</textarea>    

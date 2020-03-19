@@ -13,10 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.social.google.connect.GoogleConnectionFactory;
-import org.springframework.social.oauth2.GrantType;
-import org.springframework.social.oauth2.OAuth2Operations;
-import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +41,8 @@ public class MemberController {
    @Autowired
    BCryptPasswordEncoder passwordEncoder;
    
+   private String arrLast = null;
+   
    
    //@@ 로그인 @@ /////////////////////////////////////////////////////////////////////////
    //로그인 ajax
@@ -52,11 +50,14 @@ public class MemberController {
    @ResponseBody
    public Map<String, String> ajaxLogin(HttpSession session, @RequestBody MemberVo vo) {
       logger.info("ajaxLogin");
+      System.out.println(vo);
       MemberVo res = biz.selectOne(vo);
       
       String check = null;
       String vopw = vo.getMember_pwd();   //사용자가 입력한 비밀번호
       String respw = res.getMember_pwd();   //db에서 가져온 비밀번호 (암호화된 번호)
+      
+      Map<String, String> map = new HashMap<String, String>();
       
       if(vo.getMember_id().contains("@")) {
          check = "2";
@@ -66,11 +67,19 @@ public class MemberController {
 
          //세션 유지 시간 1시간으로 설정
          session.setMaxInactiveInterval(60*60) ;
+         
+         //이전 페이지로 이동
+         if( arrLast.contains("review") ) {
+            map.put("arrLast", arrLast);
+         } else if( arrLast.contains("cafe") ){
+            map.put("arrLast", "cafehome.do?member_no=" + res.getMember_no() + "&member_id=" + res.getMember_id() );
+         } else {
+            map.put("arrLast", null);
+         }
 
          check = "1";
       }
          
-      Map<String, String> map = new HashMap<String, String>();
       map.put("check", check);
 
       return map;
@@ -83,7 +92,7 @@ public class MemberController {
       logger.info("idSearch");
       MemberVo res = biz.idSearch(vo);
 
-      System.out.println(res.getMember_name() + "/" + res.getMember_email() + "/" + res.getMember_id()); // 수정
+      System.out.println(res.getMember_name() + "/" + res.getMember_email() + "/" + res.getMember_id());
 
       Map<String, MemberVo> map = new HashMap<String, MemberVo>();
       map.put("idSearch", res);
@@ -96,7 +105,7 @@ public class MemberController {
    public String kiview_logout(HttpSession session) {
       logger.info("loginout");
       session.invalidate(); 
-      return "index";
+      return "redirect:index.do";
    }
 
    //@@ 회원가입 @@ /////////////////////////////////////////////////////////////////////////
@@ -105,16 +114,13 @@ public class MemberController {
    public String kiview_signupOption(Model model, HttpSession session) throws Exception {
       logger.info("signupOption");
 
-      /* 구글,네이버,카카오 code 발행 */
-      //OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-      //String googleAuthurl = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+      /* 네이버,카카오 code 발행 */
       String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
       String kakaoAuthUrl = kakaoApi.getAuthorizationUrl(session);
 
       /* 생성한 인증 URL을 View로 전달 */
       model.addAttribute("naver_url", naverAuthUrl);
       model.addAttribute("kakao_url", kakaoAuthUrl);
-      //model.addAttribute("google_url", googleAuthurl);
 
       System.out.println("model :" + model);
 
@@ -205,7 +211,7 @@ public class MemberController {
       //세션에 수정된 로그인정보 담기
       MemberVo res2 = biz.selectOne(vo);
       
-      System.out.println("수정된 멤버객체: "+res2);   //삭제
+      System.out.println("수정된 멤버객체: "+res2);
        
       //session.invalidate();
       session.setAttribute("login", res2);
@@ -228,14 +234,6 @@ public class MemberController {
    }
    
    //소셜 로그인
-   /*
-   //GoogleLogin
-   @Autowired
-   private GoogleConnectionFactory googleConnectionFactory;
-   @Autowired
-   private OAuth2Parameters googleOAuth2Parameters;
-   */
-
    /* NaverLoginBO */
    private NaverLoginBO naverLoginBO;
    private String apiResult = null;
@@ -253,26 +251,33 @@ public class MemberController {
    }
 
    @RequestMapping("/login.do")
-   public String initLogin(Model model, HttpSession session) throws Exception {
+   public String initLogin(Model model, HttpSession session, HttpServletRequest request) throws Exception {
       logger.info("login");
-      /* 구글,네이버,카카오 code 발행 */
-      //OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-      //String googleAuthurl = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+      /* 네이버,카카오 code 발행 */
       String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
       String kakaoAuthUrl = kakaoApi.getAuthorizationUrl(session);
 
       /* 생성한 인증 URL을 View로 전달 */
       model.addAttribute("naver_url", naverAuthUrl);
       model.addAttribute("kakao_url", kakaoAuthUrl);
-      //model.addAttribute("google_url", googleAuthurl);
 
       System.out.println("model :" + model);
-
+      
+      //이전 페이지 주소 저장
+      String referer = request.getHeader("Referer");
+      if(referer!=null) {
+         request.getSession().setAttribute("redirectURI", referer);
+         System.out.println("이전페이지 주소: "+referer);
+         String[] arr = referer.split("/");
+         arrLast = arr[arr.length-1];   //필드에 선언해둔 String 변수에 담음
+         System.out.println("마지막 인텍스: " + arrLast);
+      }
+      
       /* 생성한 인증 URL을 Model에 담아서 전달 */
       return "member/kiview_login";
    }
 
-   // 네이버 로그인 성공시 callback호출 메소드 **보충 필요
+   // 네이버 로그인 성공시 callback호출 메소드 
    @RequestMapping(value = "/callback.do")
    public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, MemberVo vo)
          throws IOException {
@@ -282,11 +287,10 @@ public class MemberController {
       oauthToken = naverLoginBO.getAccessToken(session, code, state);
       // 로그인 사용자 정보를 읽어온다.
       apiResult = naverLoginBO.getUserProfile(oauthToken);
-      //System.out.println(apiResult.toString());
       model.addAttribute("result", apiResult);
       System.out.println("result: " + apiResult);
       
-      //
+      //이메일 가져오기
       JsonParser parser = new JsonParser();
       JsonElement element = parser.parse(apiResult);
       JsonObject response = element.getAsJsonObject().get("response").getAsJsonObject();
@@ -295,16 +299,26 @@ public class MemberController {
       
       //이메일아이디 중복확인
       vo = biz.selectEmailId(snsEmail);
-      System.out.println("vo: " + vo);
-      if(vo != null) {
-         session.setAttribute("login", vo);
+      
+      //네이버로그인 가입자라면 자동 로그인
+      if( vo != null && vo.getMember_name().equals("네이버로그인가입자") ) {
+        session.setAttribute("login", vo);
 
-         //세션 유지 시간 1시간으로 설정
-         session.setMaxInactiveInterval(60*60) ;
-          
-         return "member/kiview_snsLoginRes";
-      }else {
-         String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
+        //세션 유지 시간 1시간으로 설정
+        session.setMaxInactiveInterval(60*60) ;
+
+        if( arrLast.contains("review") ) {
+           model.addAttribute("arrLast", arrLast);
+
+        } else if( arrLast.contains("cafe") ){
+           model.addAttribute("arrLast", "cafehome.do?");
+        } 
+
+        return "member/kiview_snsLoginRes";
+      } 
+      //네이버로그인 미가입자라면 자동 회원가입
+      else {
+          String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
           tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
           String PtmpPwd = null;
           PtmpPwd = passwordEncoder.encode(tmpPwd);   //임시비밀번호 암호화
@@ -312,38 +326,31 @@ public class MemberController {
           MemberVo snsVo = new MemberVo();
           snsVo.setMember_id(snsEmail);
           snsVo.setMember_pwd(PtmpPwd);
-          snsVo.setMember_name("소셜로그인가입자");
+          snsVo.setMember_name("네이버로그인가입자");
           snsVo.setMember_addr("주소를 입력해주세요");
           snsVo.setMember_phone("전화번호를 입력해주세요");
           snsVo.setMember_email(snsEmail);
  
           System.out.println("snsVo: " + snsVo);
           
-          biz.signup(snsVo);   //자동 회원가입
-          System.out.println("회원가입 후 snsVo: " + snsVo);
-          
-         session.setAttribute("login", snsVo);
+          int signupRes = biz.signup(snsVo);   //자동 회원가입
+          if(signupRes>0) {
+             System.out.println("회원가입 후 snsVo: " + snsVo);
+             session.setAttribute("login", snsVo);
 
-         //세션 유지 시간 1시간으로 설정
-         session.setMaxInactiveInterval(60*60) ;
-          
-         return "member/kiview_snsSignupRes";
-      }
+             //세션 유지 시간 1시간으로 설정
+             session.setMaxInactiveInterval(60*60) ;
+
+             return "member/kiview_snsSignupRes";
+          } else {
+             System.out.println("회원가입 실패");
+             return "member/kiview_login";
+          }
+
+      } 
       
 
    }
-   
-   /*
-   //구글 로그인 성공시 callback 호출 **보충 필요
-   @RequestMapping("/callback2.do")
-   public String callback2(HttpServletRequest request) {
-
-      System.out.println("구글 callback");
-
-      return "index";
-
-   }
-   */
 
    //카카오 로그인 성공시 callback 호출
    @RequestMapping("/callback3.do")
@@ -359,41 +366,56 @@ public class MemberController {
       String snsEmail = (String) userInfo.get("email");
       
       vo = biz.selectEmailId(snsEmail);
-      System.out.println(vo);
-      if(vo != null) {
-         session.setAttribute("login", vo);
+      
+      //카카오로그인 가입자라면 자동로그인
+      if( vo != null && vo.getMember_name().equals("카카오로그인가입자") ) {
 
-          //세션 유지 시간 1시간으로 설정
-          session.setMaxInactiveInterval(60*60) ;
-          
-         return "member/kiview_snsLoginRes";
-      }else {
-         String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
-          tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
-          String PtmpPwd = null;
-          PtmpPwd = passwordEncoder.encode(tmpPwd);   //임시비밀번호 암호화
-         
-          MemberVo snsVo = new MemberVo();
-          snsVo.setMember_id(snsEmail);
-          snsVo.setMember_pwd(PtmpPwd);
-          snsVo.setMember_name("이름을 입력해주세요");
-          snsVo.setMember_addr("주소를 입력해주세요");
-          snsVo.setMember_phone("전화번호를 입력해주세요");
-          snsVo.setMember_email(snsEmail);
- 
-          System.out.println("snsVo: " + snsVo);
-          
-          biz.signup(snsVo);   //자동 회원가입
-          System.out.println("회원가입 후 snsVo: " + snsVo);
-          
-         session.setAttribute("login", snsVo);
+         session.setAttribute("login", vo);
 
          //세션 유지 시간 1시간으로 설정
          session.setMaxInactiveInterval(60*60) ;
-          
-         return "member/kiview_snsSignupRes";
-      }
 
+         if( arrLast.contains("review") ) {
+            model.addAttribute("arrLast", arrLast);
+
+         } else if( arrLast.contains("cafe") ){
+            model.addAttribute("arrLast", "cafehome.do?");
+         } 
+
+         return "member/kiview_snsLoginRes";
+
+      } 
+      //카카오로그인 미가입자라면 자동 회원가입
+      else {
+         String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
+         tmpPwd = tmpPwd.substring(0, 20); //임시비밀번호를 20자리까지 자름
+         String PtmpPwd = null;
+         PtmpPwd = passwordEncoder.encode(tmpPwd);   //임시비밀번호 암호화
+
+         MemberVo snsVo = new MemberVo();
+         snsVo.setMember_id(snsEmail);
+         snsVo.setMember_pwd(PtmpPwd);
+         snsVo.setMember_name("카카오로그인가입자");
+         snsVo.setMember_addr("주소를 입력해주세요");
+         snsVo.setMember_phone("전화번호를 입력해주세요");
+         snsVo.setMember_email(snsEmail);
+
+         int signupRes = biz.signup(snsVo);   //자동 회원가입
+         if(signupRes>0) {
+            System.out.println("회원가입 후 snsVo: " + snsVo);
+            session.setAttribute("login", snsVo);
+
+            //세션 유지 시간 1시간으로 설정
+            session.setMaxInactiveInterval(60*60) ;
+
+            return "member/kiview_snsSignupRes";
+         } else {
+            System.out.println("회원가입 실패");
+            return "member/kiview_login";
+         }
+
+
+      } 
 
    }
    
@@ -430,7 +452,6 @@ public class MemberController {
        vo.setMember_pwd(passwordEncoder.encode(tmpPwd));   //임시비밀번호 암호화
        
        System.out.println("암호화 전 임시비밀번호: "+ tmpPwd);
-       //System.out.println("암호화 후 임시비밀번호: "+ vo.getMember_pwd());
        System.out.println("vo: " + vo);
        
        int res = biz.tmpPwd(vo);   //임시비밀번호  update
@@ -438,11 +459,11 @@ public class MemberController {
        // Mail Server 설정
       String charSet = "utf-8";
       String hostSMTP = "smtp.naver.com";
-      String hostSMTPid = "pdy2324";
-      String hostSMTPpwd = "Ehdud21170!!";
+      String hostSMTPid = "blue920708";
+      String hostSMTPpwd = "rsef8426$$";
 
       // 보내는 사람 EMail, 제목, 내용
-      String fromEmail = "pdy2324@naver.com";
+      String fromEmail = "blue920708@naver.com";
       String fromName = "Kiview";
       String subject = "kiview에서 임시비밀번호가 발급되었습니다";
       String msg = "";
@@ -478,7 +499,26 @@ public class MemberController {
        return res;
        
    }
-
+    
+    
+    @RequestMapping("chkemail.do")
+    @ResponseBody
+    public Map chkEmail(String email) {
+       MemberVo member = biz.chkEmail(email);
+       boolean bool = true;
+       if(member==null) {
+          bool = false;
+       } else {
+          bool= true;
+       }
+       
+       Map map = new HashMap();
+       map.put("bool",bool);
+       
+       return map;
+       
+       
+    }
   
    
    

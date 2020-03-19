@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>KIVIEW &mdash; Blog</title>
+    <title>KIVIEW &mdash; 카페</title>
     
     <%@ include file = "../head.jsp" %>
 
@@ -551,7 +551,7 @@ function replyupdatex(cafe_reply){
 function changeDate(date){
     date = new Date(parseInt(date));
     year = date.getFullYear();
-    month = date.getMonth();
+    month = date.getMonth()+1;
     day = date.getDate();
     hour = date.getHours();
     minute = date.getMinutes();

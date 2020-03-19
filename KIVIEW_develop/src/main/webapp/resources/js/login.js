@@ -64,9 +64,15 @@ function login() {
          contentType : "application/json",
          dataType : "json",
          success : function(msg) {
+        	
 
             if (msg.check == "1") {
-            	location.href = "index.do";
+            	if(msg.arrLast == null){
+            		location.href = "index.do";
+            	} else {
+            		
+            		location.href = msg.arrLast;
+            	}
             } else if(msg.check == "2"){
             	$('#loginIdChk').hide();
             	$('#loginPwdChk').hide();

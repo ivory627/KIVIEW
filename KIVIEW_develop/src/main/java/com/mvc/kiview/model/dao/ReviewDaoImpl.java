@@ -120,11 +120,11 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	@Override
-	public List<ReviewVo> reviewSearch(Map map) {
+	public List<ReviewVo> reviewSearch(Criteria cri) {
 		List<ReviewVo> res = null;
 
 		try {
-			res = sqlSession.selectList(namespace + "reviewSearch", map);
+			res = sqlSession.selectList(namespace + "reviewSearch", cri);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("error : reviewSearch DaoImpl");

@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>KIVIEW &mdash; Blog</title>
+    <title>KIVIEW &mdash; 카페</title>
     
     <%@ include file = "../head.jsp" %>
 <style type="text/css">
@@ -53,6 +53,14 @@ textarea {
 
 </style>
 <script type="text/javascript">
+function reply_chk(no){
+	if($("#reply_text"+no).val().length<4){
+		alert("최소 4글자 이상 입력해주세요.")
+		return false;
+	}
+	
+	return true;
+}
 function PageMove(page) {
     var curpagenum = page;
     var cafe_no = '${cafe_list[0].cafe_no }';
@@ -162,6 +170,13 @@ function show(cafe_board_no){
  function reply_write(cafe_board_no){
 	 var form = $("#reply_data"+cafe_board_no);
 	 var formdata = form.serialize();
+	 
+	 if($("#reply_text"+cafe_board_no).val().length<4){
+			alert("최소 4글자 이상 입력해주세요.")
+			
+	} else {
+		
+		
  
 	 $.ajax({
 		 type:"post",
@@ -196,7 +211,7 @@ function show(cafe_board_no){
 					if(value.writer=='${login.member_id}' || '${cafe_list[0].admin}' == '${login.member_id}'){
 							
 
-						var button=	"<span style='position:relative; color:#fda638; left:88%; cursor:pointer'onclick='reply_delete("+value.cafe_board_no+","+value.cafe_reply+")'>x</span>"
+						var button=	"<span style='position:absolute; color:#fda638; left:95%; cursor:pointer'onclick='reply_delete("+value.cafe_board_no+","+value.cafe_reply+")'>x</span>"
 
 					 
 					 }
@@ -228,6 +243,8 @@ function show(cafe_board_no){
 		 }
 		 
 	 })
+	 
+	}
  }
  
  function reply_delete(cafe_board_no, cafe_reply){
@@ -267,7 +284,7 @@ function show(cafe_board_no){
 							 
 							if(value.writer=='${login.member_id}' || '${cafe_list[0].admin}' == '${login.member_id}'){
 	
-								var button=	"<span style='position:relative; color:#fda638; left:88%; cursor:pointer'onclick='reply_delete("+value.cafe_board_no+","+value.cafe_reply+")'>x</span>"
+								var button=	"<span style='position:absolute; color:#fda638; left:95%; cursor:pointer'onclick='reply_delete("+value.cafe_board_no+","+value.cafe_reply+")'>x</span>"
 						 
 							 }
 						 			 
@@ -308,7 +325,7 @@ function show(cafe_board_no){
  function changeDate(date){
 	    date = new Date(parseInt(date));
 	    year = date.getFullYear();
-	    month = date.getMonth();
+	    month = date.getMonth()+1;
 	    day = date.getDate();
 	    hour = date.getHours();
 	    minute = date.getMinutes();
@@ -493,7 +510,7 @@ function show(cafe_board_no){
 					                  <div style=" font-weight:bold; color:black">${reply.writer  }
 					                  
 					                  <c:if test='${cafe_list[0].admin eq login.member_id || guest.writer eq login.member_id}'>
-					                  <span style="position:relative; color:#fda638; left:88%; cursor:pointer" onclick="reply_delete(${reply.cafe_board_no},${reply.cafe_reply})">x</span>
+					                  <span style="position:absolute; color:#fda638; left:95%; cursor:pointer" onclick="reply_delete(${reply.cafe_board_no},${reply.cafe_reply})">x</span>
 					                  </c:if>
 					                  
 					                  </div>

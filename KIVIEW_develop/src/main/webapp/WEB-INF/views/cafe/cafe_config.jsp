@@ -17,7 +17,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>KIVIEW &mdash; Blog</title>
+<title>KIVIEW &mdash; 카페</title>
 
 <%@ include file="../head.jsp"%>
 <style type="text/css">

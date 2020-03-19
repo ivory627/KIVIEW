@@ -19,6 +19,10 @@
 
 <title>KIVIEW &mdash;리뷰게시판</title>
 
+<!-- 스위트얼럿(얼럿창 변경하는  js 코드) -->
+<!-- swal("타이틀", "텍스트", "아이콘(info/success/warning/error 중 택1)" 형태로 바꿔서 얼럿 대신 사용하면 됨 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <!-- **승혜:reviewboard.css로 임포트 -->
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet" type="text/css" href="resources/css/star.css">
@@ -27,12 +31,13 @@
 
 <!-- **승혜:reviewboard.js로 임포트 -->
 <script type="text/javascript" src="resources/js/reviewboard.js"></script>
+
+
 <script type="text/javascript">
-
-
 function Searchchk(){
-   if($("#SearchId").val()==''){
-      alert("검색어를 입력해 주세요.")
+	if($("#SearchId").val()==''){
+      //alert("검색어를 입력해 주세요.")
+      swal("NO KEWORD", "검색어를 입력해 주세요.", "warning")
       return false;
    }
 }
@@ -57,9 +62,10 @@ function getTextLength(str) {
 }
 
 function bytesHandler(obj){
-   var text = $(obj).val();
-   $('span.bytes').text(getTextLength(text));
-}
+	   var text = $(obj).val();
+	   $('span.bytes').text(getTextLength(text));
+	}
+
 
 ///////////////////////////지민like//////////////////////////////
 var likeSubmit = function(review_no){
@@ -113,7 +119,7 @@ var likeSubmit = function(review_no){
 
 </head>
 
-<body>
+<body id = "body">
 
    <!-- header 부분 -->
    <jsp:include page="../header.jsp" />
@@ -128,9 +134,9 @@ var likeSubmit = function(review_no){
                <h1 class="mb-2 bread">리뷰 게시판</h1>
                <p class="breadcrumbs">
                   <span class="mr-2"><a href="index.do">홈 <i
-                        class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a
-                     href="kiview_reviewboard.jsp">리뷰 게시판 <i
-                        class="ion-ios-arrow-forward"></i></a></span>
+                        class="ion-ios-arrow-forward"></i></a></span> 
+                        <span class="mr-2">
+                        	리뷰 게시판 <i class="ion-ios-arrow-forward"></i></span>
                </p>
             </div>
          </div>
@@ -151,13 +157,17 @@ var likeSubmit = function(review_no){
             </h1>
             <br>
             <!-- 검색 기능 -->
-            <form action="reviewsearch.do" onsubmit="return Searchchk()">
+            <form action="reviewsearch.do" method = "post" onsubmit="return Searchchk()">
                <select name="type">
                   <option value="kinder_name">유치원명</option>
                   <option value="review_writer">작성자</option>
                   <option value="review_title">제　목</option>
-               </select> &nbsp;&nbsp; <input type="text" name="keyword" id="SearchId"
-                  placeholder="검색어를 입력하세요." style="height: 40px; width: 40%">
+
+               </select> &nbsp;&nbsp;
+               <input type="text" name="keyword"
+                  id="SearchId" placeholder="검색어를 입력하세요." style="height: 40px; width: 40%">
+               <input type = "hidden" name = "page" value = "${pageMaker.cri.page}"/>   
+               <input type = "hidden" name = "perPageNum" value = "${pageMaker.cri.perPageNum}"/>   
                <input class="btn btn-secondary"
                   style="width: 10%; border-radius: 0px" type="submit" value="검색">
                <br>
@@ -166,10 +176,10 @@ var likeSubmit = function(review_no){
          </div>
          <div class="ftco-animate" style="margin: 40px; margin-bottom: 0px;">
             <c:choose>
-               <c:when test="${keyword != null && keyword!=''}">
+               <c:when test="${keyword != null && keyword != ''}">
                   <h2>
                      <label><span style="color: #fda638">${keyword}</span>에 대한
-                        <span style="color: #fda638">${fn:length(list)} </span>건의 리뷰가
+                        <span style="color: #fda638">${pageMaker.totalCount} </span>건의 리뷰가
                         검색되었습니다.</label>
                   </h2>
                </c:when>
@@ -253,7 +263,7 @@ var likeSubmit = function(review_no){
                            <label>“ ${review.review_title} ”</label>
                         </h3>
                         <p class="subheading">
-                           <span id="writer"> ${review.review_writer} </span> | <span>${review.review_year}</span>
+                           <span id="writer"> ${fn:substring(review.review_writer,0,3)} <c:forEach begin="0" end="5">*</c:forEach> </span> | <span>${review.review_year}</span>
                            | <span><fmf:formatDate value="${review.review_date}"
                                  pattern='yyyy-MM-dd HH:mm' /> </span>
                         </p>
@@ -369,7 +379,7 @@ var likeSubmit = function(review_no){
                style="position: relative; bottom: 25px;">
                <ul class="jsx-2419612476 pagination pagination--kindergarten">
                   <c:if test="${pageMaker.prev}">
-                     <li class="jsx-3635512122 prev disabled"><a
+                     <li class="jsx-2419612476 prev disabled"><a
                         href="${pageMaker.makeQuery(pageMaker.startPage - 1)}"> <svg
                               xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                               viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
@@ -378,12 +388,13 @@ var likeSubmit = function(review_no){
                      <polyline points="11 17 6 12 11 7"></polyline>
                      <polyline points="18 17 13 12 18 7"></polyline>
                      </svg>
-                     </a> <span class="jsx-3635512122 alt-text">앞으로</span></li>
+                     </a> <span class="jsx-2419612476 alt-text">앞으로</span></li>
                   </c:if>
 
                   <c:forEach begin="${pageMaker.startPage}"
                      end="${pageMaker.endPage}" var="idx">
-                     <li class="jsx-3635512122 " id="page${idx}"><c:choose>
+                     <li class="jsx-2419612476 " id="pageidx">
+                       <c:choose>
                            <c:when test="${idx eq param.page}">
                               <a href="${pageMaker.makeQuery(idx)}" class="on"
                                  id="pageclick${idx}">${idx}</a>
@@ -396,7 +407,7 @@ var likeSubmit = function(review_no){
                   </c:forEach>
 
                   <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-                     <li class="jsx-3635512122 next"><a
+                     <li class="jsx-2419612476 next"><a
                         href="${pageMaker.makeQuery(pageMaker.endPage + 1)}"> <svg
                               xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                               viewBox="0 0 24 24" fill="none" stroke="#dfdfdf"
@@ -404,7 +415,7 @@ var likeSubmit = function(review_no){
                               stroke-linejoin="round" style="position: relative;">
                      <polyline points="13 17 18 12 13 7"></polyline>
                      <polyline points="6 17 11 12 6 7"></polyline>
-                     </svg> <span class="jsx-3635512122 alt-text">뒤로</span>
+                     </svg> <span class="jsx-2419612476 alt-text">뒤로</span>
                      </a></li>
                   </c:if>
                </ul>
@@ -437,8 +448,7 @@ var likeSubmit = function(review_no){
             <h3>
                <b>유치원 리뷰쓰기</b>
             </h3>
-            <h6 style="width: 100%">키뷰는 평가자의 익명성을 보장하며 평가내역에 어떠한 개인정보도 노출되지
-               않음을 약속드립니다.</h6>
+            <h6 style="width: 100%">키뷰는 평가자의 익명을 보장하고 어떠한 개인정보도 노출되지 않음을 약속드립니다.</h6>
             <br>
 
             <form action="reviewInsert.do" onsubmit="return insertchk()">
@@ -477,8 +487,8 @@ var likeSubmit = function(review_no){
                      style="width: 101%" minlength="4" maxlength="30" required><br>
                   <br> <label>내용 </label><span style="position: relative; left: 85%" class="bytes">0</span><br>
                   <textarea class="content" style="width: 100%; height: auto; resize: none;"
-                     placeholder="200자 이상, 500자 이하의 글자수만 작성이 가능합니다."
-                     name="review_content" minlength="200" maxlength="500" required></textarea>
+                     placeholder="100자 이상, 500자 이하의 글자수만 작성이 가능합니다."
+                     name="review_content" minlength="100" maxlength="500" required></textarea>
                   <br> <br>
                </div>
                <br>
@@ -565,8 +575,7 @@ var likeSubmit = function(review_no){
             <h3>
                <b>유치원 리뷰수정</b>
             </h3>
-            <h6 style="width: 100%">키뷰는 평가자의 익명성을 보장하며 평가내역에 어떠한 개인정보도 노출되지
-               않음을 약속드립니다.</h6>
+            <h6 style="width: 100%">키뷰는 평가자의 익명을 보장하고 어떠한 개인정보도 노출되지 않음을 약속드립니다.</h6>
             <br>
 
             <form id="reviewUpdate" action="reviewUpdate.do" method="get">
@@ -603,7 +612,7 @@ var likeSubmit = function(review_no){
                   <br> <label>내용 </label>
                   <span style="position: relative; left: 85%" class="bytes">0</span><br>
                   <textarea style="width: 100%; height: auto; resize: none;"
-                     name="review_content" minlength="200" maxlength="1000" required></textarea>
+                     name="review_content" minlength="100" maxlength="500" required></textarea>
                   <br> <br>
                </div>
                <br>
