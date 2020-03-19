@@ -2,6 +2,7 @@ package com.mvc.kiview.model.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -265,12 +266,14 @@ public class MemberController {
       
       //이전 페이지 주소 저장
       String referer = request.getHeader("Referer");
-      request.getSession().setAttribute("redirectURI", referer);
-      System.out.println("이전페이지 주소: "+referer);
-      String[] arr = referer.split("/");
-      arrLast = arr[arr.length-1];   //필드에 선언해둔 String 변수에 담음
-      System.out.println("마지막 인텍스: " + arrLast);
-
+      if(referer!=null) {
+         request.getSession().setAttribute("redirectURI", referer);
+         System.out.println("이전페이지 주소: "+referer);
+         String[] arr = referer.split("/");
+         arrLast = arr[arr.length-1];   //필드에 선언해둔 String 변수에 담음
+         System.out.println("마지막 인텍스: " + arrLast);
+      }
+      
       /* 생성한 인증 URL을 Model에 담아서 전달 */
       return "member/kiview_login";
    }
@@ -299,7 +302,7 @@ public class MemberController {
       vo = biz.selectEmailId(snsEmail);
       
       //네이버로그인 가입자라면 자동 로그인
-      if( vo != null ) {
+      if( vo != null && vo.getMember_name().equals("네이버로그인가입자") ) {
         session.setAttribute("login", vo);
 
         //세션 유지 시간 1시간으로 설정
@@ -331,14 +334,20 @@ public class MemberController {
  
           System.out.println("snsVo: " + snsVo);
           
-          biz.signup(snsVo);   //자동 회원가입
-          
-         session.setAttribute("login", snsVo);
+          int signupRes = biz.signup(snsVo);   //자동 회원가입
+          if(signupRes>0) {
+             System.out.println("회원가입 후 snsVo: " + snsVo);
+             session.setAttribute("login", snsVo);
 
-         //세션 유지 시간 1시간으로 설정
-         session.setMaxInactiveInterval(60*60) ;
-          
-         return "member/kiview_snsSignupRes";
+             //세션 유지 시간 1시간으로 설정
+             session.setMaxInactiveInterval(60*60) ;
+
+             return "member/kiview_snsSignupRes";
+          } else {
+             System.out.println("회원가입 실패");
+             return "member/kiview_login";
+          }
+
       } 
       
 
@@ -360,7 +369,7 @@ public class MemberController {
       vo = biz.selectEmailId(snsEmail);
       
       //카카오로그인 가입자라면 자동로그인
-      if( vo != null ) {
+      if( vo != null && vo.getMember_name().equals("카카오로그인가입자") ) {
 
          session.setAttribute("login", vo);
 
@@ -392,17 +401,20 @@ public class MemberController {
          snsVo.setMember_phone("전화번호를 입력해주세요");
          snsVo.setMember_email(snsEmail);
 
-         System.out.println("snsVo: " + snsVo);
+         int signupRes = biz.signup(snsVo);   //자동 회원가입
+         if(signupRes>0) {
+            System.out.println("회원가입 후 snsVo: " + snsVo);
+            session.setAttribute("login", snsVo);
 
-         biz.signup(snsVo);   //자동 회원가입
-         System.out.println("회원가입 후 snsVo: " + snsVo);
+            //세션 유지 시간 1시간으로 설정
+            session.setMaxInactiveInterval(60*60) ;
 
-         session.setAttribute("login", snsVo);
+            return "member/kiview_snsSignupRes";
+         } else {
+            System.out.println("회원가입 실패");
+            return "member/kiview_login";
+         }
 
-         //세션 유지 시간 1시간으로 설정
-         session.setMaxInactiveInterval(60*60) ;
-
-         return "member/kiview_snsSignupRes";
 
       } 
 
@@ -448,11 +460,11 @@ public class MemberController {
        // Mail Server 설정
       String charSet = "utf-8";
       String hostSMTP = "smtp.naver.com";
-      String hostSMTPid = "pdy2324";
-      String hostSMTPpwd = "Ehdud21170!!";
+      String hostSMTPid = "blue920708";
+      String hostSMTPpwd = "rsef8426$$";
 
       // 보내는 사람 EMail, 제목, 내용
-      String fromEmail = "pdy2324@naver.com";
+      String fromEmail = "blue920708@naver.com";
       String fromName = "Kiview";
       String subject = "kiview에서 임시비밀번호가 발급되었습니다";
       String msg = "";
@@ -493,7 +505,7 @@ public class MemberController {
     @RequestMapping("chkemail.do")
     @ResponseBody
     public Map chkEmail(String email) {
-       MemberVo member = biz.chkEmail(email);
+    	List<MemberVo> member = biz.chkEmail(email);
        boolean bool = true;
        if(member==null) {
           bool = false;

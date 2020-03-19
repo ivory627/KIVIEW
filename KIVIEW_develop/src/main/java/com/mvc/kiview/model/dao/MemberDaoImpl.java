@@ -1,5 +1,7 @@
 package com.mvc.kiview.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -148,11 +150,11 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public MemberVo chkEmail(String email) {
-		MemberVo res = null;
+	public List<MemberVo> chkEmail(String email) {
+		List<MemberVo> res = null;
 				
 		try {
-			res = sqlSession.selectOne(namespace+"chkEmail",email);
+			res = sqlSession.selectList(namespace+"chkEmail",email);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("[error] : chkEmail");

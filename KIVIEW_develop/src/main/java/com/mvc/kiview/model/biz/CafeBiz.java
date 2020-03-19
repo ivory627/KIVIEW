@@ -43,6 +43,10 @@ public interface CafeBiz {
 
 	public List<CafeVo> cafe_selectAll();
 	
+	public CafePageVo spaging(int curpagenum, int size, int pagepercount);
+
+	public List<CafeVo> cafe_search(CafePageVo pagevo);
+	
 	
 	
 	//--메뉴 CRUD--

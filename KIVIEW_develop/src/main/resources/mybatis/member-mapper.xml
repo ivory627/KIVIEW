@@ -54,6 +54,7 @@
    <select id="selectEmail" parameterType="String" resultType="memberVo">
       SELECT * FROM MEMBER
       WHERE MEMBER_ID = #{snsEmail}
+      AND MEMBER_EMAIL = #{snsEmail}
    </select>
    
    <!-- 임시비밀번호 저장 -->

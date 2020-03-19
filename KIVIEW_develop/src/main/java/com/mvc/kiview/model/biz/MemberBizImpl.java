@@ -1,5 +1,7 @@
 package com.mvc.kiview.model.biz;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,7 +66,7 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public MemberVo chkEmail(String email) {
+	public List<MemberVo> chkEmail(String email) {
 	
 		return dao.chkEmail(email);
 	}

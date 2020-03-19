@@ -826,6 +826,20 @@ public class CafeDaoImpl implements CafeDao {
 	      
 	      return res;
 	}
+	
+	@Override
+	   public List<CafeVo> cafe_search(CafePageVo pagevo) {
+	      List<CafeVo> res = null;
+	         try {
+	               res = sqlSession.selectList(namespace+"cafe_search_paging",pagevo);
+	            }catch(Exception e) {
+	               e.printStackTrace();
+	               System.out.println("cafe_search_paging 오류");
+	            }
+	      
+	      
+	      return res;
+	   }
 
 	
 

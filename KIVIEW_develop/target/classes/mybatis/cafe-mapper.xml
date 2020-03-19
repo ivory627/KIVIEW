@@ -68,6 +68,25 @@
         </choose>
         
      </select>
+     
+     <select id="cafe_search_paging" parameterType="CafePageVo" resultType="CafeVo">
+      SELECT *
+      FROM (     
+        SELECT c.*,
+              ROW_NUMBER() OVER(ORDER BY C.CAFE_NO DESC) AS RNUM
+        FROM CAFE c       
+        <choose>
+           <when test="keyword.length!=0">
+               WHERE TITLE like '%'||#{keyword}||'%' 
+           </when>
+           <when test="keyword.length==0">
+              
+           </when>              
+        </choose>
+        ) 
+        CAFE WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+        
+     </select>
    	
 
      <select id="cafe_selectone" parameterType="int" resultType="CafeVo">

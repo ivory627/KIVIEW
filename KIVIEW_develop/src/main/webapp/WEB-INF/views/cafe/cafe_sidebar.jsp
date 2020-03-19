@@ -134,7 +134,23 @@ textarea{
                   </c:if>
                   <br><br>
 <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
-           		
+           		   <!--가입여부-->
+           		<c:set var="sign" value="0"/>
+           		<c:set var="permit" value="true"/>  
+           		<c:forEach var="member" items="${cafe_list[2] }">	
+               			<c:if test="${login.member_no == member.member_no }">
+               				<c:set var="sign" value="${sign+1 }"/>
+			            		<if test="${sign>0 }">
+			            			<c:if test="${member.signyn eq 'N' || member.blockyn eq 'Y' }">
+				               			<c:set var="permit" value="false"/>
+				               		</c:if>
+			            		</if>
+            				
+            			</c:if>        					
+            	</c:forEach> 
+            	<c:if test="${sign==0 }">
+            		<c:set var="permit" value="false"/>
+            	</c:if>
                
               	<div>
               		<c:set var="count" value="0"/>
@@ -144,8 +160,14 @@ textarea{
                					<c:set var="count" value="${count+1 }"/>
                					<c:if test="${count>0 }">
                							<c:if test="${member.signyn eq 'Y' || member.signyn eq 'A' }">
-											<p class="mb-0" align=center><a onclick="cafechat()"
-											class="btn btn-secondary" style="width:100%; border-radius:0px;" >채팅방 입장하기</a></p>
+               								<c:if test="${permit==true }">
+												<p class="mb-0" align=center><a onclick="cafechat()"
+												class="btn btn-secondary" style="width:100%; border-radius:0px;" >채팅방 입장하기</a></p>
+											</c:if>
+											<c:if test="${permit==false }">
+												<p class="mb-0" align=center><a onclick="ban()"
+												class="btn btn-secondary" style="width:100%; border-radius:0px;" >채팅방 입장하기</a></p>
+											</c:if>
             							</c:if>
             						
 	            						<c:if test="${member.signyn eq 'N' }">
@@ -184,23 +206,7 @@ textarea{
                   <h3><b>게시판</b></h3>
                   <hr>
                         
-                  <!--가입여부-->
-           		<c:set var="sign" value="0"/>
-           		<c:set var="permit" value="true"/>  
-           		<c:forEach var="member" items="${cafe_list[2] }">	
-               			<c:if test="${login.member_no == member.member_no }">
-               				<c:set var="sign" value="${sign+1 }"/>
-			            		<if test="${sign>0 }">
-			            			<c:if test="${member.signyn eq 'N' || member.blockyn eq 'Y' }">
-				               			<c:set var="permit" value="false"/>
-				               		</c:if>
-			            		</if>
-            				
-            			</c:if>        					
-            	</c:forEach> 
-            	<c:if test="${sign==0 }">
-            		<c:set var="permit" value="false"/>
-            	</c:if>
+               
             	
             	
            		   

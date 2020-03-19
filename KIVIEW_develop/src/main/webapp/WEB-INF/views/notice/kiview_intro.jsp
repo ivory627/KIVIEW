@@ -145,7 +145,7 @@
 			       <c:choose>
 			       <c:when test="${!empty login}">
 			       <img src = "resources/images/main/intro_btn02.png" id = "introimg02" 
-			        style = "position:absolute; left: 52%; top: 49%;" onclick = "cafe();">
+			        style = "position:absolute; left: 52%; top: 49%;" onclick = "cafe(${login.member_no}, ${login.member_id});">
 			       </c:when>
 			       <c:otherwise>
 			       <img src = "resources/images/main/intro_btn02.png" id = "introimg02" 

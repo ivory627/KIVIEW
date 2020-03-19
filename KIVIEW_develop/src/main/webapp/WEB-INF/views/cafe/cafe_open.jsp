@@ -89,7 +89,7 @@ function check(){
                
                <h1 class="mb-2 bread">키뷰 개설</h1>
                <p class="breadcrumbs">
-                  <span class="mr-2"><a href="index.jsp">홈 <i
+                  <span class="mr-2"><a href="index.do">홈 <i
                         class="ion-ios-arrow-forward"></i></a></span> <span>키뷰카페 <i
                      class="ion-ios-arrow-forward"></i></span>
                </p>

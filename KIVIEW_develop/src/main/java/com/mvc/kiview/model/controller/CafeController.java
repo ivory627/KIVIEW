@@ -152,18 +152,22 @@ public class CafeController {
 
 	// ----------------------------카페 검색 -------------------------- ///
 	@RequestMapping("/cafesearch.do")
-	public String cafe_search(Model model, String keyword,int curpagenum) {
+	   public String cafe_search(Model model, String keyword,int curpagenum) {
 
-		List<CafeVo> slist = biz.cafe_search(keyword);
-		List<CafeMemberVo> member = biz.member_selectAll();
-		CafePageVo pagevo = biz.paging(curpagenum, slist.size());
+	      List<CafeVo> list = biz.cafe_search(keyword);
+	      List<CafeMemberVo> member = biz.member_selectAll();
+	      
+	      CafePageVo pagevo= biz.spaging(curpagenum, list.size(),9);      
+	      pagevo.setKeyword(keyword);
+	      
+	      List<CafeVo> slist = biz.cafe_search(pagevo);
 
-		model.addAttribute("pagevo", pagevo);
-		model.addAttribute("Slist", slist);
-		model.addAttribute("keyword", keyword);
-		model.addAttribute("member",member);
-		return "cafe/cafe_search";
-	}
+	      model.addAttribute("pagevo", pagevo);
+	      model.addAttribute("Slist", slist);
+	      model.addAttribute("keyword", keyword);
+	      model.addAttribute("member",member);
+	      return "cafe/cafe_search";
+	   }
 
 	///////////////////////////// 카페 안 /////////////////////////////////
 	// ----------------------------카페 디테일 -------------------------- ///

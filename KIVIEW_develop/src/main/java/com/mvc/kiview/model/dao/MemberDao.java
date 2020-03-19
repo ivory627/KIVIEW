@@ -1,5 +1,7 @@
 package com.mvc.kiview.model.dao;
 
+import java.util.List;
+
 import com.mvc.kiview.model.vo.MemberVo;
 
 public interface MemberDao {
@@ -26,7 +28,7 @@ public interface MemberDao {
 
 	public int membercount();
 
-	public MemberVo chkEmail(String email);
+	public List<MemberVo> chkEmail(String email);
 
 
 	

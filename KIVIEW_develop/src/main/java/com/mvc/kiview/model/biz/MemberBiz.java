@@ -1,5 +1,7 @@
 package com.mvc.kiview.model.biz;
 
+import java.util.List;
+
 import com.mvc.kiview.model.vo.MemberVo;
 
 public interface MemberBiz {
@@ -24,7 +26,7 @@ public interface MemberBiz {
 
 	public int membercount();
 
-	public MemberVo chkEmail(String email);
+	public List<MemberVo> chkEmail(String email);
 
 	
 }

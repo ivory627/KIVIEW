@@ -171,33 +171,38 @@ h3 a{
    
    <!-- Fullsize Modal -->
    <div class="modal fade" id="myFullsizeModal" tabindex="-1" role="dialog" aria-labelledby="myFullsizeModalLabel">
-     <div class="modal-dialog modal-fullsize" role="document">
-       <div class="modal-content modal-fullsize">
-         <div class="modal-header">
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-           <span aria-hidden="true" class = "main-modal-closebtn">&times;</span></button>
-           <h4 class="modal-title" id="myModalLabel"></h4>
-         </div>
-         <div class="modal-body">
-           <div class="jsx-2460799870 bar-layout">
-           <h1>SEARCH</h1>
-         <p class="jsx-2460799870">
-            어떤 <span class="jsx-2460799870">유치원</span>을 찾으세요?
-         </p>
-            <form action="mainsearch.do" method="post" id="searchform">
-         <div class="jsx-2460799870 search-box">
-         <div class="jsx-2460799870 search-bar">
-            <input type="text" id="searchInput" name="keyword" class="search-bar" />
-            <span><a href="javascript:searchform.submit();"><img src="resources/images/main/search02.png"></a></span>
-         </div>
-         </div>
-            </form>
-      </div>
-         <jsp:include page="searchbar.jsp"/>
-         </div>
-       </div>
-     </div>
-   </div>
+		<div class="modal-dialog modal-fullsize" role="document">
+			<div class="modal-content modal-fullsize">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true" class="main-modal-closebtn">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+				<div class="modal-body">
+					<div class="jsx-2460799870 bar-layout">
+						<h1>SEARCH</h1>
+						<p class="jsx-2460799870">
+							어떤 <span class="jsx-2460799870">유치원</span>을 찾으세요?
+						</p>
+						<form action="mainsearch.do" method="post" id="searchform">
+							<div class="jsx-2460799870 search-box">
+								<div class="jsx-2460799870 search-bar">
+									<input type="text" id="searchInput" name="keyword"
+										class="search-bar" /> <input type="hidden" name="page"
+										value="1" /> <span><a
+										href="javascript:searchform.submit();"><img
+											src="resources/images/main/search02.png"></a></span>
+								</div>
+							</div>
+						</form>
+					</div>
+					<jsp:include page="searchbar.jsp" />
+				</div>
+			</div>
+		</div>
+	</div>
 
    <br>
    <br>
@@ -367,7 +372,7 @@ h3 a{
                         style="background-image: url(resources/images/main/kiview_0${i.count}.png);"></div>
                   </div>
                   <div class="text pt-3 text-center">
-                     <h3><a href="searchdetail.do?kinder_no=${bestkinder.kinder_no}">${bestkinder.name }</a></h3>
+                     <h3><a href="searchdetail.do?kinder_no=${bestkinder.kinder_no}&page=1">${bestkinder.name }</a></h3>
                      <span class="position mb-2">${bestkinder.addr2 }</span>
                      <div class="faded">
                      </div>
@@ -427,17 +432,13 @@ h3 a{
                               <div class="text bg-white p-4">
                                  <!-- 카페명 -->
                                  <h3 class="heading">
-                                    <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${Ulist.title }</a>
+                                    <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${best.title }</a>
                                  </h3>
    
                                  <!-- 카페소개 -->
                                  <p>${best.intro }</p>
                                  <div class="d-flex align-items-center mt-4">
-                                    <p class="mb-0">
-                                       <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }"
-                                          class="btn btn-secondary">들어가기 <span
-                                          class="ion-ios-arrow-round-forward"></span></a>
-                                    </p>
+                                    
                                     <p class="ml-auto mb-0">
                                        <!-- 카페장 -->
                                        <a href="#" class="mr-2">${best.admin }</a>

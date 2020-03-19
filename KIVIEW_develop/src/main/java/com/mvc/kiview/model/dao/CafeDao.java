@@ -39,6 +39,8 @@ public interface CafeDao {
    public int cafe_update(CafeVo cafe);
 	
    public CafeVo cafe_chk(String title);
+   
+   public List<CafeVo> cafe_search(CafePageVo pagevo);
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   
    
    

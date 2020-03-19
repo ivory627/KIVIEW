@@ -122,7 +122,7 @@ function test(){
 
 		                     <div class="text">
 		                        <h3 class="heading">
-		                           <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${best.intro }</a>
+		                           <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${best.title }</a>
 		                        </h3>
 		                        <div class="meta">
 
@@ -221,13 +221,9 @@ function test(){
                               </h3>
 
                               <!-- 카페소개 -->
-                              <p>${list.intro }</p>
+                              <p>${Ulist.intro }</p>
                               <div class="d-flex align-items-center mt-4">
-                                 <p class="mb-0">
-                                    <a href="cafedetail.do?cafe_no=${Ulist.cafe_no }&member_no=${login.member_no }"
-                                       class="btn btn-secondary">들어가기 <span
-                                       class="ion-ios-arrow-round-forward"></span></a>
-                                 </p>
+                                 
                                  <p class="ml-auto mb-0">
                                     <!-- 카페장 -->
                                     <a href="#" class="mr-2">${Ulist.admin }</a>
@@ -334,11 +330,7 @@ function test(){
                                  <!-- 카페소개 -->
                                  <p>${Alist.intro }</p>
                                  <div class="d-flex align-items-center mt-4">
-                                    <p class="mb-0">
-                                       <a href="cafedetail.do?cafe_no=${Alist.cafe_no }&member_no=${login.member_no }"
-                                          class="btn btn-secondary">들어가기 <span
-                                          class="ion-ios-arrow-round-forward"></span></a>
-                                    </p>
+                                    
                                     <p class="ml-auto mb-0">
                                        <!-- 카페장 -->
                                        <a href="#" class="mr-2">${Alist.admin }</a>

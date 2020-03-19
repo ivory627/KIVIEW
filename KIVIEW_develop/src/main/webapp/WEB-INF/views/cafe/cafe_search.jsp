@@ -19,8 +19,8 @@
 
 <%@ include file="../head.jsp"%>
 <style type="text/css">
-a {
-   text-decoration: none;
+#paging a {
+	color:black!important; 
 }
 
 
@@ -78,7 +78,7 @@ function PageMove(page) {
             <div class="col-md-9 ftco-animate text-center">
                <h1 class="mb-2 bread">키뷰 검색</h1>
                <p class="breadcrumbs">
-                  <span class="mr-2"><a href="index.jsp">홈 <i
+                  <span class="mr-2"><a href="index.do">홈 <i
                         class="ion-ios-arrow-forward"></i></a></span> <span>키뷰카페 <i
                      class="ion-ios-arrow-forward"></i></span>
                </p>
@@ -172,12 +172,9 @@ function PageMove(page) {
                      <!-- 카페소개 -->
                      <p>${Slist.intro }</p>
                      <div class="d-flex align-items-center mt-4">
-                        <p class="mb-0">
-                           <a href="cafedetail.do?cafe_no=${Slist.cafe_no }&member_no=${login.member_no }" class="btn btn-secondary">들어가기 <span
-                              class="ion-ios-arrow-round-forward"></span></a>
-                        </p>
+                        
                         <p class="ml-auto mb-0">
-                           <!-- 카페장 -->`
+                           <!-- 카페장 -->
                            <a href="#" class="mr-2">${Slist.admin }</a>
                            <!-- 카페 회원 수 -->
                            <c:set var="count" value="0"/>
