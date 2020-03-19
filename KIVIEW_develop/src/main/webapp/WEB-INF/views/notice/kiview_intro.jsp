@@ -140,7 +140,7 @@
 			        style = "position:absolute; left: 31.5%; top: 32%;">
 			        
 			       <img src = "resources/images/main/intro_btn01.png" id = "introimg02" 
-			        style = "position:absolute; left: 38%; top: 49%;" onclick = "location.href='reviewboard.do'">
+			        style = "position:absolute; left: 38%; top: 49%;" onclick = "location.href='reviewboard.do?page=1'">
 			        
 			       <c:choose>
 			       <c:when test="${!empty login}">
