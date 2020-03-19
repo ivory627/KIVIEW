@@ -19,7 +19,7 @@
 
 <%@ include file="../head.jsp"%>
 <style type="text/css">
-a {
+#paging a {
 	color:black!important; 
 }
 
