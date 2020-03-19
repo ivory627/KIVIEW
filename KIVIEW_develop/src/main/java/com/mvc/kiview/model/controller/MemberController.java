@@ -265,12 +265,14 @@ public class MemberController {
       
       //이전 페이지 주소 저장
       String referer = request.getHeader("Referer");
-      request.getSession().setAttribute("redirectURI", referer);
-      System.out.println("이전페이지 주소: "+referer);
-      String[] arr = referer.split("/");
-      arrLast = arr[arr.length-1];   //필드에 선언해둔 String 변수에 담음
-      System.out.println("마지막 인텍스: " + arrLast);
-
+      if(referer!=null) {
+         request.getSession().setAttribute("redirectURI", referer);
+         System.out.println("이전페이지 주소: "+referer);
+         String[] arr = referer.split("/");
+         arrLast = arr[arr.length-1];   //필드에 선언해둔 String 변수에 담음
+         System.out.println("마지막 인텍스: " + arrLast);
+      }
+      
       /* 생성한 인증 URL을 Model에 담아서 전달 */
       return "member/kiview_login";
    }
