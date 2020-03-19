@@ -507,7 +507,7 @@ public class MemberController {
     public Map chkEmail(String email) {
     	List<MemberVo> member = biz.chkEmail(email);
        boolean bool = true;
-       if(member.size()>0) {
+       if(member.size()<1) {
           bool = false;
        } else {
           bool= true;
