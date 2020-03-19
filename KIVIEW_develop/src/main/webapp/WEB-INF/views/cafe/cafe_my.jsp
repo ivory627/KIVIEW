@@ -96,7 +96,7 @@ li a {
 				<div class="col-md-9 ftco-animate text-center">
 					<h1 class="mb-2 bread">키뷰 카페</h1>
 	               <p class="breadcrumbs">
-	                  <span class="mr-2"><a href="index.jsp">홈 <i
+	                  <span class="mr-2"><a href="index.do">홈 <i
 	                        class="ion-ios-arrow-forward"></i></a></span> <span>키뷰카페 <i
 	                     class="ion-ios-arrow-forward"></i></span>
 	               </p>
@@ -283,7 +283,7 @@ li a {
 
 		                     <div class="text">
 		                        <h3 class="heading">
-		                           <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${best.intro }</a>
+		                           <a href="cafedetail.do?cafe_no=${best.cafe_no }&member_no=${login.member_no }">${best.title }</a>
 		                        </h3>
 		                        <div class="meta">
 
