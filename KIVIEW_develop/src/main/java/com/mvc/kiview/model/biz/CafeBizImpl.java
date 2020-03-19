@@ -415,6 +415,32 @@ public class CafeBizImpl implements CafeBiz {
 	         
 	         return page;
 	      }
+	   
+	   
+	   @Override
+	   public CafePageVo spaging(int curpagenum, int size, int pagepercount) {
+	      CafePageVo page = new CafePageVo();
+	        page.setCurpagenum(curpagenum);
+	        page.setTotallistcount(size);
+	        page.setPagepercount(10);
+	        page.setDisplaypagenum(10);
+	        page.setTotalpagecount(10, page.getTotallistcount());
+	        page.setStartpage(page.getCurpagenum(), page.getDisplaypagenum());
+	        page.setEndpage(page.getStartpage(),page.getDisplaypagenum(), page.getTotalpagecount());
+	        page.setRowStart(page.getRowStart());
+	        page.setRowEnd(page.getRowEnd());
+	        page.setPagepre(page.getCurpagenum());
+	        page.setPagenext(page.getCurpagenum(), page.getTotalpagecount());
+	        
+	        return page;
+	      
+	   }
+
+	   @Override
+	   public List<CafeVo> cafe_search(CafePageVo pagevo) {
+	      
+	      return dao.cafe_search(pagevo);
+	   }
 
 	@Override
 	public List<CafeChatVo> cafe_chat_select(Map parameter) {
