@@ -1,6 +1,6 @@
 function cafe(){
 	
-	location.href = 'cafehome.do';
+	location.href = 'cafehome.do?member_no=${login.member_no }&member_id=${login.member_id}';
 	
 }
 
