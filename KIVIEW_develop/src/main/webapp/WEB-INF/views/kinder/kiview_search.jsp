@@ -138,6 +138,9 @@
     		   //alert("${vo.province}");
     		   //alert("${vo.city}");
     		   //alert("${vo.town}");
+    		   <c:if test="${empty vo}">
+    		   	alert("지역검색 후 선택해주세요.");
+    		   </c:if>
     		   <c:if test="${not empty vo}">
     		   var type = $(this).attr('id');
     		   var province = "${vo.province}";
@@ -273,7 +276,7 @@
           				<div style="padding: 20px;width: max-content;">
           				<h4><b>지역</b></h4>
           				<form id="localForm" action="localsearch.do" method="post" class="appointment-form ftco-animate fadeInUp ftco-animated">
-	    				<input type = "hidden" name = "page" value = "${pageMaker.cri.page}"/>
+	    				<input type = "hidden" name = "page" value = "1"/>
 	    				<select id="sido" name="province" class="form-control-sm" style="overflow:scroll">
           					<option value="">시/도</option>
           					<c:forEach items="${sido}" var="sido">
