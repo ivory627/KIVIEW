@@ -42,7 +42,7 @@
   - kiview_notice.jsp 
     - selectList, sort, paging, search functions, 현재 page 나타내기 완료 
   - kiview_notice_detail.jsp
-    - selectOne, delete, update(mapping 연결)
+    - selectOne, delete, update(mapping 연결), Kakao Link API
   - kiview_notice_write.jsp 
     - insert, smartEditor2(API)
   - kiview_notice_update.jsp
@@ -77,4 +77,5 @@
     
 #### 3. Chatbot 
   - Danbi (LG) 
+  - Kiview에 대한 전반적인 문의사항 처리 
   
