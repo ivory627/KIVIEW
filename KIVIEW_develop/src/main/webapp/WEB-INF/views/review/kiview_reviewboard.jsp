@@ -611,7 +611,7 @@ var likeSubmit = function(review_no){
                      placeholder="제목을 입력하세요." minlength="4" maxlength="30" required><br>
                   <br> <label>내용 </label>
                   <span style="position: relative; left: 85%" class="bytes">0</span><br>
-                  <textarea style="width: 100%; height: auto; resize: none;"
+                  <textarea class="content" style="width: 100%; height: auto; resize: none;"
                      name="review_content" minlength="100" maxlength="500" required></textarea>
                   <br> <br>
                </div>
