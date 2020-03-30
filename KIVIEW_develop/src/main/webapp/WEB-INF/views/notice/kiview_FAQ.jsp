@@ -23,7 +23,7 @@
 
 
 </head>
-<body>
+<body id = "body">
 
 	<!-- header 영역 -->
 	<jsp:include page="../header.jsp"/>
