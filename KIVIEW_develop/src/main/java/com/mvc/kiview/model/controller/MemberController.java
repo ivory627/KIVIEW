@@ -442,66 +442,66 @@ public class MemberController {
    
 
    //비밀번호 찾기 이메일 발송
-    @RequestMapping(value = "/kiviewsendemail.do", method = RequestMethod.POST)
-    @ResponseBody
+   @RequestMapping(value = "/kiviewsendemail.do", method = RequestMethod.POST)
+   @ResponseBody
    public int send_mail(@RequestBody MemberVo vo) throws Exception {
-       logger.info("sendEmail");
-       
-       //임시비밀번호 DB에 저장
-       String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
-       tmpPwd = tmpPwd.substring(0, 8); //임시비밀번호를 8자리까지 자름
-       vo.setMember_pwd(passwordEncoder.encode(tmpPwd));   //임시비밀번호 암호화
-       
-       System.out.println("암호화 전 임시비밀번호: "+ tmpPwd);
-       System.out.println("vo: " + vo);
-       
-       int res = biz.tmpPwd(vo);   //임시비밀번호  update
-      
-       // Mail Server 설정
-      String charSet = "utf-8";
-      String hostSMTP = "smtp.naver.com";
-      String hostSMTPid = "blue920708";
-      String hostSMTPpwd = "rsef8426$$";
+	   logger.info("sendEmail");
 
-      // 보내는 사람 EMail, 제목, 내용
-      String fromEmail = "blue920708@naver.com";
-      String fromName = "Kiview";
-      String subject = "kiview에서 임시비밀번호가 발급되었습니다";
-      String msg = "";
-      
-      msg += "<div align='center' style='border:1px solid black; font-family:verdana'; font-size:20px;>";
-      msg += "<h3 style='color: blue;'>";
-      msg += vo.getMember_id() + "님의 임시 비밀번호는&nbsp;<span style='color: red; font-size:30px'>"+ tmpPwd +"</span>&nbsp;입니다. "
-            + "<br>로그인 후 비밀번호를 변경하여 사용하세요.</h3></p></div>";
-       
-      // 받는 사람 E-Mail 주소
-      try {
-         String mail = vo.getMember_email();
-          System.out.println("mail: " + mail);
-          
-         HtmlEmail email = new HtmlEmail();
-         email.setDebug(true);
-         email.setCharset(charSet);
-         email.setSSL(true);
-         email.setHostName(hostSMTP);
-         email.setSmtpPort(587);
+	   //임시비밀번호 DB에 저장
+	   String tmpPwd = UUID.randomUUID().toString().replaceAll("-", "");   //임시 비밀번호 생성
+	   tmpPwd = tmpPwd.substring(0, 8); //임시비밀번호를 8자리까지 자름
+	   vo.setMember_pwd(passwordEncoder.encode(tmpPwd));   //임시비밀번호 암호화
 
-         email.setAuthentication(hostSMTPid, hostSMTPpwd);
-         email.setTLS(true);
-         email.addTo(mail, charSet);
-         email.setFrom(fromEmail, fromName, charSet);
-         email.setSubject(subject);
-         email.setHtmlMsg(msg);
-         email.send();
-      } catch (Exception e) {
-         System.out.println("메일발송 실패 : " + e);
-      }
-       
-       return res;
-       
+	   System.out.println("암호화 전 임시비밀번호: "+ tmpPwd);
+	   System.out.println("vo: " + vo);
+
+	   int res = biz.tmpPwd(vo);   //임시비밀번호  update
+
+	   // Mail Server 설정
+	   String charSet = "utf-8";
+	   String hostSMTP = "smtp.naver.com";
+	   String hostSMTPid = "blue920708";
+	   String hostSMTPpwd = "rsef8426$$";
+
+	   // 보내는 사람 EMail, 제목, 내용
+	   String fromEmail = "blue920708@naver.com";
+	   String fromName = "Kiview";
+	   String subject = "kiview에서 임시비밀번호가 발급되었습니다";
+	   String msg = "";
+
+	   msg += "<div align='center' style='border:1px solid black; font-family:verdana'; font-size:20px;>";
+	   msg += "<h3 style='color: blue;'>";
+	   msg += vo.getMember_id() + "님의 임시 비밀번호는&nbsp;<span style='color: red; font-size:30px'>"+ tmpPwd +"</span>&nbsp;입니다. "
+			   + "<br>로그인 후 비밀번호를 변경하여 사용하세요.</h3></p></div>";
+
+	   // 받는 사람 E-Mail 주소
+	   try {
+		   String mail = vo.getMember_email();
+		   System.out.println("mail: " + mail);
+
+		   HtmlEmail email = new HtmlEmail();
+		   email.setDebug(true);
+		   email.setCharset(charSet);
+		   email.setSSL(true);
+		   email.setHostName(hostSMTP);
+		   email.setSmtpPort(587);
+
+		   email.setAuthentication(hostSMTPid, hostSMTPpwd);
+		   email.setTLS(true);
+		   email.addTo(mail, charSet);
+		   email.setFrom(fromEmail, fromName, charSet);
+		   email.setSubject(subject);
+		   email.setHtmlMsg(msg);
+		   email.send();
+	   } catch (Exception e) {
+		   System.out.println("메일발송 실패 : " + e);
+	   }
+
+	   return res;
+
    }
     
-    
+    //이메일 중복확인
     @RequestMapping("chkemail.do")
     @ResponseBody
     public Map chkEmail(String email) {
