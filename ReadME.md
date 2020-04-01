@@ -17,10 +17,11 @@
   4. Eclipse
   
 🎈 프레임워크
-  1. Spring framework 3
+  1. Spring 
 
-🎈 Server --> 도메인 구매 후 AWS Route 53 배포 예정
+🎈 Server 
   1. Apache Tomcat v9.0
+  2. AWS EC2, Route 53 
  
 🎈 협업/형상관리 Tool
   1. Slack
