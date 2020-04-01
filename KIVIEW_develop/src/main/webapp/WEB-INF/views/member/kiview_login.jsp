@@ -74,17 +74,6 @@
                      </li>
                      <!-- /카카오톡 계정 로그인 -->
 
-                     <!-- 구글 계정 로그인 -->
-                     <!--  
-                     <li class="jsx-1458736361">   
-                  <a href="${google_url }">
-                     <img src="resources/images/google.png">
-                     <span class="jsx-1458736361 alt-text">구글 계정 로그인</span>
-                  </a>
-                </li>
-                -->
-                <!-- /구글 계정 로그인 -->
-
                   </ul>
                </div>
 

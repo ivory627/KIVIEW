@@ -114,14 +114,14 @@ label {
                   <input type="password" placeholder="비밀번호 확인" style="width: 80%" id="mypagePwdChk"  onkeyup="pwdCkMsgClear()" >
                   <br><br>
                   <label>주소</label><span class="mypageUpdateMsg" id="mypageAddrMsg" style="color: red;"></span><br>
-                  <input type="text" value="${login.member_addr}" name="member_addr" style="width: 65%" id="mypageAddr">
+                  <input type="text" value="${login.member_addr}" name="member_addr" style="width: 65%" id="mypageAddr" readonly="readonly">
                   <input type="button" class="btn btn-primary" value="주소 검색" onclick="addrPopup()">
                   <br><br>
                    <label>연락처</label><span class="mypageUpdateMsg" id="mypagePhoneMsg" style="color: red;"></span><br>
                   <input type="text" name="member_phone" value="${login.member_phone}" style="width: 80%" id="mypagePhone">
                   <br><br>
                   <label>이메일</label><span class="mypageUpdateMsg" id="mypageEmailMsg" style="color: red;"></span><br>
-                  <input type="text" name="member_email" value="${login.member_email}" style="width: 80%" id="mypageEmail">
+                  <input type="text" name="member_email" value="${login.member_email}" style="width: 80%" id="mypageEmail" readonly="readonly">
                   <br><br><br>
                   <input type="button" class="btn btn-secondary" style="position: relative; left: 35%; width: 30%" value="수정" onclick="mypageUpdate()">
                   
